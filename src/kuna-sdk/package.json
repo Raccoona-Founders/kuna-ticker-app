@@ -1,0 +1,6 @@
+{
+    "name": "kuna-sdk",
+    "private": true,
+    "main": "kuna.ts",
+    "tiping": "kuna.ts"
+}

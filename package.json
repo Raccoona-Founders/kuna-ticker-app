@@ -16,6 +16,8 @@
     "node-libs-react-native": "1.0.2",
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-device-info": "^0.22.4",
+    "react-native-google-analytics-bridge": "^5.8.0",
     "react-router-native": "4.3.0",
     "recompose": "0.28.2"
   },

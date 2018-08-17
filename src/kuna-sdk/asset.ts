@@ -66,7 +66,7 @@ export const kunaAssets: Dictionary<KunaAsset> = {
     [KunaAssetUnit.Litecoin]: {
         key: KunaAssetUnit.Litecoin,
         name: 'Litecoin',
-        color: '#0096C8',
+        color: '#cbc6c6',
         format: '0,0.[0000]',
     },
     [KunaAssetUnit.UkrainianHryvnia]: {
@@ -214,3 +214,12 @@ export const kunaAssets: Dictionary<KunaAsset> = {
         format: '0,0.[0000]',
     },
 };
+
+export function getAsset(assetUnit: KunaAssetUnit): KunaAsset {
+    return kunaAssets[assetUnit] || {
+        key: assetUnit,
+        name: '<no assets>',
+        color: '#0096C8',
+        format: '0,0.[0000]',
+    };
+}

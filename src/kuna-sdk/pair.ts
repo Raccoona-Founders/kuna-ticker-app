@@ -3,8 +3,8 @@ import { KunaAssetUnit } from './asset';
 
 export type KunaPair = {
     key: string;
-    baseCurrency: KunaAssetUnit | string;
-    quoteCurrency: KunaAssetUnit | string;
+    baseCurrency: KunaAssetUnit;
+    quoteCurrency: KunaAssetUnit;
     format: string;
     compareTo?: string;
 };
@@ -19,7 +19,7 @@ export const kunaPairMap: Dictionary<KunaPair> = {
     },
     ethuah: {
         key: 'ethuah',
-        baseCurrency: 'ETH',
+        baseCurrency: KunaAssetUnit.Ethereum,
         quoteCurrency: KunaAssetUnit.UkrainianHryvnia,
         format: '0,0.[00]',
         compareTo: 'ethusd',
@@ -72,25 +72,25 @@ export const kunaPairMap: Dictionary<KunaPair> = {
     },
     wavesuah: {
         key: 'wavesuah',
-        baseCurrency: 'WAVES',
+        baseCurrency: KunaAssetUnit.Waves,
         quoteCurrency: KunaAssetUnit.UkrainianHryvnia,
         format: '0,0.[00]',
     },
     zecuah: {
         key: 'zecuah',
-        baseCurrency: 'ZEC',
+        baseCurrency: KunaAssetUnit.ZCash,
         quoteCurrency: KunaAssetUnit.UkrainianHryvnia,
         format: '0,0.[00]',
     },
     bchuah: {
         key: 'bchuah',
-        baseCurrency: 'BCH',
+        baseCurrency: KunaAssetUnit.BitcoinCash,
         quoteCurrency: KunaAssetUnit.UkrainianHryvnia,
         format: '0,0.[00]',
     },
     gbguah: {
         key: 'gbguah',
-        baseCurrency: 'GBG',
+        baseCurrency: KunaAssetUnit.GolosGold,
         quoteCurrency: KunaAssetUnit.UkrainianHryvnia,
         format: '0,0.[00]',
     },
@@ -116,55 +116,55 @@ export const kunaPairMap: Dictionary<KunaPair> = {
     },
     rbtc: {
         key: 'rbtc',
-        baseCurrency: 'R',
+        baseCurrency: KunaAssetUnit.Revain,
         quoteCurrency: KunaAssetUnit.Bitcoin,
         format: '0,0.[000000]',
     },
     arnbtc: {
         key: 'arnbtc',
-        baseCurrency: 'ARN',
+        baseCurrency: KunaAssetUnit.Aeron,
         quoteCurrency: KunaAssetUnit.Bitcoin,
         format: '0,0.[000000]',
     },
     evrbtc: {
         key: 'evrbtc',
-        baseCurrency: 'EVR',
+        baseCurrency: KunaAssetUnit.Everus,
         quoteCurrency: KunaAssetUnit.Bitcoin,
         format: '0,0.[000000]',
     },
     foodbtc: {
         key: 'foodbtc',
-        baseCurrency: 'FOOD',
+        baseCurrency: KunaAssetUnit.FoodCoin,
         quoteCurrency: KunaAssetUnit.Bitcoin,
         format: '0,0.[000000]',
     },
     erc20btc: {
         key: 'erc20btc',
-        baseCurrency: 'ERC20',
+        baseCurrency: KunaAssetUnit.ERC20,
         quoteCurrency: KunaAssetUnit.Bitcoin,
         format: '0,0.[00000]',
     },
     hknbtc: {
         key: 'hknbtc',
-        baseCurrency: 'HKN',
+        baseCurrency: KunaAssetUnit.Hacken,
         quoteCurrency: KunaAssetUnit.Bitcoin,
         format: '0,0.[000000]',
     },
     venusbtc: {
         key: 'venusbtc',
-        baseCurrency: 'VENUS',
+        baseCurrency: KunaAssetUnit.Venus,
         quoteCurrency: KunaAssetUnit.Bitcoin,
         format: '0,0.[000000]',
     },
     xlmuah: {
         key: 'xlmuah',
-        baseCurrency: 'XLM',
+        baseCurrency: KunaAssetUnit.Stellar,
         quoteCurrency: KunaAssetUnit.UkrainianHryvnia,
         format: '0,0.[000000]',
     },
     tusduah: {
         key: 'tusduah',
-        baseCurrency: 'TUSD',
+        baseCurrency: KunaAssetUnit.Tether,
         quoteCurrency: KunaAssetUnit.UkrainianHryvnia,
         format: '0,0.[000000]',
     },
@@ -172,16 +172,16 @@ export const kunaPairMap: Dictionary<KunaPair> = {
     // to Golos Gold
     golgbg: {
         key: 'golgbg',
-        baseCurrency: 'GOL',
-        quoteCurrency: 'GBG',
+        baseCurrency: KunaAssetUnit.Golos,
+        quoteCurrency: KunaAssetUnit.GolosGold,
         format: '0,0.[0000]',
     },
 
     // to Ethereum
     remeth: {
         key: 'remeth',
-        baseCurrency: 'REM',
-        quoteCurrency: 'ETH',
+        baseCurrency: KunaAssetUnit.Remme,
+        quoteCurrency: KunaAssetUnit.Ethereum,
         format: '0,0.[00000000]',
     },
 };

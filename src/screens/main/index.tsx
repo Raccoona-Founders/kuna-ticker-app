@@ -1,19 +1,21 @@
 import React from 'react';
 import { map } from 'lodash';
-import { Text, ScrollView, View, StyleSheet, TextInput } from 'react-native';
+import { Link } from 'react-router-native';
+import { Text, ScrollView, View, StyleSheet } from 'react-native';
 import { tracker } from 'utils/ga-tracker';
 
-import { kunaAssets, kunaPairMap, KunaPair, getAsset } from 'kuna-sdk';
+import { kunaPairMap, KunaPair, getAsset } from 'kuna-sdk';
 import { Color } from 'styles/variables';
+
 
 type PairTickerProps = {
     item: KunaPair;
 };
 
-export class Home extends React.PureComponent {
+export class Main extends React.PureComponent {
 
     public componentDidMount(): void {
-        tracker.trackScreenView('home');
+        tracker.trackScreenView('main');
     }
 
     public render(): JSX.Element {
@@ -30,18 +32,16 @@ export class Home extends React.PureComponent {
         const baseAsset = getAsset(item.baseAsset);
 
         return (
-            <View style={styles.listItem} key={item.key}>
-                <View style={[styles.assetPoint, { backgroundColor: baseAsset.color }]} />
-                <View style={styles.pairBox}>
-                    <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{item.baseAsset}</Text>
-                    <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
-                    <Text style={[styles.pairBoxText, styles.pairBoxQuote]}>{item.quoteAsset}</Text>
+            <Link to={`/pair/${item.key}`} key={item.key}>
+                <View style={styles.listItem}>
+                    <View style={[styles.assetPoint, { backgroundColor: baseAsset.color }]} />
+                    <View style={styles.pairBox}>
+                        <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{item.baseAsset}</Text>
+                        <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
+                        <Text style={[styles.pairBoxText, styles.pairBoxQuote]}>{item.quoteAsset}</Text>
+                    </View>
                 </View>
-
-                <View>
-                    <TextInput keyboardType="numeric" style={styles.inputStyle} placeholder="0.00" />
-                </View>
-            </View>
+            </Link>
         );
     };
 }
@@ -59,16 +59,15 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         backgroundColor: '#fff',
         borderRadius: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        shadowColor: '#B3B6BA',
+        marginLeft: 20,
+        marginRight: 20,
+        shadowColor: '#585A5E',
         shadowOffset: {
             width: 0,
-            height: 8,
+            height: 4,
         },
         shadowOpacity: 0.30,
-        shadowRadius: 20,
-        elevation: 1,
+        shadowRadius: 6,
     },
     assetPoint: {
         height: 24,
@@ -81,14 +80,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     pairBoxText: {
+        color: Color.Dark,
         fontSize: 16,
-    },
-    pairBoxBase: {
         fontWeight: '500',
     },
+    pairBoxBase: {
+
+    },
     pairBoxSeparator: {
-        marginLeft: 4,
-        marginRight: 4,
+        marginLeft: 2,
+        marginRight: 2,
     },
     pairBoxQuote: {
         color: Color.TextSecondary,

@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NativeRouter, Switch, Route } from 'react-router-native';
 
-import { Home } from 'screens/home';
+import { Main } from 'screens/main';
+import { Pair } from 'screens/pair';
 
 export class Application extends React.PureComponent {
 
@@ -11,7 +12,8 @@ export class Application extends React.PureComponent {
             <NativeRouter>
                 <View style={styles.container}>
                     <Switch>
-                        <Route path="/" exact component={Home} />
+                        <Route path="/" exact component={Main} />
+                        <Route path="/pair/:key" component={Pair} />
                     </Switch>
                 </View>
             </NativeRouter>

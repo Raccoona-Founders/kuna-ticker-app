@@ -1,6 +1,0 @@
-{
-    "name": "home",
-    "private": true,
-    "main": "home.tsx",
-    "typing": "home.tsx"
-}

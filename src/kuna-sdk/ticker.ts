@@ -1,9 +1,10 @@
 export type KunaTicker = {
-    buy: number;
-    sell: number;
-    low: number;
-    high: number;
-    last: number;
-    vol: number;
-    price: number;
+    pair: string;
+    buy: string;
+    sell: string;
+    low: string;
+    high: string;
+    last: string;
+    vol: string;
+    price: string;
 };

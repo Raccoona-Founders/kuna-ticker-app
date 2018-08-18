@@ -1,12 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NativeRouter, Switch, Route } from 'react-router-native';
-import { LinkButton } from 'components/link-button';
 
-import DeviceInfo from 'react-native-device-info';
-
-import { Home } from 'screens/home';
-import { Whore } from 'screens/whore';
+import { Main } from 'screens/main';
+import { Pair } from 'screens/pair';
 
 export class Application extends React.PureComponent {
 
@@ -14,19 +11,10 @@ export class Application extends React.PureComponent {
         return (
             <NativeRouter>
                 <View style={styles.container}>
-                    <View style={styles.content}>
-                        <Switch>
-                            <Route path="/" exact component={Home} />
-                            <Route path="/whore" component={Whore} />
-                        </Switch>
-
-                        <Text>{DeviceInfo.getApplicationName()} - {DeviceInfo.getVersion()}</Text>
-                    </View>
-
-                    <View style={styles.navBar}>
-                        <LinkButton to="/" exact>First</LinkButton>
-                        <LinkButton to="/whore">Whore</LinkButton>
-                    </View>
+                    <Switch>
+                        <Route path="/" exact component={Main} />
+                        <Route path="/pair/:key" component={Pair} />
+                    </Switch>
                 </View>
             </NativeRouter>
         );
@@ -35,36 +23,8 @@ export class Application extends React.PureComponent {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexGrow: 1,
         backgroundColor: '#f5fcff',
-    },
-    content: {
-        padding: 10,
-        marginTop: 25,
-    },
-    navBar: {
-        padding: 10,
-        paddingRight: 10,
-        borderWidth: 0,
-        borderRadius: 8,
-        borderColor: '#ddd',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.15,
-        shadowRadius: 6,
-        elevation: 1,
-        backgroundColor: '#fff',
-        position: 'absolute',
-        bottom: 10,
-        left: 10,
-        right: 10,
-        marginTop: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        bottom: 0,
     },
 });

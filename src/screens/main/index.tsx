@@ -21,20 +21,20 @@ export class Main extends React.PureComponent {
     public render(): JSX.Element {
         return (
             <ScrollView style={styles.flatList}>
-                {map(kunaPairMap, item => this.renderTicker({ item }))}
+                {map(kunaPairMap, item => this.renderTicker({item}))}
             </ScrollView>
         );
     }
 
     protected renderTicker = (props: PairTickerProps): JSX.Element => {
-        const { item } = props;
+        const {item} = props;
 
         const baseAsset = getAsset(item.baseAsset);
 
         return (
             <Link to={`/pair/${item.key}`} key={item.key}>
                 <View style={styles.listItem}>
-                    <View style={[styles.assetPoint, { backgroundColor: baseAsset.color }]} />
+                    <View style={[styles.assetPoint, {backgroundColor: baseAsset.color}]}/>
                     <View style={styles.pairBox}>
                         <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{item.baseAsset}</Text>
                         <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
@@ -59,15 +59,15 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         backgroundColor: '#fff',
         borderRadius: 10,
-        marginLeft: 20,
-        marginRight: 20,
+        marginLeft: 10,
+        marginRight: 10,
         shadowColor: '#585A5E',
         shadowOffset: {
             width: 0,
-            height: 4,
+            height: 2,
         },
-        shadowOpacity: 0.30,
-        shadowRadius: 6,
+        shadowOpacity: 0.20,
+        shadowRadius: 3,
     },
     assetPoint: {
         height: 24,
@@ -84,9 +84,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
     },
-    pairBoxBase: {
-
-    },
+    pairBoxBase: {},
     pairBoxSeparator: {
         marginLeft: 2,
         marginRight: 2,

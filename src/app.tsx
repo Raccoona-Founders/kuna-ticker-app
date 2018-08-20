@@ -24,7 +24,7 @@ export class Application extends React.PureComponent {
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        backgroundColor: '#f5fcff',
+        backgroundColor: '#fff',
         bottom: 0,
     },
 });

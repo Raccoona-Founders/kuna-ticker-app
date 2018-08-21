@@ -6,7 +6,7 @@ import { tracker } from 'utils/ga-tracker';
 
 import { kunaPairMap, KunaPair, getAsset } from 'kuna-sdk';
 import { Color } from 'styles/variables';
-
+import { FillShadow } from 'styles/shadows';
 
 type PairTickerProps = {
     item: KunaPair;
@@ -21,20 +21,20 @@ export class Main extends React.PureComponent {
     public render(): JSX.Element {
         return (
             <ScrollView style={styles.flatList}>
-                {map(kunaPairMap, item => this.renderTicker({item}))}
+                {map(kunaPairMap, item => this.renderTicker({ item }))}
             </ScrollView>
         );
     }
 
     protected renderTicker = (props: PairTickerProps): JSX.Element => {
-        const {item} = props;
+        const { item } = props;
 
         const baseAsset = getAsset(item.baseAsset);
 
         return (
             <Link to={`/pair/${item.key}`} key={item.key}>
                 <View style={styles.listItem}>
-                    <View style={[styles.assetPoint, {backgroundColor: baseAsset.color}]}/>
+                    <View style={[styles.assetPoint, { backgroundColor: baseAsset.color }]} />
                     <View style={styles.pairBox}>
                         <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{item.baseAsset}</Text>
                         <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
@@ -47,9 +47,7 @@ export class Main extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
-    flatList: {
-        marginTop: 30,
-    },
+    flatList: {},
     listItem: {
         flex: 1,
         flexDirection: 'row',
@@ -58,16 +56,10 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         backgroundColor: '#fff',
-        borderRadius: 10,
+        borderRadius: 8,
         marginLeft: 10,
         marginRight: 10,
-        shadowColor: '#585A5E',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.20,
-        shadowRadius: 3,
+        ...FillShadow,
     },
     assetPoint: {
         height: 24,
@@ -101,5 +93,5 @@ const styles = StyleSheet.create({
         padding: 6,
         fontSize: 14,
         width: 100,
-    }
+    },
 });

@@ -1,10 +1,11 @@
 
 export enum Color {
-    Primary = '#0096C8',
-    Secondary = '#3F97F5',
+    Primary = '#3F97F5',
+    Secondary = '#0096C8',
     White = '#fff',
     Dark = '#222428',
     TextSecondary = '#9DA6B8',
+    Background = '#ffffff',
 
     Green = '#2ac062',
 }

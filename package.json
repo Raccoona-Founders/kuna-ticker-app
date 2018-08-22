@@ -10,9 +10,9 @@
     "bundle:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios"
   },
   "dependencies": {
-
     "axios": "0.18.0",
     "babel-plugin-module-alias": "1.6.0",
+    "kuna-sdk": "^0.1.1",
     "lodash": "4.17.10",
     "node-libs-react-native": "1.0.2",
     "numeral": "^2.0.6",
@@ -20,7 +20,10 @@
     "react-native": "0.56.0",
     "react-native-device-info": "^0.22.4",
     "react-native-google-analytics-bridge": "^5.8.0",
+    "react-native-svg": "^6.5.2",
+    "react-native-svg-icon": "^0.8.1",
     "react-router-native": "4.3.0",
+    "react-router-native-stack": "^0.0.12",
     "recompose": "0.28.2"
   },
   "devDependencies": {

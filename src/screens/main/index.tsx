@@ -4,12 +4,15 @@ import { Link } from 'react-router-native';
 import { Text, ScrollView, View, StyleSheet } from 'react-native';
 import { tracker } from 'utils/ga-tracker';
 
-import { kunaPairMap, KunaPair, getAsset } from 'kuna-sdk';
+import { kunaMarketMap, KunaMarket, getAsset } from 'kuna-sdk';
 import { Color } from 'styles/variables';
 import { FillShadow } from 'styles/shadows';
 
-type PairTickerProps = {
-    item: KunaPair;
+import { MainHeader } from './main-header';
+import { CoinIcon } from 'components/coin-icon';
+
+type MarketTickerProps = {
+    market: KunaMarket;
 };
 
 export class Main extends React.PureComponent {
@@ -20,25 +23,28 @@ export class Main extends React.PureComponent {
 
     public render(): JSX.Element {
         return (
-            <ScrollView style={styles.flatList}>
-                {map(kunaPairMap, item => this.renderTicker({ item }))}
-            </ScrollView>
+            <View style={styles.container}>
+                <MainHeader />
+                <ScrollView style={styles.flatList}>
+                    {map(kunaMarketMap, market => this.renderTicker({ market: market }))}
+                </ScrollView>
+            </View>
         );
     }
 
-    protected renderTicker = (props: PairTickerProps): JSX.Element => {
-        const { item } = props;
+    protected renderTicker = (props: MarketTickerProps): JSX.Element => {
+        const { market } = props;
 
-        const baseAsset = getAsset(item.baseAsset);
+        const baseAsset = getAsset(market.baseAsset);
 
         return (
-            <Link to={`/pair/${item.key}`} key={item.key}>
+            <Link to={`/market/${market.key}`} key={market.key}>
                 <View style={styles.listItem}>
-                    <View style={[styles.assetPoint, { backgroundColor: baseAsset.color }]} />
+                    <CoinIcon size={24} asset={baseAsset} style={{ marginRight: 10 }} />
                     <View style={styles.pairBox}>
-                        <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{item.baseAsset}</Text>
+                        <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{market.baseAsset}</Text>
                         <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
-                        <Text style={[styles.pairBoxText, styles.pairBoxQuote]}>{item.quoteAsset}</Text>
+                        <Text style={[styles.pairBoxText, styles.pairBoxQuote]}>{market.quoteAsset}</Text>
                     </View>
                 </View>
             </Link>
@@ -47,6 +53,7 @@ export class Main extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
+    container: {},
     flatList: {},
     listItem: {
         flex: 1,
@@ -54,22 +61,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 57,
         padding: 10,
-        marginBottom: 10,
+        marginTop: 5,
+        marginBottom: 5,
         backgroundColor: '#fff',
         borderRadius: 8,
         marginLeft: 10,
         marginRight: 10,
         ...FillShadow,
     },
-    assetPoint: {
-        height: 24,
-        width: 24,
-        borderRadius: 24,
-        marginRight: 10,
-    },
     pairBox: {
         flex: 1,
         flexDirection: 'row',
+        alignItems: 'flex-end',
     },
     pairBoxText: {
         color: Color.Dark,
@@ -80,9 +83,14 @@ const styles = StyleSheet.create({
     pairBoxSeparator: {
         marginLeft: 2,
         marginRight: 2,
+        color: Color.TextSecondary,
+        fontSize: 12,
+        textAlignVertical: 'bottom',
     },
     pairBoxQuote: {
+        fontSize: 12,
         color: Color.TextSecondary,
+        textAlignVertical: 'bottom',
     },
     inputStyle: {
         color: '#444',

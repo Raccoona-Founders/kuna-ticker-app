@@ -7,10 +7,12 @@ import { tracker } from 'utils/ga-tracker';
 import { Color } from 'styles/variables';
 import { Topic } from 'components/topic';
 
-export class Market extends React.PureComponent<RouteComponentProps<{ symbol: string; }>> {
+export class MarketScreen extends React.PureComponent<RouteComponentProps<{ symbol: string; }>> {
 
     public componentDidMount(): void {
-        tracker.trackScreenView('home');
+        const { symbol } = this.props.match.params;
+
+        tracker.trackScreenView(`market/${symbol}`);
     }
 
     public render(): JSX.Element {

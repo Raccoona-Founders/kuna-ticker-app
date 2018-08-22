@@ -1,10 +1,11 @@
 import React from 'react';
-import { map } from 'lodash';
+import Numeral from 'numeral';
+import { map, find } from 'lodash';
 import { Link } from 'react-router-native';
 import { Text, ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { tracker } from 'utils/ga-tracker';
 
-import { kunaMarketMap, KunaMarket, getAsset } from 'kuna-sdk';
+import { kunaMarketMap, KunaMarket, getAsset, KunaTicker, kunaApiClient } from 'kuna-sdk';
 import { Color } from 'styles/variables';
 import { FillShadow } from 'styles/shadows';
 
@@ -15,10 +16,21 @@ type MarketTickerProps = {
     market: KunaMarket;
 };
 
-export class Main extends React.PureComponent {
+type MainScreenProps = {};
+type MainScreenState = {
+    tickers: KunaTicker[];
+};
 
-    public componentDidMount(): void {
-        tracker.trackScreenView('main');
+export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
+    public state: MainScreenState = {
+        tickers: [],
+    };
+
+    public async componentDidMount(): Promise<void> {
+        tracker.trackScreenView('home');
+
+        const tickers = await kunaApiClient.getTickers();
+        this.setState({ tickers: tickers });
     }
 
     public render(): JSX.Element {
@@ -36,6 +48,7 @@ export class Main extends React.PureComponent {
         const { market } = props;
 
         const baseAsset = getAsset(market.baseAsset);
+        const ticker = this.findTicker(market);
 
         return (
             <Link to={`/market/${market.key}`}
@@ -45,15 +58,31 @@ export class Main extends React.PureComponent {
             >
                 <View style={styles.listItem}>
                     <CoinIcon size={24} asset={baseAsset} style={{ marginRight: 10 }} />
-                    <View style={styles.pairBox}>
+                    <View style={styles.marketBox}>
                         <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{market.baseAsset}</Text>
                         <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
                         <Text style={[styles.pairBoxText, styles.pairBoxQuote]}>{market.quoteAsset}</Text>
                     </View>
+
+                    {ticker && (
+                        <View style={styles.priceBox}>
+                            <Text style={styles.priceValue}>
+                                {parseFloat(ticker.last) > 0.0001
+                                    ? Numeral(ticker.last).format(market.format)
+                                    : Numeral(ticker.last).format('0,0.[00000000]')
+                                }
+                            </Text>
+                            <Text style={styles.priceLabel}>{market.quoteAsset}</Text>
+                        </View>
+                    )}
                 </View>
             </Link>
         );
     };
+
+    protected findTicker(market: KunaMarket): KunaTicker | undefined {
+        return find(this.state.tickers, { pair: market.key });
+    }
 }
 
 const styles = StyleSheet.create({
@@ -78,7 +107,8 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
     },
-    pairBox: {
+
+    marketBox: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-end',
@@ -100,5 +130,16 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: Color.TextDarkSecondary,
         textAlignVertical: 'bottom',
+    },
+
+    priceBox: {
+        flexDirection: 'row',
+    },
+    priceValue: {
+        fontWeight: '500',
+        marginRight: 5
+    },
+    priceLabel: {
+        color: Color.TextDarkSecondary,
     },
 });

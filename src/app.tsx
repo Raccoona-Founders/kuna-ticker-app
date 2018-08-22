@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View, SafeAreaView } from 'react-native';
 import { NativeRouter, Route, Switch } from 'react-router-native';
 
-import { Main } from 'screens/main';
-import { Market } from 'screens/market';
+import { MainScreen } from 'screens/main';
+import { MarketScreen } from 'screens/market';
 import { Color } from 'styles/variables';
 
 export class Application extends React.PureComponent {
@@ -14,8 +14,8 @@ export class Application extends React.PureComponent {
                 <NativeRouter>
                     <View style={styles.container}>
                         <Switch>
-                            <Route path="/" exact component={Main} animationType="fade-vertical" />
-                            <Route path="/market/:symbol" component={Market} />
+                            <Route path="/" exact component={MainScreen} />
+                            <Route path="/market/:symbol" component={MarketScreen} />
                         </Switch>
                     </View>
                 </NativeRouter>

@@ -1,14 +1,14 @@
 import React from 'react';
 import { map } from 'lodash';
 import { Link } from 'react-router-native';
-import { Text, ScrollView, View, StyleSheet } from 'react-native';
+import { Text, ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { tracker } from 'utils/ga-tracker';
 
 import { kunaMarketMap, KunaMarket, getAsset } from 'kuna-sdk';
 import { Color } from 'styles/variables';
 import { FillShadow } from 'styles/shadows';
 
-import { MainHeader } from './main-header';
+import { Topic } from 'components/topic';
 import { CoinIcon } from 'components/coin-icon';
 
 type MarketTickerProps = {
@@ -24,7 +24,7 @@ export class Main extends React.PureComponent {
     public render(): JSX.Element {
         return (
             <View style={styles.container}>
-                <MainHeader />
+                <Topic title="Kuna Markets" />
                 <ScrollView style={styles.flatList}>
                     {map(kunaMarketMap, market => this.renderTicker({ market: market }))}
                 </ScrollView>
@@ -38,7 +38,11 @@ export class Main extends React.PureComponent {
         const baseAsset = getAsset(market.baseAsset);
 
         return (
-            <Link to={`/market/${market.key}`} key={market.key}>
+            <Link to={`/market/${market.key}`}
+                  key={market.key}
+                  style={styles.listItemLink}
+                  component={TouchableOpacity}
+            >
                 <View style={styles.listItem}>
                     <CoinIcon size={24} asset={baseAsset} style={{ marginRight: 10 }} />
                     <View style={styles.pairBox}>
@@ -53,21 +57,26 @@ export class Main extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
-    container: {},
-    flatList: {},
-    listItem: {
+    container: {
         flex: 1,
+    },
+    flatList: {
+        flex: 1,
+    },
+    listItem: {
         flexDirection: 'row',
         alignItems: 'center',
         height: 57,
         padding: 10,
-        marginTop: 5,
-        marginBottom: 5,
         backgroundColor: '#fff',
         borderRadius: 8,
+        ...FillShadow,
+    },
+    listItemLink: {
+        marginTop: 5,
+        marginBottom: 5,
         marginLeft: 10,
         marginRight: 10,
-        ...FillShadow,
     },
     pairBox: {
         flex: 1,
@@ -77,29 +86,19 @@ const styles = StyleSheet.create({
     pairBoxText: {
         color: Color.Dark,
         fontSize: 16,
-        fontWeight: '500',
+        fontWeight: '300',
     },
     pairBoxBase: {},
     pairBoxSeparator: {
-        marginLeft: 2,
-        marginRight: 2,
-        color: Color.TextSecondary,
+        marginLeft: 4,
+        marginRight: 4,
+        color: Color.TextDarkSecondary,
         fontSize: 12,
         textAlignVertical: 'bottom',
     },
     pairBoxQuote: {
         fontSize: 12,
-        color: Color.TextSecondary,
+        color: Color.TextDarkSecondary,
         textAlignVertical: 'bottom',
-    },
-    inputStyle: {
-        color: '#444',
-        backgroundColor: '#eee',
-        borderWidth: 0.5,
-        borderColor: '#aaa',
-        borderRadius: 3,
-        padding: 6,
-        fontSize: 14,
-        width: 100,
     },
 });

@@ -1,12 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, SafeAreaView } from 'react-native';
-import { NativeRouter, Switch, Route } from 'react-router-native';
+import { NativeRouter, Route, Switch } from 'react-router-native';
 
 import { Main } from 'screens/main';
 import { Market } from 'screens/market';
 import { Color } from 'styles/variables';
-
-const Stack = require('react-router-native-stack').default;
 
 export class Application extends React.PureComponent {
 
@@ -15,10 +13,10 @@ export class Application extends React.PureComponent {
             <SafeAreaView style={styles.safeArea}>
                 <NativeRouter>
                     <View style={styles.container}>
-                        <Stack>
+                        <Switch>
                             <Route path="/" exact component={Main} animationType="fade-vertical" />
                             <Route path="/market/:symbol" component={Market} />
-                        </Stack>
+                        </Switch>
                     </View>
                 </NativeRouter>
             </SafeAreaView>
@@ -33,6 +31,6 @@ const styles = StyleSheet.create({
     },
     safeArea: {
         flex: 1,
-        backgroundColor: Color.Primary,
+        backgroundColor: Color.Background,
     },
 });

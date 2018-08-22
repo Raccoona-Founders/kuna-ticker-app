@@ -1,10 +1,11 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-native';
-import { Text, View, StyleSheet } from 'react-native';
-import { tracker } from 'utils/ga-tracker';
-
 import { kunaMarketMap } from 'kuna-sdk';
+import { RouteComponentProps } from 'react-router-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Link } from 'react-router-native';
+import { tracker } from 'utils/ga-tracker';
+import { Color } from 'styles/variables';
+import { Topic } from 'components/topic';
 
 export class Market extends React.PureComponent<RouteComponentProps<{ symbol: string; }>> {
 
@@ -17,10 +18,18 @@ export class Market extends React.PureComponent<RouteComponentProps<{ symbol: st
         const currentMarket = kunaMarketMap[symbol];
 
         return (
-            <View style={styles.pairContainer}>
-                <Link to={'/'}><View style={styles.backButton}><Text>Back</Text></View></Link>
+            <View style={{ flex: 1 }}>
+                <Topic title={`${currentMarket.baseAsset} / ${currentMarket.quoteAsset}`}
+                       leftContent={(
+                           <Link to={'/'} component={TouchableOpacity}>
+                               <Text style={styles.backButton}>Back</Text>
+                           </Link>
+                       )}
+                />
 
-                <Text style={styles.content}>{currentMarket.baseAsset} / {currentMarket.quoteAsset}</Text>
+                <View style={styles.pairContainer}>
+                    <Text style={styles.content}>{currentMarket.baseAsset} / {currentMarket.quoteAsset}</Text>
+                </View>
             </View>
         );
     }
@@ -32,8 +41,7 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
     backButton: {
-        marginBottom: 30,
-        fontSize: 14,
+        color: Color.Primary,
     },
     content: {
         fontSize: 20,

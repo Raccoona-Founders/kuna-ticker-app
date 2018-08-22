@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleProp, ViewStyle } from 'react-native';
 import SvgIcon from 'react-native-svg-icon';
 import { KunaAsset } from 'kuna-sdk';
 

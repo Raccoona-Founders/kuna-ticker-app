@@ -4,6 +4,7 @@ import SvgIcon from 'react-native-svg-icon';
 import { KunaAsset } from 'kuna-sdk';
 
 import { svgIcons, findIcon } from './svg-icons';
+import { coinShadow } from "styles/shadows";
 
 type CoinIconProps = {
     asset: KunaAsset;
@@ -13,13 +14,14 @@ type CoinIconProps = {
 };
 
 export const CoinIcon = (props: CoinIconProps) => {
-    const { size = 24, asset, style = {} } = props;
+    const { size = 32, asset, style = {} } = props;
 
     const coinIconStyle = {
         height: size,
         width: size,
-        borderRadius: size,
+        borderRadius: size / 4,
         backgroundColor: asset.color,
+        ...coinShadow
     };
 
     const existsIcon = findIcon(asset);

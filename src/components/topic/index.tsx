@@ -4,7 +4,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Color } from 'styles/variables';
 
 type TopicProps = {
-    title: string;
+    title: React.ReactNode;
     leftContent?: any;
     rightContent?: any;
 };
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: Color.Background,
         borderBottomWidth: 1,
-        borderBottomColor: Color.TextSecondary,
+        borderBottomColor: '#F7F7F7'
     },
     titleArea: {
         paddingLeft: 10,

@@ -1,26 +1,30 @@
 import React from 'react';
-import { kunaMarketMap } from 'kuna-sdk';
-import { RouteComponentProps } from 'react-router-native';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Link } from 'react-router-native';
+import { kunaMarketMap, KunaTicker } from 'kuna-sdk';
+import { connect } from 'react-redux';
+import { Link, RouteComponentProps } from 'react-router-native';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { compose } from 'recompose';
+
 import { tracker } from 'utils/ga-tracker';
-import { Color } from 'styles/variables';
 import { Topic } from 'components/topic';
 
-export class MarketScreen extends React.PureComponent<RouteComponentProps<{ symbol: string; }>> {
+import { styles } from './styles';
+
+export class MarketScreenComponent extends React.PureComponent<MarketScreenProps> {
 
     public componentDidMount(): void {
-        const { symbol } = this.props.match.params;
+        const {symbol} = this.props.match.params;
 
         tracker.trackScreenView(`market/${symbol}`);
     }
 
     public render(): JSX.Element {
-        const { symbol } = this.props.match.params;
+        const {match, ticker} = this.props;
+        const {symbol} = match.params;
         const currentMarket = kunaMarketMap[symbol];
 
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
                 <Topic title={`${currentMarket.baseAsset} / ${currentMarket.quoteAsset}`}
                        leftContent={(
                            <Link to={'/'} component={TouchableOpacity}>
@@ -30,23 +34,28 @@ export class MarketScreen extends React.PureComponent<RouteComponentProps<{ symb
                 />
 
                 <View style={styles.pairContainer}>
-                    <Text style={styles.content}>{currentMarket.baseAsset} / {currentMarket.quoteAsset}</Text>
+                    <Text>{ticker ? ticker.last : '--'}</Text>
                 </View>
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    pairContainer: {
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
-    backButton: {
-        color: Color.Primary,
-    },
-    content: {
-        fontSize: 20,
-        textAlign: 'center',
-    },
-});
+type MarketScreenOuterProps = RouteComponentProps<{ symbol: string; }>;
+type ConnectedProps = {
+    ticker: KunaTicker;
+}
+
+type MarketScreenProps = ConnectedProps & MarketScreenOuterProps;
+
+const mapStateToProps = (store: KunaStore, ownProps: MarketScreenProps): ConnectedProps => {
+    const {symbol} = ownProps.match.params;
+
+    return {
+        ticker: store.ticker.tickers[symbol],
+    };
+};
+
+export const MarketScreen = compose<MarketScreenProps, MarketScreenOuterProps>(
+    connect(mapStateToProps),
+)(MarketScreenComponent);

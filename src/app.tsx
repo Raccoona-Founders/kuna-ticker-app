@@ -1,13 +1,15 @@
 import React from 'react';
 import { Store } from 'redux';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { kunaApiClient, KunaTicker } from 'kuna-sdk';
 
+import SplashScreen from 'react-native-splash-screen';
+
 import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
-import { Ticker } from "store/actions";
-
+import { Ticker } from 'store/actions'
+import { Color } from 'styles/variables';
 
 type ApplicationState = {
     isStoreLoading: boolean;
@@ -40,9 +42,13 @@ export class Application extends React.PureComponent<any, ApplicationState> {
 
         if (!store || isStoreLoading) {
             return (
-                <View><Text>Loading...</Text></View>
+                <View style={styles.loadingContainer}>
+                    <Text style={styles.loadingText}>Loading...</Text>
+                </View>
             );
         }
+
+        SplashScreen.hide();
 
         return (
             <Provider store={store}>
@@ -70,3 +76,15 @@ export class Application extends React.PureComponent<any, ApplicationState> {
         });
     };
 }
+
+export const styles = StyleSheet.create({
+    loadingContainer: {
+        flex: 1,
+        backgroundColor: Color.Background,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loadingText: {
+        color: Color.Primary
+    }
+});

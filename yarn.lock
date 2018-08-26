@@ -4793,6 +4793,10 @@ react-native-randombytes@^2.2.0:
     buffer "^4.9.1"
     sjcl "^1.0.3"
 
+react-native-splash-screen@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.1.1.tgz#1a4e46c9fdce53ff52af2a2cb4181788c4e30b30"
+
 react-native-svg-icon@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/react-native-svg-icon/-/react-native-svg-icon-0.8.1.tgz#2e6a5373b853dea39463870f284da4d824d02a86"

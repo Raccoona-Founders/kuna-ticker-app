@@ -7,7 +7,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { kunaMarketMap, KunaMarket, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
 import { tracker } from 'utils/ga-tracker';
-import { Topic } from 'components/topic';
+import { Topic, topicStyles } from 'components/topic';
 
 import { QuoteAssetsTab } from './quote-assets-tab';
 import { MarketRow } from './market-row';
@@ -35,7 +35,7 @@ class MainScreenComponent extends React.PureComponent<MainScreenProps, MainScree
 
         return (
             <View style={mainStyles.container}>
-                <Topic title={<Text>Kuna Markets</Text>}/>
+                <Topic title={<Text style={topicStyles.titleText}>Kuna Markets</Text>}/>
                 <QuoteAssetsTab currentSymbol={symbol}/>
                 <ScrollView style={mainStyles.flatList}>
                     {map(actualMarketMap, (market: KunaMarket) => (
@@ -47,7 +47,7 @@ class MainScreenComponent extends React.PureComponent<MainScreenProps, MainScree
     }
 
     protected findTicker(market: KunaMarket): KunaTicker | undefined {
-        return find(this.props.tickers, {pair: market.key});
+        return find(this.props.tickers, {market: market.key});
     }
 }
 

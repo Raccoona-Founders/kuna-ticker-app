@@ -74,7 +74,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
         tickers.map((ticker: KunaTicker) => {
             store.dispatch({
                 type: Ticker.UpdateTicker,
-                marketSymbol: ticker.pair,
+                marketSymbol: ticker.market,
                 ticker: ticker,
             });
         });

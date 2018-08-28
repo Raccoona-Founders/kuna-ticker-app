@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     marketInfoContainer: {},
     backButton: {
         color: Color.Primary,
+        fontSize: 16,
         lineHeight: 44,
     },
     content: {

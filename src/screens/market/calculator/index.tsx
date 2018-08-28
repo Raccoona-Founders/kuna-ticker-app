@@ -111,7 +111,9 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
         }
 
         this.setState({
-            value: newValue.format(inputSideFormat).replace(/\,/g, ''),
+            value: newValue.value() > 0
+                ? newValue.format(inputSideFormat).replace(/\,/g, '')
+                : '',
             side: newSide,
         });
     };

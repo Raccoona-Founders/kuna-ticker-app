@@ -1,15 +1,15 @@
 import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
-import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
 import { connect } from 'react-redux';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { RouteComponentProps } from 'react-router-native';
+import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
 
-import { CoinIcon } from 'components/coin-icon';
-import { tracker } from 'utils/ga-tracker';
 import { numFormat } from 'utils/number-helper';
-import { Topic } from 'components/topic';
+import { tracker } from 'utils/ga-tracker';
+import { CoinIcon } from 'components/coin-icon';
+import { Topic, topicStyles } from 'components/topic';
 
 import { Calculator } from './calculator';
 import { InfoUnit } from './info-unit';
@@ -22,7 +22,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         const currentMarket = kunaMarketMap[symbol];
 
         tracker.trackScreenView(
-            `market/${currentMarket.quoteAsset}-${currentMarket.baseAsset}`,
+            `market/${currentMarket.baseAsset}-${currentMarket.quoteAsset}`,
         );
     }
 
@@ -52,7 +52,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
             <View style={styles.marketInfoContainer}>
                 <View style={styles.priceContainer}>
                     <View style={styles.priceText}>
-                        <Text style={styles.priceTextValue}>{numFormat(ticker.last, quoteAsset.format)}</Text>
+                        <Text style={styles.priceTextValue}>{numFormat(ticker.last, currentMarket.format)}</Text>
                         <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
                     </View>
                 </View>
@@ -92,7 +92,9 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                           style={{marginRight: 6}}
                           withShadow={false}
                 />
-                <Text>{currentMarket.baseAsset} / {currentMarket.quoteAsset}</Text>
+                <Text style={topicStyles.titleText}>
+                    {currentMarket.baseAsset} / {currentMarket.quoteAsset}
+                </Text>
             </View>
         );
     }

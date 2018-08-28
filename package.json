@@ -12,10 +12,10 @@
     "dependencies": {
         "axios": "0.18.0",
         "babel-plugin-module-alias": "1.6.0",
-        "kuna-sdk": "0.1.5",
+        "kuna-sdk": "^0.2.0",
         "lodash": "4.17.10",
         "node-libs-react-native": "1.0.2",
-        "numeral": "^2.0.6",
+        "numeral": "2.0.6",
         "react": "16.4.1",
         "react-native": "0.56.0",
         "react-native-device-info": "0.22.4",

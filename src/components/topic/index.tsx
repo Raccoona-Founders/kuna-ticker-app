@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { Color } from 'styles/variables';
 
@@ -11,22 +11,22 @@ type TopicProps = {
 
 export const Topic = (props: TopicProps) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.titleArea}>
-                <View style={styles.titleAreaSide}>{props.leftContent}</View>
-                <View style={styles.titleText}>{props.title}</View>
-                <View style={styles.titleAreaSide}>{props.rightContent}</View>
+        <View style={topicStyles.container}>
+            <View style={topicStyles.titleArea}>
+                <View style={topicStyles.titleAreaSide}>{props.leftContent}</View>
+                <View style={topicStyles.titleText}>{props.title}</View>
+                <View style={topicStyles.titleAreaSide}>{props.rightContent}</View>
             </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
+export const topicStyles = StyleSheet.create({
     container: {
         height: 50,
         backgroundColor: Color.Background,
         borderBottomWidth: 1,
-        borderBottomColor: Color.BorderLight
+        borderBottomColor: Color.BorderLight,
     },
     titleArea: {
         paddingLeft: 10,
@@ -43,5 +43,5 @@ const styles = StyleSheet.create({
     },
     titleAreaSide: {
         width: 70,
-    }
+    },
 });

@@ -3,9 +3,10 @@ import Numeral from 'numeral';
 import { Link } from 'react-router-native';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { KunaMarket, KunaTicker } from 'kuna-sdk';
-
+import { numFormat } from 'utils/number-helper';
 import { Color } from 'styles/variables';
-import { MarketNameCell } from "./market-name-cell";
+
+import { MarketNameCell } from './market-name-cell';
 
 type MarketRowProps = {
     market: KunaMarket;
@@ -27,11 +28,7 @@ export const MarketRow = (props: MarketRowProps) => {
                 <View style={styles.tickerCell}>
                     <View style={styles.priceBox}>
                         <Text style={styles.priceValue}>
-                            {ticker ? (
-                                parseFloat(ticker.last) > 0.0001
-                                    ? Numeral(ticker.last).format(market.format)
-                                    : Numeral(ticker.last).format('0,0.[00000000]')
-                            ) : '--'}
+                            {ticker ? numFormat(ticker.last, market.format) : '--'}
                         </Text>
                         <Text style={styles.priceLabel}>{market.quoteAsset}</Text>
                     </View>
@@ -39,7 +36,7 @@ export const MarketRow = (props: MarketRowProps) => {
                     <View>
                         <Text style={styles.marketVolume}>
                             {ticker ? (
-                                <>VOL: {Numeral(ticker.vol).format('0,0.[00]')} {market.baseAsset}</>
+                                <>VOL: {numFormat(ticker.vol)} {market.baseAsset}</>
                             ) : '--'}
                         </Text>
                     </View>

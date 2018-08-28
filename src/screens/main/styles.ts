@@ -17,7 +17,7 @@ export const quoteAssetsStyles = StyleSheet.create({
         paddingRight: 20,
         borderBottomWidth: 1,
         borderBottomColor: Color.BorderLight,
-        height: 40,
+        height: 44,
         alignContent: 'center'
     },
     link: {

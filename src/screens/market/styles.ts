@@ -2,12 +2,10 @@ import { StyleSheet } from 'react-native'
 import { Color } from 'styles/variables';
 
 export const styles = StyleSheet.create({
-    pairContainer: {
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
+    marketInfoContainer: {},
     backButton: {
         color: Color.Primary,
+        lineHeight: 44,
     },
     content: {
         fontSize: 20,
@@ -19,13 +17,32 @@ export const styles = StyleSheet.create({
     },
 
     priceContainer: {
-        padding: 10,
+        padding: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: Color.BorderLight
+    },
 
+    priceText: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end'
+    },
+    priceTextValue: {
+        lineHeight: 24,
+        fontSize: 24,
+        fontWeight: '500',
+        color: Color.Primary
+    },
+    priceTextAsset: {
+        lineHeight: 22,
+        marginLeft: 5
     },
 
     infoContainer: {
-        padding: 10,
+        padding: 20,
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        borderBottomWidth: 1,
+        borderBottomColor: Color.BorderLight
     }
 });

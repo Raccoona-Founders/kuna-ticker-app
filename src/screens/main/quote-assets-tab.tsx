@@ -8,6 +8,7 @@ import { quoteAssetsStyles as styles } from './styles';
 const quoteAssets = [
     KunaAssetUnit.UkrainianHryvnia,
     KunaAssetUnit.Bitcoin,
+    KunaAssetUnit.StasisEuro,
     KunaAssetUnit.Ethereum,
     KunaAssetUnit.GolosGold,
 ];

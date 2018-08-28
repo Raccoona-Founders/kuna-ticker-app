@@ -3,28 +3,32 @@ import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
 import { connect } from 'react-redux';
-import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { RouteComponentProps } from 'react-router-native';
 
 import { CoinIcon } from 'components/coin-icon';
 import { tracker } from 'utils/ga-tracker';
+import { numFormat } from 'utils/number-helper';
 import { Topic } from 'components/topic';
-import { InfoUnit } from './info-unit';
 
+import { Calculator } from './calculator';
+import { InfoUnit } from './info-unit';
 import { styles } from './styles';
 
 export class MarketScreenComponent extends React.PureComponent<MarketScreenProps> {
 
     public componentDidMount(): void {
         const {symbol} = this.props.match.params;
+        const currentMarket = kunaMarketMap[symbol];
 
-        tracker.trackScreenView(`market/${symbol}`);
+        tracker.trackScreenView(
+            `market/${currentMarket.quoteAsset}-${currentMarket.baseAsset}`,
+        );
     }
 
+
     public render(): JSX.Element {
-        const {match, ticker} = this.props;
-        const {symbol} = match.params;
-        const currentMarket = kunaMarketMap[symbol];
+        const {ticker} = this.props;
 
         return (
             <View style={{flex: 1}}>
@@ -33,6 +37,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
             </View>
         );
     }
+
 
     protected renderMarketTicker() {
 
@@ -44,30 +49,34 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         const baseAsset = getAsset(currentMarket.baseAsset);
 
         return (
-            <ScrollView style={styles.pairContainer}>
+            <View style={styles.marketInfoContainer}>
                 <View style={styles.priceContainer}>
-                    <Text>{Numeral(ticker.last).format(quoteAsset.format)} {quoteAsset.key}</Text>
+                    <View style={styles.priceText}>
+                        <Text style={styles.priceTextValue}>{numFormat(ticker.last, quoteAsset.format)}</Text>
+                        <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
+                    </View>
                 </View>
 
                 <View style={styles.infoContainer}>
                     <InfoUnit topic={`Volume ${baseAsset.key}`}
-                              value={Numeral(ticker.vol).format('0,0.[00]')}
+                              value={numFormat(ticker.vol)}
                     />
 
                     <InfoUnit topic={`Volume ${quoteAsset.key}`}
-                              value={Numeral(ticker.vol).multiply(ticker.last).format('0,0.[00]')}
+                              value={numFormat(Numeral(ticker.vol).multiply(ticker.last))}
                     />
 
                     <InfoUnit topic="Low Price"
-                              value={Numeral(ticker.low).format(quoteAsset.format)}
+                              value={numFormat(ticker.low, quoteAsset.format)}
                     />
 
                     <InfoUnit topic="High Price"
-                              value={Numeral(ticker.high).format(quoteAsset.format)}
+                              value={numFormat(ticker.high, quoteAsset.format)}
                     />
                 </View>
 
-            </ScrollView>
+                {ticker.last ? <Calculator market={currentMarket} ticker={ticker}/> : undefined}
+            </View>
         )
     }
 

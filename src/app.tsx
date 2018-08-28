@@ -32,9 +32,15 @@ export class Application extends React.PureComponent<any, ApplicationState> {
             store: store
         });
 
-        await this.updateTickers();
+        SplashScreen.hide();
 
-        setTimeout(this.updateTickers, 10 * 60 * 1000);
+        try {
+            await this.updateTickers();
+
+            setTimeout(this.updateTickers, 10 * 60 * 1000);
+        } catch (error) {
+
+        }
     }
 
     public render(): JSX.Element {
@@ -47,8 +53,6 @@ export class Application extends React.PureComponent<any, ApplicationState> {
                 </View>
             );
         }
-
-        SplashScreen.hide();
 
         return (
             <Provider store={store}>
@@ -88,5 +92,3 @@ export const styles = StyleSheet.create({
         color: Color.Primary
     }
 });
-
-StyleSheet.

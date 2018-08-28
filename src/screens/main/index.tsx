@@ -1,15 +1,17 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { map, find } from 'lodash';
+import { RouteComponentProps } from 'react-router-native';
+import { map, find, filter } from 'lodash';
 import { connect } from 'react-redux'
 import { ScrollView, View, Text } from 'react-native';
-import { kunaMarketMap, KunaMarket, KunaTicker } from 'kuna-sdk';
+import { kunaMarketMap, KunaMarket, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
 import { tracker } from 'utils/ga-tracker';
 import { Topic } from 'components/topic';
 
+import { QuoteAssetsTab } from './quote-assets-tab';
 import { MarketRow } from './market-row';
-import { styles } from './styles';
+import { mainStyles } from './styles';
 
 type MainScreenState = {
     tickers: KunaTicker[];
@@ -21,17 +23,24 @@ class MainScreenComponent extends React.PureComponent<MainScreenProps, MainScree
     };
 
     public async componentDidMount(): Promise<void> {
-        tracker.trackScreenView('home');
+        const {symbol} = this.props.match.params;
+
+        tracker.trackScreenView(`main/${symbol}`);
     }
 
     public render(): JSX.Element {
+        const {symbol} = this.props.match.params;
+
+        const actualMarketMap = filter(kunaMarketMap, {quoteAsset: symbol});
+
         return (
-            <View style={styles.container}>
+            <View style={mainStyles.container}>
                 <Topic title={<Text>Kuna Markets</Text>}/>
-                <ScrollView style={styles.flatList}>
-                    {map(kunaMarketMap, (market: KunaMarket) => {
-                        return <MarketRow market={market} ticker={this.findTicker(market)} key={market.key}/>;
-                    })}
+                <QuoteAssetsTab currentSymbol={symbol}/>
+                <ScrollView style={mainStyles.flatList}>
+                    {map(actualMarketMap, (market: KunaMarket) => (
+                        <MarketRow market={market} ticker={this.findTicker(market)} key={market.key}/>
+                    ))}
                 </ScrollView>
             </View>
         );
@@ -42,7 +51,7 @@ class MainScreenComponent extends React.PureComponent<MainScreenProps, MainScree
     }
 }
 
-type MainScreenOuterProps = {};
+type MainScreenOuterProps = RouteComponentProps<{ symbol: KunaAssetUnit }> & {};
 type ConnectedProps = {
     tickers: Record<string, KunaTicker>;
 }

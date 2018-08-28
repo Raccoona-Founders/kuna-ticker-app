@@ -3,9 +3,11 @@ export enum Color {
     Secondary = '#0096C8',
     White = '#fff',
     Dark = '#222428',
-    TextDarkSecondary = '#5c6576',
+    TextDarkSecondary = '#5C6576',
     TextSecondary = '#9DA6B8',
-    Background = '#ffffff',
+    Background = '#FFFFFF',
 
-    Green = '#2ac062',
+    Green = '#2AC062',
+
+    BorderLight = '#F7F7F7'
 }

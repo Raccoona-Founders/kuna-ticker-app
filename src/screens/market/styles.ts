@@ -13,4 +13,19 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
     },
+    topic: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
+    priceContainer: {
+        padding: 10,
+
+    },
+
+    infoContainer: {
+        padding: 10,
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    }
 });

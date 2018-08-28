@@ -88,3 +88,5 @@ export const styles = StyleSheet.create({
         color: Color.Primary
     }
 });
+
+StyleSheet.

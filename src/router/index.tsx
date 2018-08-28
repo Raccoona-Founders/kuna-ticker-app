@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, SafeAreaView } from 'react-native';
-import { NativeRouter, Route, Switch } from 'react-router-native';
+import { NativeRouter, Redirect, Route, Switch } from 'react-router-native';
 
 import { MainScreen } from 'screens/main';
 import { MarketScreen } from 'screens/market';
 import { Color } from 'styles/variables';
+import { KunaAssetUnit } from "kuna-sdk";
 
 export class ApplicationRouter extends React.PureComponent {
 
@@ -14,8 +15,13 @@ export class ApplicationRouter extends React.PureComponent {
                 <NativeRouter>
                     <View style={styles.container}>
                         <Switch>
-                            <Route path="/" exact component={MainScreen} />
-                            <Route path="/market/:symbol" component={MarketScreen} />
+                            <Route path="/"
+                                   render={() => <Redirect to={`/main/${KunaAssetUnit.UkrainianHryvnia}`}/>}
+                                   exact
+                            />
+
+                            <Route path="/main/:symbol" component={MainScreen}/>
+                            <Route path="/market/:symbol" component={MarketScreen}/>
                         </Switch>
                     </View>
                 </NativeRouter>

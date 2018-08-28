@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         height: 74,
         paddingRight: 20,
         backgroundColor: '#fff',
-        borderBottomColor: '#F7F7F7',
+        borderBottomColor: Color.BorderLight,
         borderBottomWidth: 1,
     },
 

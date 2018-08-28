@@ -14,7 +14,7 @@ export const Topic = (props: TopicProps) => {
         <View style={styles.container}>
             <View style={styles.titleArea}>
                 <View style={styles.titleAreaSide}>{props.leftContent}</View>
-                <Text style={styles.titleText}>{props.title}</Text>
+                <View style={styles.titleText}>{props.title}</View>
                 <View style={styles.titleAreaSide}>{props.rightContent}</View>
             </View>
         </View>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: Color.Background,
         borderBottomWidth: 1,
-        borderBottomColor: '#F7F7F7'
+        borderBottomColor: Color.BorderLight
     },
     titleArea: {
         paddingLeft: 10,

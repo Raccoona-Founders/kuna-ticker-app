@@ -1,40 +1,40 @@
 import React from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
-import { NativeRouter, Redirect, Route, Switch } from 'react-router-native';
-
+import { StyleSheet, SafeAreaView } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 import { MainScreen } from 'screens/main';
 import { MarketScreen } from 'screens/market';
 import { Color } from 'styles/variables';
-import { KunaAssetUnit } from "kuna-sdk";
+import { KunaAssetUnit } from 'kuna-sdk';
+
+const RootStack = createStackNavigator(
+    {
+        Main: {screen: MainScreen},
+        Market: {screen: MarketScreen},
+    }, {
+        initialRouteName: 'Main',
+        initialRouteParams: {
+            symbol: KunaAssetUnit.UkrainianHryvnia,
+        },
+        headerMode: 'none',
+        cardStyle: {
+            shadowOpacity: 0,
+            margin: 0,
+            backgroundColor: Color.Background,
+        },
+    },
+);
 
 export class ApplicationRouter extends React.PureComponent {
-
     public render(): JSX.Element {
         return (
             <SafeAreaView style={styles.safeArea}>
-                <NativeRouter>
-                    <View style={styles.container}>
-                        <Switch>
-                            <Route path="/"
-                                   render={() => <Redirect to={`/main/${KunaAssetUnit.UkrainianHryvnia}`}/>}
-                                   exact
-                            />
-
-                            <Route path="/main/:symbol" component={MainScreen}/>
-                            <Route path="/market/:symbol" component={MarketScreen}/>
-                        </Switch>
-                    </View>
-                </NativeRouter>
+                <RootStack/>
             </SafeAreaView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Color.Background,
-    },
     safeArea: {
         flex: 1,
         backgroundColor: Color.Background,

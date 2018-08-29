@@ -1,6 +1,5 @@
 import React from 'react';
-import Numeral from 'numeral';
-import { Link } from 'react-router-native';
+import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { KunaMarket, KunaTicker } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
@@ -8,20 +7,24 @@ import { Color } from 'styles/variables';
 
 import { MarketNameCell } from './market-name-cell';
 
-type MarketRowProps = {
+type MarketRowProps = NavigationInjectedProps & {
     market: KunaMarket;
     ticker?: KunaTicker;
 };
 
-export const MarketRow = (props: MarketRowProps) => {
-    const {market, ticker} = props;
+export const MarketRow = withNavigation((props: MarketRowProps) => {
+    const {market, ticker, navigation} = props;
+
+    const onPress = () => {
+        if (!ticker) {
+            return;
+        }
+
+        navigation.navigate('Market', {symbol: market.key});
+    };
 
     return (
-        <Link to={ticker ? `/market/${market.key}` : '/'}
-              key={market.key}
-              style={styles.listItemLink}
-              component={TouchableOpacity}
-        >
+        <TouchableOpacity key={market.key} onPress={onPress} style={styles.listItemLink}>
             <View style={styles.listItem}>
                 <MarketNameCell market={market}/>
 
@@ -42,9 +45,9 @@ export const MarketRow = (props: MarketRowProps) => {
                     </View>
                 </View>
             </View>
-        </Link>
+        </TouchableOpacity>
     );
-};
+})
 
 
 const styles = StyleSheet.create({
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     },
 
     tickerCell: {
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
     },
 
     pairBoxText: {
@@ -76,10 +79,10 @@ const styles = StyleSheet.create({
 
     priceBox: {
         flexDirection: 'row',
-        marginBottom: 5
+        marginBottom: 5,
     },
     priceValue: {
-        marginRight: 4
+        marginRight: 4,
     },
     priceLabel: {
         color: Color.TextDarkSecondary,
@@ -87,6 +90,6 @@ const styles = StyleSheet.create({
 
     marketVolume: {
         fontSize: 10,
-        fontWeight: '400'
-    }
+        fontWeight: '400',
+    },
 });

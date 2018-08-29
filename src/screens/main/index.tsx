@@ -1,14 +1,13 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { RouteComponentProps } from 'react-router-native';
 import { map, find, filter } from 'lodash';
-import { connect } from 'react-redux'
 import { ScrollView, View, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { NavigationInjectedProps } from 'react-navigation';
 import { kunaMarketMap, KunaMarket, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
 import { tracker } from 'utils/ga-tracker';
 import { Topic, topicStyles } from 'components/topic';
-
 import { QuoteAssetsTab } from './quote-assets-tab';
 import { MarketRow } from './market-row';
 import { mainStyles } from './styles';
@@ -23,13 +22,11 @@ class MainScreenComponent extends React.PureComponent<MainScreenProps, MainScree
     };
 
     public async componentDidMount(): Promise<void> {
-        const {symbol} = this.props.match.params;
-
-        tracker.trackScreenView(`main/${symbol}`);
+        tracker.trackScreenView(`main/${this.currentSymbol}`);
     }
 
     public render(): JSX.Element {
-        const {symbol} = this.props.match.params;
+        const symbol = this.currentSymbol;
 
         const actualMarketMap = filter(kunaMarketMap, {quoteAsset: symbol});
 
@@ -49,9 +46,13 @@ class MainScreenComponent extends React.PureComponent<MainScreenProps, MainScree
     protected findTicker(market: KunaMarket): KunaTicker | undefined {
         return find(this.props.tickers, {market: market.key});
     }
+
+    protected get currentSymbol(): KunaAssetUnit {
+        return this.props.navigation.getParam('symbol', KunaAssetUnit.UkrainianHryvnia);
+    }
 }
 
-type MainScreenOuterProps = RouteComponentProps<{ symbol: KunaAssetUnit }> & {};
+type MainScreenOuterProps = NavigationInjectedProps & {};
 type ConnectedProps = {
     tickers: Record<string, KunaTicker>;
 }

@@ -3,7 +3,7 @@ import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { RouteComponentProps } from 'react-router-native';
+import { NavigationInjectedProps } from 'react-navigation';
 import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
 
 import { numFormat } from 'utils/number-helper';
@@ -18,7 +18,7 @@ import { styles } from './styles';
 export class MarketScreenComponent extends React.PureComponent<MarketScreenProps> {
 
     public componentDidMount(): void {
-        const {symbol} = this.props.match.params;
+        const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
         tracker.trackScreenView(
@@ -41,8 +41,8 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
     protected renderMarketTicker() {
 
-        const {match, ticker} = this.props;
-        const {symbol} = match.params;
+        const {ticker} = this.props;
+        const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
         const quoteAsset = getAsset(currentMarket.quoteAsset);
@@ -81,8 +81,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
     }
 
     protected renderTopicTitle() {
-        const {match} = this.props;
-        const {symbol} = match.params;
+        const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
         return (
@@ -99,16 +98,21 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         );
     }
 
+    protected get currentSymbol(): string {
+        return this.props.navigation.getParam('symbol');
+    }
+
     protected renderTopicBackButton() {
         return (
-            <TouchableOpacity onPress={() => this.props.history.goBack()}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                 <Text style={styles.backButton}>Back</Text>
             </TouchableOpacity>
         );
     }
 }
 
-type MarketScreenOuterProps = RouteComponentProps<{ symbol: string; }>;
+type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
+
 type ConnectedProps = {
     ticker: KunaTicker;
 }
@@ -116,7 +120,11 @@ type ConnectedProps = {
 type MarketScreenProps = ConnectedProps & MarketScreenOuterProps;
 
 const mapStateToProps = (store: KunaStore, ownProps: MarketScreenProps): ConnectedProps => {
-    const {symbol} = ownProps.match.params;
+    const symbol = ownProps.navigation.getParam('symbol');
+
+    if (!symbol) {
+        throw new Error('No symbol');
+    }
 
     return {
         ticker: store.ticker.tickers[symbol],

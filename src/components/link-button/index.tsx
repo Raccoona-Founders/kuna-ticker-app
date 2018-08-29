@@ -1,17 +1,14 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { TouchableHighlight, Text, RegisteredStyle } from 'react-native';
-import { RouteComponentProps, withRouter, LinkProps, Link, matchPath } from 'react-router-native';
+import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 
 import styles from './link-button-styles';
 
 const LinkButtonComponent = (props: LinkButtonProps) => {
-    const { to, location, exact, children } = props;
+    const {routeName, children, navigation} = props;
 
-    const isActive = matchPath(location.pathname, {
-        path: (typeof to === 'string' ? to : to.pathname) || '/',
-        exact: exact,
-    });
+    const isActive = navigation.state.routes[navigation.state.index].routeName === routeName;
 
     const style: RegisteredStyle<any>[] = [styles.link];
     if (isActive) {
@@ -19,16 +16,17 @@ const LinkButtonComponent = (props: LinkButtonProps) => {
     }
 
     return (
-        <Link to={to} component={TouchableHighlight} underlayColor={null}>
+        <TouchableHighlight onPress={() => props.navigation.navigate(routeName)}>
             <Text style={style}>{children}</Text>
-        </Link>
+        </TouchableHighlight>
     );
 };
 
-export type LinkButtonOuterProps = LinkProps & {
-    exact?: boolean;
+export type LinkButtonOuterProps = {
+    children: string;
+    routeName: string;
 };
 
-export type LinkButtonProps = RouteComponentProps<any> & LinkButtonOuterProps;
+export type LinkButtonProps = NavigationInjectedProps & LinkButtonOuterProps;
 
-export const LinkButton = compose<LinkButtonProps, LinkButtonOuterProps>(withRouter)(LinkButtonComponent);
+export const LinkButton = compose<LinkButtonProps, LinkButtonOuterProps>(withNavigation)(LinkButtonComponent);

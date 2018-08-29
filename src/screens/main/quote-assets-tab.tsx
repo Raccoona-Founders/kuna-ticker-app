@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Link } from 'react-router-native';
 import { KunaAssetUnit } from 'kuna-sdk';
 
 import { quoteAssetsStyles as styles } from './styles';
+import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 
 const quoteAssets = [
     KunaAssetUnit.UkrainianHryvnia,
@@ -13,31 +13,31 @@ const quoteAssets = [
     KunaAssetUnit.GolosGold,
 ];
 
-type QuoteAssetsTabProps = {
+type QuoteAssetsTabProps = NavigationInjectedProps & {
     currentSymbol: KunaAssetUnit;
 };
 
-export const QuoteAssetsTab = (props: QuoteAssetsTabProps) => {
+export const QuoteAssetsTab = withNavigation((props: QuoteAssetsTabProps) => {
+
+    const {currentSymbol, navigation} = props;
+
     return (
         <View style={styles.container}>
             {quoteAssets.map((asset: KunaAssetUnit) => {
-                const isActive = asset === props.currentSymbol;
+                const isActive = asset === currentSymbol;
+
                 return (
-                    <Link key={asset}
-                          to={`/main/${asset}`}
-                          component={TouchableOpacity}
-                          style={[
-                              styles.link,
-                              isActive ? styles.linkActive : {}
-                          ]}
+                    <TouchableOpacity
+                        key={asset}
+                        onPress={() => navigation.navigate('Main', {symbol: asset})}
+                        style={[styles.link, isActive ? styles.linkActive : {}]}
                     >
-                        <Text style={[
-                            styles.text,
-                            isActive ? styles.textActive : {}
-                        ]}>{asset}</Text>
-                    </Link>
+                        <Text style={[styles.text, isActive ? styles.textActive : {}]}>
+                            {asset}
+                        </Text>
+                    </TouchableOpacity>
                 );
             })}
         </View>
     )
-};
+});

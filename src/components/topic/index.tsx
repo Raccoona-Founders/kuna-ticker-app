@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { Color } from 'styles/variables';
 
 type TopicProps = {
-    title: React.ReactNode;
+    title?: React.ReactNode;
     leftContent?: any;
     rightContent?: any;
 };

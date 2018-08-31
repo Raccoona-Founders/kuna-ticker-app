@@ -1,11 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
-
 import { quoteAssetsStyles as styles } from './styles';
-import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 
-const quoteAssets = [
+export const quoteAssets = [
     KunaAssetUnit.UkrainianHryvnia,
     KunaAssetUnit.Bitcoin,
     KunaAssetUnit.StasisEuro,
@@ -13,13 +11,14 @@ const quoteAssets = [
     KunaAssetUnit.GolosGold,
 ];
 
-type QuoteAssetsTabProps = NavigationInjectedProps & {
+type QuoteAssetsTabProps = {
     currentSymbol: KunaAssetUnit;
+    onChooseAsset: (asset: KunaAssetUnit) => void;
 };
 
-export const QuoteAssetsTab = withNavigation((props: QuoteAssetsTabProps) => {
+export const QuoteAssetsTab = (props: QuoteAssetsTabProps) => {
 
-    const {currentSymbol, navigation} = props;
+    const { currentSymbol, onChooseAsset } = props;
 
     return (
         <View style={styles.container}>
@@ -29,7 +28,7 @@ export const QuoteAssetsTab = withNavigation((props: QuoteAssetsTabProps) => {
                 return (
                     <TouchableOpacity
                         key={asset}
-                        onPress={() => navigation.navigate('Main', {symbol: asset})}
+                        onPress={() => onChooseAsset && onChooseAsset(asset)}
                         style={[styles.link, isActive ? styles.linkActive : {}]}
                     >
                         <Text style={[styles.text, isActive ? styles.textActive : {}]}>
@@ -39,5 +38,5 @@ export const QuoteAssetsTab = withNavigation((props: QuoteAssetsTabProps) => {
                 );
             })}
         </View>
-    )
-});
+    );
+};

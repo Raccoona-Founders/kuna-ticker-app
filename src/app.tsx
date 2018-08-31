@@ -3,12 +3,11 @@ import { Store } from 'redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { kunaApiClient, KunaTicker } from 'kuna-sdk';
-
 import SplashScreen from 'react-native-splash-screen';
 
 import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
-import { Ticker } from 'store/actions'
+import { Ticker } from 'store/actions';
 import { Color } from 'styles/variables';
 
 type ApplicationState = {
@@ -23,13 +22,13 @@ export class Application extends React.PureComponent<any, ApplicationState> {
     };
 
     public async componentWillMount(): Promise<void> {
-        this.setState({isStoreLoading: true});
+        this.setState({ isStoreLoading: true });
 
         const store = await initStore();
 
         this.setState({
             isStoreLoading: false,
-            store: store
+            store: store,
         });
 
         SplashScreen.hide();
@@ -44,7 +43,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
     }
 
     public render(): JSX.Element {
-        const {store, isStoreLoading} = this.state;
+        const { store, isStoreLoading } = this.state;
 
         if (!store || isStoreLoading) {
             return (
@@ -56,27 +55,23 @@ export class Application extends React.PureComponent<any, ApplicationState> {
 
         return (
             <Provider store={store}>
-                <ApplicationRouter/>
+                <ApplicationRouter />
             </Provider>
         );
     }
 
 
     protected updateTickers = async (): Promise<void> => {
-
-        const {store} = this.state;
+        const { store } = this.state;
 
         if (!store) {
             return;
         }
 
         const tickers = await kunaApiClient.getTickers();
-        tickers.map((ticker: KunaTicker) => {
-            store.dispatch({
-                type: Ticker.UpdateTicker,
-                marketSymbol: ticker.market,
-                ticker: ticker,
-            });
+        store.dispatch({
+            type: Ticker.BulkUpdateTickers,
+            tickers: tickers,
         });
     };
 }
@@ -89,6 +84,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     loadingText: {
-        color: Color.Primary
-    }
+        color: Color.Primary,
+    },
 });

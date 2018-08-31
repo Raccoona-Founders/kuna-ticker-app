@@ -1,70 +1,89 @@
 import React from 'react';
-import { compose } from 'recompose';
-import { map, find, filter } from 'lodash';
-import { ScrollView, View, Text } from 'react-native';
-import { connect } from 'react-redux';
+import { map, filter, findIndex } from 'lodash';
+import { ScrollView, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
+import Swiper from 'react-native-swiper';
 import { kunaMarketMap, KunaMarket, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
 import { tracker } from 'utils/ga-tracker';
-import { Topic, topicStyles } from 'components/topic';
-import { QuoteAssetsTab } from './quote-assets-tab';
+import { QuoteAssetsTab, quoteAssets } from './quote-assets-tab';
 import { MarketRow } from './market-row';
 import { mainStyles } from './styles';
 
 type MainScreenState = {
     tickers: KunaTicker[];
+    swipeIndex: number;
 };
 
-class MainScreenComponent extends React.PureComponent<MainScreenProps, MainScreenState> {
+export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
     public state: MainScreenState = {
         tickers: [],
+        swipeIndex: 0,
     };
 
-    public async componentDidMount(): Promise<void> {
+    protected swiper?: any;
+
+    public componentDidMount() {
         tracker.trackScreenView(`main/${this.currentSymbol}`);
     }
 
     public render(): JSX.Element {
-        const symbol = this.currentSymbol;
-
-        const actualMarketMap = filter(kunaMarketMap, {quoteAsset: symbol});
+        const { swipeIndex } = this.state;
 
         return (
             <View style={mainStyles.container}>
-                <Topic title={<Text style={topicStyles.titleText}>Kuna Markets</Text>}/>
-                <QuoteAssetsTab currentSymbol={symbol}/>
-                <ScrollView style={mainStyles.flatList}>
-                    {map(actualMarketMap, (market: KunaMarket) => (
-                        <MarketRow market={market} ticker={this.findTicker(market)} key={market.key}/>
-                    ))}
-                </ScrollView>
+                <QuoteAssetsTab
+                    currentSymbol={quoteAssets[swipeIndex]}
+                    onChooseAsset={this.handleChooseAsset}
+                />
+
+                <Swiper
+                    style={mainStyles.swiperWrapper}
+                    showsButtons={false}
+                    showsPagination={false}
+                    autoplay={false}
+                    onIndexChanged={this.onChangeIndex}
+                    ref={(elem: Swiper) => this.swiper = elem}
+                >
+                    {quoteAssets.map((symbol: KunaAssetUnit, index: number) => {
+                        const actualMarketMap = filter(kunaMarketMap, { quoteAsset: symbol });
+
+                        return (
+                            <ScrollView style={mainStyles.flatList} key={index}>
+                                {map(actualMarketMap, (market: KunaMarket) => (
+                                    <MarketRow market={market} key={market.key} />
+                                ))}
+                            </ScrollView>
+                        );
+                    })}
+                </Swiper>
             </View>
         );
-    }
-
-    protected findTicker(market: KunaMarket): KunaTicker | undefined {
-        return find(this.props.tickers, {market: market.key});
     }
 
     protected get currentSymbol(): KunaAssetUnit {
         return this.props.navigation.getParam('symbol', KunaAssetUnit.UkrainianHryvnia);
     }
-}
 
-type MainScreenOuterProps = NavigationInjectedProps & {};
-type ConnectedProps = {
-    tickers: Record<string, KunaTicker>;
-}
+    protected onChangeIndex = (index: number) => {
+        this.setState({ swipeIndex: index });
 
-type MainScreenProps = ConnectedProps & MainScreenOuterProps;
-
-const mapStateToProps = (store: KunaStore): ConnectedProps => {
-    return {
-        tickers: store.ticker.tickers,
+        console.log('onChangeIndex', index);
     };
-};
 
-export const MainScreen = compose<MainScreenProps, MainScreenOuterProps>(
-    connect(mapStateToProps),
-)(MainScreenComponent);
+    protected handleChooseAsset = (symbol: string) => {
+        const { swipeIndex } = this.state;
+        const newIndex = findIndex(quoteAssets, asset => asset === symbol);
+
+        console.log('swipeIndex', swipeIndex);
+        console.log('newIndex', newIndex);
+
+        if (newIndex !== swipeIndex) {
+            console.log('scrollTo', newIndex - swipeIndex);
+            this.swiper.scrollBy(newIndex - swipeIndex);
+            this.setState({ swipeIndex: newIndex });
+        }
+    };
+}
+
+type MainScreenProps = NavigationInjectedProps;

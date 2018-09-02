@@ -11,7 +11,7 @@ export const mainStyles = StyleSheet.create({
     },
 });
 
-export const quoteAssetsStyles = StyleSheet.create({
+export const tabBarStyles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingLeft: 20,

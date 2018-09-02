@@ -1,63 +1,39 @@
 import React from 'react';
-import { map, filter, findIndex } from 'lodash';
-import { ScrollView, View } from 'react-native';
+import { map, filter } from 'lodash';
+import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import Swiper from 'react-native-swiper';
-import { kunaMarketMap, KunaMarket, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
-
+import { TabView, Scene, SceneRendererProps } from 'react-native-tab-view';
+import { kunaMarketMap, KunaMarket, KunaAssetUnit } from 'kuna-sdk';
 import { tracker } from 'utils/ga-tracker';
-import { QuoteAssetsTab, quoteAssets } from './quote-assets-tab';
+
+import { quoteAssets, AssetTab } from './quote-assets-tab';
 import { MarketRow } from './market-row';
-import { mainStyles } from './styles';
+import { mainStyles, tabBarStyles } from './styles';
 
 type MainScreenState = {
-    tickers: KunaTicker[];
-    swipeIndex: number;
+    index: number;
+    routes: any[];
 };
 
 export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
     public state: MainScreenState = {
-        tickers: [],
-        swipeIndex: 0,
+        index: 0,
+        routes: quoteAssets,
     };
-
-    protected swiper?: any;
 
     public componentDidMount() {
         tracker.trackScreenView(`main/${this.currentSymbol}`);
     }
 
     public render(): JSX.Element {
-        const { swipeIndex } = this.state;
-
         return (
-            <View style={mainStyles.container}>
-                <QuoteAssetsTab
-                    currentSymbol={quoteAssets[swipeIndex]}
-                    onChooseAsset={this.handleChooseAsset}
-                />
-
-                <Swiper
-                    style={mainStyles.swiperWrapper}
-                    showsButtons={false}
-                    showsPagination={false}
-                    autoplay={false}
-                    onIndexChanged={this.onChangeIndex}
-                    ref={(elem: Swiper) => this.swiper = elem}
-                >
-                    {quoteAssets.map((symbol: KunaAssetUnit, index: number) => {
-                        const actualMarketMap = filter(kunaMarketMap, { quoteAsset: symbol });
-
-                        return (
-                            <ScrollView style={mainStyles.flatList} key={index}>
-                                {map(actualMarketMap, (market: KunaMarket) => (
-                                    <MarketRow market={market} key={market.key} />
-                                ))}
-                            </ScrollView>
-                        );
-                    })}
-                </Swiper>
-            </View>
+            <TabView
+                navigationState={this.state}
+                renderScene={this.renderScene}
+                renderTabBar={this.renderTabBar}
+                style={mainStyles.container}
+                onIndexChange={this.onChangeIndex}
+            />
         );
     }
 
@@ -66,23 +42,47 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     }
 
     protected onChangeIndex = (index: number) => {
-        this.setState({ swipeIndex: index });
-
         console.log('onChangeIndex', index);
+        this.setState({index: index});
     };
 
-    protected handleChooseAsset = (symbol: string) => {
-        const { swipeIndex } = this.state;
-        const newIndex = findIndex(quoteAssets, asset => asset === symbol);
+    protected renderScene = (props: Scene<AssetTab>) => {
+        const {route} = props;
 
-        console.log('swipeIndex', swipeIndex);
-        console.log('newIndex', newIndex);
+        const actualMarketMap = filter(kunaMarketMap, {quoteAsset: route.key});
 
-        if (newIndex !== swipeIndex) {
-            console.log('scrollTo', newIndex - swipeIndex);
-            this.swiper.scrollBy(newIndex - swipeIndex);
-            this.setState({ swipeIndex: newIndex });
-        }
+        return (
+            <ScrollView style={mainStyles.flatList}>
+                {map(actualMarketMap, (market: KunaMarket) => (
+                    <MarketRow market={market} key={market.key}/>
+                ))}
+            </ScrollView>
+        );
+    };
+
+    protected renderTabBar = (props: SceneRendererProps<AssetTab>) => {
+        const {navigationState} = props;
+
+        return (
+            <View style={tabBarStyles.container}>
+                {navigationState.routes.map((route: AssetTab, i: number) => {
+
+                    const isActive = props.navigationState.index === i;
+
+                    return (
+                        <TouchableOpacity
+                            style={[tabBarStyles.link, isActive ? tabBarStyles.linkActive : {}]}
+                            onPress={() => this.setState({index: i})}
+                            key={i}
+                        >
+                            <Text style={[tabBarStyles.text, isActive ? tabBarStyles.textActive : {}]}>
+                                {route.title}
+                            </Text>
+                        </TouchableOpacity>
+                    )
+                })}
+            </View>
+        );
     };
 }
 

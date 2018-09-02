@@ -23,9 +23,8 @@
         "react-native-splash-screen": "3.1.1",
         "react-native-svg": "6.5.2",
         "react-native-svg-icon": "0.8.1",
-        "react-native-swiper": "^1.5.13",
-        "react-native-tab-view": "^1.0.2",
-        "react-navigation": "^2.12.1",
+        "react-native-tab-view": "1.0.2",
+        "react-navigation": "2.12.1",
         "react-redux": "5.0.7",
         "recompose": "0.28.2",
         "redux": "4.0.0"

@@ -23,14 +23,12 @@ export const Topic = (props: TopicProps) => {
 
 export const topicStyles = StyleSheet.create({
     container: {
-        height: 50,
+        height: 44,
         backgroundColor: Color.Background,
-        borderBottomWidth: 1,
-        borderBottomColor: Color.BorderLight,
     },
     titleArea: {
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',

@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native'
 import { Color } from 'styles/variables';
 
 export const styles = StyleSheet.create({
-    marketInfoContainer: {},
+    marketInfoContainer: {
+        paddingTop: 10,
+    },
     backButton: {
         color: Color.Primary,
         fontSize: 16,
@@ -13,37 +15,61 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
     },
     topic: {
+        paddingLeft: 20,
+        paddingRight: 20,
+        marginBottom: 20,
         flexDirection: 'row',
-        alignItems: 'center'
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    topicAsset: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    topicAssetName: {},
+    topicAssetText: {
+        fontSize: 20,
+        fontWeight: '500',
+    },
+    topicAssetSubtext: {
+        marginTop: 5,
+        fontSize: 14,
+        color: Color.TextSecondary,
+    },
+    topicAssetSubtextName: {
+        fontWeight: '600',
     },
 
     priceContainer: {
-        padding: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: Color.BorderLight
-    },
-
-    priceText: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-end'
+        flexWrap: 'wrap',
+        paddingLeft: 20,
+        paddingRight: 20,
+        marginBottom: 20,
+    },
+    priceTopic: {
+        color: Color.TextSecondary,
+        fontSize: 14,
+        textTransform: 'uppercase',
+        marginBottom: 5,
+        width: '100%',
     },
     priceTextValue: {
-        lineHeight: 24,
-        fontSize: 24,
+        lineHeight: 28,
+        fontSize: 28,
         fontWeight: '500',
-        color: Color.Primary
+        color: Color.Primary,
     },
     priceTextAsset: {
-        lineHeight: 22,
-        marginLeft: 5
+        lineHeight: 30,
+        marginLeft: 5,
     },
 
     infoContainer: {
-        padding: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        marginTop: 20,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        borderBottomWidth: 1,
-        borderBottomColor: Color.BorderLight
-    }
+    },
 });

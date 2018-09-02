@@ -3674,9 +3674,9 @@ kleur@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-2.0.1.tgz#7cc64b0d188d0dcbc98bdcdfdda2cc10619ddce8"
 
-kuna-sdk@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/kuna-sdk/-/kuna-sdk-0.2.0.tgz#b60ec0595cdfadfae2978dc9a79c405d9048f1c1"
+kuna-sdk@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/kuna-sdk/-/kuna-sdk-0.2.1.tgz#1c0a22b72559f89fae4bda1d11d0f9ada2e2703b"
   dependencies:
     axios "0.18.0"
     debug "^3.1.0"

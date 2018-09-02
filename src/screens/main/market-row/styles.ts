@@ -30,17 +30,19 @@ export const styles = StyleSheet.create({
 
     priceBox: {
         flexDirection: 'row',
-        marginBottom: 5,
     },
     priceValue: {
+        fontSize: 18,
         marginRight: 4,
     },
     priceLabel: {
+        fontSize: 18,
         color: Color.TextDarkSecondary,
     },
 
     marketVolume: {
-        fontSize: 10,
+        marginTop: 5,
+        fontSize: 12,
         fontWeight: '400',
     },
 });

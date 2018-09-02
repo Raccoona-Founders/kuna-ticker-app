@@ -23,11 +23,11 @@ const styles = StyleSheet.create({
     },
     topic: {
         color: Color.TextSecondary,
-        fontSize: 12,
+        fontSize: 14,
         textTransform: 'uppercase',
         marginBottom: 5
     },
     value: {
-        fontSize: 16,
+        fontSize: 18,
     }
 });

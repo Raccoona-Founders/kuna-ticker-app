@@ -4,6 +4,10 @@ import { Color } from 'styles/variables';
 export const styles = StyleSheet.create({
     container: {
         padding: 20,
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderBottomColor: Color.BorderLight,
+        borderTopColor: Color.BorderLight,
     },
 
     calcWrapper: {

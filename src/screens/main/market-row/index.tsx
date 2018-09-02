@@ -1,4 +1,5 @@
 import React from 'react';
+import Numeral from 'numeral';
 import { find } from 'lodash';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -11,20 +12,20 @@ import { MarketNameCell } from './market-name-cell';
 import { styles } from './styles';
 
 const MarketRowComponent = (props: MarketRowProps) => {
-    const { market, ticker, navigation } = props;
+    const {market, ticker, navigation} = props;
 
     const onPress = () => {
         if (!ticker) {
             return;
         }
 
-        navigation.navigate('Market', { symbol: market.key });
+        navigation.navigate('Market', {symbol: market.key});
     };
 
     return (
         <TouchableOpacity key={market.key} onPress={onPress} style={styles.listItemLink}>
             <View style={styles.listItem}>
-                <MarketNameCell market={market} />
+                <MarketNameCell market={market}/>
 
                 <View style={styles.tickerCell}>
                     <View style={styles.priceBox}>
@@ -37,7 +38,9 @@ const MarketRowComponent = (props: MarketRowProps) => {
                     <View>
                         <Text style={styles.marketVolume}>
                             {ticker ? (
-                                <>VOL: {numFormat(ticker.vol)} {market.baseAsset}</>
+                                <>
+                                    VOL: {Numeral(ticker.vol).multiply(ticker.last).format('0,0.[00]')}
+                                </>
                             ) : '--'}
                         </Text>
                     </View>
@@ -59,7 +62,7 @@ type MarketRowProps = NavigationInjectedProps & MarketRowOuterProps & ConnectedP
 
 const mapStateToProps = (store: KunaStore, ownProps: MarketRowOuterProps): ConnectedProps => {
     return {
-        ticker: find(store.ticker.tickers, { market: ownProps.market.key }),
+        ticker: find(store.ticker.tickers, {market: ownProps.market.key}),
     };
 };
 

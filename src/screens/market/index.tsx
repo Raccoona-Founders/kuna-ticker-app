@@ -9,7 +9,7 @@ import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
 import { tracker } from 'utils/ga-tracker';
 import { CoinIcon } from 'components/coin-icon';
-import { Topic, topicStyles } from 'components/topic';
+import { Topic } from 'components/topic';
 
 import { Calculator } from './calculator';
 import { InfoUnit } from './info-unit';
@@ -32,7 +32,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
         return (
             <View style={{flex: 1}}>
-                <Topic title={this.renderTopicTitle()} leftContent={this.renderTopicBackButton()}/>
+                <Topic leftContent={this.renderTopicBackButton()}/>
                 {ticker ? this.renderMarketTicker() : ''}
             </View>
         );
@@ -50,12 +50,33 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
         return (
             <View style={styles.marketInfoContainer}>
-                <View style={styles.priceContainer}>
-                    <View style={styles.priceText}>
-                        <Text style={styles.priceTextValue}>{numFormat(ticker.last, currentMarket.format)}</Text>
-                        <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
+
+                <View style={styles.topic}>
+                    <View style={styles.topicAsset}>
+                        <CoinIcon asset={getAsset(currentMarket.baseAsset)}
+                                  size={48}
+                                  style={{marginRight: 20}}
+                        />
+                        <View>
+                            <Text style={styles.topicAssetText}>
+                                {currentMarket.baseAsset} / {currentMarket.quoteAsset}
+                            </Text>
+                            <Text style={styles.topicAssetSubtext}>
+                                <Text style={styles.topicAssetSubtextName}>{baseAsset.name}</Text>
+                                <Text> to </Text>
+                                <Text style={styles.topicAssetSubtextName}>{quoteAsset.name}</Text>
+                            </Text>
+                        </View>
                     </View>
                 </View>
+
+                <View style={styles.priceContainer}>
+                    <Text style={styles.priceTopic}>Price for 1 {baseAsset.key}</Text>
+                    <Text style={styles.priceTextValue}>{numFormat(ticker.last, currentMarket.format)}</Text>
+                    <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
+                </View>
+
+                {ticker.last ? <Calculator market={currentMarket} ticker={ticker}/> : undefined}
 
                 <View style={styles.infoContainer}>
                     <InfoUnit topic={`Volume ${baseAsset.key}`}
@@ -74,28 +95,8 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                               value={numFormat(ticker.high, quoteAsset.format)}
                     />
                 </View>
-
-                {ticker.last ? <Calculator market={currentMarket} ticker={ticker}/> : undefined}
             </View>
         )
-    }
-
-    protected renderTopicTitle() {
-        const symbol = this.currentSymbol;
-        const currentMarket = kunaMarketMap[symbol];
-
-        return (
-            <View style={styles.topic}>
-                <CoinIcon asset={getAsset(currentMarket.baseAsset)}
-                          size={20}
-                          style={{marginRight: 6}}
-                          withShadow={false}
-                />
-                <Text style={topicStyles.titleText}>
-                    {currentMarket.baseAsset} / {currentMarket.quoteAsset}
-                </Text>
-            </View>
-        );
     }
 
     protected get currentSymbol(): string {

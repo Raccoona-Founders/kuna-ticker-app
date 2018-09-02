@@ -34,10 +34,11 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
         return (
 
             <View style={styles.container}>
-                <Text style={styles.topic}>Calculator</Text>
+                <Text style={styles.topic}>Calculate your order</Text>
                 <View style={styles.calcWrapper}>
                     <View style={styles.valueInputContainer}>
                         <TextInput value={value}
+                                   placeholder="0.00"
                                    onChangeText={this.changeTextInput}
                                    keyboardType="numeric"
                                    returnKeyType="done"

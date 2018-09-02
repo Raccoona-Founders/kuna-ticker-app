@@ -14,11 +14,16 @@ export const MarketNameCell = (props: MarketNameProps) => {
 
     return (
         <View style={styles.container}>
-            <CoinIcon size={32} asset={baseAsset} style={{marginRight: 20}}/>
-            <View style={styles.marketRow}>
-                <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{props.market.baseAsset}</Text>
-                <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
-                <Text style={[styles.pairBoxText, styles.pairBoxQuote]}>{props.market.quoteAsset}</Text>
+            <CoinIcon size={45} asset={baseAsset} style={{marginRight: 20}}/>
+            <View>
+                <View style={styles.marketRow}>
+                    <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{props.market.baseAsset}</Text>
+                    <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
+                    <Text style={[styles.pairBoxText, styles.pairBoxQuote]}>{props.market.quoteAsset}</Text>
+                </View>
+                <View style={styles.baseAssetName}>
+                    <Text style={styles.baseAssetNameText}>{baseAsset.name}</Text>
+                </View>
             </View>
         </View>
     )
@@ -37,21 +42,27 @@ const styles = StyleSheet.create({
 
     pairBoxText: {
         color: Color.Dark,
-        fontSize: 16,
-        fontWeight: '300',
-        lineHeight: 16,
+        fontSize: 18,
+        fontWeight: '400',
+        lineHeight: 18,
     },
     pairBoxBase: {},
     pairBoxSeparator: {
         marginLeft: 2,
         marginRight: 2,
         color: Color.TextDarkSecondary,
-        fontSize: 10,
+        fontSize: 12,
         textAlignVertical: 'bottom',
     },
     pairBoxQuote: {
-        fontSize: 10,
+        fontSize: 12,
         color: Color.TextDarkSecondary,
         textAlignVertical: 'bottom',
+    },
+    baseAssetName: {
+        marginTop: 5,
+    },
+    baseAssetNameText: {
+        color: Color.TextSecondary,
     },
 });

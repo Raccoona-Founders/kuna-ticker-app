@@ -21,7 +21,7 @@ export const CoinIcon = (props: CoinIconProps) => {
         height: size,
         width: size,
         borderRadius: size / 4,
-        backgroundColor: asset.color
+        backgroundColor: asset.color,
     };
 
     const existsIcon = findIcon(asset);
@@ -37,7 +37,7 @@ export const CoinIcon = (props: CoinIconProps) => {
                 />
             </View>
         ) : (
-            <View style={[coinIconStyle, style, styles.onlySymbolView]}>
+            <View style={[coinIconStyle, style, styles.onlySymbolView, withShadow ? coinShadow : {}]}>
                 <Text style={[styles.onlySymbolText, {fontSize: size * 0.625}]}>
                     {asset.name.charAt(0).toUpperCase()}
                 </Text>
@@ -49,10 +49,10 @@ export const CoinIcon = (props: CoinIconProps) => {
 const styles = StyleSheet.create({
     onlySymbolView: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     onlySymbolText: {
         fontWeight: '700',
-        color: '#fff'
-    }
+        color: '#fff',
+    },
 });

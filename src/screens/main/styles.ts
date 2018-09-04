@@ -13,25 +13,35 @@ export const mainStyles = StyleSheet.create({
 
 export const tabBarStyles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
         paddingLeft: 20,
         paddingRight: 20,
+    },
+
+    tabBar: {
+        flexDirection: 'row',
         height: 60,
         alignItems: 'center',
     },
-    link: {
+    tab: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: 35,
+        height: 60,
         marginRight: 30,
     },
-    linkActive: {
-    },
     text: {
-        fontSize: 18,
-        color: Color.TextDarkSecondary,
+        alignItems: 'center',
+        color: Color.TextSecondary,
+        fontWeight: '600',
     },
-    textActive: {
-        color: Color.Primary
+
+    // Info bar
+    infoBar: {
+        height: 40,
+        paddingBottom: 10,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+
+        borderBottomWidth: 1,
+        borderBottomColor: Color.BorderLight,
     },
 });

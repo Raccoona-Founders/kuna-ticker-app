@@ -1,18 +1,20 @@
 import React from 'react';
-import { map, filter } from 'lodash';
-import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
+import { map, filter, sum } from 'lodash';
+import { ScrollView, View, Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { TabView, Scene, SceneRendererProps } from 'react-native-tab-view';
-import { kunaMarketMap, KunaMarket, KunaAssetUnit } from 'kuna-sdk';
+import { kunaMarketMap, KunaMarket, KunaAssetUnit, getAsset } from 'kuna-sdk';
 import { tracker } from 'utils/ga-tracker';
 
-import { quoteAssets, AssetTab } from './quote-assets-tab';
+import { quoteAssets, AssetRoute, QuoteTabItem } from './tab-bar';
 import { MarketRow } from './market-row';
+import { InfoBar } from './info-bar';
 import { mainStyles, tabBarStyles } from './styles';
+import { Color } from 'styles/variables';
 
 type MainScreenState = {
     index: number;
-    routes: any[];
+    routes: AssetRoute[];
 };
 
 export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
@@ -46,10 +48,8 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         this.setState({index: index});
     };
 
-    protected renderScene = (props: Scene<AssetTab>) => {
-        const {route} = props;
-
-        const actualMarketMap = filter(kunaMarketMap, {quoteAsset: route.key});
+    protected renderScene = (props: Scene<AssetRoute>) => {
+        const actualMarketMap = this.getMarketMap(props.route);
 
         return (
             <ScrollView style={mainStyles.flatList}>
@@ -60,30 +60,45 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         );
     };
 
-    protected renderTabBar = (props: SceneRendererProps<AssetTab>) => {
+    protected renderTabBar = (props: SceneRendererProps<AssetRoute>) => {
         const {navigationState} = props;
+
+        const inputRange = navigationState.routes.map((x, i) => i);
+
+        const currentRoute = navigationState.routes[navigationState.index];
+        const actualMarketMap = this.getMarketMap(currentRoute);
+
+        const interpolate = (index: number) => {
+            return (active: any, inactive: any) => {
+                return props.position.interpolate({
+                    inputRange: inputRange,
+                    outputRange: inputRange.map(
+                        inputIndex => (inputIndex === index ? active : inactive),
+                    ),
+                });
+            }
+        };
 
         return (
             <View style={tabBarStyles.container}>
-                {navigationState.routes.map((route: AssetTab, i: number) => {
-
-                    const isActive = props.navigationState.index === i;
-
-                    return (
-                        <TouchableOpacity
-                            style={[tabBarStyles.link, isActive ? tabBarStyles.linkActive : {}]}
+                <View style={tabBarStyles.tabBar}>
+                    {navigationState.routes.map((route: AssetRoute, i: number) => (
+                        <QuoteTabItem
+                            interpolate={interpolate(i)}
+                            key={route.key}
+                            isActive={navigationState.index === i}
+                            asset={getAsset(route.key)}
                             onPress={() => this.setState({index: i})}
-                            key={i}
-                        >
-                            <Text style={[tabBarStyles.text, isActive ? tabBarStyles.textActive : {}]}>
-                                {route.title}
-                            </Text>
-                        </TouchableOpacity>
-                    )
-                })}
+                        />
+                    ))}
+                </View>
             </View>
         );
     };
+
+    protected getMarketMap = (route: AssetRoute): KunaMarket[] => {
+        return filter(kunaMarketMap, {quoteAsset: route.key});
+    }
 }
 
 type MainScreenProps = NavigationInjectedProps;

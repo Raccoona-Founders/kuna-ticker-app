@@ -19,15 +19,16 @@ export const InfoUnit = (props: InfoUnitProps) => {
 const styles = StyleSheet.create({
     container: {
         width: '50%',
-        marginBottom: 20
+        marginBottom: 20,
     },
     topic: {
         color: Color.TextSecondary,
         fontSize: 14,
-        textTransform: 'uppercase',
-        marginBottom: 5
+        marginBottom: 5,
+        fontWeight: '500',
     },
     value: {
         fontSize: 18,
+        fontWeight: '500',
     }
 });

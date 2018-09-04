@@ -9,6 +9,7 @@ import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
 import { Ticker } from 'store/actions';
 import { Color } from 'styles/variables';
+import { getUahRate } from 'utils/external';
 
 type ApplicationState = {
     isStoreLoading: boolean;
@@ -22,7 +23,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
     };
 
     public async componentWillMount(): Promise<void> {
-        this.setState({ isStoreLoading: true });
+        this.setState({isStoreLoading: true});
 
         const store = await initStore();
 
@@ -36,14 +37,22 @@ export class Application extends React.PureComponent<any, ApplicationState> {
         try {
             await this.updateTickers();
 
-            setTimeout(this.updateTickers, 10 * 60 * 1000);
+            setInterval(this.updateTickers, 10 * 60 * 1000);
+        } catch (error) {
+
+        }
+
+        try {
+            await this.updateUsdRate();
+
+            setInterval(this.updateUsdRate, 4 * 60 * 60 * 1000);
         } catch (error) {
 
         }
     }
 
     public render(): JSX.Element {
-        const { store, isStoreLoading } = this.state;
+        const {store, isStoreLoading} = this.state;
 
         if (!store || isStoreLoading) {
             return (
@@ -55,14 +64,14 @@ export class Application extends React.PureComponent<any, ApplicationState> {
 
         return (
             <Provider store={store}>
-                <ApplicationRouter />
+                <ApplicationRouter/>
             </Provider>
         );
     }
 
 
     protected updateTickers = async (): Promise<void> => {
-        const { store } = this.state;
+        const {store} = this.state;
 
         if (!store) {
             return;
@@ -74,6 +83,21 @@ export class Application extends React.PureComponent<any, ApplicationState> {
             tickers: tickers,
         });
     };
+
+    protected updateUsdRate = async (): Promise<void> => {
+        const {store} = this.state;
+
+        if (!store) {
+            return;
+        }
+
+        const rate = await getUahRate();
+
+        store.dispatch({
+            type: Ticker.UpdateUSDRate,
+            rate: rate,
+        });
+    }
 }
 
 export const styles = StyleSheet.create({

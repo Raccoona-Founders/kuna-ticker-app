@@ -6,7 +6,6 @@ import { MarketScreen } from 'screens/market';
 import { Color } from 'styles/variables';
 import { KunaAssetUnit } from 'kuna-sdk';
 
-
 const RootStack = createStackNavigator(
     {
         Main: {screen: MainScreen},

@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     priceContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        fontWeight: '500',
         paddingLeft: 20,
         paddingRight: 20,
         marginBottom: 20,
@@ -50,8 +51,8 @@ export const styles = StyleSheet.create({
     priceTopic: {
         color: Color.TextSecondary,
         fontSize: 14,
-        textTransform: 'uppercase',
         marginBottom: 5,
+        fontWeight: '500',
         width: '100%',
     },
     priceTextValue: {

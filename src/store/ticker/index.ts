@@ -6,6 +6,7 @@ import { Ticker } from 'store/actions';
 export const initialTickerStore: StoreTicker = {
     updating: false,
     tickers: {},
+    usdRate: 28,
 };
 
 export const tickerReducer = (tickerStore: StoreTicker = initialTickerStore, action: AnyAction): StoreTicker => {
@@ -15,8 +16,8 @@ export const tickerReducer = (tickerStore: StoreTicker = initialTickerStore, act
                 ...tickerStore,
                 tickers: {
                     ...tickerStore.tickers,
-                    [action.marketSymbol]: action.ticker
-                }
+                    [action.marketSymbol]: action.ticker,
+                },
             };
         }
 
@@ -31,9 +32,16 @@ export const tickerReducer = (tickerStore: StoreTicker = initialTickerStore, act
                 ...tickerStore,
                 tickers: {
                     ...tickerStore.tickers,
-                    ...newTickers
-                }
+                    ...newTickers,
+                },
             };
+        }
+
+        case Ticker.UpdateUSDRate: {
+            return {
+                ...tickerStore,
+                usdRate: action.rate,
+            }
         }
     }
 

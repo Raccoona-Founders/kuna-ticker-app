@@ -8,6 +8,7 @@ declare global {
     type StoreTicker = {
         updating: boolean;
         tickers: Record<string, KunaTicker>;
+        usdRate: number;
     };
 }
 

@@ -21,14 +21,17 @@ export const tabBarStyles = StyleSheet.create({
         flexDirection: 'row',
         height: 60,
         alignItems: 'center',
+        justifyContent: 'center',
     },
     tab: {
         flexDirection: 'row',
         alignItems: 'center',
         height: 60,
-        marginRight: 30,
+        marginRight: 15,
+        marginLeft: 15,
     },
     text: {
+        fontSize: 18,
         alignItems: 'center',
         color: Color.TextSecondary,
         fontWeight: '600',

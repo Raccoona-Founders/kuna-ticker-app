@@ -65,9 +65,6 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
 
         const inputRange = navigationState.routes.map((x, i) => i);
 
-        const currentRoute = navigationState.routes[navigationState.index];
-        const actualMarketMap = this.getMarketMap(currentRoute);
-
         const interpolate = (index: number) => {
             return (active: any, inactive: any) => {
                 return props.position.interpolate({

@@ -30,7 +30,9 @@ export const QuoteTabItem = (props: QuoteTabItemProps) => {
 
     const animatedStyle = {
         color: interpolate(Color.Dark, Color.TextSecondary),
-        fontSize: interpolate(20, 14),
+        transform: [{
+            scale: interpolate(1, 0.8),
+        }],
     };
 
     return (

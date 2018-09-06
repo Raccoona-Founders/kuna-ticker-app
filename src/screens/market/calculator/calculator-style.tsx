@@ -16,9 +16,10 @@ export const styles = StyleSheet.create({
     },
 
     topic: {
-        fontSize: 16,
+        fontSize: 14,
         marginBottom: 10,
-        color: Color.TextDarkSecondary,
+        fontWeight: '500',
+        color: Color.TextSecondary,
     },
 
     reversButton: {

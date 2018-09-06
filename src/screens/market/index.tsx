@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
+import { getAsset, kunaMarketMap, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
 import { numFormat } from 'utils/number-helper';
 import { tracker } from 'utils/ga-tracker';
@@ -41,7 +41,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
     protected renderMarketTicker() {
 
-        const {ticker} = this.props;
+        const {ticker, usdRate} = this.props;
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
@@ -71,9 +71,17 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                 </View>
 
                 <View style={styles.priceContainer}>
-                    <Text style={styles.priceTopic}>Price for 1 {baseAsset.key}</Text>
-                    <Text style={styles.priceTextValue}>{numFormat(ticker.last, currentMarket.format)}</Text>
-                    <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
+                    <View style={styles.priceMarketContainer}>
+                        <Text style={styles.priceTopic}>Price for 1 {baseAsset.key}</Text>
+                        <Text style={styles.priceTextValue}>{numFormat(ticker.last, currentMarket.format)}</Text>
+                        <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
+                    </View>
+
+                    {quoteAsset.key === KunaAssetUnit.UkrainianHryvnia && (
+                        <Text style={styles.priceUsd}>
+                            $ {Numeral(ticker.last).divide(usdRate).format('0,0.[00]')}
+                        </Text>
+                    )}
                 </View>
 
                 {ticker.last ? <Calculator market={currentMarket} ticker={ticker}/> : undefined}
@@ -116,6 +124,7 @@ type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
 
 type ConnectedProps = {
     ticker: KunaTicker;
+    usdRate: number;
 }
 
 type MarketScreenProps = ConnectedProps & MarketScreenOuterProps;
@@ -129,6 +138,7 @@ const mapStateToProps = (store: KunaStore, ownProps: MarketScreenProps): Connect
 
     return {
         ticker: store.ticker.tickers[symbol],
+        usdRate: store.ticker.usdRate,
     };
 };
 

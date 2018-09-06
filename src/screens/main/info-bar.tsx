@@ -15,7 +15,7 @@ const InfoBarComponent = (props: InfoBarProps) => {
 
     return (
         <View style={tabBarStyles.infoBar}>
-            <Text>Volume 24h  ({asset})</Text>
+            <Text>Volume 24h ({asset})</Text>
         </View>
     );
 };

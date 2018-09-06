@@ -42,11 +42,24 @@ export const styles = StyleSheet.create({
 
     priceContainer: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        fontWeight: '500',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
         paddingLeft: 20,
         paddingRight: 20,
         marginBottom: 20,
+    },
+    priceMarketContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        fontWeight: '500',
+        flex: 1,
+    },
+    priceUsd: {
+        textAlign: 'right',
+        fontSize: 24,
+        fontWeight: '500',
+        color: Color.TextDarkSecondary,
+        flex: 1,
     },
     priceTopic: {
         color: Color.TextSecondary,
@@ -56,13 +69,13 @@ export const styles = StyleSheet.create({
         width: '100%',
     },
     priceTextValue: {
-        lineHeight: 28,
-        fontSize: 28,
+        lineHeight: 24,
+        fontSize: 24,
         fontWeight: '500',
         color: Color.Primary,
     },
     priceTextAsset: {
-        lineHeight: 30,
+        lineHeight: 24,
         marginLeft: 5,
     },
 

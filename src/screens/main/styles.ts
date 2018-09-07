@@ -8,6 +8,7 @@ export const mainStyles = StyleSheet.create({
     },
     flatList: {
         flex: 1,
+        backgroundColor: Color.Background,
     },
 });
 
@@ -27,11 +28,11 @@ export const tabBarStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         height: 60,
-        marginRight: 15,
-        marginLeft: 15,
+        marginRight: 12,
+        marginLeft: 12,
     },
     text: {
-        fontSize: 18,
+        fontSize: 20,
         alignItems: 'center',
         color: Color.TextSecondary,
         fontWeight: '600',

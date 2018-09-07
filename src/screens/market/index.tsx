@@ -8,6 +8,7 @@ import { getAsset, kunaMarketMap, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
 import { numFormat } from 'utils/number-helper';
 import { tracker } from 'utils/ga-tracker';
+import { Layout } from 'components/layout';
 import { CoinIcon } from 'components/coin-icon';
 import { Topic } from 'components/topic';
 
@@ -31,10 +32,10 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         const {ticker} = this.props;
 
         return (
-            <View style={{flex: 1}}>
+            <Layout>
                 <Topic leftContent={this.renderTopicBackButton()}/>
                 {ticker ? this.renderMarketTicker() : ''}
-            </View>
+            </Layout>
         );
     }
 

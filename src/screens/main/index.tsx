@@ -5,12 +5,12 @@ import { NavigationInjectedProps } from 'react-navigation';
 import { TabView, Scene, SceneRendererProps } from 'react-native-tab-view';
 import { kunaMarketMap, KunaMarket, KunaAssetUnit, getAsset } from 'kuna-sdk';
 import { tracker } from 'utils/ga-tracker';
+import { Layout } from 'components/layout';
 
 import { quoteAssets, AssetRoute, QuoteTabItem } from './tab-bar';
 import { MarketRow } from './market-row';
 import { InfoBar } from './info-bar';
 import { mainStyles, tabBarStyles } from './styles';
-import { Color } from 'styles/variables';
 
 type MainScreenState = {
     index: number;
@@ -29,13 +29,15 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
 
     public render(): JSX.Element {
         return (
-            <TabView
-                navigationState={this.state}
-                renderScene={this.renderScene}
-                renderTabBar={this.renderTabBar}
-                style={mainStyles.container}
-                onIndexChange={this.onChangeIndex}
-            />
+            <Layout>
+                <TabView
+                    navigationState={this.state}
+                    renderScene={this.renderScene}
+                    renderTabBar={this.renderTabBar}
+                    style={mainStyles.container}
+                    onIndexChange={this.onChangeIndex}
+                />
+            </Layout>
         );
     }
 
@@ -44,7 +46,6 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     }
 
     protected onChangeIndex = (index: number) => {
-        console.log('onChangeIndex', index);
         this.setState({index: index});
     };
 

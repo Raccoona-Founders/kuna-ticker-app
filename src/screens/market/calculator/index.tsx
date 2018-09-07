@@ -32,7 +32,6 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
         const {market} = this.props;
 
         return (
-
             <View style={styles.container}>
                 <Text style={styles.topic}>Calculate your order</Text>
                 <View style={styles.calcWrapper}>

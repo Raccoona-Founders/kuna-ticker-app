@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     marketVolume: {
         marginTop: 5,
         fontSize: 12,
-        fontWeight: '400',
+        fontWeight: '500',
+        color: Color.TextSecondary,
     },
 });

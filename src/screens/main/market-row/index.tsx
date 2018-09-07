@@ -39,7 +39,7 @@ const MarketRowComponent = (props: MarketRowProps) => {
                         <Text style={styles.marketVolume}>
                             {ticker ? (
                                 <>
-                                    VOL: {Numeral(ticker.vol).multiply(ticker.last).format('0,0.[00]')}
+                                    Volume: {Numeral(ticker.vol).multiply(ticker.last).format('0,0.[00]')}
                                 </>
                             ) : '--'}
                         </Text>

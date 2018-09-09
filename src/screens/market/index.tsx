@@ -96,11 +96,11 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                               value={numFormat(Numeral(ticker.vol).multiply(ticker.last))}
                     />
 
-                    <InfoUnit topic="Low Price"
+                    <InfoUnit topic="24H Low"
                               value={numFormat(ticker.low, quoteAsset.format)}
                     />
 
-                    <InfoUnit topic="High Price"
+                    <InfoUnit topic="24H High"
                               value={numFormat(ticker.high, quoteAsset.format)}
                     />
                 </View>

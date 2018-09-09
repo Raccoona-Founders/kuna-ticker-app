@@ -12,15 +12,18 @@ export const Layout = (props: LayoutProps) => {
     const {style, children} = props;
 
     return (
-        <SafeAreaView style={[styles.safeArea, style]}>
+        <SafeAreaView style={[styles.safeAreaView, style]}>
             {children}
         </SafeAreaView>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
-    safeArea: {
+    safeAreaView: {
         flex: 1,
         backgroundColor: Color.Background,
+    },
+    safeArea: {
+        flex: 1,
     },
 });

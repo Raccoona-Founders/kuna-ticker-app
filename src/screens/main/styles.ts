@@ -8,7 +8,6 @@ export const mainStyles = StyleSheet.create({
     },
     flatList: {
         flex: 1,
-        backgroundColor: Color.Background,
     },
 });
 

@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         height: 74,
         paddingRight: 20,
-        backgroundColor: '#fff',
         borderBottomColor: Color.BorderLight,
         borderBottomWidth: 1,
     },

@@ -1,15 +1,15 @@
 import React from 'react';
-import { map, filter, sum } from 'lodash';
-import { ScrollView, View, Text } from 'react-native';
+import { map, filter } from 'lodash';
+import { ScrollView, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { TabView, Scene, SceneRendererProps } from 'react-native-tab-view';
+import { TabView, Scene, SceneRendererProps, PagerPan } from 'react-native-tab-view';
 import { kunaMarketMap, KunaMarket, KunaAssetUnit, getAsset } from 'kuna-sdk';
 import { tracker } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
 
 import { quoteAssets, AssetRoute, QuoteTabItem } from './tab-bar';
 import { MarketRow } from './market-row';
-import { InfoBar } from './info-bar';
+// import { InfoBar } from './info-bar';
 import { mainStyles, tabBarStyles } from './styles';
 
 type MainScreenState = {
@@ -23,21 +23,20 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         routes: quoteAssets,
     };
 
-    public componentDidMount() {
+    public componentDidMount(): void {
         tracker.trackScreenView(`main/${this.currentSymbol}`);
     }
 
     public render(): JSX.Element {
         return (
-            <Layout>
-                <TabView
-                    navigationState={this.state}
-                    renderScene={this.renderScene}
-                    renderTabBar={this.renderTabBar}
-                    style={mainStyles.container}
-                    onIndexChange={this.onChangeIndex}
-                />
-            </Layout>
+            <TabView
+                navigationState={this.state}
+                renderScene={this.renderScene}
+                renderTabBar={() => undefined}
+                renderPager={this.renderPager}
+                style={mainStyles.container}
+                onIndexChange={this.onChangeIndex}
+            />
         );
     }
 
@@ -47,6 +46,16 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
 
     protected onChangeIndex = (index: number) => {
         this.setState({index: index});
+    };
+
+    protected renderPager = (props: SceneRendererProps<AssetRoute>) => {
+        return (
+            <Layout>
+                {this.renderTabBar(props)}
+
+                <PagerPan {...props} />
+            </Layout>
+        );
     };
 
     protected renderScene = (props: Scene<AssetRoute>) => {

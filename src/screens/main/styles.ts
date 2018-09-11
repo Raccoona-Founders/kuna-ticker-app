@@ -6,8 +6,14 @@ export const mainStyles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    baseBackground: {
+        flex: 1,
+        backgroundColor: Color.Primary,
+    },
     flatList: {
         flex: 1,
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
     },
 });
 
@@ -15,6 +21,11 @@ export const tabBarStyles = StyleSheet.create({
     container: {
         paddingLeft: 20,
         paddingRight: 20,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 10
     },
 
     tabBar: {

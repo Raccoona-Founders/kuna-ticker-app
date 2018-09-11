@@ -24,7 +24,6 @@ export const Topic = (props: TopicProps) => {
 export const topicStyles = StyleSheet.create({
     container: {
         height: 44,
-        backgroundColor: Color.Background,
     },
     titleArea: {
         paddingLeft: 20,

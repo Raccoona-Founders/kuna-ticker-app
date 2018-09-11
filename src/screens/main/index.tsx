@@ -6,6 +6,7 @@ import { TabView, Scene, SceneRendererProps, PagerPan } from 'react-native-tab-v
 import { kunaMarketMap, KunaMarket, KunaAssetUnit, getAsset } from 'kuna-sdk';
 import { tracker } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
+import { Color } from 'styles/variables';
 
 import { quoteAssets, AssetRoute, QuoteTabItem } from './tab-bar';
 import { MarketRow } from './market-row';
@@ -45,15 +46,18 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     }
 
     protected onChangeIndex = (index: number) => {
-        this.setState({index: index});
+        this.setState({ index: index });
     };
 
     protected renderPager = (props: SceneRendererProps<AssetRoute>) => {
         return (
             <Layout>
-                {this.renderTabBar(props)}
+                <View style={{ flex: 1 }}>
+                    {this.renderTabBar(props)}
+                    <View style={{ height: 60 }} />
 
-                <PagerPan {...props} />
+                    <PagerPan {...props} />
+                </View>
             </Layout>
         );
     };
@@ -62,16 +66,16 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         const actualMarketMap = this.getMarketMap(props.route);
 
         return (
-            <ScrollView style={mainStyles.flatList}>
+            <ScrollView style={mainStyles.flatList} showsVerticalScrollIndicator={false}>
                 {map(actualMarketMap, (market: KunaMarket) => (
-                    <MarketRow market={market} key={market.key}/>
+                    <MarketRow market={market} key={market.key} />
                 ))}
             </ScrollView>
         );
     };
 
     protected renderTabBar = (props: SceneRendererProps<AssetRoute>) => {
-        const {navigationState} = props;
+        const { navigationState } = props;
 
         const inputRange = navigationState.routes.map((x, i) => i);
 
@@ -83,7 +87,7 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
                         inputIndex => (inputIndex === index ? active : inactive),
                     ),
                 });
-            }
+            };
         };
 
         return (
@@ -95,7 +99,7 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
                             key={route.key}
                             isActive={navigationState.index === i}
                             asset={getAsset(route.key)}
-                            onPress={() => this.setState({index: i})}
+                            onPress={() => this.setState({ index: i })}
                         />
                     ))}
                 </View>
@@ -104,8 +108,8 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     };
 
     protected getMarketMap = (route: AssetRoute): KunaMarket[] => {
-        return filter(kunaMarketMap, {quoteAsset: route.key});
-    }
+        return filter(kunaMarketMap, { quoteAsset: route.key });
+    };
 }
 
 type MainScreenProps = NavigationInjectedProps;

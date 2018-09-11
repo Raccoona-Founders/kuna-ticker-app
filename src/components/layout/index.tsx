@@ -1,6 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { Color } from 'styles/variables';
+import { SafeAreaView, StyleSheet, StyleProp, ViewStyle, View } from 'react-native';
 
 export type LayoutProps = {
     children: React.ReactNode;
@@ -21,7 +20,7 @@ export const Layout = (props: LayoutProps) => {
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
-        backgroundColor: Color.Background,
+        // backgroundColor: Color.Background,
     },
     safeArea: {
         flex: 1,

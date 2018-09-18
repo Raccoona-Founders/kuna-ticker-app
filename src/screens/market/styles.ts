@@ -1,8 +1,14 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 import { Color } from 'styles/variables';
+
+export const screen = {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height - 75,
+};
 
 export const styles = StyleSheet.create({
     marketInfoContainer: {
+        flex: 1,
         paddingTop: 10,
     },
     backButton: {
@@ -10,6 +16,30 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 44,
     },
+
+    panelContainer: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    },
+
+    panel: {
+        height: screen.height + 300,
+        padding: 20,
+        backgroundColor: '#ffffff',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        shadowColor: '#000000AA',
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowRadius: 5,
+        shadowOpacity: 0.4,
+    },
+
     content: {
         fontSize: 20,
         textAlign: 'center',

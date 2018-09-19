@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { MainScreen } from 'screens/main';
 import { MarketScreen } from 'screens/market';
-import { Color } from 'styles/variables';
+// import { Color } from 'styles/variables';
 import { KunaAssetUnit } from 'kuna-sdk';
 
 export const ApplicationRouter = createStackNavigator(
@@ -14,11 +14,12 @@ export const ApplicationRouter = createStackNavigator(
         initialRouteParams: {
             symbol: KunaAssetUnit.UkrainianHryvnia,
         },
+        mode: 'modal',
         headerMode: 'none',
         cardStyle: {
             shadowOpacity: 0,
             margin: 0,
-            backgroundColor: Color.Background,
+            backgroundColor: '#FFFFFF00',
         },
     },
 );

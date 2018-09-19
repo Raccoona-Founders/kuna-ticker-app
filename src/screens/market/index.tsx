@@ -2,7 +2,7 @@ import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { Text, View, TouchableOpacity, Animated } from 'react-native';
+import { Text, View, TouchableOpacity, Animated, StatusBar } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import Interactable from 'react-native-interactable';
 import { getAsset, kunaMarketMap, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
@@ -45,12 +45,12 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
         return (
             <>
-                <Layout>
+                <Layout style={{top: 40}}>
                     <Topic leftContent={this.renderTopicBackButton()}/>
                     {ticker ? this.renderMarketTicker() : ''}
                 </Layout>
 
-                {ticker.last && (
+                {(ticker.last && false) && (
                     <View style={styles.panelContainer} pointerEvents={'box-none'}>
                         <Animated.View
                             pointerEvents="box-none"

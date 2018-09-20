@@ -9,7 +9,7 @@ export const screen = {
 export const styles = StyleSheet.create({
     marketInfoContainer: {
         flex: 1,
-        paddingTop: 10,
+        paddingTop: 20,
     },
     backButton: {
         color: Color.Primary,

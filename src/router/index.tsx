@@ -19,7 +19,8 @@ export const ApplicationRouter = createStackNavigator(
         cardStyle: {
             shadowOpacity: 0,
             margin: 0,
-            backgroundColor: '#FFFFFF00',
+            backgroundColor: 'transparent',
+            opacity: 1,
         },
     },
 );

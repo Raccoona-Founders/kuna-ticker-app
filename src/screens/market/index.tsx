@@ -2,16 +2,14 @@ import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { Text, View, TouchableOpacity, Animated, StatusBar } from 'react-native';
+import { Text, View, TouchableOpacity, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import Interactable from 'react-native-interactable';
 import { getAsset, kunaMarketMap, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
 import { numFormat } from 'utils/number-helper';
 import { tracker } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
 import { CoinIcon } from 'components/coin-icon';
-import { Topic } from 'components/topic';
 
 import { Calculator } from './calculator';
 import { InfoUnit } from './info-unit';
@@ -40,44 +38,17 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
     public render(): JSX.Element {
         const {ticker} = this.props;
-        const symbol = this.currentSymbol;
-        const currentMarket = kunaMarketMap[symbol];
+
+        const style = {
+            top: 40,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+        };
 
         return (
-            <>
-                <Layout style={{top: 40}}>
-                    <Topic leftContent={this.renderTopicBackButton()}/>
-                    {ticker ? this.renderMarketTicker() : ''}
-                </Layout>
-
-                {(ticker.last && false) && (
-                    <View style={styles.panelContainer} pointerEvents={'box-none'}>
-                        <Animated.View
-                            pointerEvents="box-none"
-                            style={[styles.panelContainer, {
-                                backgroundColor: 'black',
-                                opacity: this._deltaY.interpolate({
-                                    inputRange: [0, screen.height - 100],
-                                    outputRange: [0.5, 0],
-                                    extrapolateRight: 'clamp',
-                                }),
-                            }]}
-                        />
-
-                        <Interactable.View
-                            verticalOnly={true}
-                            snapPoints={[{y: 40}, {y: screen.height - 100}]}
-                            boundaries={{top: -300}}
-                            initialPosition={{y: screen.height - 100}}
-                            animatedValueY={this._deltaY}
-                        >
-                            <View style={styles.panel}>
-                                <Calculator market={currentMarket} ticker={ticker}/>
-                            </View>
-                        </Interactable.View>
-                    </View>
-                )}
-            </>
+            <Layout style={style}>
+                {ticker ? this.renderMarketTicker() : ''}
+            </Layout>
         );
     }
 
@@ -126,6 +97,8 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                     )}
                 </View>
 
+                {ticker.last && <Calculator market={currentMarket} ticker={ticker}/>}
+
                 <View style={styles.infoContainer}>
                     <InfoUnit topic={`Volume ${baseAsset.key}`}
                               value={numFormat(ticker.vol)}
@@ -149,14 +122,6 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
     protected get currentSymbol(): string {
         return this.props.navigation.getParam('symbol');
-    }
-
-    protected renderTopicBackButton() {
-        return (
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                <Text style={styles.backButton}>Back</Text>
-            </TouchableOpacity>
-        );
     }
 }
 

@@ -4,14 +4,13 @@ import { ScrollView, View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { TabView, Scene, SceneRendererProps, PagerPan } from 'react-native-tab-view';
 import { kunaMarketMap, KunaMarket, KunaAssetUnit, getAsset } from 'kuna-sdk';
-import { tracker } from 'utils/ga-tracker';
+import { trackScreen } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
-import { Color } from 'styles/variables';
 
 import { quoteAssets, AssetRoute, QuoteTabItem } from './tab-bar';
 import { MarketRow } from './market-row';
 import { mainStyles, tabBarStyles } from './styles';
-import { screen, styles } from 'screens/market/styles';
+import { styles } from 'screens/market/styles';
 
 type MainScreenState = {
     index: number;
@@ -33,7 +32,7 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     }
 
     public componentDidMount(): void {
-        tracker.trackScreenView(`main/${this.currentSymbol}`);
+        this.trackScreen();
 
         this.props.navigation.addListener('willBlur', this.blurComponent);
         this.props.navigation.addListener('willFocus', this.focusComponent);
@@ -53,11 +52,13 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     }
 
     protected get currentSymbol(): KunaAssetUnit {
-        return this.props.navigation.getParam('symbol', KunaAssetUnit.UkrainianHryvnia);
+        const { index, routes } = this.state;
+
+        return routes[index].key || KunaAssetUnit.UkrainianHryvnia;
     }
 
     protected onChangeIndex = (index: number) => {
-        this.setState({index: index});
+        this.setState({ index: index }, this.trackScreen);
     };
 
     protected renderPager = (props: SceneRendererProps<AssetRoute>) => {
@@ -77,9 +78,9 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
                     }]}
                 />
 
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                     {this.renderTabBar(props)}
-                    <View style={{height: 60}}/>
+                    <View style={{ height: 60 }} />
 
                     <PagerPan {...props} />
                 </View>
@@ -93,14 +94,14 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         return (
             <ScrollView style={mainStyles.flatList} showsVerticalScrollIndicator={false}>
                 {map(actualMarketMap, (market: KunaMarket) => (
-                    <MarketRow market={market} key={market.key}/>
+                    <MarketRow market={market} key={market.key} />
                 ))}
             </ScrollView>
         );
     };
 
     protected renderTabBar = (props: SceneRendererProps<AssetRoute>) => {
-        const {navigationState} = props;
+        const { navigationState } = props;
 
         const inputRange = navigationState.routes.map((x, i) => i);
 
@@ -124,7 +125,7 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
                             key={route.key}
                             isActive={navigationState.index === i}
                             asset={getAsset(route.key)}
-                            onPress={() => this.setState({index: i})}
+                            onPress={() => this.setState({ index: i })}
                         />
                     ))}
                 </View>
@@ -133,7 +134,7 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     };
 
     protected getMarketMap = (route: AssetRoute): KunaMarket[] => {
-        return filter(kunaMarketMap, {quoteAsset: route.key});
+        return filter(kunaMarketMap, { quoteAsset: route.key });
     };
 
     protected blurComponent = () => {
@@ -154,6 +155,12 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
                 duration: 100,
             },
         ).start();
+
+        this.trackScreen();
+    };
+
+    protected trackScreen = () => {
+        trackScreen(`main/${this.currentSymbol}`, 'MainScreen');
     };
 }
 

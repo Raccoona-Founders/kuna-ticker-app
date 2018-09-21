@@ -1,7 +1,5 @@
-import DeviceInfo from 'react-native-device-info';
-import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
+import firebase from 'react-native-firebase';
 
-export const tracker = new GoogleAnalyticsTracker('UA-64948076-11');
-
-tracker.setAppName(DeviceInfo.getApplicationName());
-tracker.setAppVersion(DeviceInfo.getVersion());
+export function trackScreen(screenName: string | null, screenClassOverride?: string) {
+    firebase.analytics().setCurrentScreen(screenName, screenClassOverride);
+}

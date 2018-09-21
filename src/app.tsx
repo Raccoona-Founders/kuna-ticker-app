@@ -2,7 +2,7 @@ import React from 'react';
 import { Store } from 'redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
-import { kunaApiClient, KunaTicker } from 'kuna-sdk';
+import { kunaApiClient } from 'kuna-sdk';
 import SplashScreen from 'react-native-splash-screen';
 
 import { ApplicationRouter } from 'router';
@@ -23,7 +23,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
     };
 
     public async componentWillMount(): Promise<void> {
-        this.setState({isStoreLoading: true});
+        this.setState({ isStoreLoading: true });
 
         const store = await initStore();
 
@@ -52,7 +52,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
     }
 
     public render(): JSX.Element {
-        const {store, isStoreLoading} = this.state;
+        const { store, isStoreLoading } = this.state;
 
         if (!store || isStoreLoading) {
             return (
@@ -64,14 +64,14 @@ export class Application extends React.PureComponent<any, ApplicationState> {
 
         return (
             <Provider store={store}>
-                <ApplicationRouter/>
+                <ApplicationRouter />
             </Provider>
         );
     }
 
 
     protected updateTickers = async (): Promise<void> => {
-        const {store} = this.state;
+        const { store } = this.state;
 
         if (!store) {
             return;
@@ -85,7 +85,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
     };
 
     protected updateUsdRate = async (): Promise<void> => {
-        const {store} = this.state;
+        const { store } = this.state;
 
         if (!store) {
             return;
@@ -97,7 +97,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
             type: Ticker.UpdateUSDRate,
             rate: rate,
         });
-    }
+    };
 }
 
 export const styles = StyleSheet.create({

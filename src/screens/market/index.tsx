@@ -2,12 +2,12 @@ import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { Text, View, TouchableOpacity, Animated } from 'react-native';
+import { Text, View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { getAsset, kunaMarketMap, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
 import { numFormat } from 'utils/number-helper';
-import { tracker } from 'utils/ga-tracker';
+import { trackScreen } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
 import { CoinIcon } from 'components/coin-icon';
 
@@ -30,14 +30,15 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
-        tracker.trackScreenView(
+        trackScreen(
             `market/${currentMarket.baseAsset}-${currentMarket.quoteAsset}`,
+            'MarketScreen',
         );
     }
 
 
     public render(): JSX.Element {
-        const {ticker} = this.props;
+        const { ticker } = this.props;
 
         const style = {
             top: 40,
@@ -55,12 +56,14 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
     protected renderMarketTicker() {
 
-        const {ticker, usdRate} = this.props;
+        const { ticker, usdRate } = this.props;
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
         const quoteAsset = getAsset(currentMarket.quoteAsset);
         const baseAsset = getAsset(currentMarket.baseAsset);
+
+        const usdPrice = this.calcUsdPrice();
 
         return (
             <View style={styles.marketInfoContainer}>
@@ -68,7 +71,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                     <View style={styles.topicAsset}>
                         <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                                   size={48}
-                                  style={{marginRight: 20}}
+                                  style={{ marginRight: 20 }}
                         />
                         <View>
                             <Text style={styles.topicAssetText}>
@@ -90,14 +93,14 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                         <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
                     </View>
 
-                    {quoteAsset.key === KunaAssetUnit.UkrainianHryvnia && (
+                    {usdPrice && (
                         <Text style={styles.priceUsd}>
-                            $ {Numeral(ticker.last).divide(usdRate).format('0,0.[00]')}
+                            $ {usdPrice.format('0,0.[00]')}
                         </Text>
                     )}
                 </View>
 
-                {ticker.last && <Calculator market={currentMarket} ticker={ticker}/>}
+                {ticker.last && <Calculator market={currentMarket} ticker={ticker} />}
 
                 <View style={styles.infoContainer}>
                     <InfoUnit topic={`Volume ${baseAsset.key}`}
@@ -117,8 +120,28 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                     />
                 </View>
             </View>
-        )
+        );
     }
+
+    protected calcUsdPrice = (): Numeral | undefined => {
+        const currentMarket = kunaMarketMap[this.currentSymbol];
+        const { ticker, tickers, usdRate } = this.props;
+
+        switch (currentMarket.quoteAsset) {
+            case KunaAssetUnit.UkrainianHryvnia:
+                return Numeral(ticker.last).divide(usdRate);
+
+            case KunaAssetUnit.Bitcoin:
+                const btcTicker = tickers['btcuah'];
+                if (!btcTicker) {
+                    return undefined;
+                }
+
+                return Numeral(ticker.last).multiply(btcTicker.last).divide(usdRate);
+        }
+
+        return undefined;
+    };
 
     protected get currentSymbol(): string {
         return this.props.navigation.getParam('symbol');
@@ -129,6 +152,7 @@ type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
 
 type ConnectedProps = {
     ticker: KunaTicker;
+    tickers: Record<string, KunaTicker>;
     usdRate: number;
 }
 
@@ -143,6 +167,7 @@ const mapStateToProps = (store: KunaStore, ownProps: MarketScreenProps): Connect
 
     return {
         ticker: store.ticker.tickers[symbol],
+        tickers: store.ticker.tickers,
         usdRate: store.ticker.usdRate,
     };
 };

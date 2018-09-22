@@ -1,6 +1,6 @@
 import React from 'react';
 import { KunaAssetUnit } from 'kuna-sdk';
-import { createStackNavigator, NavigationTransitionProps, TransitionConfig } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import { MainScreen } from 'screens/main';
 import { MarketScreen } from 'screens/market';
 import { Color } from 'styles/variables';

@@ -1,30 +1,30 @@
 import React from 'react';
 import Numeral from 'numeral';
-import { View, TextInput, Text, Button, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { getAsset, KunaMarket, KunaTicker } from 'kuna-sdk';
 
-import { styles } from './calculator-style';
 import { Icon } from 'components/icon';
+import { styles } from './calculator.style';
 
 type CalculatorProps = {
     market: KunaMarket;
     ticker: KunaTicker;
 };
 
-enum CalcSide {
-    Base,
-    Revers
+enum Operation {
+    Buy,
+    Sell
 }
 
 type CalculatorState = {
     value: string;
-    side: CalcSide
+    side: Operation
 };
 
 export class Calculator extends React.PureComponent<CalculatorProps, CalculatorState> {
     public state: CalculatorState = {
         value: '',
-        side: CalcSide.Base,
+        side: Operation.Buy,
     };
 
     public render(): JSX.Element {
@@ -43,17 +43,22 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
                     />
 
                     <Text style={styles.valueInputAsset}>
-                        {side === CalcSide.Base ? market.baseAsset : market.quoteAsset}
+                        {side === Operation.Buy ? market.baseAsset : market.quoteAsset}
                     </Text>
                 </View>
 
+
                 <TouchableOpacity onPress={this.changeCalcSide}>
-                    <Icon name="change" size={20} fill="#D0D0D0"/>
+                    <Icon name="change" size={20} fill="#D0D0D0" style={{marginTop: 5, marginBottom: 5}}/>
                 </TouchableOpacity>
 
-                <Text style={styles.resultValue}>
-                    {this.getCalculatedValue()} {side === CalcSide.Base ? market.quoteAsset : market.baseAsset}
-                </Text>
+                <View style={styles.resultValueContainer}>
+                    <Text style={styles.resultValueText}>{this.getCalculatedValue()}</Text>
+
+                    <Text style={styles.valueInputAsset}>
+                        {side === Operation.Buy ? market.quoteAsset : market.baseAsset}
+                    </Text>
+                </View>
             </View>
         );
     }
@@ -64,7 +69,7 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
         });
     };
 
-    protected getCalculatedValue(): string {
+    protected getCalculatedValue(): string | undefined {
         const {value, side} = this.state;
         const {ticker, market} = this.props;
 
@@ -74,7 +79,7 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
 
         const numValue = Numeral(parseFloat(value) || 0);
 
-        if (side === CalcSide.Base) {
+        if (side === Operation.Buy) {
             return numValue.multiply(ticker.last).format(getAsset(market.quoteAsset).format);
         }
 
@@ -90,16 +95,16 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
         let inputSideFormat = '0.[0000]';
 
         switch (side) {
-            case CalcSide.Base: {
-                newSide = CalcSide.Revers;
+            case Operation.Buy: {
+                newSide = Operation.Sell;
                 newValue = newValue.multiply(ticker.last);
                 inputSideFormat = getAsset(market.quoteAsset).format;
 
                 break;
             }
 
-            case CalcSide.Revers: {
-                newSide = CalcSide.Base;
+            case Operation.Sell: {
+                newSide = Operation.Buy;
                 newValue = newValue.divide(ticker.last);
                 inputSideFormat = getAsset(market.baseAsset).format;
 

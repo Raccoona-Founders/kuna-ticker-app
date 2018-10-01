@@ -6,7 +6,6 @@ import com.facebook.react.ReactApplication;
 import io.invertase.firebase.RNFirebasePackage;
 import com.horcrux.svg.SvgPackage;
 import com.wix.interactable.Interactable;
-import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
@@ -32,7 +31,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFirebasePackage(),
             new SvgPackage(),
             new Interactable(),
-            new GoogleAnalyticsBridgePackage(),
             new RNDeviceInfo(),
             new SplashScreenReactPackage()
       );

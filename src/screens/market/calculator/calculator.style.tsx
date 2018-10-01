@@ -4,8 +4,7 @@ import { Color } from 'styles/variables';
 export const styles = StyleSheet.create({
     container: {
         margin: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: 'column',
     },
 
     topic: {
@@ -21,7 +20,6 @@ export const styles = StyleSheet.create({
     },
 
     valueInputContainer: {
-        flex: 1,
         paddingLeft: 10,
         paddingRight: 10,
         backgroundColor: Color.BorderLight,
@@ -29,6 +27,7 @@ export const styles = StyleSheet.create({
         height: 44,
         flexDirection: 'row',
         alignItems: 'center',
+        width: '100%',
     },
 
     valueInput: {
@@ -44,7 +43,19 @@ export const styles = StyleSheet.create({
     },
 
 
-    resultValue: {
-        flex: 1,
+    resultValueContainer: {
+        width: '100%',
+        padding: 10,
+        backgroundColor: Color.BorderLight,
+        borderRadius: 4,
+        height: 44,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    resultValueText: {
+        fontSize: 18,
+        width: '100%',
+        paddingRight: 40,
     },
 });

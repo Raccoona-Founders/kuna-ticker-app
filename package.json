@@ -3,16 +3,17 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "start": "node node_modules/react-native/local-cli/cli.js start",
+        "start": "node node_modules/react-native/local-cli/cli.js start -- --reset-cache",
         "test": "jest",
         "ios": "react-native run-ios",
         "android": "react-native run-android",
-        "bundle:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios"
+        "bundle:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
+        "third-party": "cd node_modules/react-native/third-party/glog-0.3.4 && ../../scripts/ios-configure-glog.sh"
     },
     "dependencies": {
         "axios": "0.18.0",
         "babel-plugin-module-alias": "1.6.0",
-        "kuna-sdk": "^0.2.3",
+        "kuna-sdk": "^0.3.0",
         "lodash": "4.17.10",
         "node-libs-react-native": "1.0.2",
         "numeral": "2.0.6",
@@ -20,7 +21,6 @@
         "react-native": "0.56.0",
         "react-native-device-info": "0.22.4",
         "react-native-firebase": "^5.0.0-rc4",
-        "react-native-google-analytics-bridge": "5.8.0",
         "react-native-interactable": "^0.1.10",
         "react-native-splash-screen": "3.1.1",
         "react-native-svg": "6.5.2",
@@ -29,7 +29,8 @@
         "react-navigation": "2.12.1",
         "react-redux": "5.0.7",
         "recompose": "0.28.2",
-        "redux": "4.0.0"
+        "redux": "4.0.0",
+        "vm": "^0.1.0"
     },
     "devDependencies": {
         "@types/axios": "^0.14.0",

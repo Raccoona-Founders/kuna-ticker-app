@@ -6,6 +6,7 @@ type IconProps = {
     name: string;
     fill?: string;
     size?: number;
+    style?: any;
 };
 
 export const Icon = (props: IconProps) => (
@@ -13,5 +14,6 @@ export const Icon = (props: IconProps) => (
              name={props.name}
              fill={props.fill || '#000'}
              height={props.size || 32}
+             width={props.size || 32}
     />
 );

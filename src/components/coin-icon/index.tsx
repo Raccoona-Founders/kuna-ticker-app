@@ -5,6 +5,7 @@ import { KunaAsset } from 'kuna-sdk';
 
 import { svgIcons, findIcon } from './svg-icons';
 import { coinShadow } from "styles/shadows";
+import { Icon } from 'components/icon';
 
 type CoinIconProps = {
     asset: KunaAsset;
@@ -20,29 +21,52 @@ export const CoinIcon = (props: CoinIconProps) => {
     const coinIconStyle = {
         height: size,
         width: size,
-        borderRadius: size / 4,
-        backgroundColor: asset.color,
+    };
+
+    const svgShapeStyle = {
+        position: 'absolute',
+        left: 0,
+        top: 0,
     };
 
     const existsIcon = findIcon(asset);
 
-    return (
-        existsIcon ? (
+    if (!existsIcon) {
+        const symbolContainerStyle = {
+            width: size,
+            height: size,
+            fontSize: size * 0.625,
+            lineHeight: size,
+            textAlign: 'center',
+        };
+
+        return (
             <View style={[coinIconStyle, withShadow ? coinShadow : {}, style]}>
-                <SvgIcon svgs={svgIcons}
-                         name={asset.key as string}
-                         width={size}
-                         height={size}
-                         fill="#ffffff"
-                />
-            </View>
-        ) : (
-            <View style={[coinIconStyle, style, styles.onlySymbolView, withShadow ? coinShadow : {}]}>
-                <Text style={[styles.onlySymbolText, {fontSize: size * 0.625}]}>
+                <Icon name="shapeBox" size={size} style={svgShapeStyle} fill={asset.color}/>
+                <Text style={[styles.onlySymbolText, symbolContainerStyle]}>
                     {asset.name.charAt(0).toUpperCase()}
                 </Text>
             </View>
-        )
+        );
+    }
+
+    const svgShapeIconStyle = {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+    };
+
+    return (
+        <View style={[coinIconStyle, withShadow ? coinShadow : {}, style]}>
+            <Icon name="shapeBox" size={size} style={svgShapeStyle} fill={asset.color}/>
+            <SvgIcon svgs={svgIcons}
+                     name={asset.key as string}
+                     width={size}
+                     height={size}
+                     fill="#ffffff"
+                     style={svgShapeIconStyle}
+            />
+        </View>
     );
 };
 
@@ -54,5 +78,8 @@ const styles = StyleSheet.create({
     onlySymbolText: {
         fontWeight: '700',
         color: '#fff',
+        position: 'absolute',
+        top: 0,
+        left: 0,
     },
 });

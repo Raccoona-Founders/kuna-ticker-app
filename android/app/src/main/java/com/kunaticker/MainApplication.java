@@ -3,6 +3,7 @@ package com.kunaticker;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.bitgo.randombytes.RandomBytesPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.horcrux.svg.SvgPackage;
 import com.wix.interactable.Interactable;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RandomBytesPackage(),
             new RNFirebasePackage(),
             new SvgPackage(),
             new Interactable(),

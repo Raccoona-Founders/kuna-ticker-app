@@ -24,6 +24,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		24C15F8DA5DFC1432B0ACD41 /* libPods-KunaTicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0B7AE15AB4FE596D16A978 /* libPods-KunaTicker.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		601C9A192163E16600E74460 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 601C9A132163E13F00E74460 /* libRNRandomBytes.a */; };
 		601E39712155422000C51D58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 601E39442155422000C51D58 /* GoogleService-Info.plist */; };
 		601E39722155422000C51D58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 601E39442155422000C51D58 /* GoogleService-Info.plist */; };
 		6036201B21272E0900BA011E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -283,6 +284,20 @@
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
 		};
+		601C9A122163E13F00E74460 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 73EEC9391BFE4B1D00D468EB;
+			remoteInfo = RNRandomBytes;
+		};
+		601C9A142163E13F00E74460 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 163CDE4E2087CAD3001065FB;
+			remoteInfo = "RNRandomBytes-tvOS";
+		};
 		601E39B3215545A300C51D58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CFC13AD023AE495EA7B84223 /* RNFirebase.xcodeproj */;
@@ -386,6 +401,7 @@
 		41F0943641E7C1BFF486FF4D /* libPods-KunaTickerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KunaTickerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F539CE4C6C45E5CBAEB43A8 /* Pods-KunaTicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KunaTicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KunaTicker/Pods-KunaTicker.debug.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNRandomBytes.xcodeproj; path = "../node_modules/react-native-randombytes/RNRandomBytes.xcodeproj"; sourceTree = "<group>"; };
 		601E39442155422000C51D58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		60D50EB92132939600FE96BE /* KunaTicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = KunaTicker.entitlements; path = KunaTicker/KunaTicker.entitlements; sourceTree = "<group>"; };
 		7658EDA19F01457DA3084648 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
@@ -416,6 +432,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				601C9A192163E16600E74460 /* libRNRandomBytes.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -589,6 +606,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		601C99E52163E13F00E74460 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				601C9A132163E13F00E74460 /* libRNRandomBytes.a */,
+				601C9A152163E13F00E74460 /* libRNRandomBytes-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		601E39B0215545A300C51D58 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +683,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -858,6 +885,10 @@
 				{
 					ProductGroup = 601E39B0215545A300C51D58 /* Products */;
 					ProjectRef = CFC13AD023AE495EA7B84223 /* RNFirebase.xcodeproj */;
+				},
+				{
+					ProductGroup = 601C99E52163E13F00E74460 /* Products */;
+					ProjectRef = 601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */;
 				},
 				{
 					ProductGroup = 60EA64A72151B0BF00332904 /* Products */;
@@ -1115,6 +1146,20 @@
 			remoteRef = 5E9157341DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		601C9A132163E13F00E74460 /* libRNRandomBytes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNRandomBytes.a;
+			remoteRef = 601C9A122163E13F00E74460 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		601C9A152163E13F00E74460 /* libRNRandomBytes-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNRandomBytes-tvOS.a";
+			remoteRef = 601C9A142163E13F00E74460 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		601E39B4215545A300C51D58 /* libRNFirebase.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1222,7 +1267,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		E284046A326529673F18CD2C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -4376,7 +4376,7 @@ metro-minify-uglify@0.38.4:
   dependencies:
     uglify-es "^3.1.9"
 
-metro-react-native-babel-preset@^0.47.0:
+metro-react-native-babel-preset@0.47.0:
   version "0.47.0"
   resolved "https://registry.yarnpkg.com/metro-react-native-babel-preset/-/metro-react-native-babel-preset-0.47.0.tgz#684e1dd875898f7a660bb9edb0125b4942a853c9"
   dependencies:
@@ -5423,7 +5423,7 @@ react-native-tab-view@^0.0.77:
   dependencies:
     prop-types "^15.6.0"
 
-react-native-typescript-transformer@^1.2.10:
+react-native-typescript-transformer@1.2.10:
   version "1.2.10"
   resolved "https://registry.yarnpkg.com/react-native-typescript-transformer/-/react-native-typescript-transformer-1.2.10.tgz#6f76c1449028cdeafa184b533301ecd547367ed1"
   dependencies:
@@ -5433,7 +5433,7 @@ react-native-typescript-transformer@^1.2.10:
     semver "^5.4.1"
     source-map "^0.5.6"
 
-react-native@^0.56.1:
+react-native@0.56.1:
   version "0.56.1"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.56.1.tgz#8d60e2a989b0a620486a68f5f7e1b451557a0e54"
   dependencies:

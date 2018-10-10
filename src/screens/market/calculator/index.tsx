@@ -9,6 +9,8 @@ import { styles } from './calculator.style';
 type CalculatorProps = {
     market: KunaMarket;
     ticker: KunaTicker;
+
+    usdPrice?: Numeral;
 };
 
 enum Operation {
@@ -28,18 +30,28 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     };
 
     public render(): JSX.Element {
-        const {value, side} = this.state;
-        const {market} = this.props;
+        const { value, side } = this.state;
+        const { market, usdPrice } = this.props;
+
+
+        let usdValue = null;
+
+        if (usdPrice) {
+            usdValue = (side === Operation.Buy)
+                ? usdPrice.multiply(this.getCalculatedValue().replace(',', ''))
+                : usdPrice.multiply(value.replace(',', ''));
+        }
+
 
         return (
             <View style={styles.container}>
                 <View style={styles.valueInputContainer}>
-                    <TextInput value={value}
+                    <TextInput style={styles.valueInput}
+                               value={value}
                                placeholder="0.00"
                                onChangeText={this.changeTextInput}
                                keyboardType="numeric"
                                returnKeyType="done"
-                               style={styles.valueInput}
                     />
 
                     <Text style={styles.valueInputAsset}>
@@ -47,16 +59,25 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
                     </Text>
                 </View>
 
-
-                <TouchableOpacity onPress={this.changeCalcSide}>
-                    <Icon name="change" size={20} fill="#D0D0D0" style={{marginTop: 5, marginBottom: 5}}/>
-                </TouchableOpacity>
+                <View style={{ alignItems: 'flex-end' }}>
+                    <TouchableOpacity onPress={this.changeCalcSide} style={styles.changeButton}>
+                        <Icon name="change" size={24} fill="#D0D0D0" />
+                    </TouchableOpacity>
+                </View>
 
                 <View style={styles.resultValueContainer}>
-                    <Text style={styles.resultValueText}>{this.getCalculatedValue()}</Text>
+                    {usdValue && (
+                        <Text style={styles.resultValueText}>
+                            {usdValue.format('$ 0,0.[00]')}
+                        </Text>
+                    )}
 
-                    <Text style={styles.valueInputAsset}>
-                        {side === Operation.Buy ? market.quoteAsset : market.baseAsset}
+                    <Text style={styles.resultValueText}>
+                        <Text>{this.getCalculatedValue()}</Text>
+                        <Text> </Text>
+                        <Text style={styles.resultValueTextAsset}>
+                            {side === Operation.Buy ? market.quoteAsset : market.baseAsset}
+                        </Text>
                     </Text>
                 </View>
             </View>
@@ -69,9 +90,9 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
         });
     };
 
-    protected getCalculatedValue(): string | undefined {
-        const {value, side} = this.state;
-        const {ticker, market} = this.props;
+    protected getCalculatedValue(): string {
+        const { value, side } = this.state;
+        const { ticker, market } = this.props;
 
         if (!value) {
             return '0';
@@ -87,8 +108,8 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     }
 
     protected changeCalcSide = () => {
-        const {value, side} = this.state;
-        const {ticker, market} = this.props;
+        const { value, side } = this.state;
+        const { ticker, market } = this.props;
 
         let newSide = side;
         let newValue = Numeral(value || 0);

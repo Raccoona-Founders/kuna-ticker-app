@@ -15,16 +15,18 @@ import { Calculator } from './calculator';
 import { InfoUnit } from './info-unit';
 import { styles, screen } from './styles';
 
-
 export class MarketScreenComponent extends React.PureComponent<MarketScreenProps> {
 
+
     protected _deltaY: Animated.Value;
+
 
     public constructor(props: MarketScreenProps) {
         super(props);
 
         this._deltaY = new Animated.Value(screen.height - 100);
     }
+
 
     public componentDidMount(): void {
         const symbol = this.currentSymbol;
@@ -38,7 +40,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
 
     public render(): JSX.Element {
-        const {ticker} = this.props;
+        const { ticker } = this.props;
 
         const style = {
             top: 40,
@@ -70,7 +72,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                     <View style={styles.topicAsset}>
                         <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                                   size={48}
-                                  style={{marginRight: 20}}
+                                  style={{ marginRight: 20 }}
                         />
                         <View>
                             <Text style={styles.topicAssetText}>
@@ -99,7 +101,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                     )}
                 </View>
 
-                {ticker.last && <Calculator market={currentMarket} ticker={ticker}/>}
+                {ticker.last && <Calculator market={currentMarket} ticker={ticker} usdPrice={usdPrice} />}
 
                 <View style={styles.infoContainer}>
                     <InfoUnit topic={`Volume ${baseAsset.key}`}
@@ -122,9 +124,10 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         );
     }
 
+
     protected calcUsdPrice = (): Numeral | undefined => {
         const currentMarket = kunaMarketMap[this.currentSymbol];
-        const {ticker, tickers, usdRate} = this.props;
+        const { ticker, tickers, usdRate } = this.props;
 
         switch (currentMarket.quoteAsset) {
             case KunaAssetUnit.UkrainianHryvnia:
@@ -141,6 +144,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
         return undefined;
     };
+
 
     protected get currentSymbol(): string {
         return this.props.navigation.getParam('symbol');

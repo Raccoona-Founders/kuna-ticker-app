@@ -2,7 +2,7 @@ import React from 'react';
 import { map, filter } from 'lodash';
 import { ScrollView, View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { TabView, Scene, SceneRendererProps, PagerPan } from 'react-native-tab-view';
+import { TabView, Scene, SceneRendererProps, PagerPan, PagerScroll } from 'react-native-tab-view';
 import { kunaMarketMap, KunaMarket, KunaAssetUnit, getAsset } from 'kuna-sdk';
 import { trackScreen } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
@@ -82,7 +82,7 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
                     {this.renderTabBar(props)}
                     <View style={{ height: 60 }} />
 
-                    <PagerPan {...props} />
+                    <PagerScroll {...props} />
                 </View>
             </Layout>
         );
@@ -108,10 +108,9 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         const interpolate = (index: number) => {
             return (active: any, inactive: any) => {
                 return props.position.interpolate({
-                    inputRange: inputRange,
-                    outputRange: inputRange.map(
-                        inputIndex => (inputIndex === index ? active : inactive),
-                    ),
+                    inputRange: [index - 1, index, index + 1],
+                    outputRange: [inactive, active, inactive],
+                    extrapolate: 'clamp',
                 });
             };
         };

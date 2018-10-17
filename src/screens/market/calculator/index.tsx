@@ -1,10 +1,11 @@
 import React from 'react';
 import Numeral from 'numeral';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
-import { getAsset, KunaMarket, KunaTicker } from 'kuna-sdk';
+import { getAsset, KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
 
 import { Icon } from 'components/icon';
 import { styles } from './calculator.style';
+import { CoinIcon } from 'components/coin-icon';
 
 type CalculatorProps = {
     market: KunaMarket;
@@ -19,125 +20,101 @@ enum Operation {
 }
 
 type CalculatorState = {
-    value: string;
-    side: Operation
+    inputBuyValue: string;
+    inputSellValue: string;
 };
 
-export class Calculator extends React.PureComponent<CalculatorProps, CalculatorState> {
-    public state: CalculatorState = {
-        value: '',
-        side: Operation.Buy,
-    };
 
+type CalcAssetRowProps = {
+    asset: KunaAssetUnit;
+    value: string;
+    onChangeText: (text: string) => void;
+};
+
+class CalcAssetRow extends React.PureComponent<CalcAssetRowProps> {
     public render(): JSX.Element {
-        const { value, side } = this.state;
-        const { market, usdPrice } = this.props;
 
-
-        let usdValue = null;
-
-        if (usdPrice) {
-            usdValue = (side === Operation.Buy)
-                ? usdPrice.multiply(this.getCalculatedValue().replace(',', ''))
-                : usdPrice.multiply(value.replace(',', ''));
-        }
-
+        const asset = getAsset(this.props.asset);
 
         return (
-            <View style={styles.container}>
-                <View style={styles.valueInputContainer}>
-                    <TextInput style={styles.valueInput}
-                               value={value}
-                               placeholder="0.00"
-                               onChangeText={this.changeTextInput}
-                               keyboardType="numeric"
-                               returnKeyType="done"
-                    />
+            <View style={styles.calcAssetRow}>
+                <TextInput style={styles.valueInput}
+                           value={this.props.value}
+                           placeholder="0.00"
+                           onChangeText={this.props.onChangeText}
+                           keyboardType="numeric"
+                           returnKeyType="done"
 
-                    <Text style={styles.valueInputAsset}>
-                        {side === Operation.Buy ? market.baseAsset : market.quoteAsset}
-                    </Text>
-                </View>
-
-                <View style={{ alignItems: 'flex-end' }}>
-                    <TouchableOpacity onPress={this.changeCalcSide} style={styles.changeButton}>
-                        <Icon name="change" size={24} fill="#D0D0D0" />
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.resultValueContainer}>
-                    {usdValue && (
-                        <Text style={styles.resultValueText}>
-                            {usdValue.format('$ 0,0.[00]')}
-                        </Text>
-                    )}
-
-                    <Text style={styles.resultValueText}>
-                        <Text>{this.getCalculatedValue()}</Text>
-                        <Text> </Text>
-                        <Text style={styles.resultValueTextAsset}>
-                            {side === Operation.Buy ? market.quoteAsset : market.baseAsset}
-                        </Text>
-                    </Text>
+                />
+                
+                <View style={styles.assetIcon} pointerEvents="box-none">
+                    <CoinIcon asset={asset} size={20} withShadow={false} style={{ marginRight: 5 }}  />
+                    <Text style={styles.assetIconText}>{asset.key}</Text>
                 </View>
             </View>
         );
     }
+}
 
-    protected changeTextInput = (text: string) => {
-        this.setState({
-            value: text,
-        });
+export class Calculator extends React.PureComponent<CalculatorProps, CalculatorState> {
+    public state: CalculatorState = {
+        inputBuyValue: '',
+        inputSellValue: '',
     };
 
-    protected getCalculatedValue(): string {
-        const { value, side } = this.state;
-        const { ticker, market } = this.props;
+    public render(): JSX.Element {
+        const { inputBuyValue, inputSellValue } = this.state;
+        const { market, usdPrice } = this.props;
 
-        if (!value) {
-            return '0';
-        }
+        return (
+            <View style={styles.container}>
+                <CalcAssetRow
+                    asset={market.baseAsset}
+                    value={inputBuyValue}
+                    onChangeText={this.changeTextInput(Operation.Buy)}
+                />
 
-        const numValue = Numeral(parseFloat(value) || 0);
-
-        if (side === Operation.Buy) {
-            return numValue.multiply(ticker.last).format(getAsset(market.quoteAsset).format);
-        }
-
-        return numValue.divide(ticker.last).format(getAsset(market.baseAsset).format);
+                <CalcAssetRow
+                    asset={market.quoteAsset}
+                    value={inputSellValue}
+                    onChangeText={this.changeTextInput(Operation.Sell)}
+                />
+            </View>
+        );
     }
 
-    protected changeCalcSide = () => {
-        const { value, side } = this.state;
+    protected changeTextInput = (type: Operation) => (text: string) => {
         const { ticker, market } = this.props;
 
-        let newSide = side;
-        let newValue = Numeral(value || 0);
-        let inputSideFormat = '0.[0000]';
+        const buyAsset = getAsset(market.baseAsset);
+        const sellAsset = getAsset(market.quoteAsset);
 
-        switch (side) {
-            case Operation.Buy: {
-                newSide = Operation.Sell;
-                newValue = newValue.multiply(ticker.last);
-                inputSideFormat = getAsset(market.quoteAsset).format;
+        const toUpdateState = {
+            inputBuyValue: '',
+            inputSellValue: '',
+        };
 
-                break;
-            }
+        if (text.length > 24) {
+            text = text.substr(0, 24);
+        }
 
-            case Operation.Sell: {
-                newSide = Operation.Buy;
-                newValue = newValue.divide(ticker.last);
-                inputSideFormat = getAsset(market.baseAsset).format;
+        const textNumber = Numeral(text);
 
-                break;
+        if (text && text.length > 0 && textNumber && textNumber.value() > 0) {
+            switch (type) {
+                case Operation.Sell:
+                    toUpdateState.inputSellValue = text;
+                    toUpdateState.inputBuyValue = textNumber.divide(ticker.last).format(buyAsset.format);
+                    break;
+
+                case Operation.Buy:
+                    toUpdateState.inputBuyValue = text;
+                    toUpdateState.inputSellValue = textNumber.multiply(ticker.last).format(sellAsset.format);
+                    break;
             }
         }
 
-        this.setState({
-            value: newValue.value() > 0
-                ? newValue.format(inputSideFormat).replace(/\,/g, '')
-                : '',
-            side: newSide,
-        });
+        this.setState(toUpdateState);
     };
+
 }

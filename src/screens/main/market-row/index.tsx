@@ -30,7 +30,7 @@ const MarketRowComponent = (props: MarketRowProps) => {
                 <View style={styles.tickerCell}>
                     <View style={styles.priceBox}>
                         <Text style={styles.priceValue}>
-                            {ticker ? numFormat(ticker.last, market.format) : '--'}
+                            {ticker ? numFormat(ticker.last, market.format) : '—'}
                         </Text>
                         <Text style={styles.priceLabel}>{market.quoteAsset}</Text>
                     </View>
@@ -41,7 +41,7 @@ const MarketRowComponent = (props: MarketRowProps) => {
                                 <>
                                     Volume: {Numeral(ticker.vol).multiply(ticker.last).format('0,0.[00]')}
                                 </>
-                            ) : '--'}
+                            ) : '—'}
                         </Text>
                     </View>
                 </View>

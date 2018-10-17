@@ -14,15 +14,17 @@ export const styles = StyleSheet.create({
         color: Color.TextSecondary,
     },
 
-    reversButton: {
-        width: 50,
-        height: 44,
-    },
-
     valueInputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
+    },
+
+    calcAssetRow: {
+        marginTop: 5,
+        marginBottom: 5,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
 
     valueInput: {
@@ -35,39 +37,16 @@ export const styles = StyleSheet.create({
         paddingRight: 50,
     },
 
-    valueInputAsset: {
-        position: 'absolute',
-        color: Color.TextDarkSecondary,
-        right: 10,
-        fontSize: 18,
-    },
-
-
-    resultValueContainer: {
-        width: '100%',
-        padding: 10,
-        borderRadius: 4,
-        height: 44,
+    assetIcon: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        position: 'absolute',
+        right: 0,
+        width: 80
     },
 
-    resultValueText: {
-        fontSize: 18,
-        textAlign: 'right',
-        minWidth: '30%'
-    },
-
-    resultValueTextAsset: {
-        color: Color.TextDarkSecondary,
-        marginRight: 20,
-    },
-
-    changeButton: {
-        width: 44,
-        height: 44,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+    assetIconText: {
+        fontSize: 16,
+        color: Color.TextSecondary
+    }
 });

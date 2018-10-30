@@ -48,7 +48,6 @@ class CalcAssetRow extends React.PureComponent<CalcAssetRowProps> {
                 />
                 
                 <View style={styles.assetIcon} pointerEvents="box-none">
-                    <CoinIcon asset={asset} size={20} withShadow={false} style={{ marginRight: 5 }}  />
                     <Text style={styles.assetIconText}>{asset.key}</Text>
                 </View>
             </View>

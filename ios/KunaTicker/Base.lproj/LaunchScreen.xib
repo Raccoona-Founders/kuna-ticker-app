@@ -16,8 +16,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Kuna Ticker - 2018 @ Unofficial app" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QLN-AD-kKL">
+                    <rect key="frame" x="0.0" y="630" width="375" height="29"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SplashLogo" highlightedImage="SplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="IeM-hv-wEZ">
-                    <rect key="frame" x="113" y="291" width="148" height="86"/>
+                    <rect key="frame" x="144" y="290" width="87" height="86"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
@@ -26,10 +33,10 @@
             <nil key="simulatedBottomBarMetrics"/>
             <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="CfZ-eE-Spj"/>
-            <point key="canvasLocation" x="-90.400000000000006" y="62.968515742128943"/>
+            <point key="canvasLocation" x="-90.400000000000006" y="62.518740629685162"/>
         </view>
     </objects>
     <resources>
-        <image name="SplashLogo" width="198" height="64"/>
+        <image name="SplashLogo" width="65" height="90"/>
     </resources>
 </document>

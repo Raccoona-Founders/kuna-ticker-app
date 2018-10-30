@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, Keyboard } from 'react-native';
 import {
     createStackNavigator,
     NavigationScreenConfigProps,
@@ -54,7 +54,7 @@ const SceneTransition = (index: number, position: Animated.Value, height: number
 const transitionConfig = (): TransitionConfig => {
     return {
         transitionSpec: {
-            duration: 350,
+            duration: 250,
             easing: Easing.out(Easing.poly(2)),
         },
         screenInterpolator: (sceneProps: any) => {
@@ -92,7 +92,6 @@ export const ApplicationRouter = createStackNavigator(
 
         transitionConfig: transitionConfig,
         navigationOptions: navigationOptions,
-
         cardStyle: {
             backgroundColor: 'transparent',
             shadowRadius: 0,

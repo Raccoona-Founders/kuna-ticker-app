@@ -2,7 +2,7 @@ import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { Text, View, Animated } from 'react-native';
+import { Text, View, Animated, Keyboard } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { getAsset, kunaMarketMap, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
@@ -31,6 +31,10 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
     public componentDidMount(): void {
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
+
+        this.props.navigation.addListener('willBlur', () => {
+            Keyboard.dismiss();
+        });
 
         trackScreen(
             `market/${currentMarket.baseAsset}-${currentMarket.quoteAsset}`,
@@ -96,7 +100,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
                     {usdPrice && (
                         <Text style={styles.priceUsd}>
-                            $ {usdPrice.format('0,0.[00]')}
+                            ≈ $ {usdPrice.format('0,0.[00]')}
                         </Text>
                     )}
                 </View>

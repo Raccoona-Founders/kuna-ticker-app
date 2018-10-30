@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     valueInput: {
@@ -42,11 +42,11 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         right: 0,
-        width: 80
+        width: 50,
     },
 
     assetIconText: {
         fontSize: 16,
-        color: Color.TextSecondary
-    }
+        color: Color.TextSecondary,
+    },
 });

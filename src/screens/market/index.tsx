@@ -48,12 +48,16 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
         const style = {
             top: 40,
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
         };
 
         return (
             <Layout style={style}>
+                <View style={styles.browContainer}>
+                    <View style={styles.browItem} />
+                </View>
+
                 {ticker ? this.renderMarketTicker() : ''}
             </Layout>
         );
@@ -73,36 +77,35 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         return (
             <View style={styles.marketInfoContainer}>
                 <View style={styles.topic}>
-                    <View style={styles.topicAsset}>
-                        <CoinIcon asset={getAsset(currentMarket.baseAsset)}
-                                  size={48}
-                                  style={{ marginRight: 20 }}
-                        />
-                        <View>
-                            <Text style={styles.topicAssetText}>
-                                {currentMarket.baseAsset} / {currentMarket.quoteAsset}
-                            </Text>
-                            <Text style={styles.topicAssetSubtext}>
-                                <Text style={styles.topicAssetSubtextName}>{baseAsset.name}</Text>
-                                <Text> to </Text>
-                                <Text style={styles.topicAssetSubtextName}>{quoteAsset.name}</Text>
-                            </Text>
+                    <CoinIcon asset={getAsset(currentMarket.baseAsset)}
+                              size={48}
+                              style={{ marginRight: 20 }}
+                    />
+
+                    <View>
+                        <Text style={styles.topicAssetText}>
+                            {currentMarket.baseAsset} / {currentMarket.quoteAsset}
+                        </Text>
+
+                        <Text style={styles.topicAssetSubtext}>
+                            <Text style={styles.topicAssetSubtextName}>{baseAsset.name}</Text>
+                            <Text> to </Text>
+                            <Text style={styles.topicAssetSubtextName}>{quoteAsset.name}</Text>
+                        </Text>
+
+                        <View style={styles.priceContainer}>
+                            <View style={styles.priceMarketContainer}>
+                                <Text style={styles.priceTextValue}>
+                                    {numFormat(ticker.last, currentMarket.format)}
+                                </Text>
+                                <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
+                            </View>
+
+                            {usdPrice && (
+                                <Text style={styles.priceUsd}>≈ $ {usdPrice.format('0,0.[00]')}</Text>
+                            )}
                         </View>
                     </View>
-                </View>
-
-                <View style={styles.priceContainer}>
-                    <View style={styles.priceMarketContainer}>
-                        <Text style={styles.priceTopic}>Price for 1 {baseAsset.key}</Text>
-                        <Text style={styles.priceTextValue}>{numFormat(ticker.last, currentMarket.format)}</Text>
-                        <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
-                    </View>
-
-                    {usdPrice && (
-                        <Text style={styles.priceUsd}>
-                            ≈ $ {usdPrice.format('0,0.[00]')}
-                        </Text>
-                    )}
                 </View>
 
                 {ticker.last && <Calculator market={currentMarket} ticker={ticker} usdPrice={usdPrice} />}

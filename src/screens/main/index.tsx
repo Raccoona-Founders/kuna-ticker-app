@@ -2,25 +2,26 @@ import React from 'react';
 import { map, filter } from 'lodash';
 import { ScrollView, View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { TabView, Scene, SceneRendererProps, PagerPan, PagerScroll } from 'react-native-tab-view';
+import { TabView, Scene, SceneRendererProps, PagerScroll } from 'react-native-tab-view';
 import { kunaMarketMap, KunaMarket, KunaAssetUnit, getAsset } from 'kuna-sdk';
 import { trackScreen } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
 
-import { quoteAssets, AssetRoute, QuoteTabItem } from './tab-bar';
+import { tabNavigationRoutes, TabnavRoute, QuoteTabItem } from './tab-bar';
+import AboutTab from './about-tab';
 import { MarketRow } from './market-row';
 import { mainStyles, tabBarStyles } from './styles';
 import { styles } from 'screens/market/styles';
 
 type MainScreenState = {
     index: number;
-    routes: AssetRoute[];
+    routes: TabnavRoute[];
 };
 
 export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
     public state: MainScreenState = {
         index: 0,
-        routes: quoteAssets,
+        routes: tabNavigationRoutes,
     };
 
     protected _animation: Animated.Value;
@@ -51,17 +52,11 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         );
     }
 
-    protected get currentSymbol(): KunaAssetUnit {
-        const { index, routes } = this.state;
-
-        return routes[index].key || KunaAssetUnit.UkrainianHryvnia;
-    }
-
     protected onChangeIndex = (index: number) => {
         this.setState({ index: index }, this.trackScreen);
     };
 
-    protected renderPager = (props: SceneRendererProps<AssetRoute>) => {
+    protected renderPager = (props: SceneRendererProps<TabnavRoute>) => {
         return (
             <Layout>
 
@@ -88,22 +83,25 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         );
     };
 
-    protected renderScene = (props: Scene<AssetRoute>) => {
-        const actualMarketMap = this.getMarketMap(props.route);
+    protected renderScene = (props: Scene<TabnavRoute>) => {
+        const { assets } = props.route;
+        if (assets && assets.length) {
+            const actualMarketMap = this.getMarketMap(assets);
 
-        return (
-            <ScrollView style={mainStyles.flatList} showsVerticalScrollIndicator={false}>
-                {map(actualMarketMap, (market: KunaMarket) => (
-                    <MarketRow market={market} key={market.key} />
-                ))}
-            </ScrollView>
-        );
+            return (
+                <ScrollView style={mainStyles.flatList} showsVerticalScrollIndicator={false}>
+                    {map(actualMarketMap, (market: KunaMarket) => (
+                        <MarketRow market={market} key={market.key} />
+                    ))}
+                </ScrollView>
+            );
+        }
+
+        return <AboutTab />;
     };
 
-    protected renderTabBar = (props: SceneRendererProps<AssetRoute>) => {
+    protected renderTabBar = (props: SceneRendererProps<TabnavRoute>) => {
         const { navigationState } = props;
-
-        const inputRange = navigationState.routes.map((x, i) => i);
 
         const interpolate = (index: number) => {
             return (active: any, inactive: any) => {
@@ -118,12 +116,12 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         return (
             <View style={tabBarStyles.container}>
                 <View style={tabBarStyles.tabBar}>
-                    {navigationState.routes.map((route: AssetRoute, i: number) => (
+                    {navigationState.routes.map((route: TabnavRoute, i: number) => (
                         <QuoteTabItem
-                            interpolate={interpolate(i)}
                             key={route.key}
+                            route={route}
+                            interpolate={interpolate(i)}
                             isActive={navigationState.index === i}
-                            asset={getAsset(route.key)}
                             onPress={() => this.setState({ index: i })}
                         />
                     ))}
@@ -132,8 +130,10 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         );
     };
 
-    protected getMarketMap = (route: AssetRoute): KunaMarket[] => {
-        return filter(kunaMarketMap, { quoteAsset: route.key });
+    protected getMarketMap = (assets: KunaAssetUnit[]): KunaMarket[] => {
+        return filter(kunaMarketMap, (market: KunaMarket): boolean => {
+            return assets.indexOf(market.quoteAsset) >= 0;
+        });
     };
 
     protected blurComponent = () => {
@@ -159,7 +159,9 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     };
 
     protected trackScreen = () => {
-        trackScreen(`main/${this.currentSymbol}`, 'MainScreen');
+        const { index, routes } = this.state;
+
+        trackScreen(`main/${routes[index].key}`, 'MainScreen');
     };
 }
 

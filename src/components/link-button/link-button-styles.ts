@@ -6,9 +6,9 @@ export default StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         width: 100,
-        color: Color.Dark,
+        color: Color.DarkPurple,
     },
     activeLink: {
-        color: Color.Primary,
+        color: Color.Main,
     },
 });

@@ -67,6 +67,8 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
 
         return (
             <View style={styles.container}>
+                <Text style={styles.topic}>Calculate</Text>
+
                 <CalcAssetRow
                     asset={market.baseAsset}
                     value={inputBuyValue}

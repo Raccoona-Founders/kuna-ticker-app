@@ -1,5 +1,5 @@
 import React from 'react';
-import { Path, G } from 'react-native-svg';
+import { Path } from 'react-native-svg';
 import { SvgIconProps } from 'react-native-svg-icon';
 import { KunaAsset, KunaAssetUnit } from 'kuna-sdk';
 
@@ -48,7 +48,7 @@ export const svgIcons: Record<string, SvgIconProps> = {
         viewBox: '0 0 72 72'
     },
     [KunaAssetUnit.KunaToken as string]: {
-        svg: <Path d="M47.28 12H23.91A5.79 5.79 0 0 0 18 17.65v39.53A2.9 2.9 0 0 0 20.96 60h2.31l28.85-39.1c2.76-3.74-.04-8.9-4.84-8.9zm.8 48c4.78 0 7.58-5.14 4.84-8.88L42.6 37.01a2.93 2.93 0 0 1-.04-.06L25.56 60H48.07z" />,
+        svg: <Path d="M46.72 13.2h-22.2a5.5 5.5 0 0 0-5.62 5.36v37.56a2.75 2.75 0 0 0 2.81 2.68h2.2l27.4-37.15c2.63-3.55-.04-8.45-4.6-8.45zm.75 45.6c4.54 0 7.2-4.88 4.6-8.43l-9.8-13.41a2.78 2.78 0 0 1-.03-.06L26.08 58.8h21.39z" />,
         viewBox: '0 0 72 72'
     },
     [KunaAssetUnit.Golos as string]: {

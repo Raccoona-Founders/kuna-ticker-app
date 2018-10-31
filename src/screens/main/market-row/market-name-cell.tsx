@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
 
     pairBoxText: {
-        color: Color.Dark,
+        color: Color.DarkPurple,
         fontSize: 18,
         fontWeight: '400',
         lineHeight: 18,
@@ -50,19 +50,19 @@ const styles = StyleSheet.create({
     pairBoxSeparator: {
         marginLeft: 2,
         marginRight: 2,
-        color: Color.TextDarkSecondary,
+        color: Color.Gray2,
         fontSize: 12,
         textAlignVertical: 'bottom',
     },
     pairBoxQuote: {
         fontSize: 12,
-        color: Color.TextDarkSecondary,
+        color: Color.Gray2,
         textAlignVertical: 'bottom',
     },
     baseAssetName: {
         marginTop: 5,
     },
     baseAssetNameText: {
-        color: Color.TextSecondary,
+        color: Color.Gray2,
     },
 });

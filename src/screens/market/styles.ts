@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native';
 import { Color } from 'styles/variables';
 
 export const screen = {
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
         paddingTop: 20,
     },
     backButton: {
-        color: Color.Primary,
+        color: Color.Main,
         fontSize: 16,
         lineHeight: 44,
     },
@@ -47,15 +47,11 @@ export const styles = StyleSheet.create({
     topic: {
         paddingLeft: 20,
         paddingRight: 20,
-        marginBottom: 20,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center',
+        alignItems: 'flex-start',
     },
-    topicAsset: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
+
     topicAssetName: {},
     topicAssetText: {
         fontSize: 20,
@@ -64,45 +60,30 @@ export const styles = StyleSheet.create({
     topicAssetSubtext: {
         marginTop: 5,
         fontSize: 14,
-        color: Color.TextSecondary,
+        color: Color.Gray2,
     },
     topicAssetSubtextName: {
         fontWeight: '600',
     },
 
     priceContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
-        paddingLeft: 20,
-        paddingRight: 20,
-        marginBottom: 20,
+        marginTop: 20,
     },
     priceMarketContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         fontWeight: '500',
-        flex: 1,
     },
     priceUsd: {
-        textAlign: 'right',
-        fontSize: 24,
+        fontSize: 16,
         fontWeight: '500',
-        color: Color.TextDarkSecondary,
-        flex: 1,
-    },
-    priceTopic: {
-        color: Color.TextSecondary,
-        fontSize: 14,
-        marginBottom: 5,
-        fontWeight: '500',
-        width: '100%',
+        color: Color.Gray2,
     },
     priceTextValue: {
         lineHeight: 24,
         fontSize: 24,
         fontWeight: '500',
-        color: Color.Primary,
+        color: Color.DarkPurple,
     },
     priceTextAsset: {
         lineHeight: 24,
@@ -115,5 +96,18 @@ export const styles = StyleSheet.create({
         marginTop: 20,
         flexDirection: 'row',
         flexWrap: 'wrap',
+    },
+
+
+    browContainer: {
+        height: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    browItem: {
+        width: 45,
+        height: 4,
+        borderRadius: 4,
+        backgroundColor: Color.Gray2,
     },
 });

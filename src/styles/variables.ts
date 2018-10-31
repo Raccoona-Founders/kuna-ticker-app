@@ -1,13 +1,23 @@
 export enum Color {
-    Primary = '#0047CF',
-    Secondary = '#3F97F5',
-    White = '#fff',
-    Dark = '#222428',
-    TextDarkSecondary = '#5C6576',
-    TextSecondary = '#9DA6B8',
-    Background = '#FFFFFF',
+    Main = '#5850FA',
+    Secondary = '#3DC3FA',
 
-    Green = '#2AC062',
+    Purple = '#312A7D',
+    Fade = '#676793',
+    DarkPurple = '#0D0D3F',
 
-    BorderLight = '#F7F7F7'
+    DeepBlue = '#2E71F0',
+
+    PurpleNoactive = '#9DA3B8',
+    Gray = '#F5F7F8',
+    Gray2 = '#93A9C3',
+    Gray3 = '#E6EAEE',
+
+
+    White = '#FFFFFF',
+    Black = '#000000',
+
+
+    Success = '#00BA4F',
+    Danger = '#FD2A47',
 }

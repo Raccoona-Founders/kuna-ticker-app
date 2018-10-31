@@ -1,0 +1,66 @@
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { Color } from 'styles/variables';
+import Markdown from 'react-native-markdown-renderer';
+import { textContent } from './text-content';
+
+const AboutTab = () => {
+    return (
+        <View style={styles.container}>
+            <View>
+                <View style={styles.topic}>
+                    <Text style={styles.topicTitle}>About Kuna Ticker</Text>
+                </View>
+
+                <Markdown style={mdStyles}>{textContent}</Markdown>
+            </View>
+
+            <View style={styles.linksContainer}>
+
+            </View>
+        </View>
+    );
+};
+
+
+const mdStyles = StyleSheet.create({
+    root: {},
+    view: {},
+    text: {
+        textAlign: 'center',
+        fontSize: 16,
+        lineHeight: 20,
+        color: Color.Gray2,
+    },
+});
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingLeft: 20,
+        paddingRight: 20,
+
+    },
+    topic: {
+        marginTop: 10,
+        marginBottom: 20,
+    },
+    topicTitle: {
+        color: Color.DarkPurple,
+        fontSize: 20,
+        fontWeight: '500',
+        textAlign: 'center',
+        width: '100%',
+    },
+
+
+    linksContainer: {
+        marginTop: 20,
+        paddingTop: 20,
+        paddingBottom: 20,
+        borderTopWidth: 1,
+        borderTopColor: Color.Gray3,
+    },
+});
+
+export default AboutTab;

@@ -36,7 +36,7 @@ export const topicStyles = StyleSheet.create({
     titleText: {
         fontSize: 16,
         textAlign: 'center',
-        color: Color.Dark,
+        color: Color.DarkPurple,
     },
     titleAreaSide: {
         width: 70,

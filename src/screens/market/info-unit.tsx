@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     topic: {
-        color: Color.TextSecondary,
+        color: Color.Gray2,
         fontSize: 14,
         marginBottom: 5,
         fontWeight: '500',

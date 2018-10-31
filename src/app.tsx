@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { kunaApiClient } from 'kuna-sdk';
 import SplashScreen from 'react-native-splash-screen';
 
+import 'utils/setup-locale';
+
 import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
 import { Ticker } from 'store/actions';
@@ -103,11 +105,11 @@ export class Application extends React.PureComponent<any, ApplicationState> {
 export const styles = StyleSheet.create({
     loadingContainer: {
         flex: 1,
-        backgroundColor: Color.Background,
+        backgroundColor: Color.Gray,
         justifyContent: 'center',
         alignItems: 'center',
     },
     loadingText: {
-        color: Color.Primary,
+        color: Color.Purple,
     },
 });

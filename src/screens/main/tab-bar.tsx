@@ -1,35 +1,47 @@
 import React from 'react';
-import { TouchableOpacity, Text, Animated } from 'react-native';
-import { KunaAsset, KunaAssetUnit } from 'kuna-sdk';
+import { TouchableOpacity, Animated } from 'react-native';
+import { KunaAssetUnit } from 'kuna-sdk';
 import { tabBarStyles } from 'screens/main/styles';
 import { Color } from 'styles/variables';
 
-export type AssetRoute = {
-    key: KunaAssetUnit;
+export type TabnavRoute = {
+    key: string;
     title: string;
+    assets?: KunaAssetUnit[];
 };
 
-export const quoteAssets: AssetRoute[] = [
-    {key: KunaAssetUnit.UkrainianHryvnia, title: 'UAH'},
-    {key: KunaAssetUnit.Bitcoin, title: 'BTC'},
-    {key: KunaAssetUnit.StasisEuro, title: 'EURS'},
-    {key: KunaAssetUnit.Ethereum, title: 'ETH'},
-    {key: KunaAssetUnit.GolosGold, title: 'GBG'},
+export const tabNavigationRoutes: TabnavRoute[] = [
+    {
+        key: 'UAH',
+        title: 'UAH',
+        assets: [KunaAssetUnit.UkrainianHryvnia],
+    }, {
+        key: KunaAssetUnit.Bitcoin,
+        title: 'BTC',
+        assets: [KunaAssetUnit.Bitcoin],
+    }, {
+        key: 'OTHER',
+        title: 'Other',
+        assets: [KunaAssetUnit.StasisEuro, KunaAssetUnit.Ethereum, KunaAssetUnit.GolosGold],
+    }, {
+        key: 'ABOUT',
+        title: 'About',
+    },
 ];
 
-type QuoteTabItemProps = {
-    asset: KunaAsset;
+type TabItemProps = {
+    route: TabnavRoute;
     onPress: () => void;
     isActive?: boolean;
 
     interpolate: (active: any, inactive: any) => any;
 };
 
-export const QuoteTabItem = (props: QuoteTabItemProps) => {
-    const {isActive = false, asset, interpolate} = props;
+export const QuoteTabItem = (props: TabItemProps) => {
+    const { route, interpolate } = props;
 
     const animatedStyle = {
-        color: interpolate(Color.Dark, Color.TextSecondary),
+        color: interpolate(Color.DarkPurple, Color.Gray2),
         transform: [{
             scale: interpolate(1, 0.8),
         }],
@@ -38,7 +50,7 @@ export const QuoteTabItem = (props: QuoteTabItemProps) => {
     return (
         <TouchableOpacity style={tabBarStyles.tab} onPress={props.onPress}>
             <Animated.Text style={[tabBarStyles.text, animatedStyle]}>
-                {asset.key}
+                {route.title}
             </Animated.Text>
         </TouchableOpacity>
     );

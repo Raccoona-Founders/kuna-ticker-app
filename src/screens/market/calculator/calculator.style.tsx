@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
     },
 
     topic: {
+        color: Color.Gray2,
         fontSize: 14,
-        marginBottom: 10,
+        marginBottom: 5,
         fontWeight: '500',
-        color: Color.TextSecondary,
     },
 
     valueInputContainer: {
@@ -28,13 +28,15 @@ export const styles = StyleSheet.create({
     },
 
     valueInput: {
-        paddingLeft: 10,
-        backgroundColor: Color.BorderLight,
-        borderRadius: 4,
-        height: 44,
-        fontSize: 18,
+        paddingLeft: 15,
+        backgroundColor: Color.Gray,
+        borderRadius: 3,
+        height: 48,
+        fontSize: 16,
         width: '100%',
-        paddingRight: 50,
+        paddingRight: 55,
+        borderWidth: 1,
+        borderColor: Color.Gray3,
     },
 
     assetIcon: {
@@ -47,6 +49,6 @@ export const styles = StyleSheet.create({
 
     assetIconText: {
         fontSize: 16,
-        color: Color.TextSecondary,
+        color: Color.Gray2,
     },
 });

@@ -8,12 +8,10 @@ export const mainStyles = StyleSheet.create({
     },
     baseBackground: {
         flex: 1,
-        backgroundColor: Color.Primary,
+        backgroundColor: Color.Main,
     },
     flatList: {
-        flex: 1,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
+        flex: 1
     },
 });
 
@@ -42,9 +40,9 @@ export const tabBarStyles = StyleSheet.create({
         marginLeft: 12,
     },
     text: {
-        fontSize: 20,
+        fontSize: 24,
         alignItems: 'center',
-        color: Color.TextSecondary,
+        color: Color.Gray2,
         fontWeight: '600',
     },
 
@@ -56,6 +54,6 @@ export const tabBarStyles = StyleSheet.create({
         alignItems: 'flex-end',
 
         borderBottomWidth: 1,
-        borderBottomColor: Color.BorderLight,
+        borderBottomColor: Color.Gray3,
     },
 });

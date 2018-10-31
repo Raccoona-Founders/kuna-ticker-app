@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Easing, Keyboard } from 'react-native';
+import { Animated, Easing } from 'react-native';
 import {
     createStackNavigator,
     NavigationScreenConfigProps,
@@ -89,7 +89,6 @@ export const ApplicationRouter = createStackNavigator(
         initialRouteParams: {
             symbol: KunaAssetUnit.UkrainianHryvnia,
         },
-
         transitionConfig: transitionConfig,
         navigationOptions: navigationOptions,
         cardStyle: {

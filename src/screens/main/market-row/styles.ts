@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         height: 74,
         paddingRight: 20,
-        borderBottomColor: Color.BorderLight,
+        borderBottomColor: Color.Gray3,
         borderBottomWidth: 1,
     },
 
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     },
 
     pairBoxText: {
-        color: Color.Dark,
+        color: Color.DarkPurple,
         fontSize: 16,
         fontWeight: '300',
         lineHeight: 16,
@@ -36,13 +36,13 @@ export const styles = StyleSheet.create({
     },
     priceLabel: {
         fontSize: 18,
-        color: Color.TextDarkSecondary,
+        color: Color.Gray2,
     },
 
     marketVolume: {
         marginTop: 5,
         fontSize: 12,
         fontWeight: '500',
-        color: Color.TextSecondary,
+        color: Color.Gray2,
     },
 });

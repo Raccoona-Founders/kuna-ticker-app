@@ -118,3 +118,4 @@ typings/
 .next
 
 ios/Pods
+android/app/src/main/assets/

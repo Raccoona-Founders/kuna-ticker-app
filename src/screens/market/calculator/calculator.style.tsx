@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Color } from 'styles/variables';
+import { Color, Fonts } from 'styles/variables';
 
 export const styles = StyleSheet.create({
     container: {
@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
         paddingRight: 55,
         borderWidth: 1,
         borderColor: Color.Gray3,
+        fontFamily: Fonts.TTNorms_Regular,
     },
 
     assetIcon: {

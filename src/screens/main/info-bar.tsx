@@ -1,21 +1,19 @@
 import React from 'react';
-import Numeral from 'numeral';
-import { filter, sum } from 'lodash';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
-import { numFormat } from 'utils/number-helper';
 
 import { tabBarStyles } from './styles';
+import { SpanText } from 'components/span-text';
 
 const InfoBarComponent = (props: InfoBarProps) => {
-    const {markets, tickers, asset} = props;
+    const { asset } = props;
 
     return (
         <View style={tabBarStyles.infoBar}>
-            <Text>Volume 24h ({asset})</Text>
+            <SpanText>Volume 24h ({asset})</SpanText>
         </View>
     );
 };

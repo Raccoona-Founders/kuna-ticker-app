@@ -12,6 +12,9 @@
 		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
+		043A5EB286104894A9C4DF68 /* tt_norms_regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44B0D113440445AF8316703F /* tt_norms_regular.otf */; };
+		0648F5A9ACF74EA19366B5F0 /* tt_norms_extrabold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 248D8236E46E462283EA8968 /* tt_norms_extrabold.otf */; };
+		118FF7D8C9F6434491BBF9BC /* tt_norms_medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 08B09E3303F74333ABE6E5D1 /* tt_norms_medium.otf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -20,6 +23,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		1797B195DBDF4261921FB19F /* tt_norms_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5EB878476754DB9ABB95DC8 /* tt_norms_bold.otf */; };
 		5E07D1E7E24967BF8F77427E /* libPods-KunaTicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0B7AE15AB4FE596D16A978 /* libPods-KunaTicker.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		601C9A192163E16600E74460 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 601C9A132163E13F00E74460 /* libRNRandomBytes.a */; };
@@ -47,8 +51,11 @@
 		6094B094216DF07E00437862 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		6094B095216DF07E00437862 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		6094B096216DF07E00437862 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 601E39442155422000C51D58 /* GoogleService-Info.plist */; };
+		6833255AB99440C889FF5CE2 /* tt_norms_black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 239DE29E3C994D60A1DDCD70 /* tt_norms_black.otf */; };
 		7A112629D8B74E2E9C2379CE /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB48EBEAB5B412F9899CDCA /* libInteractable.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8F7881DA8729459293E8FDE9 /* tt_norms_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0530CE016BE4741B9C9A16F /* tt_norms_light.otf */; };
+		905494B67DF34EA481D32F83 /* tt_norms_heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B0DE6CAB7498D9C4FCA95 /* tt_norms_heavy.otf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		CF068882B6A74FACADE321F2 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88711A31D0B742CD81EA600B /* libRNDeviceInfo.a */; };
 		D9FE4258E29D4BDD803EAFB1 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5D313305D14AF5A263F196 /* libSplashScreen.a */; };
@@ -391,6 +398,8 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* KunaTickerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KunaTickerTests.m; sourceTree = "<group>"; };
 		0190BB2C310277E4F22EA727 /* Pods-KunaTicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KunaTicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-KunaTicker/Pods-KunaTicker.release.xcconfig"; sourceTree = "<group>"; };
+		08B09E3303F74333ABE6E5D1 /* tt_norms_medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_medium.otf; path = ../assets/fonts/tt_norms_medium.otf; sourceTree = "<group>"; };
+		0C0B0DE6CAB7498D9C4FCA95 /* tt_norms_heavy.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_heavy.otf; path = ../assets/fonts/tt_norms_heavy.otf; sourceTree = "<group>"; };
 		0CA3888C5E0B4D09A17A90E2 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
 		0DBC27653FCD4BBFA6E8EB8D /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		0FB48EBEAB5B412F9899CDCA /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libInteractable.a; sourceTree = "<group>"; };
@@ -405,8 +414,11 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = KunaTicker/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1F02D8749B8F4B6184CDD4E8 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
+		239DE29E3C994D60A1DDCD70 /* tt_norms_black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_black.otf; path = ../assets/fonts/tt_norms_black.otf; sourceTree = "<group>"; };
+		248D8236E46E462283EA8968 /* tt_norms_extrabold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_extrabold.otf; path = ../assets/fonts/tt_norms_extrabold.otf; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F0943641E7C1BFF486FF4D /* libPods-KunaTickerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KunaTickerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		44B0D113440445AF8316703F /* tt_norms_regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_regular.otf; path = ../assets/fonts/tt_norms_regular.otf; sourceTree = "<group>"; };
 		4746AE380604E8BF638FABDA /* Pods-KunaTicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KunaTicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KunaTicker/Pods-KunaTicker.debug.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNRandomBytes.xcodeproj; path = "../node_modules/react-native-randombytes/RNRandomBytes.xcodeproj"; sourceTree = "<group>"; };
@@ -424,7 +436,9 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		BD0B7AE15AB4FE596D16A978 /* libPods-KunaTicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KunaTicker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFC13AD023AE495EA7B84223 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
+		D0530CE016BE4741B9C9A16F /* tt_norms_light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_light.otf; path = ../assets/fonts/tt_norms_light.otf; sourceTree = "<group>"; };
 		D4C1A34BD0784722826E655B /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
+		F5EB878476754DB9ABB95DC8 /* tt_norms_bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_bold.otf; path = ../assets/fonts/tt_norms_bold.otf; sourceTree = "<group>"; };
 		FAFE189709134F2FB5C0807B /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -622,6 +636,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5409B966ED5F4552AC942FE0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				239DE29E3C994D60A1DDCD70 /* tt_norms_black.otf */,
+				F5EB878476754DB9ABB95DC8 /* tt_norms_bold.otf */,
+				248D8236E46E462283EA8968 /* tt_norms_extrabold.otf */,
+				0C0B0DE6CAB7498D9C4FCA95 /* tt_norms_heavy.otf */,
+				D0530CE016BE4741B9C9A16F /* tt_norms_light.otf */,
+				08B09E3303F74333ABE6E5D1 /* tt_norms_medium.otf */,
+				44B0D113440445AF8316703F /* tt_norms_regular.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +778,7 @@
 				609EAF6A212564A600ED02B5 /* Recovered References */,
 				24A22231E73E60A5265A9353 /* Pods */,
 				6094B09C216DF07F00437862 /* KunaTicker-Info.plist */,
+				5409B966ED5F4552AC942FE0 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -1264,6 +1293,13 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				601E39712155422000C51D58 /* GoogleService-Info.plist in Resources */,
+				6833255AB99440C889FF5CE2 /* tt_norms_black.otf in Resources */,
+				1797B195DBDF4261921FB19F /* tt_norms_bold.otf in Resources */,
+				0648F5A9ACF74EA19366B5F0 /* tt_norms_extrabold.otf in Resources */,
+				905494B67DF34EA481D32F83 /* tt_norms_heavy.otf in Resources */,
+				8F7881DA8729459293E8FDE9 /* tt_norms_light.otf in Resources */,
+				118FF7D8C9F6434491BBF9BC /* tt_norms_medium.otf in Resources */,
+				043A5EB286104894A9C4DF68 /* tt_norms_regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1393,7 +1429,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
 				PRODUCT_NAME = KunaTicker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1426,7 +1462,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
 				PRODUCT_NAME = KunaTicker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";

@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Color } from 'styles/variables';
+import { View, StyleSheet } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
+import { Color, Fonts } from 'styles/variables';
+import { SpanText } from 'components/span-text';
 import { textContent } from './text-content';
+
 
 const AboutTab = () => {
     return (
         <View style={styles.container}>
             <View>
                 <View style={styles.topic}>
-                    <Text style={styles.topicTitle}>About Kuna Ticker</Text>
+                    <SpanText style={styles.topicTitle}>About Kuna Ticker</SpanText>
                 </View>
 
                 <Markdown style={mdStyles}>{textContent}</Markdown>
@@ -31,6 +33,7 @@ const mdStyles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 20,
         color: Color.Gray2,
+        fontFamily: Fonts.TTNorms_Regular,
     },
 });
 

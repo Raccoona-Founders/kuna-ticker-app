@@ -1,7 +1,8 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { TouchableHighlight, Text, RegisteredStyle } from 'react-native';
+import { TouchableHighlight, RegisteredStyle } from 'react-native';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
+import { SpanText } from 'components/span-text';
 
 import styles from './link-button-styles';
 
@@ -17,7 +18,7 @@ const LinkButtonComponent = (props: LinkButtonProps) => {
 
     return (
         <TouchableHighlight onPress={() => props.navigation.navigate(routeName)}>
-            <Text style={style}>{children}</Text>
+            <SpanText style={style}>{children}</SpanText>
         </TouchableHighlight>
     );
 };

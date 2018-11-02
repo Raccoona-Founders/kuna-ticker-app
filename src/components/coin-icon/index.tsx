@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleProp, ViewStyle, Text, StyleSheet } from 'react-native';
+import { View, StyleProp, ViewStyle, StyleSheet } from 'react-native';
 import SvgIcon from 'react-native-svg-icon';
 import { KunaAsset } from 'kuna-sdk';
 
 import { svgIcons, findIcon } from './svg-icons';
 import { coinShadow } from "styles/shadows";
 import { Icon } from 'components/icon';
+import { SpanText } from 'components/span-text';
 
 type CoinIconProps = {
     asset: KunaAsset;
@@ -32,7 +33,7 @@ export const CoinIcon = (props: CoinIconProps) => {
     const existsIcon = findIcon(asset);
 
     if (!existsIcon) {
-        const symbolContainerStyle = {
+        const symbolContainerStyle: any = {
             width: size,
             height: size,
             fontSize: size * 0.625,
@@ -43,9 +44,9 @@ export const CoinIcon = (props: CoinIconProps) => {
         return (
             <View style={[coinIconStyle, withShadow ? coinShadow : {}, style]}>
                 <Icon name="shapeBox" size={size} style={svgShapeStyle} fill={asset.color}/>
-                <Text style={[styles.onlySymbolText, symbolContainerStyle]}>
+                <SpanText style={[styles.onlySymbolText, symbolContainerStyle]}>
                     {asset.name.charAt(0).toUpperCase()}
-                </Text>
+                </SpanText>
             </View>
         );
     }

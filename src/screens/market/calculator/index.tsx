@@ -1,11 +1,9 @@
 import React from 'react';
 import Numeral from 'numeral';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import { getAsset, KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
-
-import { Icon } from 'components/icon';
 import { styles } from './calculator.style';
-import { CoinIcon } from 'components/coin-icon';
+import { SpanText } from 'components/span-text';
 
 type CalculatorProps = {
     market: KunaMarket;
@@ -48,7 +46,7 @@ class CalcAssetRow extends React.PureComponent<CalcAssetRowProps> {
                 />
                 
                 <View style={styles.assetIcon} pointerEvents="box-none">
-                    <Text style={styles.assetIconText}>{asset.key}</Text>
+                    <SpanText style={styles.assetIconText}>{asset.key}</SpanText>
                 </View>
             </View>
         );

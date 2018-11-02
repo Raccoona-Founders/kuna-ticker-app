@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { Text, View, Animated, Keyboard } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { getAsset, kunaMarketMap, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
+import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
 
 import { numFormat } from 'utils/number-helper';
 import { trackScreen } from 'utils/ga-tracker';
@@ -14,12 +14,11 @@ import { CoinIcon } from 'components/coin-icon';
 import { Calculator } from './calculator';
 import { InfoUnit } from './info-unit';
 import { styles, screen } from './styles';
+import { UsdCalculator } from 'utils/currency-rate';
 
 export class MarketScreenComponent extends React.PureComponent<MarketScreenProps> {
 
-
     protected _deltaY: Animated.Value;
-
 
     public constructor(props: MarketScreenProps) {
         super(props);
@@ -65,14 +64,14 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
 
     protected renderMarketTicker() {
-        const { ticker } = this.props;
+        const { ticker, usdRate, tickers } = this.props;
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
         const quoteAsset = getAsset(currentMarket.quoteAsset);
         const baseAsset = getAsset(currentMarket.baseAsset);
 
-        const usdPrice = this.calcUsdPrice();
+        const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
 
         return (
             <View style={styles.marketInfoContainer}>
@@ -102,7 +101,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                             </View>
 
                             {usdPrice && (
-                                <Text style={styles.priceUsd}>≈ $ {usdPrice.format('0,0.[00]')}</Text>
+                                <Text style={styles.priceUsd}>≈ ${usdPrice.format('0,0.[00]')}</Text>
                             )}
                         </View>
                     </View>
@@ -130,28 +129,6 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
             </View>
         );
     }
-
-
-    protected calcUsdPrice = (): Numeral | undefined => {
-        const currentMarket = kunaMarketMap[this.currentSymbol];
-        const { ticker, tickers, usdRate } = this.props;
-
-        switch (currentMarket.quoteAsset) {
-            case KunaAssetUnit.UkrainianHryvnia:
-                return Numeral(ticker.last).divide(usdRate);
-
-            case KunaAssetUnit.Bitcoin:
-                const btcTicker = tickers['btcuah'];
-                if (!btcTicker) {
-                    return undefined;
-                }
-
-                return Numeral(ticker.last).multiply(btcTicker.last).divide(usdRate);
-        }
-
-        return undefined;
-    };
-
 
     protected get currentSymbol(): string {
         return this.props.navigation.getParam('symbol');

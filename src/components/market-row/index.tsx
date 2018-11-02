@@ -1,5 +1,4 @@
 import React from 'react';
-import Numeral from 'numeral';
 import { find } from 'lodash';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -10,22 +9,25 @@ import { numFormat } from 'utils/number-helper';
 
 import { MarketNameCell } from './market-name-cell';
 import { styles } from './styles';
+import { UsdCalculator } from 'utils/currency-rate';
 
-const MarketRowComponent = (props: MarketRowProps) => {
-    const {market, ticker, navigation} = props;
+const MarketRow = (props: MarketRowProps) => {
+    const { market, ticker, tickers, usdRate, navigation } = props;
 
     const onPress = () => {
         if (!ticker) {
             return;
         }
 
-        navigation.navigate('Market', {symbol: market.key});
+        navigation.navigate('Market', { symbol: market.key });
     };
+
+    const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(market.key);
 
     return (
         <TouchableOpacity key={market.key} onPress={onPress} style={styles.listItemLink}>
             <View style={styles.listItem}>
-                <MarketNameCell market={market}/>
+                <MarketNameCell market={market} />
 
                 <View style={styles.tickerCell}>
                     <View style={styles.priceBox}>
@@ -37,11 +39,7 @@ const MarketRowComponent = (props: MarketRowProps) => {
 
                     <View>
                         <Text style={styles.marketVolume}>
-                            {ticker ? (
-                                <>
-                                    Volume: {Numeral(ticker.vol).multiply(ticker.last).format('0,0.[00]')}
-                                </>
-                            ) : '—'}
+                            ≈ ${usdPrice.format('0,0.[00]')}
                         </Text>
                     </View>
                 </View>
@@ -56,17 +54,21 @@ type MarketRowOuterProps = {
 
 type ConnectedProps = {
     ticker?: KunaTicker;
+    tickers: Record<string, KunaTicker>;
+    usdRate: number;
 };
 
 type MarketRowProps = NavigationInjectedProps & MarketRowOuterProps & ConnectedProps;
 
 const mapStateToProps = (store: KunaStore, ownProps: MarketRowOuterProps): ConnectedProps => {
     return {
-        ticker: find(store.ticker.tickers, {market: ownProps.market.key}),
+        ticker: find(store.ticker.tickers, { market: ownProps.market.key }),
+        tickers: store.ticker.tickers,
+        usdRate: store.ticker.usdRate,
     };
 };
 
-export const MarketRow = compose<MarketRowProps, MarketRowOuterProps>(
+export default compose<MarketRowProps, MarketRowOuterProps>(
     connect(mapStateToProps),
     withNavigation,
-)(MarketRowComponent);
+)(MarketRow);

@@ -1,17 +1,16 @@
 import React from 'react';
-import { map, filter } from 'lodash';
-import { ScrollView, View, Animated } from 'react-native';
+import { View, Animated, StyleSheet } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { TabView, Scene, SceneRendererProps, PagerScroll } from 'react-native-tab-view';
-import { kunaMarketMap, KunaMarket, KunaAssetUnit, getAsset } from 'kuna-sdk';
 import { trackScreen } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
 
 import { tabNavigationRoutes, TabnavRoute, QuoteTabItem } from './tab-bar';
-import AboutTab from './about-tab';
-import { MarketRow } from './market-row';
+
+
 import { mainStyles, tabBarStyles } from './styles';
-import { styles } from 'screens/market/styles';
+import AboutTab from './about-tab';
+import MarketTab  from './market-tab';
 
 type MainScreenState = {
     index: number;
@@ -59,10 +58,9 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     protected renderPager = (props: SceneRendererProps<TabnavRoute>) => {
         return (
             <Layout>
-
                 <Animated.View
                     pointerEvents="box-none"
-                    style={[styles.panelContainer, {
+                    style={[StyleSheet.absoluteFillObject, {
                         backgroundColor: 'black',
                         opacity: this._animation.interpolate({
                             inputRange: [0, 1],
@@ -86,15 +84,7 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     protected renderScene = (props: Scene<TabnavRoute>) => {
         const { assets } = props.route;
         if (assets && assets.length) {
-            const actualMarketMap = this.getMarketMap(assets);
-
-            return (
-                <ScrollView style={mainStyles.flatList} showsVerticalScrollIndicator={false}>
-                    {map(actualMarketMap, (market: KunaMarket) => (
-                        <MarketRow market={market} key={market.key} />
-                    ))}
-                </ScrollView>
-            );
+            return <MarketTab assets={assets} />
         }
 
         return <AboutTab />;
@@ -128,12 +118,6 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
                 </View>
             </View>
         );
-    };
-
-    protected getMarketMap = (assets: KunaAssetUnit[]): KunaMarket[] => {
-        return filter(kunaMarketMap, (market: KunaMarket): boolean => {
-            return assets.indexOf(market.quoteAsset) >= 0;
-        });
     };
 
     protected blurComponent = () => {

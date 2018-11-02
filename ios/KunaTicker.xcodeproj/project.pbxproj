@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -821,7 +821,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 610;
-				ORGANIZATIONNAME = Plark;
+				ORGANIZATIONNAME = Raccoona;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 7Z2Q79R77A;
@@ -839,7 +839,7 @@
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "KunaTicker" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1393,7 +1393,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker";
 				PRODUCT_NAME = KunaTicker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1426,7 +1426,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker";
 				PRODUCT_NAME = KunaTicker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1450,7 +1450,7 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "KunaTicker copy-Info.plist";
+				INFOPLIST_FILE = "KunaTicker-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1458,7 +1458,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1482,7 +1482,7 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "KunaTicker copy-Info.plist";
+				INFOPLIST_FILE = "KunaTicker-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1490,7 +1490,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1583,7 +1583,7 @@
 				13B07F951A680F5B00A75B9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		6094B098216DF07E00437862 /* Build configuration list for PBXNativeTarget "KunaTickerDev" */ = {
 			isa = XCConfigurationList;
@@ -1592,7 +1592,7 @@
 				6094B09A216DF07E00437862 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "KunaTicker" */ = {
 			isa = XCConfigurationList;
@@ -1601,7 +1601,7 @@
 				83CBBA211A601CBA00E9B192 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

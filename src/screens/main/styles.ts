@@ -10,9 +10,6 @@ export const mainStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: Color.Main,
     },
-    flatList: {
-        flex: 1
-    },
 });
 
 export const tabBarStyles = StyleSheet.create({

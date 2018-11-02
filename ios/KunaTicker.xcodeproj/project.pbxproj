@@ -1494,7 +1494,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1526,7 +1526,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";

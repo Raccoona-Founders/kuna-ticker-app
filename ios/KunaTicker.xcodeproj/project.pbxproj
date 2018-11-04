@@ -853,7 +853,6 @@
 				ORGANIZATIONNAME = Raccoona;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 7Z2Q79R77A;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1429,7 +1428,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker";
 				PRODUCT_NAME = KunaTicker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1462,7 +1461,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker";
 				PRODUCT_NAME = KunaTicker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";

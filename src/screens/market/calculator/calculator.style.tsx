@@ -52,4 +52,17 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         color: Color.Gray2,
     },
+
+    resultContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        marginTop: 3,
+        paddingRight: 15,
+    },
+
+    resultUsdValue: {
+        fontSize: 12,
+        color: Color.Gray2,
+        fontWeight: '500'
+    },
 });

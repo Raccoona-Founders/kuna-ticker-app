@@ -1,12 +1,13 @@
 import React from 'react';
 import { Store } from 'redux';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { kunaApiClient } from 'kuna-sdk';
 import SplashScreen from 'react-native-splash-screen';
 
 import 'utils/setup-locale';
 
+import { SpanText } from 'components/span-text';
 import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
 import { Ticker } from 'store/actions';
@@ -59,7 +60,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
         if (!store || isStoreLoading) {
             return (
                 <View style={styles.loadingContainer}>
-                    <Text style={styles.loadingText}>Loading...</Text>
+                    <SpanText style={styles.loadingText}>Loading...</SpanText>
                 </View>
             );
         }

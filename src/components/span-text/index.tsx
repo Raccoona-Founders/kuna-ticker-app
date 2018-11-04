@@ -4,13 +4,13 @@ import { Color, Fonts } from 'styles/variables';
 
 type RegularTextProps = TextProps & {
     children: 'string' | any;
-    weight?: 'regular' | 'thin' | 'bold';
+    weight?: '300' | '400' | '500';
     fontSize?: number;
 };
 
 
 export const SpanText = (props: RegularTextProps) => {
-    const { weight = 'regular', style = {}, fontSize = 16, children, ...otherProps } = props;
+    const { weight = '400', style = {}, fontSize = 16, children, ...otherProps } = props;
     const textStyles: any[] = [
         defaultStyle, {
             fontSize: fontSize,

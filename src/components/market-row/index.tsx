@@ -6,6 +6,7 @@ import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { KunaMarket, KunaTicker } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
+import { SpanText } from 'components/span-text';
 
 import { MarketNameCell } from './market-name-cell';
 import { styles } from './styles';
@@ -31,16 +32,16 @@ const MarketRow = (props: MarketRowProps) => {
 
                 <View style={styles.tickerCell}>
                     <View style={styles.priceBox}>
-                        <Text style={styles.priceValue}>
+                        <SpanText style={styles.priceValue}>
                             {ticker ? numFormat(ticker.last, market.format) : '—'}
-                        </Text>
-                        <Text style={styles.priceLabel}>{market.quoteAsset}</Text>
+                        </SpanText>
+                        <SpanText style={styles.priceLabel}>{market.quoteAsset}</SpanText>
                     </View>
 
                     <View>
-                        <Text style={styles.marketVolume}>
+                        <SpanText style={styles.marketVolume}>
                             ≈ ${usdPrice.format('0,0.[00]')}
-                        </Text>
+                        </SpanText>
                     </View>
                 </View>
             </View>

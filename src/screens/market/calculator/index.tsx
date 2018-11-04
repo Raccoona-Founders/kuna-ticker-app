@@ -1,15 +1,15 @@
 import React from 'react';
 import Numeral from 'numeral';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { getAsset, KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
 import { styles } from './calculator.style';
 import { SpanText } from 'components/span-text';
+import { UsdCalculator } from 'utils/currency-rate';
 
 type CalculatorProps = {
     market: KunaMarket;
     ticker: KunaTicker;
-
-    usdPrice?: Numeral;
+    usdPrice?: number;
 };
 
 enum Operation {
@@ -44,7 +44,7 @@ class CalcAssetRow extends React.PureComponent<CalcAssetRowProps> {
                            returnKeyType="done"
 
                 />
-                
+
                 <View style={styles.assetIcon} pointerEvents="box-none">
                     <SpanText style={styles.assetIconText}>{asset.key}</SpanText>
                 </View>
@@ -60,12 +60,12 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     };
 
     public render(): JSX.Element {
-        const { inputBuyValue, inputSellValue } = this.state;
-        const { market, usdPrice } = this.props;
+        const {inputBuyValue, inputSellValue} = this.state;
+        const {market} = this.props;
 
         return (
             <View style={styles.container}>
-                <Text style={styles.topic}>Calculate</Text>
+                <SpanText style={styles.topic}>Calculate</SpanText>
 
                 <CalcAssetRow
                     asset={market.baseAsset}
@@ -78,12 +78,14 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
                     value={inputSellValue}
                     onChangeText={this.changeTextInput(Operation.Sell)}
                 />
+
+                {this._renderUseEquivalent()}
             </View>
         );
     }
 
     protected changeTextInput = (type: Operation) => (text: string) => {
-        const { ticker, market } = this.props;
+        const {ticker, market} = this.props;
 
         const buyAsset = getAsset(market.baseAsset);
         const sellAsset = getAsset(market.quoteAsset);
@@ -115,5 +117,22 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
 
         this.setState(toUpdateState);
     };
+
+    protected _renderUseEquivalent(): JSX.Element {
+        const {inputBuyValue} = this.state;
+        const {usdPrice} = this.props;
+
+        if (!usdPrice || usdPrice <= 0) {
+            return <View/>;
+        }
+
+        return (
+            <View style={styles.resultContainer}>
+                <SpanText style={styles.resultUsdValue}>
+                    ≈ ${Numeral(inputBuyValue || 0).multiply(usdPrice).format('0,0[.]00')}
+                </SpanText>
+            </View>
+        );
+    }
 
 }

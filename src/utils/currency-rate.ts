@@ -7,13 +7,15 @@ export class UsdCalculator {
     protected tickers: Record<string, KunaTicker>;
 
     public constructor(usdRate: number, tickers: Record<string, KunaTicker>) {
-        this.usdRate = usdRate;
+        this.usdRate = usdRate || 28;
         this.tickers = tickers;
     }
 
     public getPrice(marketSymbol: string): Numeral {
         const currentMarket = kunaMarketMap[marketSymbol];
-        const ticker = find(this.tickers, { market: marketSymbol }) as KunaTicker;
+        const ticker = find(this.tickers, { market: marketSymbol }) as KunaTicker || {
+            last: 0
+        };
 
         switch (currentMarket.quoteAsset) {
             case KunaAssetUnit.UkrainianHryvnia:

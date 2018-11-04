@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Color } from "styles/variables";
+import { Color, Fonts } from "styles/variables";
 
 export const mainStyles = StyleSheet.create({
     swiperWrapper: {},
@@ -20,7 +20,7 @@ export const tabBarStyles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 10
+        zIndex: 10,
     },
 
     tabBar: {
@@ -37,7 +37,8 @@ export const tabBarStyles = StyleSheet.create({
         marginLeft: 12,
     },
     text: {
-        fontSize: 24,
+        fontSize: 22,
+        fontFamily: Fonts.TTNorms_Regular,
         alignItems: 'center',
         color: Color.Gray2,
         fontWeight: '600',

@@ -16,11 +16,11 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
-  - nanopb (0.3.901):
-    - nanopb/decode (= 0.3.901)
-    - nanopb/encode (= 0.3.901)
-  - nanopb/decode (0.3.901)
-  - nanopb/encode (0.3.901)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
 
 DEPENDENCIES:
   - Firebase/Core (~> 5.3.0)
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 62f1b792a49bb9e8b4073f24606d2c93ffc352f0
   FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
-  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
 PODFILE CHECKSUM: 4438b47c73a453d25b49a0bbd0a71044ad790f77
 

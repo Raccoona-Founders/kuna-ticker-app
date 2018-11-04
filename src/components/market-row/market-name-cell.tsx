@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { KunaMarket, getAsset } from 'kuna-sdk';
-
+import { SpanText } from 'components/span-text';
 import { CoinIcon } from 'components/coin-icon';
 import { Color } from 'styles/variables';
 
@@ -17,12 +17,12 @@ export const MarketNameCell = (props: MarketNameProps) => {
             <CoinIcon size={45} asset={baseAsset} style={{marginRight: 20}}/>
             <View>
                 <View style={styles.marketRow}>
-                    <Text style={[styles.pairBoxText, styles.pairBoxBase]}>{props.market.baseAsset}</Text>
-                    <Text style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</Text>
-                    <Text style={[styles.pairBoxText, styles.pairBoxQuote]}>{props.market.quoteAsset}</Text>
+                    <SpanText style={[styles.pairBoxText, styles.pairBoxBase]}>{props.market.baseAsset}</SpanText>
+                    <SpanText style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</SpanText>
+                    <SpanText style={[styles.pairBoxText, styles.pairBoxQuote]}>{props.market.quoteAsset}</SpanText>
                 </View>
                 <View style={styles.baseAssetName}>
-                    <Text style={styles.baseAssetNameText}>{baseAsset.name}</Text>
+                    <SpanText style={styles.baseAssetNameText}>{baseAsset.name}</SpanText>
                 </View>
             </View>
         </View>

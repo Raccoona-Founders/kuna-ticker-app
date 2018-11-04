@@ -23,11 +23,11 @@ export enum Color {
 }
 
 export enum Fonts {
-    TTNorms_Heavy = 'tt_norms_heavy',           // 900
-    TTNorms_Black = 'tt_norms_black',           // 800
-    TTNorms_ExtraBold = 'tt_norms_extrabold',   // 700
-    TTNorms_Bold = 'tt_norms_bold',             // 600
-    TTNorms_Medium = 'tt_norms_medium',         // 500
-    TTNorms_Regular = 'tt_norms_regular',       // 400
-    TTNorms_Light = 'tt_norms_light',           // 300
+    TTNorms_Heavy = 'TTNorms-Regular',         // 900
+    TTNorms_Black = 'TTNorms-Black',           // 800
+    TTNorms_ExtraBold = 'TTNorms-ExtraBold',   // 700
+    TTNorms_Bold = 'TTNorms-Bold',             // 600
+    TTNorms_Medium = 'TTNorms-Medium',         // 500
+    TTNorms_Regular = 'TTNorms-Regular',       // 400
+    TTNorms_Light = 'TTNorms-Light',           // 300
 }

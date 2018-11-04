@@ -2,7 +2,7 @@ import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { Text, View, Animated, Keyboard } from 'react-native';
+import { View, Animated, Keyboard } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
 
@@ -10,6 +10,7 @@ import { numFormat } from 'utils/number-helper';
 import { trackScreen } from 'utils/ga-tracker';
 import { Layout } from 'components/layout';
 import { CoinIcon } from 'components/coin-icon';
+import { SpanText } from 'components/span-text';
 
 import { Calculator } from './calculator';
 import { InfoUnit } from './info-unit';
@@ -43,7 +44,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
 
     public render(): JSX.Element {
-        const { ticker } = this.props;
+        const {ticker} = this.props;
 
         const style = {
             top: 40,
@@ -54,7 +55,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         return (
             <Layout style={style}>
                 <View style={styles.browContainer}>
-                    <View style={styles.browItem} />
+                    <View style={styles.browItem}/>
                 </View>
 
                 {ticker ? this.renderMarketTicker() : ''}
@@ -64,7 +65,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
 
     protected renderMarketTicker() {
-        const { ticker, usdRate, tickers } = this.props;
+        const {ticker, usdRate, tickers} = this.props;
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
@@ -78,36 +79,44 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                 <View style={styles.topic}>
                     <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                               size={48}
-                              style={{ marginRight: 20 }}
+                              style={{marginRight: 20}}
                     />
 
                     <View>
-                        <Text style={styles.topicAssetText}>
+                        <SpanText style={styles.topicAssetText}>
                             {currentMarket.baseAsset} / {currentMarket.quoteAsset}
-                        </Text>
+                        </SpanText>
 
-                        <Text style={styles.topicAssetSubtext}>
-                            <Text style={styles.topicAssetSubtextName}>{baseAsset.name}</Text>
-                            <Text> to </Text>
-                            <Text style={styles.topicAssetSubtextName}>{quoteAsset.name}</Text>
-                        </Text>
+                        <SpanText style={styles.topicAssetSubtext}>
+                            <SpanText style={styles.topicAssetSubtextName}>{baseAsset.name}</SpanText>
+                            <SpanText> to </SpanText>
+                            <SpanText style={styles.topicAssetSubtextName}>{quoteAsset.name}</SpanText>
+                        </SpanText>
 
                         <View style={styles.priceContainer}>
                             <View style={styles.priceMarketContainer}>
-                                <Text style={styles.priceTextValue}>
+                                <SpanText style={styles.priceTextValue}>
                                     {numFormat(ticker.last, currentMarket.format)}
-                                </Text>
-                                <Text style={styles.priceTextAsset}>{quoteAsset.key}</Text>
+                                </SpanText>
+                                <SpanText style={styles.priceTextAsset}>{quoteAsset.key}</SpanText>
                             </View>
 
                             {usdPrice && (
-                                <Text style={styles.priceUsd}>≈ ${usdPrice.format('0,0.[00]')}</Text>
+                                <SpanText style={styles.priceUsd}>
+                                    ≈ ${usdPrice.format('0,0.[00]')}
+                                </SpanText>
                             )}
                         </View>
                     </View>
                 </View>
 
-                {ticker.last && <Calculator market={currentMarket} ticker={ticker} usdPrice={usdPrice} />}
+                {ticker.last && (
+                    <Calculator
+                        market={currentMarket}
+                        ticker={ticker}
+                        usdPrice={usdPrice.value()}
+                    />
+                )}
 
                 <View style={styles.infoContainer}>
                     <InfoUnit topic={`Volume ${baseAsset.key}`}

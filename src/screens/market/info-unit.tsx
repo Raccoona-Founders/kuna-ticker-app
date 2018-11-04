@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Color } from "styles/variables";
+import { View, StyleSheet } from 'react-native';
+import { Color } from 'styles/variables';
+import { SpanText } from 'components/span-text';
 
 type InfoUnitProps = {
     topic: string;
@@ -10,8 +11,8 @@ type InfoUnitProps = {
 export const InfoUnit = (props: InfoUnitProps) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.topic}>{props.topic}</Text>
-            <Text style={styles.value}>{props.value}</Text>
+            <SpanText style={styles.topic}>{props.topic}</SpanText>
+            <SpanText style={styles.value}>{props.value}</SpanText>
         </View>
     )
 };

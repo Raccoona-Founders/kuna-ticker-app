@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
 
     resultContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
         marginTop: 3,
         paddingRight: 15,
     },

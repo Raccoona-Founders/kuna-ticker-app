@@ -27,7 +27,6 @@
 		5E07D1E7E24967BF8F77427E /* libPods-KunaTicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0B7AE15AB4FE596D16A978 /* libPods-KunaTicker.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		601C9A192163E16600E74460 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 601C9A132163E13F00E74460 /* libRNRandomBytes.a */; };
-		601E39712155422000C51D58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 601E39442155422000C51D58 /* GoogleService-Info.plist */; };
 		6094B07D216DF07E00437862 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		6094B07E216DF07E00437862 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6094B080216DF07E00437862 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 601C9A132163E13F00E74460 /* libRNRandomBytes.a */; };
@@ -50,7 +49,8 @@
 		6094B091216DF07E00437862 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87998BEA2BB74B17A78C8BBD /* libRNFirebase.a */; };
 		6094B094216DF07E00437862 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		6094B095216DF07E00437862 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		6094B096216DF07E00437862 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 601E39442155422000C51D58 /* GoogleService-Info.plist */; };
+		60C8591221909C9900A174BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60C8591121909C9900A174BA /* GoogleService-Info.plist */; };
+		60C8591321909C9900A174BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60C8591121909C9900A174BA /* GoogleService-Info.plist */; };
 		6833255AB99440C889FF5CE2 /* tt_norms_black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 239DE29E3C994D60A1DDCD70 /* tt_norms_black.otf */; };
 		7A112629D8B74E2E9C2379CE /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB48EBEAB5B412F9899CDCA /* libInteractable.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -422,9 +422,9 @@
 		4746AE380604E8BF638FABDA /* Pods-KunaTicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KunaTicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KunaTicker/Pods-KunaTicker.debug.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNRandomBytes.xcodeproj; path = "../node_modules/react-native-randombytes/RNRandomBytes.xcodeproj"; sourceTree = "<group>"; };
-		601E39442155422000C51D58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6094B09B216DF07E00437862 /* KunaTickerDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KunaTickerDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6094B09C216DF07F00437862 /* KunaTicker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "KunaTicker-Info.plist"; path = "/Users/m.tymchyk/projects/kuna/kuna-ticker-mobile/ios/KunaTicker-Info.plist"; sourceTree = "<absolute>"; };
+		60C8591121909C9900A174BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		60D50EB92132939600FE96BE /* KunaTicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = KunaTicker.entitlements; path = KunaTicker/KunaTicker.entitlements; sourceTree = "<group>"; };
 		7658EDA19F01457DA3084648 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -581,7 +581,7 @@
 		13B07FAE1A68108700A75B9A /* KunaTicker */ = {
 			isa = PBXGroup;
 			children = (
-				601E39442155422000C51D58 /* GoogleService-Info.plist */,
+				60C8591121909C9900A174BA /* GoogleService-Info.plist */,
 				60D50EB92132939600FE96BE /* KunaTicker.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -850,7 +850,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 610;
-				ORGANIZATIONNAME = Raccoona;
+				ORGANIZATIONNAME = "Maksym Tymchyk";
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						ProvisioningStyle = Automatic;
@@ -861,7 +861,6 @@
 						};
 					};
 					6094B07A216DF07E00437862 = {
-						DevelopmentTeam = 7Z2Q79R77A;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1291,12 +1290,12 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				601E39712155422000C51D58 /* GoogleService-Info.plist in Resources */,
 				6833255AB99440C889FF5CE2 /* tt_norms_black.otf in Resources */,
 				1797B195DBDF4261921FB19F /* tt_norms_bold.otf in Resources */,
 				0648F5A9ACF74EA19366B5F0 /* tt_norms_extrabold.otf in Resources */,
 				905494B67DF34EA481D32F83 /* tt_norms_heavy.otf in Resources */,
 				8F7881DA8729459293E8FDE9 /* tt_norms_light.otf in Resources */,
+				60C8591221909C9900A174BA /* GoogleService-Info.plist in Resources */,
 				118FF7D8C9F6434491BBF9BC /* tt_norms_medium.otf in Resources */,
 				043A5EB286104894A9C4DF68 /* tt_norms_regular.otf in Resources */,
 			);
@@ -1308,7 +1307,7 @@
 			files = (
 				6094B094216DF07E00437862 /* Images.xcassets in Resources */,
 				6094B095216DF07E00437862 /* LaunchScreen.xib in Resources */,
-				6094B096216DF07E00437862 /* GoogleService-Info.plist in Resources */,
+				60C8591321909C9900A174BA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1406,11 +1405,12 @@
 			baseConfigurationReference = 4746AE380604E8BF638FABDA /* Pods-KunaTicker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 7Z2Q79R77A;
+				DEVELOPMENT_TEAM = 5A9H9AW75D;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1420,7 +1420,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = KunaTicker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
@@ -1428,7 +1428,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maksym.tymchyk.KunaTicker;
 				PRODUCT_NAME = KunaTicker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1440,10 +1440,11 @@
 			baseConfigurationReference = 0190BB2C310277E4F22EA727 /* Pods-KunaTicker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7Z2Q79R77A;
+				DEVELOPMENT_TEAM = 5A9H9AW75D;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1453,7 +1454,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = KunaTicker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = (
@@ -1461,7 +1462,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.raccoona.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maksym.tymchyk.KunaTicker;
 				PRODUCT_NAME = KunaTicker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1476,7 +1477,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 7Z2Q79R77A;
+				DEVELOPMENT_TEAM = 5A9H9AW75D;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1493,7 +1494,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maksym.tymchyk.KunaTickerDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1508,7 +1509,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 7Z2Q79R77A;
+				DEVELOPMENT_TEAM = 5A9H9AW75D;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
@@ -1525,7 +1526,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.plark.kuna-ticker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maksym.tymchyk.KunaTickerDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1549,8 +1550,10 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 5A9H9AW75D;
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1570,6 +1573,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -1590,9 +1594,10 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
+				DEVELOPMENT_TEAM = 5A9H9AW75D;
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1603,6 +1608,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1618,7 +1624,7 @@
 				13B07F951A680F5B00A75B9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		6094B098216DF07E00437862 /* Build configuration list for PBXNativeTarget "KunaTickerDev" */ = {
 			isa = XCConfigurationList;
@@ -1627,7 +1633,7 @@
 				6094B09A216DF07E00437862 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "KunaTicker" */ = {
 			isa = XCConfigurationList;
@@ -1636,7 +1642,7 @@
 				83CBBA211A601CBA00E9B192 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>508872957744-3hfr49kc5jan3838ulpu674a9063nahk.apps.googleusercontent.com</string>
+	<string>378719423663-7hia6gg4n72oe77frng3t2e2e214rvlv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.508872957744-3hfr49kc5jan3838ulpu674a9063nahk</string>
+	<string>com.googleusercontent.apps.378719423663-7hia6gg4n72oe77frng3t2e2e214rvlv</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC6ps9Ew5egC3CxaCGAOtUBrizez-HgUUc</string>
+	<string>AIzaSyDVHhzgebPSb2Wug4IHWSJam00sUSkRzY8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>508872957744</string>
+	<string>378719423663</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>io.plark.kuna-ticker</string>
+	<string>com.maksym.tymchyk.KunaTicker</string>
 	<key>PROJECT_ID</key>
-	<string>berrywallet-spreader</string>
+	<string>kuna-ticker-mobile</string>
 	<key>STORAGE_BUCKET</key>
-	<string>berrywallet-spreader.appspot.com</string>
+	<string>kuna-ticker-mobile.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:508872957744:ios:6001e8542c579c07</string>
+	<string>1:378719423663:ios:e2ba905791605b7f</string>
 	<key>DATABASE_URL</key>
-	<string>https://berrywallet-spreader.firebaseio.com</string>
+	<string>https://kuna-ticker-mobile.firebaseio.com</string>
 </dict>
 </plist>

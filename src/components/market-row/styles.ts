@@ -20,13 +20,6 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
 
-    pairBoxText: {
-        color: Color.DarkPurple,
-        fontSize: 16,
-        fontWeight: '300',
-        lineHeight: 16,
-    },
-
     priceBox: {
         flexDirection: 'row',
     },
@@ -41,8 +34,7 @@ export const styles = StyleSheet.create({
 
     marketVolume: {
         marginTop: 5,
-        fontSize: 12,
-        fontWeight: '500',
+        fontSize: 14,
         color: Color.Gray2,
     },
 });

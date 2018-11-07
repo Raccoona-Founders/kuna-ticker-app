@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
 
     topic: {
         color: Color.Gray2,
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 5,
         fontWeight: '500',
     },
@@ -38,6 +38,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Color.Gray3,
         fontFamily: Fonts.TTNorms_Regular,
+        fontWeight: '500',
     },
 
     assetIcon: {
@@ -56,13 +57,12 @@ export const styles = StyleSheet.create({
     resultContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        marginTop: 3,
+        marginTop: 5,
         paddingRight: 15,
     },
 
     resultUsdValue: {
-        fontSize: 12,
+        fontSize: 16,
         color: Color.Gray2,
-        fontWeight: '500'
     },
 });

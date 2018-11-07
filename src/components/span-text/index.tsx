@@ -10,7 +10,7 @@ type RegularTextProps = TextProps & {
 
 
 export const SpanText = (props: RegularTextProps) => {
-    const { weight = '400', style = {}, fontSize = 16, children, ...otherProps } = props;
+    const { weight = '500', style = {}, fontSize = 16, children, ...otherProps } = props;
     const textStyles: any[] = [
         defaultStyle, {
             fontSize: fontSize,

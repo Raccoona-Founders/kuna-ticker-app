@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { KunaMarket, KunaTicker } from 'kuna-sdk';
+import { KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
 import { SpanText } from 'components/span-text';
 

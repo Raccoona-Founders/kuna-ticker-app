@@ -22,9 +22,24 @@ export class UsdCalculator {
                 return Numeral(ticker.last).divide(this.usdRate);
 
             case KunaAssetUnit.Bitcoin:
-                let btcTicker = this.tickers['btcuah'];
+                const btcTicker = this.tickers['btcuah'];
 
                 return Numeral(ticker.last).multiply(btcTicker ? btcTicker.last : 0).divide(this.usdRate);
+
+            case KunaAssetUnit.Ethereum:
+                const ethTicker = this.tickers['ethuah'];
+
+                return Numeral(ticker.last).multiply(ethTicker ? ethTicker.last : 0).divide(this.usdRate);
+
+            case KunaAssetUnit.StasisEuro:
+                const euroTicker = this.tickers['eursuah'];
+
+                return Numeral(ticker.last).multiply(euroTicker ? euroTicker.last : 0).divide(this.usdRate);
+
+            case KunaAssetUnit.GolosGold:
+                const golosTicker = this.tickers['gbguah'];
+
+                return Numeral(ticker.last).multiply(golosTicker ? golosTicker.last : 0).divide(this.usdRate);
         }
 
         return Numeral(0);

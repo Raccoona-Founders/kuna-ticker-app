@@ -2,7 +2,7 @@ import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { View, Animated, Keyboard } from 'react-native';
+import { View, Animated, Keyboard, Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { getAsset, kunaMarketMap, KunaTicker } from 'kuna-sdk';
 
@@ -44,7 +44,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
 
     public render(): JSX.Element {
-        const {ticker} = this.props;
+        const { ticker } = this.props;
 
         const style = {
             top: 40,
@@ -55,7 +55,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         return (
             <Layout style={style}>
                 <View style={styles.browContainer}>
-                    <View style={styles.browItem}/>
+                    <View style={styles.browItem} />
                 </View>
 
                 {ticker ? this.renderMarketTicker() : ''}
@@ -65,7 +65,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
 
     protected renderMarketTicker() {
-        const {ticker, usdRate, tickers} = this.props;
+        const { ticker, usdRate, tickers } = this.props;
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
@@ -79,7 +79,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                 <View style={styles.topic}>
                     <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                               size={48}
-                              style={{marginRight: 20}}
+                              style={{ marginRight: 20 }}
                     />
 
                     <View>
@@ -88,9 +88,9 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                         </SpanText>
 
                         <SpanText style={styles.topicAssetSubtext}>
-                            <SpanText style={styles.topicAssetSubtextName}>{baseAsset.name}</SpanText>
-                            <SpanText> to </SpanText>
-                            <SpanText style={styles.topicAssetSubtextName}>{quoteAsset.name}</SpanText>
+                            <Text style={styles.topicAssetSubtextName}>{baseAsset.name}</Text>
+                            <Text style={{ fontWeight: '400' }}> to </Text>
+                            <Text style={styles.topicAssetSubtextName}>{quoteAsset.name}</Text>
                         </SpanText>
 
                         <View style={styles.priceContainer}>

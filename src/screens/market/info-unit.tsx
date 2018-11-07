@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
     topic: {
         color: Color.Gray2,
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 5,
         fontWeight: '500',
     },

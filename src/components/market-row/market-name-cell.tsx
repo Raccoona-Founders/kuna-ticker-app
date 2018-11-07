@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     pairBoxText: {
         color: Color.DarkPurple,
         fontSize: 18,
-        fontWeight: '400',
         lineHeight: 18,
     },
     pairBoxBase: {},

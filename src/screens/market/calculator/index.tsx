@@ -1,10 +1,9 @@
 import React from 'react';
 import Numeral from 'numeral';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import { getAsset, KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
 import { styles } from './calculator.style';
 import { SpanText } from 'components/span-text';
-import { UsdCalculator } from 'utils/currency-rate';
 
 type CalculatorProps = {
     market: KunaMarket;
@@ -60,8 +59,8 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     };
 
     public render(): JSX.Element {
-        const {inputBuyValue, inputSellValue} = this.state;
-        const {market} = this.props;
+        const { inputBuyValue, inputSellValue } = this.state;
+        const { market } = this.props;
 
         return (
             <View style={styles.container}>
@@ -85,7 +84,7 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     }
 
     protected changeTextInput = (type: Operation) => (text: string) => {
-        const {ticker, market} = this.props;
+        const { ticker, market } = this.props;
 
         const buyAsset = getAsset(market.baseAsset);
         const sellAsset = getAsset(market.quoteAsset);
@@ -119,17 +118,21 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     };
 
     protected _renderUseEquivalent(): JSX.Element {
-        const {inputBuyValue} = this.state;
-        const {usdPrice} = this.props;
+        const { inputBuyValue = '' } = this.state;
+        const { usdPrice, market } = this.props;
+
+        const buyAsset = getAsset(market.baseAsset);
 
         if (!usdPrice || usdPrice <= 0) {
-            return <View/>;
+            return <View />;
         }
 
         return (
             <View style={styles.resultContainer}>
                 <SpanText style={styles.resultUsdValue}>
-                    ≈ ${Numeral(inputBuyValue || 0).multiply(usdPrice).format('0,0[.]00')}
+                    <Text style={{ fontWeight: '400' }}>{inputBuyValue || '0'} {buyAsset.key}</Text>
+                    <Text> ≈ </Text>
+                    <Text>${Numeral(inputBuyValue || 0).multiply(usdPrice).format('0,0[.]00')}</Text>
                 </SpanText>
             </View>
         );

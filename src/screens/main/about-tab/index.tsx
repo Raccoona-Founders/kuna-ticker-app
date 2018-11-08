@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Linking, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
 import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
@@ -32,7 +32,7 @@ const AboutTab = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View>
                 <View style={styles.topic}>
                     <SpanText style={styles.topicTitle}>About Kuna Ticker</SpanText>
@@ -41,16 +41,16 @@ const AboutTab = () => {
                 <Markdown style={mdStyles}>{textContent}</Markdown>
             </View>
 
+            <View style={styles.separator} />
+
             <View style={styles.linksContainer}>
-                {links.map(({ title, url }) => {
-                    return (
-                        <TouchableOpacity onPress={linkTo(url)} style={styles.linkItem}>
-                            <SpanText style={styles.linkItemText}>→ {title}</SpanText>
-                        </TouchableOpacity>
-                    );
-                })}
+                {links.map(({ title, url }, index: number) => (
+                    <TouchableOpacity onPress={linkTo(url)} style={styles.linkItem} key={index}>
+                        <SpanText style={styles.linkItemText}>→ {title}</SpanText>
+                    </TouchableOpacity>
+                ))}
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -63,7 +63,7 @@ const mdStyles = StyleSheet.create({
         lineHeight: 20,
         color: Color.DarkPurple,
         fontFamily: Fonts.TTNorms_Regular,
-    },
+    }
 });
 
 const styles = StyleSheet.create({
@@ -71,31 +71,35 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: 20,
         paddingRight: 20,
+        paddingBottom: 20,
     },
     topic: {
         marginTop: 10,
-        marginBottom: 20,
+        marginBottom: 10,
     },
     topicTitle: {
         color: Color.DarkPurple,
-        fontSize: 20,
-        fontWeight: '600',
-        textAlign: 'center',
-        width: '100%',
+        fontSize: 24,
+        fontWeight: '600'
     },
-    linksContainer: {
+
+    separator: {
         marginTop: 20,
-        paddingTop: 20,
-        paddingBottom: 20,
+        marginBottom: 10,
         borderTopWidth: 1,
         borderTopColor: Color.Gray3,
+    },
+
+    linksContainer: {
+        paddingTop: 20,
+        paddingBottom: 20,
     },
     linkItem: {
         marginBottom: 20,
     },
     linkItemText: {
         fontSize: 18,
-        fontWeight: '500'
+        fontWeight: '500',
     },
 });
 

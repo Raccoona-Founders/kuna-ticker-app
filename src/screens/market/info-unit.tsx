@@ -6,15 +6,20 @@ import { SpanText } from 'components/span-text';
 type InfoUnitProps = {
     topic: string;
     value: string;
+    valueColor?: string;
 };
 
 export const InfoUnit = (props: InfoUnitProps) => {
+    const { valueColor = undefined } = props;
+
     return (
         <View style={styles.container}>
             <SpanText style={styles.topic}>{props.topic}</SpanText>
-            <SpanText style={styles.value}>{props.value}</SpanText>
+            <SpanText style={[styles.value, valueColor ? { color: valueColor } : {}]}>
+                {props.value}
+            </SpanText>
         </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
@@ -31,5 +36,5 @@ const styles = StyleSheet.create({
     value: {
         fontSize: 18,
         fontWeight: '500',
-    }
+    },
 });

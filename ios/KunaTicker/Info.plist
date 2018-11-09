@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.finance</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -38,9 +38,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>NSMainNibFile</key>
-	<string>LaunchScreen</string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>tt_norms_black.otf</string>

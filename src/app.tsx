@@ -58,11 +58,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
         const { store, isStoreLoading } = this.state;
 
         if (!store || isStoreLoading) {
-            return (
-                <View style={styles.loadingContainer}>
-                    <SpanText style={styles.loadingText}>Loading...</SpanText>
-                </View>
-            );
+            return <View style={styles.loadingContainer} />;
         }
 
         return (

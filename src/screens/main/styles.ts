@@ -18,7 +18,7 @@ export const tabBarStyles = StyleSheet.create({
     container: {
         paddingLeft: 20,
         paddingRight: 20,
-        paddingTop: Constants ? 40 : 20,
+        paddingTop: Constants.IS_IPHONE_X ? 40 : 20,
         position: 'absolute',
         top: 0,
         left: 0,

@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Color, Fonts } from "styles/variables";
+import { Color, Fonts } from 'styles/variables';
+import Constants from 'utils/constants';
+
 
 export const mainStyles = StyleSheet.create({
     swiperWrapper: {},
@@ -16,6 +18,7 @@ export const tabBarStyles = StyleSheet.create({
     container: {
         paddingLeft: 20,
         paddingRight: 20,
+        paddingTop: Constants ? 40 : 20,
         position: 'absolute',
         top: 0,
         left: 0,

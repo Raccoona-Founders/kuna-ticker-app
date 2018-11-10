@@ -1,16 +1,13 @@
 import React from 'react';
-import { View, Animated, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { TabView, Scene, SceneRendererProps, PagerScroll } from 'react-native-tab-view';
 import { trackScreen } from 'utils/ga-tracker';
-import { Layout } from 'components/layout';
-
 import { tabNavigationRoutes, TabnavRoute, QuoteTabItem } from './tab-bar';
-
-
 import { mainStyles, tabBarStyles } from './styles';
 import AboutTab from './about-tab';
 import MarketTab  from './market-tab';
+import Constants from 'utils/constants';
 
 type MainScreenState = {
     index: number;
@@ -22,21 +19,6 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         index: 0,
         routes: tabNavigationRoutes,
     };
-
-    protected _animation: Animated.Value;
-
-    public constructor(props: MainScreenProps) {
-        super(props);
-
-        this._animation = new Animated.Value(0);
-    }
-
-    public componentDidMount(): void {
-        this.trackScreen();
-
-        this.props.navigation.addListener('willBlur', this.blurComponent);
-        this.props.navigation.addListener('willFocus', this.focusComponent);
-    }
 
     public render(): JSX.Element {
         return (
@@ -57,27 +39,12 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
 
     protected renderPager = (props: SceneRendererProps<TabnavRoute>) => {
         return (
-            <Layout>
-                <Animated.View
-                    pointerEvents="box-none"
-                    style={[StyleSheet.absoluteFillObject, {
-                        backgroundColor: 'black',
-                        opacity: this._animation.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [0, 0.5],
-                            extrapolateRight: 'clamp',
-                        }),
-                        zIndex: 1000,
-                    }]}
-                />
+            <>
+                {this.renderTabBar(props)}
+                <View style={{ height: Constants.IS_IPHONE_X ? 100 : 80 }} />
 
-                <View style={{ flex: 1 }}>
-                    {this.renderTabBar(props)}
-                    <View style={{ height: 60 }} />
-
-                    <PagerScroll {...props} />
-                </View>
-            </Layout>
+                <PagerScroll {...props} />
+            </>
         );
     };
 
@@ -118,28 +85,6 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
                 </View>
             </View>
         );
-    };
-
-    protected blurComponent = () => {
-        Animated.timing(
-            this._animation,
-            {
-                toValue: 1,
-                duration: 300,
-            },
-        ).start();
-    };
-
-    protected focusComponent = () => {
-        Animated.timing(
-            this._animation,
-            {
-                toValue: 0,
-                duration: 100,
-            },
-        ).start();
-
-        this.trackScreen();
     };
 
     protected trackScreen = () => {

@@ -28,7 +28,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LaunchScreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="04a-Qj-GnC">
-                    <rect key="frame" x="83" y="308" width="209" height="50"/>
+                    <rect key="frame" x="109" y="308" width="156" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
@@ -41,6 +41,6 @@
         </view>
     </objects>
     <resources>
-        <image name="LaunchScreenLogo" width="106" height="37"/>
+        <image name="LaunchScreenLogo" width="156" height="50"/>
     </resources>
 </document>

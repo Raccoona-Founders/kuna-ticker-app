@@ -4,13 +4,13 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { View, Animated, Keyboard, Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { kunaApiClient, getAsset, kunaMarketMap, KunaOrderBook, KunaTicker, KunaAsset } from 'kuna-sdk';
+import { kunaApiClient, getAsset, kunaMarketMap, KunaOrderBook, KunaTicker, KunaAsset, KunaAssetUnit } from 'kuna-sdk';
 
 import { numFormat } from 'utils/number-helper';
 import { trackScreen } from 'utils/ga-tracker';
-import { Layout } from 'components/layout';
 import { CoinIcon } from 'components/coin-icon';
 import { SpanText } from 'components/span-text';
+import RippleNotice from 'components/ripple-notice';
 
 import { Calculator } from './calculator';
 import { InfoUnit } from './info-unit';
@@ -35,7 +35,6 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         this._deltaY = new Animated.Value(screen.height - 100);
     }
 
-
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[marketSymbol];
@@ -55,28 +54,12 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
 
     public render(): JSX.Element {
-        const { ticker } = this.props;
-
-        const style = {
-            top: 40,
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-        };
-
-        return (
-            <Layout style={style}>
-                <View style={styles.browContainer}>
-                    <View style={styles.browItem} />
-                </View>
-
-                {ticker ? this.renderMarketTicker() : ''}
-            </Layout>
-        );
-    }
-
-
-    protected renderMarketTicker() {
         const { ticker, usdRate, tickers } = this.props;
+
+        if (!ticker) {
+            return <View />;
+        }
+
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
@@ -90,8 +73,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                 <View style={styles.topic}>
                     <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                               size={48}
-                              style={{ marginRight: 20 }}
-                    />
+                              style={{ marginRight: 20 }} />
 
                     <View>
                         <SpanText style={styles.topicAssetText}>
@@ -148,6 +130,8 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
 
                     {this._renderDepth(baseAsset)}
                 </View>
+
+                {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}
             </View>
         );
     }

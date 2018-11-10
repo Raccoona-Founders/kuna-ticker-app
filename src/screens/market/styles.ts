@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     marketInfoContainer: {
         flex: 1,
         paddingTop: 20,
+        paddingBottom: 20,
     },
     backButton: {
         color: Color.Main,
@@ -110,4 +111,9 @@ export const styles = StyleSheet.create({
         borderRadius: 4,
         backgroundColor: Color.Gray2,
     },
+
+
+    rippleNotice: {
+
+    }
 });

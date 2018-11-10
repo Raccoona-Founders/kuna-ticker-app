@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { Color } from 'styles/variables';
 
 export type LayoutProps = {
@@ -11,11 +11,7 @@ export const Layout = (props: LayoutProps) => {
 
     const {style, children} = props;
 
-    return (
-        <SafeAreaView style={[styles.safeAreaView, style]}>
-            {children}
-        </SafeAreaView>
-    );
+    return children;
 };
 
 const styles = StyleSheet.create({

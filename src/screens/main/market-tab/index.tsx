@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { ScrollView, RefreshControl, StyleSheet } from 'react-native';
 import { KunaAssetUnit, KunaMarket, kunaMarketMap, kunaApiClient, KunaTicker } from 'kuna-sdk';
-import MarketRow  from 'components/market-row';
+import MarketRow from 'components/market-row';
 import { Ticker } from 'store/actions';
 
 
@@ -28,7 +28,7 @@ class MarketTab extends React.PureComponent<Props, State> {
                 refreshControl={this._renderRefreshControl()}
             >
                 {map(actualMarketMap, (market: KunaMarket) => (
-                    <MarketRow market={market} key={market.key} />
+                    <MarketRow market={market} key={market.key}/>
                 ))}
             </ScrollView>
         );
@@ -50,12 +50,16 @@ class MarketTab extends React.PureComponent<Props, State> {
     };
 
     protected _onRefresh = async () => {
-        this.setState({ refreshing: true });
+        this.setState({refreshing: true});
 
-        const tickers = await kunaApiClient.getTickers();
-        this.props.updateTickers(tickers);
+        try {
+            const tickers = await kunaApiClient.getTickers();
+            this.props.updateTickers(tickers);
+        } catch (error) {
+            console.error(error);
+        }
 
-        this.setState({ refreshing: false });
+        this.setState({refreshing: false});
     };
 }
 

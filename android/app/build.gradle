@@ -137,7 +137,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-gesture-handler')
     compile project(':react-native-randombytes')
     compile project(':react-native-firebase')
     compile project(':react-native-svg')

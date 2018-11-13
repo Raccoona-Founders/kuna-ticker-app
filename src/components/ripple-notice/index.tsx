@@ -7,7 +7,7 @@ export default () => (
         <SpanText style={{ textAlign: 'center', paddingBottom: 10 }}>💩💩💩💩💩</SpanText>
 
         <SpanText style={style.rippleNoticeText}>
-            If you invest your own money in Ripple, I hope you know what you do 👌🏾
+            If you invest your own money in Ripple, I hope you know what you are doing 👌🏾
         </SpanText>
     </View>
 );

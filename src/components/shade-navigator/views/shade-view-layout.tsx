@@ -8,8 +8,8 @@ import {
     NavigationTransitionProps,
 } from 'react-navigation';
 
-import { ShadeCard } from './shade-card';
-
+// import ShadeCard from './shade-card';
+import ShadeCard from './shade-scroll-card';
 
 const NavigationProvider = require('react-navigation').NavigationProvider;
 

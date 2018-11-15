@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { TabView, Scene, SceneRendererProps, PagerScroll } from 'react-native-tab-view';

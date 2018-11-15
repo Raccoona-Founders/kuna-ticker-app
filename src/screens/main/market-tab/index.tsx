@@ -1,13 +1,13 @@
 import React from 'react';
+
 import { filter, map } from 'lodash';
 import { Dispatch } from 'redux';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { ScrollView, RefreshControl, StyleSheet } from 'react-native';
+import { ScrollView, RefreshControl, StyleSheet, Animated } from 'react-native';
 import { KunaAssetUnit, KunaMarket, kunaMarketMap, kunaApiClient, KunaTicker } from 'kuna-sdk';
 import MarketRow from 'components/market-row';
 import { Ticker } from 'store/actions';
-
 
 type State = {
     refreshing: boolean;
@@ -27,8 +27,8 @@ class MarketTab extends React.PureComponent<Props, State> {
                 showsVerticalScrollIndicator={false}
                 refreshControl={this._renderRefreshControl()}
             >
-                {map(actualMarketMap, (market: KunaMarket) => (
-                    <MarketRow market={market} key={market.key}/>
+                {map(actualMarketMap, (market: KunaMarket, index: number) => (
+                    <MarketRow key={market.key} market={market} index={index} />
                 ))}
             </ScrollView>
         );
@@ -50,7 +50,7 @@ class MarketTab extends React.PureComponent<Props, State> {
     };
 
     protected _onRefresh = async () => {
-        this.setState({refreshing: true});
+        this.setState({ refreshing: true });
 
         try {
             const tickers = await kunaApiClient.getTickers();
@@ -59,7 +59,7 @@ class MarketTab extends React.PureComponent<Props, State> {
             console.error(error);
         }
 
-        this.setState({refreshing: false});
+        this.setState({ refreshing: false });
     };
 }
 

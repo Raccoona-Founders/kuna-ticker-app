@@ -4,6 +4,7 @@ import { Color } from 'styles/variables';
 export const styles = StyleSheet.create({
     listItemLink: {
         paddingLeft: 20,
+        paddingRight: 20,
     },
 
     listItem: {
@@ -11,9 +12,14 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         height: 74,
-        paddingRight: 20,
+    },
+
+    listItemSeparator: {
         borderBottomColor: Color.Gray3,
         borderBottomWidth: 1,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 20,
     },
 
     tickerCell: {

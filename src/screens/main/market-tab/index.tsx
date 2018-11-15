@@ -4,10 +4,11 @@ import { filter, map } from 'lodash';
 import { Dispatch } from 'redux';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { ScrollView, RefreshControl, StyleSheet, Animated } from 'react-native';
+import { ScrollView, RefreshControl, StyleSheet } from 'react-native';
 import { KunaAssetUnit, KunaMarket, kunaMarketMap, kunaApiClient, KunaTicker } from 'kuna-sdk';
 import MarketRow from 'components/market-row';
 import { Ticker } from 'store/actions';
+import { TabnavRoute } from 'screens/main/tab-bar';
 
 type State = {
     refreshing: boolean;
@@ -19,7 +20,9 @@ class MarketTab extends React.PureComponent<Props, State> {
     };
 
     public render(): JSX.Element {
-        const actualMarketMap = this.getMarketMap(this.props.assets);
+        const { assets = [] } = this.props.route;
+
+        const actualMarketMap = this.getMarketMap(assets);
 
         return (
             <ScrollView
@@ -65,12 +68,12 @@ class MarketTab extends React.PureComponent<Props, State> {
 
 
 type OuterProps = {
-    assets: KunaAssetUnit[];
+    route: TabnavRoute;
 };
+
 type Props = OuterProps & {
     updateTickers: (tickers: KunaTicker[]) => void;
 };
-
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {

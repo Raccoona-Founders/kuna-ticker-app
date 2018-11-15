@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { View } from 'react-native';
+import { View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { TabView, Scene, SceneRendererProps, PagerScroll } from 'react-native-tab-view';
 import { trackScreen } from 'utils/ga-tracker';
 import { tabNavigationRoutes, TabnavRoute, QuoteTabItem } from './tab-bar';
 import { mainStyles, tabBarStyles } from './styles';
-import AboutTab from './about-tab';
-import MarketTab  from './market-tab';
+
 import Constants from 'utils/constants';
 
 type MainScreenState = {
@@ -49,13 +48,22 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
         );
     };
 
-    protected renderScene = (props: Scene<TabnavRoute>) => {
-        const { assets } = props.route;
-        if (assets && assets.length) {
-            return <MarketTab assets={assets} />
-        }
+    protected renderScene = (props: SceneRendererProps<TabnavRoute> & Scene<TabnavRoute>) => {
+        const { sceneComponent, index } = props.route;
+        const { position } = props;
 
-        return <AboutTab />;
+        const scale = position.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [0.9, 1, 0.9],
+        });
+
+        return (
+            <Animated.View style={{ flex: 1, transform: [{ scale: scale }] }}>
+                {React.createElement(sceneComponent, {
+                    route: props.route,
+                })}
+            </Animated.View>
+        );
     };
 
     protected renderTabBar = (props: SceneRendererProps<TabnavRoute>) => {

@@ -21,7 +21,7 @@ const links = [{
 }];
 
 
-const AboutTab = () => {
+const AboutTab = (): JSX.Element => {
     const linkTo = (url: string) => {
         return async () => {
             const can = await Linking.canOpenURL(url);

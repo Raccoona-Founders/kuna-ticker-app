@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { TabView, Scene, SceneRendererProps, PagerScroll } from 'react-native-tab-view';
-import { trackScreen } from 'utils/ga-tracker';
+import Analitics from 'utils/ga-tracker';
 import { tabNavigationRoutes, TabnavRoute, QuoteTabItem } from './tab-bar';
 import { mainStyles, tabBarStyles } from './styles';
 
@@ -99,7 +99,7 @@ export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenS
     protected trackScreen = () => {
         const { index, routes } = this.state;
 
-        trackScreen(`main/${routes[index].key}`, 'MainScreen');
+        Analitics.trackScreen(`main/${routes[index].key}`, 'MainScreen');
     };
 }
 

@@ -4230,9 +4230,9 @@ kleur@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-2.0.1.tgz#7cc64b0d188d0dcbc98bdcdfdda2cc10619ddce8"
 
-kuna-sdk@0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/kuna-sdk/-/kuna-sdk-0.3.5.tgz#3d69c816a432caa112918b3ff9b9691b9c21d53a"
+kuna-sdk@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/kuna-sdk/-/kuna-sdk-0.3.6.tgz#e3ed443a7516b082ef03c7fe685729f9a79b570b"
   dependencies:
     axios "0.18.0"
     debug "3.1.0"
@@ -5580,7 +5580,7 @@ react-native-typescript-transformer@1.2.10:
     semver "^5.4.1"
     source-map "^0.5.6"
 
-react-native-version@^2.6.6:
+react-native-version@2.6.6:
   version "2.6.6"
   resolved "https://registry.yarnpkg.com/react-native-version/-/react-native-version-2.6.6.tgz#3f3dd73cddefa788fa6f1feae275dc9e0dca962e"
   dependencies:

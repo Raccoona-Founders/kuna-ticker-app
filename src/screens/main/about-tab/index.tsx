@@ -4,6 +4,7 @@ import Markdown from 'react-native-markdown-renderer';
 import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
 import { textContent } from './text-content';
+import Analytics from 'utils/ga-tracker';
 
 type LinkItem = {
     title: string;
@@ -33,10 +34,15 @@ const links: LinkItem[] = [{
 
 
 const AboutTab = (): JSX.Element => {
-    const linkTo = (url: string) => {
+    const linkTo = (url: string, title: string) => {
         return async () => {
             const can = await Linking.canOpenURL(url);
+
             if (can) {
+                Analytics.logEvent('open_link', {
+                    title: title,
+                });
+
                 Linking.openURL(url);
             }
         };
@@ -63,7 +69,7 @@ const AboutTab = (): JSX.Element => {
                     }
 
                     return (
-                        <TouchableOpacity key={index} onPress={linkTo(url)} style={styles.linkItem}>
+                        <TouchableOpacity key={index} onPress={linkTo(url, title)} style={styles.linkItem}>
                             <SpanText style={styles.linkItemTitle}>{title}</SpanText>
                             <SpanText style={styles.linkItemLabel}>{label}</SpanText>
                         </TouchableOpacity>

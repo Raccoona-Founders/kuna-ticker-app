@@ -5,18 +5,29 @@ import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
 import { textContent } from './text-content';
 
+type LinkItem = {
+    title: string;
+    label: string;
+    url: string;
+    disabled?: boolean;
+};
 
-const links = [{
+const links: LinkItem[] = [{
     title: 'GitHub Repository',
+    label: 'CoinWizard/mobile-ticker-for-kuna',
     url: 'https://github.com/CoinWizard/mobile-ticker-for-kuna',
 }, {
     title: 'Kuna Ticker Website',
-    url: 'https://github.com/CoinWizard/mobile-ticker-for-kuna',
+    label: 'coinwizard.github.io',
+    url: 'https://coinwizard.github.io/mobile-ticker-for-kuna',
+    disabled: true,
 }, {
     title: 'Telegram',
+    label: '@MaksymTymchyk',
     url: 'https://t.me/MaksymTymchyk',
 }, {
     title: 'Email',
+    label: 'maksym.tymchyk@gmail.com',
     url: 'mailto:maksym.tymchyk@gmail.com?subject=KunaTicker',
 }];
 
@@ -44,11 +55,20 @@ const AboutTab = (): JSX.Element => {
             <View style={styles.separator} />
 
             <View style={styles.linksContainer}>
-                {links.map(({ title, url }, index: number) => (
-                    <TouchableOpacity onPress={linkTo(url)} style={styles.linkItem} key={index}>
-                        <SpanText style={styles.linkItemText}>→ {title}</SpanText>
-                    </TouchableOpacity>
-                ))}
+                {links.map((item: LinkItem, index: number) => {
+                    const { title, url, label, disabled = false } = item;
+
+                    if (disabled) {
+                        return <View key={index} />;
+                    }
+
+                    return (
+                        <TouchableOpacity key={index} onPress={linkTo(url)} style={styles.linkItem}>
+                            <SpanText style={styles.linkItemTitle}>{title}</SpanText>
+                            <SpanText style={styles.linkItemLabel}>{label}</SpanText>
+                        </TouchableOpacity>
+                    );
+                })}
             </View>
         </ScrollView>
     );
@@ -63,7 +83,7 @@ const mdStyles = StyleSheet.create({
         lineHeight: 20,
         color: Color.DarkPurple,
         fontFamily: Fonts.TTNorms_Regular,
-    }
+    },
 });
 
 const styles = StyleSheet.create({
@@ -80,11 +100,10 @@ const styles = StyleSheet.create({
     topicTitle: {
         color: Color.DarkPurple,
         fontSize: 24,
-        fontWeight: '600'
+        fontWeight: '600',
     },
 
     separator: {
-        marginTop: 20,
         marginBottom: 10,
         borderTopWidth: 1,
         borderTopColor: Color.Gray3,
@@ -97,7 +116,11 @@ const styles = StyleSheet.create({
     linkItem: {
         marginBottom: 20,
     },
-    linkItemText: {
+    linkItemTitle: {
+        color: Color.Gray2,
+    },
+    linkItemLabel: {
+        marginTop: 3,
         fontSize: 18,
         fontWeight: '500',
     },

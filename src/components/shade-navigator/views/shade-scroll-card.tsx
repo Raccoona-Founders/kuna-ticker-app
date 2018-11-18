@@ -1,11 +1,12 @@
 import React from 'react';
 import {
     Animated,
-    Dimensions,
     Easing,
     StyleSheet,
     View,
-    ScrollViewProps, NativeSyntheticEvent, NativeScrollEvent,
+    ScrollViewProps,
+    NativeSyntheticEvent,
+    NativeScrollEvent,
 } from 'react-native';
 import { NavigationActions, NavigationTransitionProps } from 'react-navigation';
 import { Color } from 'styles/variables';
@@ -27,149 +28,94 @@ function clamp(min: number, value: number, max: number) {
     return value;
 }
 
-const EPS = 1e-5;
-const screenHeight = Dimensions.get('window').height;
-
-
-type ShadeCardProps = NavigationTransitionProps & {
-    isShade: boolean;
-};
+type ShadeCardProps = NavigationTransitionProps;
 
 
 export default class ShadeCard extends React.PureComponent<ShadeCardProps, any> {
-
     public state = {
-        disableGesture: false,
-        bounces: false,
+        scrollEnabled: true,
     };
 
-    protected _translateY: Animated.AnimatedInterpolation;
-    protected _contentScale: Animated.AnimatedInterpolation;
-    protected _overlayOpacity: Animated.AnimatedInterpolation;
     protected _headerOpacity: Animated.AnimatedInterpolation;
+    protected _shadeInnerContentOffset: Animated.AnimatedInterpolation;
 
     protected _scrollViewYOffset: Animated.Value = new Animated.Value(0);
+    protected _scrollEventListenerID: string;
 
     protected _onScrollViewScroll: (...vars: any[]) => void;
 
     public constructor(props: ShadeCardProps) {
         super(props);
 
-        const {index} = this.props.scene;
-        const position: Animated.Value = this.props.position;
-
-        const inputRange = [index - 1, index, index + 1 - EPS, index + 2];
-
-        this._translateY = position.interpolate({
-            inputRange: inputRange,
-            outputRange: [screenHeight, 0, -24, 0],
-            extrapolate: 'clamp',
-        });
-
-        this._contentScale = position.interpolate({
-            inputRange: inputRange,
-            outputRange: [1, 1, 0.95, 0.95],
-            extrapolate: 'clamp',
-        });
-
-        this._overlayOpacity = position.interpolate({
-            inputRange: inputRange,
-            outputRange: [0, 0, 0.3, 0],
-            extrapolate: 'clamp',
-        });
-
-
         this._onScrollViewScroll = Animated.event(
-            [{nativeEvent: {contentOffset: {y: this._scrollViewYOffset}}}],
-            {useNativeDriver: true},
+            [{ nativeEvent: { contentOffset: { y: this._scrollViewYOffset } } }],
+            { useNativeDriver: true },
         );
+
+        this._shadeInnerContentOffset = this._scrollViewYOffset.interpolate({
+            inputRange: [-100, 0, 100],
+            outputRange: [-100, 0, 0],
+            extrapolateRight: "clamp",
+        });
 
         this._headerOpacity = this._scrollViewYOffset.interpolate({
             inputRange: [0, 30],
             outputRange: [1, 0],
         });
 
-        this._scrollViewYOffset.addListener(this.__onDragScrollTop);
+        this._scrollEventListenerID = this._scrollViewYOffset.addListener(this.__onDragScrollTop);
     }
 
     public render(): JSX.Element {
-        const {isShade} = this.props;
-
-        const style = {
-            transform: [{
-                translateY: this._translateY,
-            }, {
-                scale: this._contentScale,
-            }],
-        };
-
-        const overlayStyle = {
-            opacity: this._overlayOpacity,
-        };
-
-        return (
-            <Animated.View style={[StyleSheet.absoluteFillObject]}>
-                <Animated.View style={[styles.main, style]}>
-                    {isShade ? this._renderShade() : this.props.children}
-                </Animated.View>
-
-                <Animated.View style={[styles.overlay, overlayStyle]} pointerEvents="box-none"/>
-            </Animated.View>
-        );
-    }
-
-    protected _renderShade = () => {
-
         const scrollViewStyles = [styles.scrollView, {
             transform: [{
-                translateY: this._scrollViewYOffset.interpolate({
-                    inputRange: [-100, 0, 100],
-                    outputRange: [-100, 0, 0],
-                    extrapolateRight: "clamp",
-                }),
+                translateY: this._shadeInnerContentOffset,
             }],
         }];
 
         return (
             <Animated.View style={styles.shadeView}>
-                <ShadeHeader opacity={this._headerOpacity}/>
+                <ShadeHeader opacity={this._headerOpacity} />
 
-                <Animated.ScrollView {...this._scrollViewProps} style={scrollViewStyles}>
+                <Animated.ScrollView {...this.__scrollViewProps} style={scrollViewStyles}>
                     <View style={styles.innerContent}>{this.props.children}</View>
                 </Animated.ScrollView>
             </Animated.View>
         );
-    };
+    }
 
-    protected get _scrollViewProps(): ScrollViewProps {
+    protected get __scrollViewProps(): ScrollViewProps {
         return {
             contentContainerStyle: {
                 minHeight: '100%',
             },
             keyboardShouldPersistTaps: 'handled',
-            bounces: true,
             showsVerticalScrollIndicator: false,
             scrollEventThrottle: 1,
-            scrollEnabled: !this.state.disableGesture,
+            scrollEnabled: this.state.scrollEnabled,
             onScroll: this._onScrollViewScroll,
             onScrollEndDrag: this.__onScrollEndDrag,
         };
     }
 
     protected __onDragScrollTop = (state: { value: number }): void => {
-        const {layout, navigation, position} = this.props;
-        const {index} = navigation.state;
+        if (state.value > 0) {
+            return;
+        }
 
-        const currentValue = index - (-state.value) / (layout.height.__getValue() - 40);
+        const { layout, navigation, position } = this.props;
+        const { index } = navigation.state;
+
+        const currentValue = index + state.value / (layout.height.__getValue() - 40);
         const value = clamp(index - 1, currentValue, index);
 
         position.setValue(value);
     };
 
 
-    protected __onScrollEndDrag = ({nativeEvent}: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const {navigation, position, layout} = this.props;
-        const {index} = navigation.state;
+    protected __onScrollEndDrag = ({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
+        const { navigation, position, layout } = this.props;
+        const { index } = navigation.state;
         const axisDistance = layout.height.__getValue();
 
         const scrollV = nativeEvent.velocity;
@@ -195,20 +141,10 @@ export default class ShadeCard extends React.PureComponent<ShadeCardProps, any> 
     };
 
 
-    protected _reset = (resetToIndex: number, duration: number = ANIMATION_DURATION) => {
-        Animated.timing(this.props.position, {
-            toValue: resetToIndex,
-            duration: duration,
-            easing: EaseInOut,
-            useNativeDriver: this.props.position.__isNative || false,
-        }).start();
-    };
-
-
     protected _goBack = (backFromIndex: number, duration: number = ANIMATION_DURATION) => {
-        const {navigation, position, scenes} = this.props;
+        const { navigation, position, scenes } = this.props;
 
-        this._scrollViewYOffset.removeAllListeners();
+        this._scrollViewYOffset.removeListener(this._scrollEventListenerID);
 
         const toValue = Math.max(backFromIndex - 1, 0);
 
@@ -232,20 +168,11 @@ export default class ShadeCard extends React.PureComponent<ShadeCardProps, any> 
             easing: EaseInOut,
             useNativeDriver: position.__isNative || false,
         }).start(onCompleteAnimation);
-
-        console.log(toValue, duration);
     };
 }
 
 
 const styles = StyleSheet.create({
-    main: {
-        ...StyleSheet.absoluteFillObject,
-    },
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: '#000',
-    },
     shadeView: {
         position: 'absolute',
         top: 40,

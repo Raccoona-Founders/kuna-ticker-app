@@ -2,8 +2,9 @@ import React from 'react';
 import Numeral from 'numeral';
 import { View, TextInput, Text } from 'react-native';
 import { getAsset, KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
-import { styles } from './calculator.style';
 import { SpanText } from 'components/span-text';
+import Analitics from 'utils/ga-tracker';
+import { styles } from './calculator.style';
 
 type CalculatorProps = {
     market: KunaMarket;
@@ -19,6 +20,7 @@ enum Operation {
 type CalculatorState = {
     inputBuyValue: string;
     inputSellValue: string;
+    trackedInteraction: boolean;
 };
 
 
@@ -56,6 +58,7 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     public state: CalculatorState = {
         inputBuyValue: '',
         inputSellValue: '',
+        trackedInteraction: false,
     };
 
     public render(): JSX.Element {
@@ -85,6 +88,16 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
 
     protected changeTextInput = (type: Operation) => (text: string) => {
         const { ticker, market } = this.props;
+        const { trackedInteraction } = this.state;
+
+        if (trackedInteraction === false) {
+            Analitics.logEvent('use_calculator', {
+                market: market.key,
+                operation: type,
+            });
+
+            this.setState({ trackedInteraction: true });
+        }
 
         const buyAsset = getAsset(market.baseAsset);
         const sellAsset = getAsset(market.quoteAsset);

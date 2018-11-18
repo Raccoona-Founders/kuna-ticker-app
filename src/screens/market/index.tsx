@@ -7,7 +7,7 @@ import { NavigationInjectedProps } from 'react-navigation';
 import { kunaApiClient, getAsset, kunaMarketMap, KunaOrderBook, KunaTicker, KunaAsset, KunaAssetUnit } from 'kuna-sdk';
 
 import { numFormat } from 'utils/number-helper';
-import { trackScreen } from 'utils/ga-tracker';
+import Analitics  from 'utils/ga-tracker';
 import { CoinIcon } from 'components/coin-icon';
 import { SpanText } from 'components/span-text';
 import RippleNotice from 'components/ripple-notice';
@@ -43,7 +43,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
             Keyboard.dismiss();
         });
 
-        trackScreen(
+        Analitics.trackScreen(
             `market/${currentMarket.baseAsset}-${currentMarket.quoteAsset}`,
             'MarketScreen',
         );

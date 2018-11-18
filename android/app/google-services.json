@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "378719423663",
+    "firebase_url": "https://kuna-ticker-mobile.firebaseio.com",
+    "project_id": "kuna-ticker-mobile",
+    "storage_bucket": "kuna-ticker-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378719423663:android:2bd8c5c7452aa8b9",
+        "android_client_info": {
+          "package_name": "com.kunaticker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378719423663-41bhg7fqi8ujcsh4sosd5g8t0gla9guc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8W_HdH_YfVUkyrT6vVbXLQ-_77i1qTD0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

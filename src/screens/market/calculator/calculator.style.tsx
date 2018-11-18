@@ -45,8 +45,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         position: 'absolute',
-        right: 0,
-        width: 50,
+        right: 15,
     },
 
     assetIconText: {

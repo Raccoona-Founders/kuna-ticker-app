@@ -3,8 +3,8 @@ import { find } from 'lodash';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
+import { View, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
+import { KunaMarket, KunaTicker } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
 import { SpanText } from 'components/span-text';
 
@@ -13,7 +13,7 @@ import { styles } from './styles';
 import { UsdCalculator } from 'utils/currency-rate';
 
 const MarketRow = (props: MarketRowProps) => {
-    const { market, ticker, tickers, usdRate, navigation } = props;
+    const { market, ticker, tickers, usdRate, navigation, index } = props;
 
     const onPress = () => {
         if (!ticker) {
@@ -26,31 +26,35 @@ const MarketRow = (props: MarketRowProps) => {
     const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(market.key);
 
     return (
-        <TouchableOpacity key={market.key} onPress={onPress} style={styles.listItemLink}>
-            <View style={styles.listItem}>
-                <MarketNameCell market={market} />
+        <>
+            {index > 0 ? <View style={styles.listItemSeparator} /> : undefined}
+            <TouchableOpacity key={market.key} onPress={onPress} style={styles.listItemLink}>
+                <View style={styles.listItem}>
+                    <MarketNameCell market={market} />
 
-                <View style={styles.tickerCell}>
-                    <View style={styles.priceBox}>
-                        <SpanText style={styles.priceValue}>
-                            {ticker ? numFormat(ticker.last, market.format) : '—'}
-                        </SpanText>
-                        <SpanText style={styles.priceLabel}>{market.quoteAsset}</SpanText>
-                    </View>
+                    <View style={styles.tickerCell}>
+                        <View style={styles.priceBox}>
+                            <SpanText style={styles.priceValue}>
+                                {ticker ? numFormat(ticker.last, market.format) : '—'}
+                            </SpanText>
+                            <SpanText style={styles.priceLabel}>{market.quoteAsset}</SpanText>
+                        </View>
 
-                    <View>
-                        <SpanText style={styles.marketVolume}>
-                            ≈ ${usdPrice.format('0,0.[00]')}
-                        </SpanText>
+                        <View>
+                            <SpanText style={styles.marketVolume}>
+                                ≈ ${usdPrice.format('0,0.[00]')}
+                            </SpanText>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </>
     );
 };
 
 type MarketRowOuterProps = {
     market: KunaMarket;
+    index: number;
 };
 
 type ConnectedProps = {

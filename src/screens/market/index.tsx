@@ -126,8 +126,8 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                               value={numFormat(ticker.high, quoteAsset.format)}
                     />
 
-                    <TouchableOpacity onPress={this.__openDepth}>
-                        <SpanText>Depth</SpanText>
+                    <TouchableOpacity onPress={this.__openDepth} style={styles.depthButton}>
+                        <SpanText style={styles.depthButtonText}>Order book</SpanText>
                     </TouchableOpacity>
                 </View>
 

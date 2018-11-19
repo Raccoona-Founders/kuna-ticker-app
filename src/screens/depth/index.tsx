@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
+import { chain } from 'lodash';
 import Numeral from 'numeral';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
@@ -8,10 +9,8 @@ import { getAsset, kunaApiClient, KunaAsset, kunaMarketMap, KunaOrderBook, KunaT
 import AnalTracker from 'utils/ga-tracker';
 import InfoUnit from 'components/info-unit';
 import { SpanText } from 'components/span-text';
-import styles from './depth.style';
 import { Color } from 'styles/variables';
-
-
+import styles from './depth.style';
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -32,6 +31,7 @@ class DepthScreen extends React.PureComponent<DepthScreenProps, State> {
     }
 
     public render(): JSX.Element {
+        const { depth } = this.state;
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
@@ -43,20 +43,19 @@ class DepthScreen extends React.PureComponent<DepthScreenProps, State> {
                     <SpanText style={styles.topicTitle}>{kunaMarket.baseAsset} / {kunaMarket.quoteAsset}</SpanText>
                 </View>
 
-                <View style={styles.depthSheetContainer}>
-                    {this._renderDepth(quoteAsset)}
-                </View>
+                {depth ? (
+                    <View style={styles.depthSheetContainer}>
+                        {this._renderDepthTenPercent(depth, quoteAsset)}
+                        {this._renderDepthSheet(depth)}
+                    </View>
+                ) : <ActivityIndicator />}
+
+
             </View>
         );
     }
 
-    protected _renderDepth(quoteAsset: KunaAsset): JSX.Element | undefined {
-        const { depth } = this.state;
-
-        if (!depth) {
-            return <ActivityIndicator />;
-        }
-
+    protected _renderDepthTenPercent(depth: KunaOrderBook, quoteAsset: KunaAsset): JSX.Element | undefined {
         const { ticker } = this.props;
 
         const minPrice = +ticker.last * 0.9;
@@ -74,16 +73,42 @@ class DepthScreen extends React.PureComponent<DepthScreenProps, State> {
                 <InfoUnit
                     topic="Bid 10%"
                     value={Numeral(bidDepth).format('0,0.[00]') + ' ' + quoteAsset.key}
-                    valueColor={Color.Danger}
+                    valueColor={Color.Main}
                 />
 
                 <InfoUnit
                     topic="Ask 10%"
                     value={Numeral(asksDepth).format('0,0.[00]') + ' ' + quoteAsset.key}
-                    valueColor={Color.Main}
+                    valueColor={Color.Danger}
                 />
             </>
         );
+    }
+
+    protected _renderDepthSheet(depth: KunaOrderBook): JSX.Element {
+        return (
+            <View style={styles.depthSheet}>
+                <View style={[styles.depthSheetSide]}>
+                    {chain(depth.bids).slice(0, 10).map(([price, value], index: number) => {
+                        return (
+                            <View key={index}>
+                                <SpanText>{price} / {value}</SpanText>
+                            </View>
+                        );
+                    }).value()}
+                </View>
+
+                <View style={[styles.depthSheetSide]}>
+                    {chain(depth.asks).slice(0, 10).map(([price, value], index: number) => {
+                        return (
+                            <View key={index}>
+                                <SpanText>{price} / {value}</SpanText>
+                            </View>
+                        );
+                    }).value()}
+                </View>
+            </View>
+        )
     }
 }
 

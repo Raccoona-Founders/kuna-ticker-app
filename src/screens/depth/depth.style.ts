@@ -5,10 +5,10 @@ export default StyleSheet.create({
         flex: 1,
     },
     depthSheetContainer: {
-
         paddingLeft: 20,
         paddingRight: 20,
         flexDirection: 'row',
+        flexWrap: 'wrap',
     },
     topic: {
         paddingLeft: 20,
@@ -16,7 +16,15 @@ export default StyleSheet.create({
         marginBottom: 20,
     },
     topicTitle: {
-        fontSize: 24
+        fontSize: 24,
+    },
+
+    depthSheet: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+    },
+    depthSheetSide: {
+        width: '50%',
     },
 });
 

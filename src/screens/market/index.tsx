@@ -2,27 +2,28 @@ import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { View, Animated, Keyboard, Text } from 'react-native';
+import { View, Animated, Keyboard, Text, TouchableOpacity } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { kunaApiClient, getAsset, kunaMarketMap, KunaOrderBook, KunaTicker, KunaAsset, KunaAssetUnit } from 'kuna-sdk';
+import { getAsset, kunaMarketMap, KunaOrderBook, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
+import AnalTracker from 'utils/ga-tracker';
 import { numFormat } from 'utils/number-helper';
-import Analitics  from 'utils/ga-tracker';
 import { CoinIcon } from 'components/coin-icon';
 import { SpanText } from 'components/span-text';
+import InfoUnit from 'components/info-unit';
 import RippleNotice from 'components/ripple-notice';
 
 import { Calculator } from './calculator';
-import { InfoUnit } from './info-unit';
+
 import { styles, screen } from './styles';
 import { UsdCalculator } from 'utils/currency-rate';
-import { Color } from 'styles/variables';
+import RouteKeys from 'router/route-keys';
 
 type State = {
     depth: undefined | KunaOrderBook;
 };
 
-export class MarketScreenComponent extends React.PureComponent<MarketScreenProps, State> {
+export class MarketScreen extends React.PureComponent<MarketScreenProps, State> {
     public state: State = {
         depth: undefined,
     };
@@ -35,7 +36,7 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         this._deltaY = new Animated.Value(screen.height - 100);
     }
 
-    public async componentDidMount(): Promise<void> {
+    public componentDidMount() {
         const marketSymbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[marketSymbol];
 
@@ -43,13 +44,10 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
             Keyboard.dismiss();
         });
 
-        Analitics.trackScreen(
+        AnalTracker.trackScreen(
             `market/${currentMarket.baseAsset}-${currentMarket.quoteAsset}`,
             'MarketScreen',
         );
-
-        const depth = await kunaApiClient.getOrderBook(marketSymbol);
-        this.setState({ depth });
     }
 
 
@@ -128,7 +126,9 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
                               value={numFormat(ticker.high, quoteAsset.format)}
                     />
 
-                    {this._renderDepth(baseAsset)}
+                    <TouchableOpacity onPress={this.__openDepth}>
+                        <SpanText>Depth</SpanText>
+                    </TouchableOpacity>
                 </View>
 
                 {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}
@@ -140,41 +140,11 @@ export class MarketScreenComponent extends React.PureComponent<MarketScreenProps
         return this.props.navigation.getParam('symbol');
     }
 
-    protected _renderDepth(quoteAsset: KunaAsset): JSX.Element | undefined {
-        const { depth } = this.state;
-
-        if (!depth) {
-            return <View />;
-        }
-
-        const { ticker } = this.props;
-
-        const minPrice = +ticker.last * 0.9;
-        const bidDepth: number = depth.bids.reduce((sum: number, [price, value]) => (
-            +price >= minPrice ? sum + (+value) : sum
-        ), 0);
-
-        const maxPrice = +ticker.last * 1.1;
-        const asksDepth: number = depth.asks.reduce((sum: number, [price, value]) => (
-            +price <= maxPrice ? sum + (+value) : sum
-        ), 0);
-
-        return (
-            <>
-                <InfoUnit
-                    topic="Bid 10%"
-                    value={Numeral(bidDepth).format('0,0.[00]') + ' ' + quoteAsset.key}
-                    valueColor={Color.Danger}
-                />
-
-                <InfoUnit
-                    topic="Ask 10%"
-                    value={Numeral(asksDepth).format('0,0.[00]') + ' ' + quoteAsset.key}
-                    valueColor={Color.Main}
-                />
-            </>
-        );
-    }
+    protected __openDepth = () => {
+        this.props.navigation.push(RouteKeys.Depth, {
+            marketSymbol: this.currentSymbol
+        });
+    };
 }
 
 type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
@@ -201,6 +171,6 @@ const mapStateToProps = (store: KunaStore, ownProps: MarketScreenProps): Connect
     };
 };
 
-export const MarketScreen = compose<MarketScreenProps, MarketScreenOuterProps>(
+export default compose<MarketScreenProps, MarketScreenOuterProps>(
     connect(mapStateToProps),
-)(MarketScreenComponent);
+)(MarketScreen);

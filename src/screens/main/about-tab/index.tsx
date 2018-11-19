@@ -20,7 +20,7 @@ const links: LinkItem[] = [{
 }, {
     title: 'Kuna Ticker Website',
     label: 'coinwizard.github.io',
-    url: 'https://coinwizard.github.io/mobile-ticker-for-kuna',
+    url: 'https://coinwizard.github.io/mobile-ticker-for-kuna?ref=application',
     disabled: true,
 }, {
     title: 'Telegram',

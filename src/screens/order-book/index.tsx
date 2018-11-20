@@ -18,7 +18,7 @@ type State = {
 };
 
 
-class DepthScreen extends React.PureComponent<DepthScreenProps, State> {
+class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
     public state: State = {
         depth: undefined,
     };
@@ -26,7 +26,7 @@ class DepthScreen extends React.PureComponent<DepthScreenProps, State> {
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
 
-        AnalTracker.trackScreen(`market/depth/${marketSymbol}`, 'DepthScreen');
+        AnalTracker.trackScreen(`market/order-book/${marketSymbol}`, 'OrderBookScreen');
 
         setTimeout(async () => {
             const depth = await kunaApiClient.getOrderBook(marketSymbol);
@@ -38,9 +38,6 @@ class DepthScreen extends React.PureComponent<DepthScreenProps, State> {
         const { depth } = this.state;
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
-
-        const quoteAsset = getAsset(kunaMarket.quoteAsset);
-        const baseAsset = getAsset(kunaMarket.baseAsset);
 
         return (
             <View style={styles.container}>
@@ -159,6 +156,6 @@ const mapStateToProps = (store: KunaStore, ownProps: DepthScreenOuterProps): Con
 
 export default compose<DepthScreenProps, DepthScreenOuterProps>(
     connect(mapStateToProps),
-)(DepthScreen);
+)(OrderBookScreen);
 
 

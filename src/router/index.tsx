@@ -4,7 +4,7 @@ import { createShadeNavigator } from 'components/shade-navigator';
 import { KunaAssetUnit } from 'kuna-sdk';
 import { MainScreen } from 'screens/main';
 import MarketScreen from 'screens/market';
-import DepthScreen from 'screens/depth';
+import OrderBookScreen from 'screens/order-book';
 import RouteKeys from 'router/route-keys';
 
 
@@ -19,8 +19,8 @@ const routeConfigs = {
         screen: MarketScreen,
     },
 
-    [RouteKeys.Depth]: {
-        screen: DepthScreen,
+    [RouteKeys.OrderBook]: {
+        screen: OrderBookScreen,
     },
 };
 

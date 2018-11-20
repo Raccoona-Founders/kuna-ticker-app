@@ -141,7 +141,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
     }
 
     protected __openDepth = () => {
-        this.props.navigation.push(RouteKeys.Depth, {
+        this.props.navigation.push(RouteKeys.OrderBook, {
             marketSymbol: this.currentSymbol
         });
     };

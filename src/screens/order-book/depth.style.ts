@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { vw } from 'utils/helper';
+import { Color } from 'styles/variables';
 
 export default StyleSheet.create({
     container: {
@@ -30,6 +31,17 @@ export default StyleSheet.create({
     depthSheetSide: {
         width: vw(50) - 30,
         // aspectRatio: 1,
+    },
+
+
+    depthHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 5,
+    },
+    depthHeaderCell: {
+        fontSize: 12,
+        color: Color.Gray2,
     },
 });
 

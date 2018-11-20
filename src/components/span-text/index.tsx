@@ -26,3 +26,5 @@ const defaultStyle = {
     fontFamily: Fonts.TTNorms_Regular,
     color: Color.DarkPurple,
 };
+
+export default SpanText;

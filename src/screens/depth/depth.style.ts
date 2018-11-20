@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { vw } from 'utils/helper';
 
 export default StyleSheet.create({
     container: {
@@ -7,8 +8,7 @@ export default StyleSheet.create({
     depthSheetContainer: {
         paddingLeft: 20,
         paddingRight: 20,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+
     },
     topic: {
         paddingLeft: 20,
@@ -20,11 +20,16 @@ export default StyleSheet.create({
     },
 
     depthSheet: {
-        justifyContent: 'space-between',
+        flex: 1,
+        width: '100%',
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignContent: 'center',
+        paddingBottom: 30,
     },
     depthSheetSide: {
-        width: '50%',
+        width: vw(50) - 30,
+        // aspectRatio: 1,
     },
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
-import { slice, map, maxBy } from 'lodash';
+import { slice, map, maxBy, meanBy } from 'lodash';
 import Numeral from 'numeral';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
@@ -94,11 +94,13 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         const kunaMarket = kunaMarketMap[marketSymbol];
 
         const bidItems = slice(depth.bids, 0, 20);
+        const avrBid = meanBy(bidItems, ([price, value]) => +value);
         const maxBid = maxBy(bidItems, ([price, value]) => +value);
         const maxBidValue = maxBid ? maxBid[1] : 0;
 
 
         const askItems = slice(depth.asks, 0, 20);
+        const avrAsk = meanBy(askItems, ([price, value]) => +value);
         const maxAsk = maxBy(askItems, ([price, value]) => +value);
         const maxAskValue = maxAsk ? maxAsk[1] : 0;
 
@@ -116,6 +118,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                                   value={value}
                                   type='bid'
                                   maxValue={maxBidValue}
+                                  avrValue={avrBid}
                                   market={kunaMarket}
                         />
                     ))}
@@ -133,6 +136,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                                   value={value}
                                   type='ask'
                                   maxValue={maxAskValue}
+                                  avrValue={avrAsk}
                                   market={kunaMarket}
                         />
                     ))}

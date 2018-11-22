@@ -10,6 +10,7 @@ type OrderRowProps = {
     value: number;
     type: 'ask' | 'bid';
     maxValue: number;
+    avrValue: number;
     market: KunaMarket;
 };
 
@@ -21,7 +22,15 @@ const OrderRow = (props: OrderRowProps) => {
         valueIndicatorStyle,
     ] = chooseStyles(props.type);
 
+    let valueFormat = props.avrValue > 10 ? '0,0' : (props.avrValue > 5 ? '0,0.[00]' : '0,0.[0000]');
     const valuePercent = Numeral(props.value).divide(props.maxValue);
+
+    const valueStyles = [
+        styles.value,
+        {
+            opacity: 0.7 + valuePercent.value() * 0.3,
+        },
+    ];
 
     return (
         <View style={styles.orderRow}>
@@ -29,8 +38,8 @@ const OrderRow = (props: OrderRowProps) => {
                 <SpanText style={[styles.price, priceStyle]}>
                     {Numeral(props.price).format(props.market.format)}
                 </SpanText>
-                <SpanText style={[styles.value, valuePercent.value() > 0.5 ? styles.valueWall : {}]}>
-                    {Numeral(props.value).format('0,0.[0000]')}
+                <SpanText style={valueStyles}>
+                    {Numeral(props.value).format(valueFormat)}
                 </SpanText>
             </View>
 
@@ -93,12 +102,16 @@ const styles = StyleSheet.create({
 
     value: {
         fontSize: 14,
-        fontWeight: 'normal',
+        fontWeight: '500',
         color: Color.DarkPurple,
     },
 
-    valueWall: {
-        fontWeight: 'bold',
+    valueHigh: {
+        fontWeight: '700',
+    },
+
+    valueMiddle: {
+        fontWeight: '600',
     },
 
     valueIndicator: {

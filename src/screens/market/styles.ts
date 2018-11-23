@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
         color: Color.Gray2,
     },
     topicAssetSubtextName: {
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
 
     priceContainer: {

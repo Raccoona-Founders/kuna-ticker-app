@@ -23,11 +23,7 @@ export enum Color {
 }
 
 export enum Fonts {
-    TTNorms_Heavy = 'TTNorms-Regular',         // 900
-    TTNorms_Black = 'TTNorms-Black',           // 800
-    TTNorms_ExtraBold = 'TTNorms-ExtraBold',   // 700
     TTNorms_Bold = 'TTNorms-Bold',             // 600
     TTNorms_Medium = 'TTNorms-Medium',         // 500
     TTNorms_Regular = 'TTNorms-Regular',       // 400
-    TTNorms_Light = 'TTNorms-Light',           // 300
 }

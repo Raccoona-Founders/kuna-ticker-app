@@ -3,6 +3,12 @@ package com.kunaticker;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.bitgo.randombytes.RandomBytesPackage;
+import com.wix.interactable.Interactable;
+import io.invertase.firebase.RNFirebasePackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.bitgo.randombytes.RandomBytesPackage;
 
 import io.invertase.firebase.RNFirebasePackage;
@@ -33,6 +39,12 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new SvgPackage(),
+            new SplashScreenReactPackage(),
+            new RandomBytesPackage(),
+            new Interactable(),
+            new RNFirebasePackage(),
+            new RNDeviceInfo(),
                     new RandomBytesPackage(),
                     new RNFirebasePackage(),
                     new SvgPackage(),

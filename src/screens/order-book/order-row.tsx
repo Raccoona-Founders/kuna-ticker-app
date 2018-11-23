@@ -106,14 +106,6 @@ const styles = StyleSheet.create({
         color: Color.DarkPurple,
     },
 
-    valueHigh: {
-        fontWeight: '700',
-    },
-
-    valueMiddle: {
-        fontWeight: '600',
-    },
-
     valueIndicator: {
         position: 'absolute',
         bottom: 0,

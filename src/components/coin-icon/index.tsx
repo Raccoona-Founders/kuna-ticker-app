@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     onlySymbolText: {
-        fontWeight: '700',
+        fontWeight: '600',
         color: '#fff',
         position: 'absolute',
         top: 0,

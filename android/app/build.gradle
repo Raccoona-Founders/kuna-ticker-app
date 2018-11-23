@@ -138,6 +138,12 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-svg')
+    compile project(':react-native-splash-screen')
+    compile project(':react-native-randombytes')
+    compile project(':react-native-interactable')
+    compile project(':react-native-firebase')
+    compile project(':react-native-device-info')
     implementation project(':react-native-randombytes')
     implementation project(':react-native-firebase')
     implementation project(':react-native-svg')

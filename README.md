@@ -11,7 +11,7 @@
 </p>
 
 <a href="https://itunes.apple.com/us/app/id1441322325">
-  <img src="https://raw.githubusercontent.com/CoinWizard/kuna-ticker-app/master/docs/image/download-app-store.png" alt="Available in App Store" />
+  <img src="https://raw.githubusercontent.com/CoinWizard/kuna-ticker-app/master/docs/image/download-app-store.png" style="width: 120px;" alt="Available in App Store" />
 </a>
 
 <hr />

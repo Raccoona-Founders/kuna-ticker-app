@@ -4,10 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { kunaApiClient } from 'kuna-sdk';
 import SplashScreen from 'react-native-splash-screen';
-
 import 'utils/setup-locale';
-
-import { SpanText } from 'components/span-text';
 import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
 import { Ticker } from 'store/actions';

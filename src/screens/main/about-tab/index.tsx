@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
+import qs from 'querystring';
 import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
 import Analytics from 'utils/ga-tracker';
@@ -15,16 +16,16 @@ type LinkItem = {
 
 const links: LinkItem[] = [{
     title: 'GitHub Repository',
-    label: 'CoinWizard/mobile-ticker-for-kuna',
-    url: 'https://github.com/CoinWizard/mobile-ticker-for-kuna',
+    label: 'CoinWizard/kuna-ticker-app',
+    url: 'https://github.com/CoinWizard/kuna-ticker-app',
 }, {
     title: 'Roadmap',
     label: 'Trello Board',
     url: 'https://trello.com/b/9k4PHBO4/kuna-tiker-mobile-roadmap',
 }, {
     title: 'Kuna Ticker Website',
-    label: 'coinwizard.github.io',
-    url: 'https://coinwizard.github.io/mobile-ticker-for-kuna?ref=application',
+    label: 'coinwizard.github.io/kuna-ticker-app',
+    url: 'https://coinwizard.github.io/kuna-ticker-app?ref=application',
     disabled: true,
 }, {
     title: 'Telegram',
@@ -33,7 +34,7 @@ const links: LinkItem[] = [{
 }, {
     title: 'Email',
     label: 'maksym.tymchyk@gmail.com',
-    url: 'mailto:maksym.tymchyk@gmail.com?subject=KunaTicker',
+    url: `mailto:maksym.tymchyk@gmail.com?${qs.stringify({ subject: 'Kuna Ticker' })}`,
 }];
 
 
@@ -84,6 +85,7 @@ const AboutTab = (): JSX.Element => {
     );
 };
 
+export default AboutTab;
 
 const mdStyles = StyleSheet.create({
     root: {},
@@ -136,4 +138,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AboutTab;
+

@@ -12,12 +12,20 @@ import { CoinIcon } from 'components/coin-icon';
 import { SpanText } from 'components/span-text';
 import InfoUnit from 'components/info-unit';
 import RippleNotice from 'components/ripple-notice';
+import UIButton from 'components/ui-button';
 
 import { Calculator } from './calculator';
 
 import { styles, screen } from './styles';
 import { UsdCalculator } from 'utils/currency-rate';
 import RouteKeys from 'router/route-keys';
+
+
+const riddleMap: Record<string, number> = {
+    btcuah: 0,
+    kunbtc: 1,
+    ethbtc: 2,
+};
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -65,6 +73,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         const baseAsset = getAsset(currentMarket.baseAsset);
 
         const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
+        const riddleIndex = riddleMap[this.currentSymbol];
 
         return (
             <View style={styles.marketInfoContainer}>
@@ -126,13 +135,11 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                               value={numFormat(ticker.high, quoteAsset.format)}
                     />
 
-                    <TouchableOpacity onPress={this.__openDepth} style={styles.depthButton}>
-                        <SpanText style={styles.depthButtonText}>Order book</SpanText>
-                    </TouchableOpacity>
+                    <UIButton onPress={this.__openDepth}>Order book</UIButton>
 
-                    <TouchableOpacity onPress={this.__openRiddle} style={styles.depthButton}>
-                        <SpanText style={styles.depthButtonText}>Загадка</SpanText>
-                    </TouchableOpacity>
+                    {typeof riddleIndex === 'number' ? (
+                        <UIButton onPress={this.__openRiddle(riddleIndex)}>Загадка</UIButton>
+                    ) : undefined}
                 </View>
 
                 {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}
@@ -146,13 +153,13 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
     protected __openDepth = () => {
         this.props.navigation.push(RouteKeys.OrderBook, {
-            marketSymbol: this.currentSymbol
+            marketSymbol: this.currentSymbol,
         });
     };
 
-    protected __openRiddle = () => {
+    protected __openRiddle = (index: number) => () => {
         this.props.navigation.push(RouteKeys.RiddleQuestion, {
-            index: 0
+            index: index,
         });
     };
 }

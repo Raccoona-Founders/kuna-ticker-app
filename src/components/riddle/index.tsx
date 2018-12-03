@@ -3,68 +3,40 @@ import { View, StyleSheet } from 'react-native';
 import SpanText from 'components/span-text';
 import RiddleConfig, { Riddle } from './riddle-config';
 import { Color } from 'styles/variables';
+import RiddleChecker from 'components/riddle/riddle-checker';
 
 type RiddleProps = {
     index: number;
+    riddle: Riddle;
 };
 
 export const RiddleQuestion = (props: RiddleProps) => {
-    const currentRiddle: Riddle = RiddleConfig.riddles[props.index];
-
-    if (!currentRiddle) {
-        return <View><SpanText>{JSON.stringify(typeof props.index)}</SpanText></View>;
-    }
+    const currentRiddle: Riddle = props.riddle;
 
     return (
         <View style={styles.container}>
-            <View>
-                <SpanText style={styles.storyText}>{currentRiddle.story}</SpanText>
-                <SpanText style={styles.questionText}>{currentRiddle.question}</SpanText>
-            </View>
-
-            <View style={styles.codeContainer}>
-                <SpanText style={styles.codeTopic}>Проверь Kuna Codе, вдруг кто-то тебя опередели!</SpanText>
-                <View style={styles.codePrefixContainer}>
-                    <SpanText style={styles.codePrefix}>{currentRiddle.prize_prefix}</SpanText>
-                </View>
-            </View>
+            <SpanText style={styles.storyText}>{currentRiddle.story}</SpanText>
+            <SpanText style={styles.questionText}>{currentRiddle.question}</SpanText>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: 20,
-        paddingRight: 20,
-        flex: 1,
-        justifyContent: 'space-between',
+        marginBottom: 20,
     },
-
     storyText: {
         marginBottom: 20,
-    },
-
-    questionText: {
-        fontWeight: 'bold',
-    },
-
-    codeContainer: {
-        marginTop: 20,
-        marginBottom: 20,
-    },
-
-    codeTopic: {
-        fontSize: 12,
-        color: Color.Gray2
-    },
-    codePrefixContainer: {
-        padding: 10,
-        marginTop: 10,
-        backgroundColor: Color.Gray,
-        borderRadius: 5
-    },
-    codePrefix: {
+        fontWeight: '400',
         fontSize: 18,
-        textAlign: 'center',
+    },
+    questionText: {
+        fontWeight: '500',
+        fontSize: 18,
     },
 });
+
+const riddleChecker = new RiddleChecker();
+const riddleList = RiddleConfig.riddles;
+
+export { riddleList, Riddle, riddleChecker };

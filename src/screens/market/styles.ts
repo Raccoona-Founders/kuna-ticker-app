@@ -107,11 +107,6 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
-
-        // shadowColor: Color.Fade,
-        // shadowOffset: { height: 4, width: 0 },
-        // shadowOpacity: 0.2,
-        // shadowRadius: 6,
     },
 
     depthButtonText: {

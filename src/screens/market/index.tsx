@@ -129,6 +129,10 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                     <TouchableOpacity onPress={this.__openDepth} style={styles.depthButton}>
                         <SpanText style={styles.depthButtonText}>Order book</SpanText>
                     </TouchableOpacity>
+
+                    <TouchableOpacity onPress={this.__openRiddle} style={styles.depthButton}>
+                        <SpanText style={styles.depthButtonText}>Загадка</SpanText>
+                    </TouchableOpacity>
                 </View>
 
                 {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}
@@ -143,6 +147,12 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
     protected __openDepth = () => {
         this.props.navigation.push(RouteKeys.OrderBook, {
             marketSymbol: this.currentSymbol
+        });
+    };
+
+    protected __openRiddle = () => {
+        this.props.navigation.push(RouteKeys.RiddleQuestion, {
+            index: 0
         });
     };
 }

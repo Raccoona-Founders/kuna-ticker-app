@@ -10,10 +10,11 @@ export class RiddleQuestionScreen extends React.PureComponent<RiddleQuestionScre
     public render(): JSX.Element {
 
         const { navigation } = this.props;
+        const index = navigation.getParam('index');
 
         return (
             <>
-                <RiddleQuestion index={navigation.state.index} />
+                <RiddleQuestion index={index} />
             </>
         );
     }

@@ -119,3 +119,6 @@ typings/
 
 ios/Pods
 android/app/src/main/assets/
+
+
+src/components/riddle/riddle.json

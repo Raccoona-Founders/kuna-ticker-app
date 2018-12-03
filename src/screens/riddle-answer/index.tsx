@@ -1,28 +1,43 @@
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
-import { RiddleQuestion, riddleList, Riddle } from 'components/riddle';
+import { StyleSheet, TextInput, View, Vibration, Clipboard, TouchableOpacity, Share } from 'react-native';
+import { riddleList, Riddle, riddleChecker } from 'components/riddle';
 import { NavigationInjectedProps } from 'react-navigation';
+import Analitics from 'utils/ga-tracker';
 import SpanText from 'components/span-text';
 import { Color, Fonts } from 'styles/variables';
+import UIButton from 'components/ui-button';
+
+
+const errorMessages: Record<string, string> = {
+    no_answer: 'Ну хоть что-то введи!',
+    to_many_request: 'Эй, помедленее! Слишком часто отвечаешь.',
+    invalid_answer: 'Ответ не верный!',
+};
 
 type RiddleQuestionScreenProps = NavigationInjectedProps<{ index: number; }>;
 type State = {
     riddle?: Riddle;
     value: string;
+    errorMessage?: string;
+    prize?: string;
 };
 
 export default class RiddleAnswerScreen extends React.PureComponent<RiddleQuestionScreenProps, State> {
     public state: State = {
         riddle: undefined,
         value: '',
+        errorMessage: undefined,
+        prize: undefined,
     };
 
     protected _textInputRef = React.createRef<TextInput>();
-    
+
     public componentDidMount() {
         const { navigation } = this.props;
         const index = navigation.getParam('index');
         const riddle = riddleList[index];
+
+        Analitics.trackScreen(`riddle/answer/${index}`);
 
         if (!riddle) {
             this.props.navigation.goBack();
@@ -41,7 +56,7 @@ export default class RiddleAnswerScreen extends React.PureComponent<RiddleQuesti
 
 
     public render(): JSX.Element {
-        const { riddle, value } = this.state;
+        const { riddle, prize } = this.state;
 
         if (!riddle) {
             return <View />;
@@ -51,6 +66,43 @@ export default class RiddleAnswerScreen extends React.PureComponent<RiddleQuesti
             <View style={styles.container}>
                 <SpanText style={styles.question}>{riddle.question}</SpanText>
 
+                {prize ? this.__renderPrize() : this.__renderAnswerInput()}
+            </View>
+        );
+    }
+
+    protected __renderPrize = () => {
+        const { prize } = this.state;
+
+        return (
+            <View style={styles.successContainer}>
+                <SpanText style={styles.successTitle}>Это правильный ответ!</SpanText>
+
+                <View style={styles.successPrizeContainer}>
+                    <SpanText style={styles.successPrize}>{prize}</SpanText>
+                    <View style={styles.prizeInteraction}>
+                        <TouchableOpacity onPress={this.__copy}>
+                            <SpanText style={styles.prizeInteractionButton}>Copy</SpanText>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={this.__share}>
+                            <SpanText style={styles.prizeInteractionButton}>Share</SpanText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                <SpanText style={styles.successPostMessage}>
+                    Введи его как можно скорее, а иначе тебя могут опередить!
+                </SpanText>
+            </View>
+        );
+    };
+
+    protected __renderAnswerInput = () => {
+        const { value, errorMessage } = this.state;
+
+        return (
+            <>
                 <TextInput
                     ref={this._textInputRef}
                     value={value}
@@ -59,9 +111,59 @@ export default class RiddleAnswerScreen extends React.PureComponent<RiddleQuesti
                     keyboardType="numeric"
                     style={styles.input}
                 />
-            </View>
+
+                <UIButton onPress={this.__onCheckAnswer} style={{ marginTop: 20 }}>Проверить</UIButton>
+
+                {errorMessage ? <SpanText style={styles.error}>{errorMessage}</SpanText> : undefined}
+            </>
         );
-    }
+    };
+
+
+    private __copy = () => {
+        Clipboard.setString(this.state.prize || '');
+    };
+
+
+    private __share = () => {
+        Share.share({
+            message: this.state.prize || '',
+        });
+    };
+
+
+    protected __onCheckAnswer = async () => {
+        const { value, riddle } = this.state;
+        const { navigation } = this.props;
+        const index = navigation.getParam('index');
+
+        if (!riddle) {
+            return;
+        }
+
+        try {
+            const prize = await riddleChecker.getPrize(riddle, value);
+
+            this.setState({
+                prize: prize,
+                errorMessage: undefined,
+            });
+
+            Analitics.logEvent('success_riddle_answer', {
+                riddle_index: index,
+            });
+
+        } catch (error) {
+            this.__showError(error);
+        }
+    };
+
+    protected __showError = (error: Error) => {
+        const message = errorMessages[error.message] || undefined;
+
+        this.setState({ errorMessage: message || 'Что-то пошло не так!' });
+        Vibration.vibrate(300, false);
+    };
 }
 
 const styles = StyleSheet.create({
@@ -87,5 +189,39 @@ const styles = StyleSheet.create({
         borderColor: Color.Gray3,
         fontFamily: Fonts.TTNorms_Regular,
         fontWeight: '500',
+    },
+
+    error: {
+        color: Color.Danger,
+    },
+
+    successContainer: {},
+    successTitle: {
+        color: Color.Gray2,
+    },
+    successPrizeContainer: {
+        backgroundColor: Color.Gray,
+        padding: 20,
+        borderRadius: 5,
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    successPrize: {
+        fontSize: 20,
+    },
+    successPostMessage: {
+        color: Color.Gray2,
+        fontSize: 12,
+    },
+
+    prizeInteraction: {
+        marginTop: 20,
+        flexDirection: 'row',
+    },
+    prizeInteractionButton: {
+        fontSize: 16,
+        color: Color.Purple,
+        padding: 0,
+        marginRight: 30,
     },
 });

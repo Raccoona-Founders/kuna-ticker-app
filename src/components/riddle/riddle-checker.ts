@@ -1,5 +1,6 @@
 import { sumBy } from 'lodash';
-import { Riddle } from 'components/riddle/riddle-config';
+import RiddleConfig, { Riddle } from 'components/riddle/riddle-config';
+import sjcl from 'sjcl';
 
 export default class RiddleChecker {
     private checkCounter: number = 3;
@@ -9,17 +10,23 @@ export default class RiddleChecker {
 
     public async getPrize(riddle: Riddle, answer: string): Promise<string> {
         if (answer.length < 1) {
-            throw new Error('Ну хоть что-то введи!');
+            throw new Error('no_answer');
         }
 
         const time = new Date().getTime();
-        if (false === this.isLimitExist()) {
-            throw new Error('Эй, помедленее! Слишком часто отвечаешь.');
+        if (this.isLimitExist()) {
+            throw new Error('to_many_request');
         }
 
         this.checkStream.push(time);
 
-        return riddle.prize;
+        const hash = sjcl.hash.sha256.hash(answer + RiddleConfig.salt);
+
+        if (sjcl.codec.hex.fromBits(hash).toUpperCase() !== riddle.answer_sha256) {
+            throw new Error('invalid_answer');
+        }
+
+        return sjcl.decrypt(answer + RiddleConfig.prize_salt, JSON.stringify(riddle.prize));
     }
 
 

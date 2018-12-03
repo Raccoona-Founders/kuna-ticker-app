@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import SpanText from 'components/span-text';
 import RiddleConfig, { Riddle } from './riddle-config';
-import { Color } from 'styles/variables';
 import RiddleChecker from 'components/riddle/riddle-checker';
+
 
 type RiddleProps = {
     index: number;

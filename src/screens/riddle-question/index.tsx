@@ -6,11 +6,20 @@ import UIButton from 'components/ui-button';
 import { RiddleQuestion, riddleList, Riddle } from 'components/riddle';
 import SpanText from 'components/span-text';
 import { Color } from 'styles/variables';
+import Analitics from 'utils/ga-tracker';
 
 
 type RiddleQuestionScreenProps = NavigationInjectedProps<{ index: number; }>;
 
 export default class RiddleQuestionScreen extends React.PureComponent<RiddleQuestionScreenProps> {
+
+    public componentDidMount() {
+        const { navigation } = this.props;
+        const index = navigation.getParam('index');
+
+        Analitics.trackScreen(`riddle/question/${index}`);
+    }
+
     public render(): JSX.Element {
 
         const { navigation } = this.props;
@@ -29,7 +38,7 @@ export default class RiddleQuestionScreen extends React.PureComponent<RiddleQues
                 </View>
 
                 <View style={styles.codeContainer}>
-                    <SpanText style={styles.codeTopic}>Проверь Kuna Codе, вдруг кто-то тебя опередели!</SpanText>
+                    <SpanText style={styles.codeTopic}>Проверь Kuna Codе, вдруг тебя уже кто-то опередил</SpanText>
                     <View style={styles.codePrefixContainer}>
                         <SpanText style={styles.codePrefix}>{riddle.prize_prefix}</SpanText>
                     </View>
@@ -85,6 +94,5 @@ const styles = StyleSheet.create({
     codePostInformation: {
         fontSize: 12,
         color: Color.Gray2,
-
     },
 });

@@ -9,7 +9,7 @@ export type UIButtonProps = TouchableOpacityProps & {
 
 const UIButton = (props: UIButtonProps) => {
     return (
-        <TouchableOpacity onPress={props.onPress} style={[styles.button, ]}>
+        <TouchableOpacity onPress={props.onPress} style={[styles.button, props.style]}>
             <SpanText style={styles.buttonText}>{props.children}</SpanText>
         </TouchableOpacity>
     );
@@ -33,5 +33,5 @@ const styles = StyleSheet.create({
         color: Color.DarkPurple,
         fontSize: 16,
         textTransform: 'uppercase',
-    }
+    },
 });

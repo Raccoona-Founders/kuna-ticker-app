@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
-import { slice, map, maxBy, meanBy } from 'lodash';
+import { slice, map, maxBy, meanBy, sumBy } from 'lodash';
 import Numeral from 'numeral';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
-import { getAsset, kunaApiClient, KunaAsset, kunaMarketMap, KunaOrderBook, KunaTicker } from 'kuna-sdk';
+import { kunaApiClient, KunaAsset, KunaMarket, kunaMarketMap, KunaOrderBook, KunaTicker } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
 import InfoUnit from 'components/info-unit';
 import { SpanText } from 'components/span-text';
@@ -15,6 +15,46 @@ import OrderRow from './order-row';
 
 type State = {
     depth: undefined | KunaOrderBook;
+};
+
+const ORDER_DEPTH = 35;
+
+type SideRowsProps = {
+    side: 'ask' | 'bid';
+    items: [number, number][];
+    market: KunaMarket;
+};
+
+const SideRows = (props: SideRowsProps): JSX.Element => {
+    const items = slice(props.items, 0, ORDER_DEPTH);
+
+    const avr = meanBy(items, ([price, value]) => +value);
+    const max = maxBy(items, ([price, value]) => +value);
+    const totalValue = sumBy(items, ([price, value]) => +value);
+
+    const maxValue = max ? max[1] : 0;
+    let cumulativeValue = 0;
+
+    return (
+        <>
+            {map(items, ([price, value], index: number) => {
+                cumulativeValue += (+value);
+
+                return (
+                    <OrderRow key={index}
+                              price={price}
+                              value={value}
+                              cumulativeValue={cumulativeValue}
+                              totalValue={totalValue}
+                              type={props.side}
+                              maxValue={maxValue}
+                              avrValue={avr}
+                              market={props.market}
+                    />
+                );
+            })}
+        </>
+    );
 };
 
 
@@ -42,17 +82,17 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         return (
             <View style={styles.container}>
                 <View style={styles.topic}>
-                    <SpanText style={styles.topicTitle}>{kunaMarket.baseAsset} / {kunaMarket.quoteAsset}</SpanText>
+                    <SpanText style={styles.topicText}>Order book</SpanText>
+                    <SpanText style={[styles.topicText, styles.topicTextMarket]}>
+                        {kunaMarket.baseAsset} / {kunaMarket.quoteAsset}
+                    </SpanText>
                 </View>
 
                 {depth ? (
                     <View style={styles.depthSheetContainer}>
-                        {/*<View>{this._renderDepthTenPercent(depth, baseAsset)}</View>*/}
                         {this._renderDepthSheet(depth)}
                     </View>
                 ) : <ActivityIndicator />}
-
-
             </View>
         );
     }
@@ -93,17 +133,6 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
-        const bidItems = slice(depth.bids, 0, 20);
-        const avrBid = meanBy(bidItems, ([price, value]) => +value);
-        const maxBid = maxBy(bidItems, ([price, value]) => +value);
-        const maxBidValue = maxBid ? maxBid[1] : 0;
-
-
-        const askItems = slice(depth.asks, 0, 20);
-        const avrAsk = meanBy(askItems, ([price, value]) => +value);
-        const maxAsk = maxBy(askItems, ([price, value]) => +value);
-        const maxAskValue = maxAsk ? maxAsk[1] : 0;
-
         return (
             <View style={styles.depthSheet}>
                 <View style={[styles.depthSheetSide]}>
@@ -111,17 +140,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                         <SpanText style={styles.depthHeaderCell}>Amount ({kunaMarket.baseAsset})</SpanText>
                         <SpanText style={styles.depthHeaderCell}>Price ({kunaMarket.quoteAsset})</SpanText>
                     </View>
-
-                    {map(bidItems, ([price, value], index: number) => (
-                        <OrderRow key={index}
-                                  price={price}
-                                  value={value}
-                                  type='bid'
-                                  maxValue={maxBidValue}
-                                  avrValue={avrBid}
-                                  market={kunaMarket}
-                        />
-                    ))}
+                    <SideRows side="bid" items={depth.bids} market={kunaMarket} />
                 </View>
 
                 <View style={[styles.depthSheetSide]}>
@@ -129,17 +148,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                         <SpanText style={styles.depthHeaderCell}>Price ({kunaMarket.quoteAsset})</SpanText>
                         <SpanText style={styles.depthHeaderCell}>Amount ({kunaMarket.baseAsset})</SpanText>
                     </View>
-
-                    {map(askItems, ([price, value], index: number) => (
-                        <OrderRow key={index}
-                                  price={price}
-                                  value={value}
-                                  type='ask'
-                                  maxValue={maxAskValue}
-                                  avrValue={avrAsk}
-                                  market={kunaMarket}
-                        />
-                    ))}
+                    <SideRows side="ask" items={depth.asks} market={kunaMarket} />
                 </View>
             </View>
         );

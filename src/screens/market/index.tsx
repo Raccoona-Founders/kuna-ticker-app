@@ -108,6 +108,12 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                             )}
                         </View>
                     </View>
+
+                    {typeof riddleIndex === 'number' ? (
+                        <UIButton onPress={this.__openRiddle(riddleIndex)} style={styles.riddleButton} type="small">
+                            Загадка
+                        </UIButton>
+                    ) : undefined}
                 </View>
 
                 {ticker.last && (
@@ -136,10 +142,6 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                     />
 
                     <UIButton onPress={this.__openDepth}>Order book</UIButton>
-
-                    {typeof riddleIndex === 'number' ? (
-                        <UIButton onPress={this.__openRiddle(riddleIndex)}>Загадка</UIButton>
-                    ) : undefined}
                 </View>
 
                 {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}

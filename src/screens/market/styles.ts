@@ -114,4 +114,11 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         textTransform: 'uppercase',
     },
+
+    riddleButton: {
+        position: 'absolute',
+        right: 20,
+        top: 0,
+        width: 80,
+    },
 });

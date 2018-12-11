@@ -2,38 +2,24 @@ import React from 'react';
 import {
     Animated,
     Easing,
-    StyleSheet,
     View,
     ScrollViewProps,
     NativeSyntheticEvent,
-    NativeScrollEvent,
+    NativeScrollEvent, StyleProp, ViewStyle, LayoutChangeEvent,
 } from 'react-native';
 import { NavigationActions, NavigationTransitionProps } from 'react-navigation';
-import { Color } from 'styles/variables';
-import { ShadeHeader } from 'components/shade-header';
-
+import { clamp } from '../helper';
+import ShadeHeader from './shade-header';
+import { SceneTransitionConsumer, SceneTransitionContext } from './scene-transition-context';
+import { cardStyles } from './shade.style';
 
 const EaseInOut = Easing.inOut(Easing.ease);
 const ANIMATION_DURATION = 400;
 
-function clamp(min: number, value: number, max: number) {
-    if (value < min) {
-        return min;
-    }
-
-    if (value > max) {
-        return max;
-    }
-
-    return value;
-}
-
-type ShadeCardProps = NavigationTransitionProps;
-
-
-export default class ShadeCard extends React.PureComponent<ShadeCardProps, any> {
+class ShadeScrollCard extends React.PureComponent<ShadeCardProps, any> {
     public state = {
         scrollEnabled: true,
+        footerHeight: 0,
     };
 
     protected _headerOpacity: Animated.AnimatedInterpolation;
@@ -67,22 +53,41 @@ export default class ShadeCard extends React.PureComponent<ShadeCardProps, any> 
     }
 
     public render(): JSX.Element {
-        const scrollViewStyles = [styles.scrollView, {
+        const scrollViewStyles = [cardStyles.scrollView, {
             transform: [{
                 translateY: this._shadeInnerContentOffset,
             }],
         }];
 
         return (
-            <Animated.View style={styles.shadeView}>
+            <Animated.View style={cardStyles.shadeView}>
                 <ShadeHeader opacity={this._headerOpacity} />
 
                 <Animated.ScrollView {...this.__scrollViewProps} style={scrollViewStyles}>
-                    <View style={styles.innerContent}>{this.props.children}</View>
+                    <View style={[cardStyles.innerContent, this.props.style]}>{this.props.children}</View>
+                    <View style={{ height: this.state.footerHeight }}/>
                 </Animated.ScrollView>
+
+                <View style={cardStyles.footer} onLayout={this.__handleFooterLayout}>
+                    {this.__renderFooter()}
+                </View>
             </Animated.View>
         );
     }
+
+    protected __renderFooter = (): JSX.Element => {
+        const { renderFooter } = this.props;
+
+        return renderFooter ? renderFooter() : <View />;
+    };
+
+
+    protected __handleFooterLayout = (event: LayoutChangeEvent) => {
+        this.setState({
+            footerHeight: event.nativeEvent.layout.height,
+        });
+    };
+
 
     protected get __scrollViewProps(): ScrollViewProps {
         return {
@@ -172,24 +177,20 @@ export default class ShadeCard extends React.PureComponent<ShadeCardProps, any> 
 }
 
 
-const styles = StyleSheet.create({
-    shadeView: {
-        position: 'absolute',
-        top: 40,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: Color.White,
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        overflow: 'hidden',
-    },
-    scrollView: {
-        flex: 1,
-        zIndex: 3,
-    },
-    innerContent: {
-        flex: 1,
-        paddingTop: 40,
-    },
-});
+type ShadeCardOuterProps = {
+    children?: any;
+    style?: StyleProp<ViewStyle>;
+
+    renderFooter?: () => JSX.Element;
+};
+type ShadeCardProps = NavigationTransitionProps & ShadeCardOuterProps;
+
+export default (props: ShadeCardOuterProps) => {
+    return (
+        <SceneTransitionConsumer>
+            {(context: SceneTransitionContext | undefined) => (
+                context && <ShadeScrollCard {...context} {...props} />
+            )}
+        </SceneTransitionConsumer>
+    );
+}

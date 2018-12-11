@@ -4,8 +4,10 @@ import { riddleList, Riddle, riddleChecker } from 'components/riddle';
 import { NavigationInjectedProps } from 'react-navigation';
 import Analitics from 'utils/ga-tracker';
 import SpanText from 'components/span-text';
-import { Color, Fonts } from 'styles/variables';
 import UIButton from 'components/ui-button';
+import { ShadeScrollCard } from 'components/shade-navigator';
+
+import { Color, Fonts } from 'styles/variables';
 
 
 const errorMessages: Record<string, string> = {
@@ -59,15 +61,15 @@ export default class RiddleAnswerScreen extends React.PureComponent<RiddleQuesti
         const { riddle, prize } = this.state;
 
         if (!riddle) {
-            return <View />;
+            return <ShadeScrollCard />;
         }
 
         return (
-            <View style={styles.container}>
+            <ShadeScrollCard style={styles.container}>
                 <SpanText style={styles.question}>{riddle.question}</SpanText>
 
                 {prize ? this.__renderPrize() : this.__renderAnswerInput()}
-            </View>
+            </ShadeScrollCard>
         );
     }
 

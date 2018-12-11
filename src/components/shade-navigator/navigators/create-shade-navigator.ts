@@ -1,5 +1,5 @@
 import { StackRouter, createNavigator } from 'react-navigation';
-import { ShadeView } from '../views/shade-view';
+import ShadeView from '../views/shade-view';
 
 const createKeyboardAwareNavigator = require('react-navigation').createKeyboardAwareNavigator;
 

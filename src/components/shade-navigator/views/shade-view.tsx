@@ -22,7 +22,7 @@ export type ShadeViewProps = {
 } & NavigationInjectedProps;
 
 
-export class ShadeView extends React.PureComponent<ShadeViewProps> {
+export default class ShadeView extends React.PureComponent<ShadeViewProps> {
     public render(): JSX.Element {
         const transitionerProps = {
             navigation: this.props.navigation,
@@ -36,7 +36,7 @@ export class ShadeView extends React.PureComponent<ShadeViewProps> {
 
             onTransitionEnd: (transition: any, lastTransition: any): any => {
                 // this.props.onTransitionStart || this.props.navigationConfig.onTransitionStart
-            }
+            },
         };
 
         return <Transitioner {...transitionerProps} />;

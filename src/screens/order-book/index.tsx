@@ -9,6 +9,7 @@ import { kunaApiClient, KunaAsset, KunaMarket, kunaMarketMap, KunaOrderBook, Kun
 import AnalTracker from 'utils/ga-tracker';
 import InfoUnit from 'components/info-unit';
 import { SpanText } from 'components/span-text';
+import { ShadeScrollCard } from 'components/shade-navigator';
 import { Color } from 'styles/variables';
 import styles from './depth.style';
 import OrderRow from './order-row';
@@ -80,20 +81,22 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         const kunaMarket = kunaMarketMap[marketSymbol];
 
         return (
-            <View style={styles.container}>
-                <View style={styles.topic}>
-                    <SpanText style={styles.topicText}>Order book</SpanText>
-                    <SpanText style={[styles.topicText, styles.topicTextMarket]}>
-                        {kunaMarket.baseAsset} / {kunaMarket.quoteAsset}
-                    </SpanText>
-                </View>
-
-                {depth ? (
-                    <View style={styles.depthSheetContainer}>
-                        {this._renderDepthSheet(depth)}
+            <ShadeScrollCard>
+                <View style={styles.container}>
+                    <View style={styles.topic}>
+                        <SpanText style={styles.topicText}>Order book</SpanText>
+                        <SpanText style={[styles.topicText, styles.topicTextMarket]}>
+                            {kunaMarket.baseAsset} / {kunaMarket.quoteAsset}
+                        </SpanText>
                     </View>
-                ) : <ActivityIndicator />}
-            </View>
+
+                    {depth ? (
+                        <View style={styles.depthSheetContainer}>
+                            {this._renderDepthSheet(depth)}
+                        </View>
+                    ) : <ActivityIndicator />}
+                </View>
+            </ShadeScrollCard>
         );
     }
 

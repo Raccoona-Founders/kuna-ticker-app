@@ -13,6 +13,7 @@ import { SpanText } from 'components/span-text';
 import InfoUnit from 'components/info-unit';
 import RippleNotice from 'components/ripple-notice';
 import UIButton from 'components/ui-button';
+import { ShadeScrollCard } from 'components/shade-navigator';
 
 import { Calculator } from './calculator';
 
@@ -63,7 +64,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         const { ticker, usdRate, tickers } = this.props;
 
         if (!ticker) {
-            return <View />;
+            return <ShadeScrollCard />;
         }
 
         const symbol = this.currentSymbol;
@@ -76,7 +77,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         const riddleIndex = riddleMap[this.currentSymbol];
 
         return (
-            <View style={styles.marketInfoContainer}>
+            <ShadeScrollCard style={styles.marketInfoContainer}>
                 <View style={styles.topic}>
                     <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                               size={48}
@@ -145,7 +146,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                 </View>
 
                 {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}
-            </View>
+            </ShadeScrollCard>
         );
     }
 

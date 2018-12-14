@@ -14,12 +14,13 @@ import InfoUnit from 'components/info-unit';
 import RippleNotice from 'components/ripple-notice';
 import UIButton from 'components/ui-button';
 import { ShadeScrollCard } from 'components/shade-navigator';
-
+import { _ } from 'utils/i18n';
 import { Calculator } from './calculator';
 
 import { styles, screen } from './styles';
 import { UsdCalculator } from 'utils/currency-rate';
 import RouteKeys from 'router/route-keys';
+
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -128,7 +129,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                               value={numFormat(ticker.high, quoteAsset.format)}
                     />
 
-                    <UIButton onPress={this.__openDepth}>Order book</UIButton>
+                    <UIButton onPress={this.__openDepth}>{_('market.order-book')}</UIButton>
                 </View>
 
                 {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}

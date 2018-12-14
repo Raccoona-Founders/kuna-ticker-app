@@ -1,4 +1,7 @@
 import en from './en';
 import ru from './ru';
+import ua from './ua';
 
-export default { en, ru };
+const locales: Record<string, string> = { en, ua, ru };
+
+export default locales;

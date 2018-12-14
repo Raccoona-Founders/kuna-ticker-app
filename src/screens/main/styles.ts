@@ -29,8 +29,7 @@ export const tabBarStyles = StyleSheet.create({
     tabBar: {
         flexDirection: 'row',
         height: 60,
-        paddingLeft: 20,
-        paddingRight: 20,
+        textAlignVertical: 'bottom',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -38,11 +37,10 @@ export const tabBarStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         height: 60,
-        marginRight: 12,
-        marginLeft: 12,
+        marginRight: 30,
     },
     text: {
-        fontSize: 22,
+        fontSize: 18,
         fontFamily: Fonts.TTNorms_Regular,
         alignItems: 'center',
         color: Color.Gray2,

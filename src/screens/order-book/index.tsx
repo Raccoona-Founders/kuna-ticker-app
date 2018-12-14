@@ -11,8 +11,10 @@ import InfoUnit from 'components/info-unit';
 import { SpanText } from 'components/span-text';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import { Color } from 'styles/variables';
+import { _ } from 'utils/i18n'
 import styles from './depth.style';
 import OrderRow from './order-row';
+;
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -84,7 +86,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
             <ShadeScrollCard>
                 <View style={styles.container}>
                     <View style={styles.topic}>
-                        <SpanText style={styles.topicText}>Order book</SpanText>
+                        <SpanText style={styles.topicText}>{_('market.order-book')}</SpanText>
                         <SpanText style={[styles.topicText, styles.topicTextMarket]}>
                             {kunaMarket.baseAsset} / {kunaMarket.quoteAsset}
                         </SpanText>
@@ -140,16 +142,24 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
             <View style={styles.depthSheet}>
                 <View style={[styles.depthSheetSide]}>
                     <View style={styles.depthHeader}>
-                        <SpanText style={styles.depthHeaderCell}>Amount ({kunaMarket.baseAsset})</SpanText>
-                        <SpanText style={styles.depthHeaderCell}>Price ({kunaMarket.quoteAsset})</SpanText>
+                        <SpanText style={styles.depthHeaderCell}>
+                            {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
+                        </SpanText>
+                        <SpanText style={styles.depthHeaderCell}>
+                            {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
+                        </SpanText>
                     </View>
                     <SideRows side="bid" items={depth.bids} market={kunaMarket} />
                 </View>
 
                 <View style={[styles.depthSheetSide]}>
                     <View style={styles.depthHeader}>
-                        <SpanText style={styles.depthHeaderCell}>Price ({kunaMarket.quoteAsset})</SpanText>
-                        <SpanText style={styles.depthHeaderCell}>Amount ({kunaMarket.baseAsset})</SpanText>
+                        <SpanText style={styles.depthHeaderCell}>
+                            {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
+                        </SpanText>
+                        <SpanText style={styles.depthHeaderCell}>
+                            {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
+                        </SpanText>
                     </View>
                     <SideRows side="ask" items={depth.asks} market={kunaMarket} />
                 </View>

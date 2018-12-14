@@ -1,0 +1,23 @@
+{
+    "menu": {
+        "other": "Інше",
+        "about": "Про тікер"
+    },
+    "about": {
+        "title": "Про Kuna Ticker",
+        "github": "Репозиторій на GitHub",
+        "roadmap": "Плани на майбутнє",
+        "website": "Website",
+        "telegram": "Telegram",
+        "email": "Пошта"
+    },
+    "market": {
+        "calculate": "Калькулятор",
+        "order-book": "Список ордерів",
+        "price-asset": "Ціна ({{asset}})",
+        "amount-asset": "Об'єм ({{asset}})"
+    },
+    "notice": {
+        "ripple": "Якщо ти інвестуешь свої гроші у Ripple, то я сподіваюся що ти знаешь що робишь"
+    }
+}

@@ -5,6 +5,7 @@ import { getAsset, KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
 import { SpanText } from 'components/span-text';
 import Analitics from 'utils/ga-tracker';
 import { styles } from './calculator.style';
+import { _ } from 'utils/i18n';
 
 type CalculatorProps = {
     market: KunaMarket;
@@ -67,7 +68,7 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
 
         return (
             <View style={styles.container}>
-                <SpanText style={styles.topic}>Calculate</SpanText>
+                <SpanText style={styles.topic}>{_('market.calculate')}</SpanText>
 
                 <CalcAssetRow
                     asset={market.baseAsset}

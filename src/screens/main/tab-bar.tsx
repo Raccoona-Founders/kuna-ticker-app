@@ -3,6 +3,7 @@ import { TouchableOpacity, Animated } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
 import { tabBarStyles } from 'screens/main/styles';
 import { Color } from 'styles/variables';
+import { _ } from 'utils/i18n';
 
 import MarketTab from './market-tab';
 import AboutTab from './about-tab';
@@ -35,13 +36,13 @@ export const tabNavigationRoutes: TabnavRoute[] = [
         assets: [KunaAssetUnit.Bitcoin],
     }, {
         key: 'OTHER',
-        title: 'Other',
+        title: _('menu.other'),
         index: 2,
         sceneComponent: MarketTab,
         assets: [KunaAssetUnit.StasisEuro, KunaAssetUnit.Ethereum, KunaAssetUnit.GolosGold],
     }, {
         key: 'ABOUT',
-        title: 'About',
+        title: _('menu.about'),
         index: 3,
         sceneComponent: AboutTab,
     },
@@ -61,7 +62,9 @@ export const QuoteTabItem = (props: TabItemProps) => {
     const animatedStyle = {
         color: interpolate(Color.DarkPurple, Color.Gray2),
         transform: [{
-            scale: interpolate(1, 0.8),
+            scale: interpolate(1.35, 1),
+        }, {
+            translateY: interpolate(-2, 0),
         }],
     };
 

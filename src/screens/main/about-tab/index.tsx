@@ -5,8 +5,10 @@ import qs from 'querystring';
 import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
 import Analytics from 'utils/ga-tracker';
+import i18n, { _ } from 'utils/i18n';
 
 import textContent from './text-content';
+const language: string = i18n.currentLocale().split('-')[0];
 
 
 type LinkItem = {
@@ -17,24 +19,24 @@ type LinkItem = {
 };
 
 const links: LinkItem[] = [{
-    title: 'GitHub Repository',
+    title: _('about.github'),
     label: 'CoinWizard/kuna-ticker-app',
     url: 'https://github.com/CoinWizard/kuna-ticker-app',
 }, {
-    title: 'Roadmap',
+    title: _('about.roadmap'),
     label: 'Trello Board',
     url: 'https://trello.com/b/9k4PHBO4/kuna-tiker-mobile-roadmap',
 }, {
-    title: 'Kuna Ticker Website',
+    title: _('about.website'),
     label: 'coinwizard.github.io/kuna-ticker-app',
     url: 'https://coinwizard.github.io/kuna-ticker-app?ref=application',
     disabled: true,
 }, {
-    title: 'Telegram',
+    title: _('about.telegram'),
     label: '@MaksymTymchyk',
     url: 'https://t.me/MaksymTymchyk',
 }, {
-    title: 'Email',
+    title: _('about.email'),
     label: 'maksym.tymchyk@gmail.com',
     url: `mailto:maksym.tymchyk@gmail.com?${qs.stringify({ subject: 'Kuna Ticker' })}`,
 }];
@@ -59,10 +61,12 @@ const AboutTab = (): JSX.Element => {
         <ScrollView style={styles.container}>
             <View>
                 <View style={styles.topic}>
-                    <SpanText style={styles.topicTitle}>About Kuna Ticker</SpanText>
+                    <SpanText style={styles.topicTitle}>{_('about.title')}</SpanText>
                 </View>
 
-                <Markdown style={mdStyles}>{textContent.en}</Markdown>
+                <SpanText>{}</SpanText>
+
+                <Markdown style={mdStyles}>{textContent[language] || textContent.en}</Markdown>
             </View>
 
             <View style={styles.separator} />

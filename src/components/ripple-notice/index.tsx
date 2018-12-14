@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { SpanText } from 'components/span-text';
+import { styles } from 'screens/market/calculator/calculator.style';
+import { _ } from 'utils/i18n';
 
 export default () => (
     <View style={style.rippleNotice}>
         <SpanText style={{ textAlign: 'center', paddingBottom: 10 }}>💩💩💩💩💩</SpanText>
 
         <SpanText style={style.rippleNoticeText}>
-            If you invest your own money in Ripple, I hope you know what you are doing 👌🏾
+            <SpanText style={styles.topic}>{_('notice.ripple')} 👌🏾</SpanText>
         </SpanText>
     </View>
 );

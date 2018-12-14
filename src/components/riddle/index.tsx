@@ -1,3 +1,9 @@
+/**
+ * @deprecated
+ *
+ * It's file describe first three riddles.
+ */
+
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import SpanText from 'components/span-text';

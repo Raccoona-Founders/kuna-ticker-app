@@ -5,7 +5,9 @@ import qs from 'querystring';
 import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
 import Analytics from 'utils/ga-tracker';
-import { textContent } from './text-content';
+
+import content from './text-content';
+
 
 type LinkItem = {
     title: string;
@@ -60,7 +62,7 @@ const AboutTab = (): JSX.Element => {
                     <SpanText style={styles.topicTitle}>About Kuna Ticker</SpanText>
                 </View>
 
-                <Markdown style={mdStyles}>{textContent}</Markdown>
+                <Markdown style={mdStyles}>{content.en}</Markdown>
             </View>
 
             <View style={styles.separator} />

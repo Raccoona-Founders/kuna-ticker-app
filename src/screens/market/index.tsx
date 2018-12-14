@@ -2,7 +2,7 @@ import React from 'react';
 import Numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { View, Animated, Keyboard, Text, TouchableOpacity } from 'react-native';
+import { View, Animated, Keyboard, Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { getAsset, kunaMarketMap, KunaOrderBook, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
 
@@ -20,13 +20,6 @@ import { Calculator } from './calculator';
 import { styles, screen } from './styles';
 import { UsdCalculator } from 'utils/currency-rate';
 import RouteKeys from 'router/route-keys';
-
-
-const riddleMap: Record<string, number> = {
-    btcuah: 0,
-    kunbtc: 1,
-    ethbtc: 2,
-};
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -74,7 +67,6 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         const baseAsset = getAsset(currentMarket.baseAsset);
 
         const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
-        const riddleIndex = riddleMap[this.currentSymbol];
 
         return (
             <ShadeScrollCard style={styles.marketInfoContainer}>
@@ -109,12 +101,6 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                             )}
                         </View>
                     </View>
-
-                    {typeof riddleIndex === 'number' ? (
-                        <UIButton onPress={this.__openRiddle(riddleIndex)} style={styles.riddleButton} type="small">
-                            Загадка
-                        </UIButton>
-                    ) : undefined}
                 </View>
 
                 {ticker.last && (
@@ -126,19 +112,19 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                 )}
 
                 <View style={styles.infoContainer}>
-                    <InfoUnit topic={`Volume ${baseAsset.key}`}
+                    <InfoUnit topic={`Vol ${baseAsset.key}`}
                               value={numFormat(ticker.vol)}
                     />
 
-                    <InfoUnit topic={`Volume ${quoteAsset.key}`}
+                    <InfoUnit topic={`Vol ${quoteAsset.key}`}
                               value={numFormat(Numeral(ticker.vol).multiply(ticker.last))}
                     />
 
-                    <InfoUnit topic="24H Low"
+                    <InfoUnit topic="24H Min"
                               value={numFormat(ticker.low, quoteAsset.format)}
                     />
 
-                    <InfoUnit topic="24H High"
+                    <InfoUnit topic="24H Max"
                               value={numFormat(ticker.high, quoteAsset.format)}
                     />
 
@@ -157,12 +143,6 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
     protected __openDepth = () => {
         this.props.navigation.push(RouteKeys.OrderBook, {
             marketSymbol: this.currentSymbol,
-        });
-    };
-
-    protected __openRiddle = (index: number) => () => {
-        this.props.navigation.push(RouteKeys.RiddleQuestion, {
-            index: index,
         });
     };
 }

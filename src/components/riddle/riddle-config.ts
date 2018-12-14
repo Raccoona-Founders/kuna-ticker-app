@@ -20,10 +20,4 @@ let riddleConfig = {
     riddles: [],
 };
 
-try {
-    riddleConfig = require('./riddle.json');
-} catch (error) {
-    console.warn('Not found ./riddle.json file. Use default.');
-}
-
 export default riddleConfig;

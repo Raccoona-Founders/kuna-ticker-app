@@ -6,8 +6,6 @@ import { MainScreen } from 'screens/main';
 import MarketScreen from 'screens/market';
 import OrderBookScreen from 'screens/order-book';
 import RouteKeys from 'router/route-keys';
-import RiddleQuestionScreen from 'screens/riddle-question';
-import RiddleAnswerScreen from 'screens/riddle-answer';
 
 
 /** ============================================================================================================= */
@@ -23,14 +21,6 @@ const routeConfigs = {
 
     [RouteKeys.OrderBook]: {
         screen: OrderBookScreen,
-    },
-
-
-    [RouteKeys.RiddleQuestion]: {
-        screen: RiddleQuestionScreen,
-    },
-    [RouteKeys.RiddleAnswer]: {
-        screen: RiddleAnswerScreen,
     },
 };
 

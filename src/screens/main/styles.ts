@@ -29,8 +29,10 @@ export const tabBarStyles = StyleSheet.create({
     tabBar: {
         flexDirection: 'row',
         height: 60,
+        paddingLeft: 20,
+        paddingRight: 20,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     tab: {
         flexDirection: 'row',

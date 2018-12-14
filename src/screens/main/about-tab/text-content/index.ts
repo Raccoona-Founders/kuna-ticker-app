@@ -1,4 +1,4 @@
-export default {
-    en: require('./en'),
-    ru: require('./ru'),
-};
+import en from './en';
+import ru from './ru';
+
+export default { en, ru };

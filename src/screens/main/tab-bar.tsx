@@ -9,7 +9,11 @@ import AboutTab from './about-tab';
 
 export type TabnavRoute = {
     key: string;
-    /** @deprecated */
+    /**
+     * Need implement functional at based library
+     *
+     * @deprecated
+     */
     index: number;
     title: string;
     sceneComponent: React.ComponentClass | React.SFC | (() => JSX.Element) | any;

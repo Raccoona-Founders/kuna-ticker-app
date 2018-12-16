@@ -1,0 +1,11 @@
+source: "."
+encoding: UTF-8
+
+title: "Kuna Ticker"
+description: >
+  Kuna Ticker
+
+
+sass:
+  sass_dir: _sass
+  style: compressed

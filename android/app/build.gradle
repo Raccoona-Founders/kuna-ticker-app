@@ -101,7 +101,7 @@ android {
         applicationId "com.kunaticker"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
+        versionCode 9
         versionName "1.1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -138,6 +138,12 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-svg')
+    compile project(':react-native-splash-screen')
+    compile project(':react-native-randombytes')
+    compile project(':react-native-interactable')
+    compile project(':react-native-firebase')
+    compile project(':react-native-device-info')
     implementation project(':react-native-randombytes')
     implementation project(':react-native-firebase')
     implementation project(':react-native-svg')

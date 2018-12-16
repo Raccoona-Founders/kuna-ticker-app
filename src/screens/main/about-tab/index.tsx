@@ -3,8 +3,8 @@ import { View, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-n
 import Markdown from 'react-native-markdown-renderer';
 import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
-import { textContent } from './text-content';
 import Analytics from 'utils/ga-tracker';
+import { textContent } from './text-content';
 
 type LinkItem = {
     title: string;
@@ -18,9 +18,13 @@ const links: LinkItem[] = [{
     label: 'CoinWizard/mobile-ticker-for-kuna',
     url: 'https://github.com/CoinWizard/mobile-ticker-for-kuna',
 }, {
+    title: 'Roadmap',
+    label: 'Trello Board',
+    url: 'https://trello.com/b/9k4PHBO4/kuna-tiker-mobile-roadmap',
+}, {
     title: 'Kuna Ticker Website',
     label: 'coinwizard.github.io',
-    url: 'https://coinwizard.github.io/mobile-ticker-for-kuna',
+    url: 'https://coinwizard.github.io/mobile-ticker-for-kuna?ref=application',
     disabled: true,
 }, {
     title: 'Telegram',

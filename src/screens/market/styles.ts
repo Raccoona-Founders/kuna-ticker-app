@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
         color: Color.Gray2,
     },
     topicAssetSubtextName: {
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
 
     priceContainer: {
@@ -94,26 +94,29 @@ export const styles = StyleSheet.create({
     infoContainer: {
         paddingLeft: 20,
         paddingRight: 20,
-        marginTop: 20,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
 
-
-    browContainer: {
-        height: 24,
-        alignItems: 'center',
+    depthButton: {
+        marginBottom: 20,
+        height: 50,
+        width: '100%',
+        borderColor: Color.Gray3,
+        borderWidth: 1,
         justifyContent: 'center',
-    },
-    browItem: {
-        width: 45,
-        height: 4,
+        alignItems: 'center',
         borderRadius: 4,
-        backgroundColor: Color.Gray2,
+
+        // shadowColor: Color.Fade,
+        // shadowOffset: { height: 4, width: 0 },
+        // shadowOpacity: 0.2,
+        // shadowRadius: 6,
     },
 
-
-    rippleNotice: {
-
-    }
+    depthButtonText: {
+        color: Color.DarkPurple,
+        fontSize: 16,
+        textTransform: 'uppercase',
+    },
 });

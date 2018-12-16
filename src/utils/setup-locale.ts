@@ -1,5 +1,8 @@
 import numeral from 'numeral';
 
+numeral.zeroFormat('0.0');
+numeral.nullFormat('0.0');
+
 numeral.register('locale', 'ua', {
     delimiters: {
         thousands: ' ',
@@ -21,3 +24,4 @@ numeral.register('locale', 'ua', {
 
 // switch between locales
 numeral.locale('ua');
+

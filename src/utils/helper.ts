@@ -12,3 +12,11 @@ export function isIphoneX() {
         (height === 812 || width === 812)
     );
 }
+
+export function vw(percentageWidth: number = 100) {
+    return Dimensions.get('window').width * (percentageWidth / 100);
+}
+
+export function vh(percentageHeight: number = 100) {
+    return Dimensions.get('window').height * (percentageHeight / 100);
+}

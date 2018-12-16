@@ -9,7 +9,7 @@ type InfoUnitProps = {
     valueColor?: string;
 };
 
-export const InfoUnit = (props: InfoUnitProps) => {
+export default (props: InfoUnitProps) => {
     const { valueColor = undefined } = props;
 
     return (

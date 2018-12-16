@@ -2,12 +2,10 @@ import React from 'react';
 import { Store } from 'redux';
 import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
-import { kunaApiClient } from 'kuna-sdk';
 import SplashScreen from 'react-native-splash-screen';
 
 import 'utils/setup-locale';
-
-import { SpanText } from 'components/span-text';
+import kunaClient from 'utils/kuna-client';
 import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
 import { Ticker } from 'store/actions';
@@ -76,7 +74,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
             return;
         }
 
-        const tickers = await kunaApiClient.getTickers();
+        const tickers = await kunaClient.getTickers();
         store.dispatch({
             type: Ticker.BulkUpdateTickers,
             tickers: tickers,

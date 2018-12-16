@@ -2,19 +2,23 @@ import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
 import { slice, map, maxBy, meanBy } from 'lodash';
-import Numeral from 'numeral';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
-import { getAsset, kunaApiClient, KunaAsset, kunaMarketMap, KunaOrderBook, KunaTicker } from 'kuna-sdk';
+import { kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
-import InfoUnit from 'components/info-unit';
 import { SpanText } from 'components/span-text';
-import { Color } from 'styles/variables';
 import styles from './depth.style';
 import OrderRow from './order-row';
+import kunaClient from 'utils/kuna-client';
+
+/**
+ * @deprecated
+ * Use type from Kuna SDK
+ */
+type OrderBook = { bid: Array<Array<number>>, ask: Array<Array<number>> };
 
 type State = {
-    depth: undefined | KunaOrderBook;
+    depth: undefined | OrderBook;
 };
 
 
@@ -26,16 +30,19 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
 
-        AnalTracker.trackScreen(`market/order-book/${marketSymbol}`, 'OrderBookScreen');
+        AnalTracker.trackScreen(
+            `market/order-book/${marketSymbol}`,
+            'OrderBookScreen',
+        );
 
         setTimeout(async () => {
-            const depth = await kunaApiClient.getOrderBook(marketSymbol);
-            this.setState({ depth });
+            const book = await kunaClient.getOrderBook(marketSymbol);
+            this.setState({book: book} as any);
         }, 400);
     }
 
     public render(): JSX.Element {
-        const { depth } = this.state;
+        const {depth} = this.state;
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
@@ -47,59 +54,28 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
                 {depth ? (
                     <View style={styles.depthSheetContainer}>
-                        {/*<View>{this._renderDepthTenPercent(depth, baseAsset)}</View>*/}
                         {this._renderDepthSheet(depth)}
                     </View>
-                ) : <ActivityIndicator />}
-
-
+                ) : (
+                    <ActivityIndicator/>
+                )}
             </View>
         );
     }
 
-    protected _renderDepthTenPercent(depth: KunaOrderBook, baseAsset: KunaAsset): JSX.Element | undefined {
-        const { ticker } = this.props;
-
-        const minPrice = +ticker.last * 0.9;
-        const bidDepth: number = depth.bids.reduce((sum: number, [price, value]) => (
-            +price >= minPrice ? sum + (+value) : sum
-        ), 0);
-
-        const maxPrice = +ticker.last * 1.1;
-        const asksDepth: number = depth.asks.reduce((sum: number, [price, value]) => (
-            +price <= maxPrice ? sum + (+value) : sum
-        ), 0);
-
-        return (
-            <>
-                <InfoUnit
-                    topic="Bid 10%"
-                    value={Numeral(bidDepth).format('0,0.[00]') + ' ' + baseAsset.key}
-                    valueColor={Color.Main}
-                />
-
-                <InfoUnit
-                    topic="Ask 10%"
-                    value={Numeral(asksDepth).format('0,0.[00]') + ' ' + baseAsset.key}
-                    valueColor={Color.Danger}
-                />
-            </>
-        );
-    }
-
-    protected _renderDepthSheet(depth: KunaOrderBook): JSX.Element {
-        const { usdRate } = this.props;
+    protected _renderDepthSheet(depth: OrderBook): JSX.Element {
+        // const { usdRate } = this.props;
 
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
-        const bidItems = slice(depth.bids, 0, 20);
+        const bidItems = slice(depth.bid, 0, 20);
         const avrBid = meanBy(bidItems, ([price, value]) => +value);
         const maxBid = maxBy(bidItems, ([price, value]) => +value);
         const maxBidValue = maxBid ? maxBid[1] : 0;
 
 
-        const askItems = slice(depth.asks, 0, 20);
+        const askItems = slice(depth.ask, 0, 20);
         const avrAsk = meanBy(askItems, ([price, value]) => +value);
         const maxAsk = maxBy(askItems, ([price, value]) => +value);
         const maxAskValue = maxAsk ? maxAsk[1] : 0;
@@ -148,7 +124,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
 type DepthScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
 type ConnectedProps = {
-    ticker: KunaTicker;
+    ticker: KunaV3Ticker;
     usdRate: number;
 }
 

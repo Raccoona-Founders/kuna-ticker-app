@@ -1,6 +1,6 @@
 import { forEach } from 'lodash';
 import { AnyAction } from 'redux';
-import { KunaTicker } from 'kuna-sdk';
+import { KunaV3Ticker } from 'kuna-sdk';
 import { Ticker } from 'store/actions';
 
 export const initialTickerStore: StoreTicker = {
@@ -22,10 +22,10 @@ export const tickerReducer = (tickerStore: StoreTicker = initialTickerStore, act
         }
 
         case Ticker.BulkUpdateTickers: {
-            const newTickers: Record<string, KunaTicker> = {};
+            const newTickers: Record<string, KunaV3Ticker> = {};
 
-            forEach(action.tickers, (ticker: KunaTicker) => {
-                newTickers[ticker.market] = ticker;
+            forEach(action.tickers, (ticker: KunaV3Ticker) => {
+                newTickers[ticker.symbol] = ticker;
             });
 
             return {

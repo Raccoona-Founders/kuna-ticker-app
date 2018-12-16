@@ -1,14 +1,14 @@
 import React from 'react';
 import Numeral from 'numeral';
 import { View, TextInput, Text } from 'react-native';
-import { getAsset, KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
+import { getAsset, KunaAssetUnit, KunaMarket, KunaV3Ticker } from 'kuna-sdk';
 import { SpanText } from 'components/span-text';
 import Analitics from 'utils/ga-tracker';
 import { styles } from './calculator.style';
 
 type CalculatorProps = {
     market: KunaMarket;
-    ticker: KunaTicker;
+    ticker: KunaV3Ticker;
     usdPrice?: number;
 };
 
@@ -62,8 +62,8 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     };
 
     public render(): JSX.Element {
-        const { inputBuyValue, inputSellValue } = this.state;
-        const { market } = this.props;
+        const {inputBuyValue, inputSellValue} = this.state;
+        const {market} = this.props;
 
         return (
             <View style={styles.container}>
@@ -87,8 +87,8 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     }
 
     protected changeTextInput = (type: Operation) => (text: string) => {
-        const { ticker, market } = this.props;
-        const { trackedInteraction } = this.state;
+        const {ticker, market} = this.props;
+        const {trackedInteraction} = this.state;
 
         if (trackedInteraction === false) {
             Analitics.logEvent('use_calculator', {
@@ -96,7 +96,7 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
                 operation: type,
             });
 
-            this.setState({ trackedInteraction: true });
+            this.setState({trackedInteraction: true});
         }
 
         const buyAsset = getAsset(market.baseAsset);
@@ -117,12 +117,12 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
             switch (type) {
                 case Operation.Sell:
                     toUpdateState.inputSellValue = text;
-                    toUpdateState.inputBuyValue = textNumber.divide(ticker.last).format(buyAsset.format);
+                    toUpdateState.inputBuyValue = textNumber.divide(ticker.lastPrice).format(buyAsset.format);
                     break;
 
                 case Operation.Buy:
                     toUpdateState.inputBuyValue = text;
-                    toUpdateState.inputSellValue = textNumber.multiply(ticker.last).format(sellAsset.format);
+                    toUpdateState.inputSellValue = textNumber.multiply(ticker.lastPrice).format(sellAsset.format);
                     break;
             }
         }
@@ -131,19 +131,19 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     };
 
     protected _renderUseEquivalent(): JSX.Element {
-        const { inputBuyValue = '' } = this.state;
-        const { usdPrice, market } = this.props;
+        const {inputBuyValue = ''} = this.state;
+        const {usdPrice, market} = this.props;
 
         const buyAsset = getAsset(market.baseAsset);
 
         if (!usdPrice || usdPrice <= 0) {
-            return <View />;
+            return <View/>;
         }
 
         return (
             <View style={styles.resultContainer}>
                 <SpanText style={styles.resultUsdValue}>
-                    <Text style={{ fontWeight: '400' }}>{inputBuyValue || '0'} {buyAsset.key}</Text>
+                    <Text style={{fontWeight: '400'}}>{inputBuyValue || '0'} {buyAsset.key}</Text>
                     <Text> ≈ </Text>
                     <Text>${Numeral(inputBuyValue || 0).multiply(usdPrice).format('0,0[.]00')}</Text>
                 </SpanText>

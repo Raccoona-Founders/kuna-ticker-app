@@ -5,26 +5,27 @@ import { slice, map, maxBy, meanBy, sumBy } from 'lodash';
 import Numeral from 'numeral';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
-import { kunaApiClient, KunaAsset, KunaMarket, kunaMarketMap, KunaOrderBook, KunaTicker } from 'kuna-sdk';
+import { KunaAsset, KunaMarket, kunaMarketMap, KunaV3Order, KunaV3OrderBook, KunaV3Ticker } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
 import InfoUnit from 'components/info-unit';
 import { SpanText } from 'components/span-text';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import { Color } from 'styles/variables';
-import { _ } from 'utils/i18n'
+import kunaClient from 'utils/kuna-api';
+import { _ } from 'utils/i18n';
 import styles from './depth.style';
 import OrderRow from './order-row';
-;
+
 
 type State = {
-    depth: undefined | KunaOrderBook;
+    depth: undefined | KunaV3OrderBook;
 };
 
 const ORDER_DEPTH = 35;
 
 type SideRowsProps = {
     side: 'ask' | 'bid';
-    items: [number, number][];
+    items: KunaV3Order[];
     market: KunaMarket;
 };
 
@@ -66,16 +67,18 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         depth: undefined,
     };
 
+
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
 
         AnalTracker.trackScreen(`market/order-book/${marketSymbol}`, 'OrderBookScreen');
 
         setTimeout(async () => {
-            const depth = await kunaApiClient.getOrderBook(marketSymbol);
-            this.setState({ depth });
+            const book = await kunaClient.getOrderBook(marketSymbol);
+            this.setState({ depth: book });
         }, 400);
     }
+
 
     public render(): JSX.Element {
         const { depth } = this.state;
@@ -102,39 +105,8 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         );
     }
 
-    protected _renderDepthTenPercent(depth: KunaOrderBook, baseAsset: KunaAsset): JSX.Element | undefined {
-        const { ticker } = this.props;
 
-        const minPrice = +ticker.last * 0.9;
-        const bidDepth: number = depth.bids.reduce((sum: number, [price, value]) => (
-            +price >= minPrice ? sum + (+value) : sum
-        ), 0);
-
-        const maxPrice = +ticker.last * 1.1;
-        const asksDepth: number = depth.asks.reduce((sum: number, [price, value]) => (
-            +price <= maxPrice ? sum + (+value) : sum
-        ), 0);
-
-        return (
-            <>
-                <InfoUnit
-                    topic="Bid 10%"
-                    value={Numeral(bidDepth).format('0,0.[00]') + ' ' + baseAsset.key}
-                    valueColor={Color.Main}
-                />
-
-                <InfoUnit
-                    topic="Ask 10%"
-                    value={Numeral(asksDepth).format('0,0.[00]') + ' ' + baseAsset.key}
-                    valueColor={Color.Danger}
-                />
-            </>
-        );
-    }
-
-    protected _renderDepthSheet(depth: KunaOrderBook): JSX.Element {
-        const { usdRate } = this.props;
-
+    protected _renderDepthSheet(depth: KunaV3OrderBook): JSX.Element {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
@@ -149,7 +121,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                             {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
                         </SpanText>
                     </View>
-                    <SideRows side="bid" items={depth.bids} market={kunaMarket} />
+                    <SideRows side="bid" items={depth.bid} market={kunaMarket} />
                 </View>
 
                 <View style={[styles.depthSheetSide]}>
@@ -161,16 +133,17 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                             {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
                         </SpanText>
                     </View>
-                    <SideRows side="ask" items={depth.asks} market={kunaMarket} />
+                    <SideRows side="ask" items={depth.ask} market={kunaMarket} />
                 </View>
             </View>
         );
     }
 }
 
+
 type DepthScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
 type ConnectedProps = {
-    ticker: KunaTicker;
+    ticker: KunaV3Ticker;
     usdRate: number;
 }
 

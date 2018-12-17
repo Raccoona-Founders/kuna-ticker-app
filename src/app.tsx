@@ -1,20 +1,23 @@
 import React from 'react';
 import { Store } from 'redux';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
 import { Provider } from 'react-redux';
-import { kunaApiClient } from 'kuna-sdk';
 import SplashScreen from 'react-native-splash-screen';
 import 'utils/setup-locale';
+
 import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
 import { Ticker } from 'store/actions';
 import { Color } from 'styles/variables';
 import { getUahRate } from 'utils/external';
+import kunaClient from 'utils/kuna-api';
+
 
 type ApplicationState = {
     isStoreLoading: boolean;
     store?: Store<KunaStore>;
 };
+
 
 export class Application extends React.PureComponent<any, ApplicationState> {
     public state: ApplicationState = {
@@ -73,12 +76,13 @@ export class Application extends React.PureComponent<any, ApplicationState> {
             return;
         }
 
-        const tickers = await kunaApiClient.getTickers();
+        const tickers = await kunaClient.getTickers();
         store.dispatch({
             type: Ticker.BulkUpdateTickers,
             tickers: tickers,
         });
     };
+
 
     protected updateUsdRate = async (): Promise<void> => {
         const { store } = this.state;

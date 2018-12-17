@@ -3,8 +3,8 @@ import { find } from 'lodash';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
-import { View, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
-import { KunaMarket, KunaTicker } from 'kuna-sdk';
+import { View, TouchableOpacity } from 'react-native';
+import { KunaMarket, KunaV3Ticker } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
 import { SpanText } from 'components/span-text';
 
@@ -35,7 +35,7 @@ const MarketRow = (props: MarketRowProps) => {
                     <View style={styles.tickerCell}>
                         <View style={styles.priceBox}>
                             <SpanText style={styles.priceValue}>
-                                {ticker ? numFormat(ticker.last, market.format) : '—'}
+                                {ticker ? numFormat(ticker.lastPrice || 0, market.format) : '—'}
                             </SpanText>
                             <SpanText style={styles.priceLabel}>{market.quoteAsset}</SpanText>
                         </View>
@@ -58,8 +58,8 @@ type MarketRowOuterProps = {
 };
 
 type ConnectedProps = {
-    ticker?: KunaTicker;
-    tickers: Record<string, KunaTicker>;
+    ticker?: KunaV3Ticker;
+    tickers: Record<string, KunaV3Ticker>;
     usdRate: number;
 };
 
@@ -67,7 +67,7 @@ type MarketRowProps = NavigationInjectedProps & MarketRowOuterProps & ConnectedP
 
 const mapStateToProps = (store: KunaStore, ownProps: MarketRowOuterProps): ConnectedProps => {
     return {
-        ticker: find(store.ticker.tickers, { market: ownProps.market.key }),
+        ticker: find(store.ticker.tickers, { symbol: ownProps.market.key }),
         tickers: store.ticker.tickers,
         usdRate: store.ticker.usdRate,
     };

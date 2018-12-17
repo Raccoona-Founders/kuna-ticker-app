@@ -1,7 +1,7 @@
 import React from 'react';
 import Numeral from 'numeral';
 import { View, TextInput, Text } from 'react-native';
-import { getAsset, KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
+import { getAsset, KunaAssetUnit, KunaMarket, KunaV3Ticker } from 'kuna-sdk';
 import { SpanText } from 'components/span-text';
 import Analitics from 'utils/ga-tracker';
 import { styles } from './calculator.style';
@@ -9,7 +9,7 @@ import { _ } from 'utils/i18n';
 
 type CalculatorProps = {
     market: KunaMarket;
-    ticker: KunaTicker;
+    ticker: KunaV3Ticker;
     usdPrice?: number;
 };
 
@@ -64,7 +64,11 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
 
     public render(): JSX.Element {
         const { inputBuyValue, inputSellValue } = this.state;
-        const { market } = this.props;
+        const { market, ticker } = this.props;
+
+        if (!ticker.lastPrice) {
+            return <View />;
+        }
 
         return (
             <View style={styles.container}>
@@ -118,12 +122,14 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
             switch (type) {
                 case Operation.Sell:
                     toUpdateState.inputSellValue = text;
-                    toUpdateState.inputBuyValue = textNumber.divide(ticker.last).format(buyAsset.format);
+                    toUpdateState.inputBuyValue
+                        = textNumber.divide(ticker.lastPrice || 0).format(buyAsset.format);
                     break;
 
                 case Operation.Buy:
                     toUpdateState.inputBuyValue = text;
-                    toUpdateState.inputSellValue = textNumber.multiply(ticker.last).format(sellAsset.format);
+                    toUpdateState.inputSellValue
+                        = textNumber.multiply(ticker.lastPrice || 0).format(sellAsset.format);
                     break;
             }
         }

@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { View, Animated, Keyboard, Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { getAsset, kunaMarketMap, KunaOrderBook, KunaTicker, KunaAssetUnit } from 'kuna-sdk';
+import { getAsset, kunaMarketMap, KunaOrderBook, KunaV3Ticker, KunaAssetUnit } from 'kuna-sdk';
 
 import AnalTracker from 'utils/ga-tracker';
 import { numFormat } from 'utils/number-helper';
@@ -90,7 +90,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                         <View style={styles.priceContainer}>
                             <View style={styles.priceMarketContainer}>
                                 <SpanText style={styles.priceTextValue}>
-                                    {numFormat(ticker.last, currentMarket.format)}
+                                    {numFormat(ticker.lastPrice || 0, currentMarket.format)}
                                 </SpanText>
                                 <SpanText style={styles.priceTextAsset}>{quoteAsset.key}</SpanText>
                             </View>
@@ -104,21 +104,19 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                     </View>
                 </View>
 
-                {ticker.last && (
-                    <Calculator
-                        market={currentMarket}
-                        ticker={ticker}
-                        usdPrice={usdPrice.value()}
-                    />
-                )}
+                <Calculator
+                    market={currentMarket}
+                    ticker={ticker}
+                    usdPrice={usdPrice.value()}
+                />
 
                 <View style={styles.infoContainer}>
                     <InfoUnit topic={`Vol ${baseAsset.key}`}
-                              value={numFormat(ticker.vol)}
+                              value={numFormat(ticker.volume)}
                     />
 
                     <InfoUnit topic={`Vol ${quoteAsset.key}`}
-                              value={numFormat(Numeral(ticker.vol).multiply(ticker.last))}
+                              value={numFormat(Numeral(ticker.volume).multiply(ticker.lastPrice || 0))}
                     />
 
                     <InfoUnit topic="24H Min"
@@ -151,8 +149,8 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
 
 type ConnectedProps = {
-    ticker: KunaTicker;
-    tickers: Record<string, KunaTicker>;
+    ticker: KunaV3Ticker;
+    tickers: Record<string, KunaV3Ticker>;
     usdRate: number;
 }
 

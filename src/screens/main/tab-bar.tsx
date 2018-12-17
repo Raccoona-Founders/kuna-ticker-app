@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Animated } from 'react-native';
+import { Animated, TouchableOpacity } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
 import { tabBarStyles } from 'screens/main/styles';
 import { Color } from 'styles/variables';
@@ -27,19 +27,29 @@ export const tabNavigationRoutes: TabnavRoute[] = [
         title: 'UAH',
         index: 0,
         sceneComponent: MarketTab,
-        assets: [KunaAssetUnit.UkrainianHryvnia],
+        assets: [
+            KunaAssetUnit.UkrainianHryvnia,
+        ],
     }, {
         key: KunaAssetUnit.Bitcoin,
         title: 'BTC',
         index: 1,
         sceneComponent: MarketTab,
-        assets: [KunaAssetUnit.Bitcoin],
+        assets: [
+            KunaAssetUnit.Bitcoin,
+        ],
     }, {
         key: 'OTHER',
         title: _('menu.other'),
         index: 2,
         sceneComponent: MarketTab,
-        assets: [KunaAssetUnit.StasisEuro, KunaAssetUnit.Ethereum, KunaAssetUnit.GolosGold],
+        assets: [
+            KunaAssetUnit.StasisEuro,
+            KunaAssetUnit.Ethereum,
+            KunaAssetUnit.GolosGold,
+            KunaAssetUnit.AdvancedRUB,
+            KunaAssetUnit.AdvancedUSD,
+        ],
     }, {
         key: 'ABOUT',
         title: _('menu.about'),

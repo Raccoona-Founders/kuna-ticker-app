@@ -1,4 +1,4 @@
-import { KunaTicker } from 'kuna-sdk';
+import { KunaV3Ticker } from 'kuna-sdk';
 
 declare global {
     type KunaStore = {
@@ -7,7 +7,7 @@ declare global {
 
     type StoreTicker = {
         updating: boolean;
-        tickers: Record<string, KunaTicker>;
+        tickers: Record<string, KunaV3Ticker>;
         usdRate: number;
     };
 }

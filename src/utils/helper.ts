@@ -1,4 +1,5 @@
 import { Dimensions, Platform } from 'react-native';
+import numeral from 'numeral';
 
 export function isIphoneX() {
     let d = Dimensions.get('window');
@@ -23,4 +24,8 @@ export function vw(percentageWidth: number = 100) {
 
 export function vh(percentageHeight: number = 100) {
     return Dimensions.get('window').height * (percentageHeight / 100);
+}
+
+export function format(n: number, decimal: number = 2): string {
+    return numeral(n || 0).format('0,0.[00]');
 }

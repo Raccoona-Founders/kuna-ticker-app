@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { View } from 'react-native';
-import { KunaAssetUnit, KunaMarket, KunaTicker } from 'kuna-sdk';
+import { KunaAssetUnit, KunaMarket, KunaV3Ticker } from 'kuna-sdk';
 
 import { tabBarStyles } from './styles';
 import { SpanText } from 'components/span-text';
@@ -24,7 +24,7 @@ type InfoBarOuterProps = {
 };
 
 type ConnectedProps = {
-    tickers: Record<string, KunaTicker>;
+    tickers: Record<string, KunaV3Ticker>;
 };
 
 type InfoBarProps = NavigationInjectedProps & InfoBarOuterProps & ConnectedProps;

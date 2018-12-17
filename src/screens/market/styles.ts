@@ -9,7 +9,6 @@ export const screen = {
 export const styles = StyleSheet.create({
     marketInfoContainer: {
         flex: 1,
-        paddingTop: 0,
         paddingBottom: 20,
     },
     backButton: {
@@ -107,16 +106,18 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
-
-        // shadowColor: Color.Fade,
-        // shadowOffset: { height: 4, width: 0 },
-        // shadowOpacity: 0.2,
-        // shadowRadius: 6,
     },
 
     depthButtonText: {
         color: Color.DarkPurple,
         fontSize: 16,
         textTransform: 'uppercase',
+    },
+
+    riddleButton: {
+        position: 'absolute',
+        right: 20,
+        top: 0,
+        width: 80,
     },
 });

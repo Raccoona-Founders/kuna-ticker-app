@@ -9,9 +9,9 @@ import {
 } from 'react-navigation';
 
 import SceneLayout from './scene-layout';
-import ShadeCard from './shade-scroll-card';
 
 const NavigationProvider = require('react-navigation').NavigationProvider;
+import { SceneTransitionProvider } from './scene-transition-context';
 
 
 export type ShadeViewLayoutProps = NavigationStackViewConfig & {
@@ -40,13 +40,9 @@ export class ShadeViewLayout extends React.PureComponent<ShadeViewLayoutProps> {
         return (
             <NavigationProvider value={navigation} key={`card_${scene.key}`}>
                 <SceneLayout index={scene.index} position={this.props.transitionProps.position}>
-                    {scene.index > 0 ? (
-                        <ShadeCard {...this.props.transitionProps} scene={scene}>
-                            <Component navigation={navigation} />
-                        </ShadeCard>
-                    ) : (
+                    <SceneTransitionProvider value={{ ...this.props.transitionProps, scene }}>
                         <Component navigation={navigation} />
-                    )}
+                    </SceneTransitionProvider>
                 </SceneLayout>
             </NavigationProvider>
         );

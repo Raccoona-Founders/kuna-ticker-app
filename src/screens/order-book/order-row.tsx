@@ -8,7 +8,12 @@ import { Color } from 'styles/variables';
 type OrderRowProps = {
     price: number;
     value: number;
+
     type: 'ask' | 'bid';
+
+    totalValue: number;
+    cumulativeValue: number;
+
     maxValue: number;
     avrValue: number;
     market: KunaMarket;
@@ -22,13 +27,14 @@ const OrderRow = (props: OrderRowProps) => {
         valueIndicatorStyle,
     ] = chooseStyles(props.type);
 
-    let valueFormat = props.avrValue > 10 ? '0,0' : (props.avrValue > 5 ? '0,0.[00]' : '0,0.[0000]');
-    const valuePercent = Numeral(props.value).divide(props.maxValue);
+    let valueFormat = props.avrValue > 10 ? '0,0' : (props.avrValue > 5 ? '0,0.[00]' : '0,0.[000000]');
+    const valuePercent = Numeral(props.cumulativeValue).divide(props.totalValue);
+    const valueAvgPercent = Numeral(props.value).divide(props.maxValue);
 
     const valueStyles = [
         styles.value,
         {
-            opacity: 0.7 + valuePercent.value() * 0.3,
+            opacity: 0.7 + valueAvgPercent.value() * 0.3,
         },
     ];
 
@@ -76,6 +82,7 @@ const styles = StyleSheet.create({
     orderRow: {
         height: 25,
         justifyContent: 'center',
+        marginBottom: 2,
     },
     container: {
         flexDirection: 'row',
@@ -109,20 +116,21 @@ const styles = StyleSheet.create({
     valueIndicator: {
         position: 'absolute',
         bottom: 0,
+        top: 0,
         zIndex: 1,
         opacity: 0.5,
-        height: 3,
         borderRadius: 1,
+        backgroundColor: Color.Gray3,
     },
 
     valueIndicatorAsk: {
         left: 0,
-        backgroundColor: Color.Danger,
+        // backgroundColor: Color.Danger,
     },
 
     valueIndicatorBid: {
         right: 0,
-        backgroundColor: Color.Main,
+        // backgroundColor: Color.Main,
     },
 });
 

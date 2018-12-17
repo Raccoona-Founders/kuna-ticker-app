@@ -1,0 +1,60 @@
+{
+    "salt": "Kuna + Bitcoin = Love",
+    "prize_salt": "I love Kuna Ticker",
+    "riddles": [
+        {
+            "story": "Развитие Bitcoin в Украине началось с клуба Satoshi Square Kiev. Это было время, когда Bitcoin стоил $200 и никто не знал, что с ним делать.",
+            "question": "Когда прошла первая встреча Satoshi Square? (DDMMYYYY)",
+            "answer_sha256": "09093118A74F2B79842972186CCA07359B0417D2BADC721E59F4B2BCA12843F4",
+            "prize_prefix": "r4wR3",
+            "prize": {
+                "iv": "Ydyj2AQPxTnBhAPTjrBiuQ==",
+                "v": 1,
+                "iter": 1000,
+                "ks": 128,
+                "ts": 64,
+                "mode": "ccm",
+                "adata": "",
+                "cipher": "aes",
+                "salt": "ROlaDzSeuP0=",
+                "ct": "ytCmevsprDfC21LW1I/6luBiop90EbCKZr9tWLGLSZmEnGD8sAOKK7Yz3WTVp7ldyMoFbEjkglZjjQlcglvJuUvpTFpYretE"
+            }
+        },
+        {
+            "story": "История Kuna Exchange началась с ICO, когда понятие ICO еще не существовало. Это был один из первых в мире проектов с краудфандигом и эмисией токенов.",
+            "question": "Какую сумму в Bitcoin, Kuna собрала на первом ICO?",
+            "answer_sha256": "390DAF131E447584CE4380017D76328D964A5D4886D045C93007A5A5E3C421BA",
+            "prize_prefix": "857ny",
+            "prize": {
+                "iv": "cs6Q8aVw0AhbvK2c9ps0Fg==",
+                "v": 1,
+                "iter": 1000,
+                "ks": 128,
+                "ts": 64,
+                "mode": "ccm",
+                "adata": "",
+                "cipher": "aes",
+                "salt": "aF5wlxvFtpk=",
+                "ct": "x+w4QG6SHxkGYEAomuiCpW5Zu0Ibxg+MznJjw4XYlQUhYZMnIgwnUGRDanVddeLMdtogWSkfbWdoHnUOTufnDKXgNr6E1kY="
+            }
+        },
+        {
+            "story": "Когда-то я запускал сатирическое ICO и собрал уйму позитивных эмоций. Чего и вам советую, на фоне падающего Bitcoin :)",
+            "question": "Какую сумму в USD, на дату завершения, было собрано на ICO?",
+            "answer_sha256": "0DA7724E6854C65A094CE7BD5927D51CCF3504129C4A37B9D5AC29ED2D5985F8",
+            "prize_prefix": "36L8c",
+            "prize": {
+                "iv": "cs6Q8aVw0AhbvK2c9ps0Fg==",
+                "v": 1,
+                "iter": 1000,
+                "ks": 128,
+                "ts": 64,
+                "mode": "ccm",
+                "adata": "",
+                "cipher": "aes",
+                "salt": "jdoSEUAYNiU=",
+                "ct": "FZcoiDs04l0CG6D8CS4hTuwRBOPR+p4Nzod4+bruehI0Ty0paEhNbypk64ivQ3pSYCMDnb1xoEAearVyP3z7GEpfs21D8P4="
+            }
+        }
+    ]
+}

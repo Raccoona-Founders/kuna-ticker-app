@@ -1,126 +1,147 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
-import { slice, map, maxBy, meanBy } from 'lodash';
+import { map, maxBy, meanBy, sumBy } from 'lodash';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
-import { kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
+import { KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
 import { SpanText } from 'components/span-text';
+import { ShadeScrollCard } from 'components/shade-navigator';
+import kunaClient from 'utils/kuna-api';
+import { _ } from 'utils/i18n';
+import OrderBookProcessor from 'utils/order-book-processor';
 import styles from './depth.style';
 import OrderRow from './order-row';
-import kunaClient from 'utils/kuna-client';
 
-/**
- * @deprecated
- * Use type from Kuna SDK
- */
-type OrderBook = { bid: Array<Array<number>>, ask: Array<Array<number>> };
+const ORDER_DEPTH = 35;
 
-type State = {
-    depth: undefined | OrderBook;
+type SideRowsProps = {
+    side: 'ask' | 'bid';
+    orderBook: OrderBookProcessor;
+    market: KunaMarket;
+};
+
+const SideRows = (props: SideRowsProps): JSX.Element => {
+    const items = props.side === 'ask'
+        ? props.orderBook.getAsk()
+        : props.orderBook.getBid();
+
+    const avr = meanBy(items, ([price, value]) => +value);
+    const max = maxBy(items, ([price, value]) => +value);
+    const totalValue = sumBy(items, ([price, value]) => +value);
+
+    const maxValue = max ? max[1] : 0;
+    let cumulativeValue = 0;
+
+    return (
+        <>
+            {map(items, ([price, value], index: number) => {
+                cumulativeValue += (+value);
+
+                return (
+                    <OrderRow key={index}
+                              price={price}
+                              value={value}
+                              cumulativeValue={cumulativeValue}
+                              totalValue={totalValue}
+                              type={props.side}
+                              maxValue={maxValue}
+                              avrValue={avr}
+                              market={props.market}
+                    />
+                );
+            })}
+        </>
+    );
 };
 
 
+type State = {
+    orderBook?: OrderBookProcessor;
+};
+
 class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
     public state: State = {
-        depth: undefined,
+        orderBook: undefined,
     };
+
 
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
 
-        AnalTracker.trackScreen(
-            `market/order-book/${marketSymbol}`,
-            'OrderBookScreen',
-        );
+        AnalTracker.trackScreen(`market/order-book/${marketSymbol}`, 'OrderBookScreen');
 
         setTimeout(async () => {
-            const book = await kunaClient.getOrderBook(marketSymbol);
-            this.setState({book: book} as any);
+            const orderBook = await kunaClient.getOrderBook(marketSymbol);
+
+            this.setState({
+                orderBook: new OrderBookProcessor(orderBook, ORDER_DEPTH),
+            });
         }, 400);
     }
 
+
     public render(): JSX.Element {
-        const {depth} = this.state;
+        const { orderBook } = this.state;
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
         return (
-            <View style={styles.container}>
-                <View style={styles.topic}>
-                    <SpanText style={styles.topicTitle}>{kunaMarket.baseAsset} / {kunaMarket.quoteAsset}</SpanText>
-                </View>
-
-                {depth ? (
-                    <View style={styles.depthSheetContainer}>
-                        {this._renderDepthSheet(depth)}
+            <ShadeScrollCard>
+                <View style={styles.container}>
+                    <View style={styles.topic}>
+                        <SpanText style={styles.topicText}>{_('market.order-book')}</SpanText>
+                        <SpanText style={[styles.topicText, styles.topicTextMarket]}>
+                            {kunaMarket.baseAsset} / {kunaMarket.quoteAsset}
+                        </SpanText>
                     </View>
-                ) : (
-                    <ActivityIndicator/>
-                )}
-            </View>
+
+                    {orderBook ? (
+                        <View style={styles.depthSheetContainer}>
+                            {this._renderDepthSheet(orderBook)}
+                        </View>
+                    ) : <ActivityIndicator />}
+                </View>
+            </ShadeScrollCard>
         );
     }
 
-    protected _renderDepthSheet(depth: OrderBook): JSX.Element {
-        // const { usdRate } = this.props;
 
+    protected _renderDepthSheet(orderBook: OrderBookProcessor): JSX.Element {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
-
-        const bidItems = slice(depth.bid, 0, 20);
-        const avrBid = meanBy(bidItems, ([price, value]) => +value);
-        const maxBid = maxBy(bidItems, ([price, value]) => +value);
-        const maxBidValue = maxBid ? maxBid[1] : 0;
-
-
-        const askItems = slice(depth.ask, 0, 20);
-        const avrAsk = meanBy(askItems, ([price, value]) => +value);
-        const maxAsk = maxBy(askItems, ([price, value]) => +value);
-        const maxAskValue = maxAsk ? maxAsk[1] : 0;
 
         return (
             <View style={styles.depthSheet}>
                 <View style={[styles.depthSheetSide]}>
                     <View style={styles.depthHeader}>
-                        <SpanText style={styles.depthHeaderCell}>Amount ({kunaMarket.baseAsset})</SpanText>
-                        <SpanText style={styles.depthHeaderCell}>Price ({kunaMarket.quoteAsset})</SpanText>
+                        <SpanText style={styles.depthHeaderCell}>
+                            {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
+                        </SpanText>
+                        <SpanText style={styles.depthHeaderCell}>
+                            {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
+                        </SpanText>
                     </View>
-
-                    {map(bidItems, ([price, value], index: number) => (
-                        <OrderRow key={index}
-                                  price={price}
-                                  value={value}
-                                  type='bid'
-                                  maxValue={maxBidValue}
-                                  avrValue={avrBid}
-                                  market={kunaMarket}
-                        />
-                    ))}
+                    <SideRows side="bid" orderBook={orderBook} market={kunaMarket} />
                 </View>
 
                 <View style={[styles.depthSheetSide]}>
                     <View style={styles.depthHeader}>
-                        <SpanText style={styles.depthHeaderCell}>Price ({kunaMarket.quoteAsset})</SpanText>
-                        <SpanText style={styles.depthHeaderCell}>Amount ({kunaMarket.baseAsset})</SpanText>
+                        <SpanText style={styles.depthHeaderCell}>
+                            {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
+                        </SpanText>
+                        <SpanText style={styles.depthHeaderCell}>
+                            {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
+                        </SpanText>
                     </View>
-
-                    {map(askItems, ([price, value], index: number) => (
-                        <OrderRow key={index}
-                                  price={price}
-                                  value={value}
-                                  type='ask'
-                                  maxValue={maxAskValue}
-                                  avrValue={avrAsk}
-                                  market={kunaMarket}
-                        />
-                    ))}
+                    <SideRows side="ask" orderBook={orderBook} market={kunaMarket} />
                 </View>
             </View>
         );
     }
 }
+
 
 type DepthScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
 type ConnectedProps = {

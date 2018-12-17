@@ -1,6 +1,6 @@
 {
-    "name": "KunaTicker",
-    "version": "1.1.0",
+    "name": "kuna-ticker",
+    "version": "1.2.0",
     "private": true,
     "scripts": {
         "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -16,7 +16,8 @@
     },
     "dependencies": {
         "axios": "0.18.0",
-        "kuna-sdk": "^0.4.0-beta.1",
+        "i18n-js": "^3.1.0",
+        "kuna-sdk": "^0.4.0-beta.3",
         "lodash": "4.17.10",
         "node-libs-react-native": "1.0.2",
         "numeral": "2.0.6",
@@ -26,6 +27,7 @@
         "react-native-device-info": "0.22.4",
         "react-native-firebase": "5.0.0-rc4",
         "react-native-interactable": "0.1.10",
+        "react-native-languages": "3.0.1",
         "react-native-markdown-renderer": "3.2.8",
         "react-native-randombytes": "3.5.1",
         "react-native-splash-screen": "3.1.1",
@@ -37,10 +39,12 @@
         "react-redux": "5.0.7",
         "recompose": "0.28.2",
         "redux": "4.0.0",
+        "sjcl": "1.0.8",
         "vm-browserify": "1.1.0"
     },
     "devDependencies": {
         "@types/es6-promise": "3.3.0",
+        "@types/i18n-js": "^3.0.1",
         "@types/lodash": "4.14.116",
         "@types/numeral": "0.0.25",
         "@types/react": "16.4.11",
@@ -50,6 +54,7 @@
         "@types/react-redux": "6.0.6",
         "@types/recompose": "0.26.4",
         "@types/redux": "3.6.0",
+        "@types/sjcl": "1.0.28",
         "babel-jest": "23.4.2",
         "babel-plugin-module-alias": "1.6.0",
         "babel-preset-react-native": "5.0.2",

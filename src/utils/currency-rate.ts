@@ -19,35 +19,45 @@ export class UsdCalculator {
 
         switch (currentMarket.quoteAsset) {
             case KunaAssetUnit.UkrainianHryvnia:
-                return Numeral(ticker.last).divide(this.usdRate);
+                return Numeral(ticker.lastPrice || 0).divide(this.usdRate);
 
             case KunaAssetUnit.Bitcoin:
                 const btcTicker = this.tickers['btcuah'];
 
-                return Numeral(ticker.lastPrice)
+                return Numeral(ticker.lastPrice || 0)
                     .multiply(btcTicker ? btcTicker.lastPrice : 0)
                     .divide(this.usdRate);
 
             case KunaAssetUnit.Ethereum:
                 const ethTicker = this.tickers['ethuah'];
 
-                return Numeral(ticker.lastPrice)
+                return Numeral(ticker.lastPrice || 0)
                     .multiply(ethTicker ? ethTicker.lastPrice : 0)
                     .divide(this.usdRate);
 
             case KunaAssetUnit.StasisEuro:
                 const euroTicker = this.tickers['eursuah'];
 
-                return Numeral(ticker.lastPrice)
+                return Numeral(ticker.lastPrice || 0)
                     .multiply(euroTicker ? euroTicker.lastPrice : 0)
                     .divide(this.usdRate);
 
             case KunaAssetUnit.GolosGold:
                 const golosTicker = this.tickers['gbguah'];
 
-                return Numeral(ticker.lastPrice)
+                return Numeral(ticker.lastPrice || 0)
                     .multiply(golosTicker ? golosTicker.lastPrice : 0)
                     .divide(this.usdRate);
+
+            case KunaAssetUnit.AdvancedUSD:
+                return Numeral(ticker.lastPrice || 0);
+
+            case KunaAssetUnit.AdvancedRUB:
+
+                const advTicker = this.tickers['ausdarub'];
+
+                return Numeral(ticker.lastPrice || 0)
+                    .divide(advTicker ? advTicker.lastPrice : 0);
         }
 
         return Numeral(0);

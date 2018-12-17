@@ -3,19 +3,21 @@ import { Store } from 'redux';
 import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
-
 import 'utils/setup-locale';
-import kunaClient from 'utils/kuna-client';
+
 import { ApplicationRouter } from 'router';
 import { initStore } from 'store';
 import { Ticker } from 'store/actions';
 import { Color } from 'styles/variables';
 import { getUahRate } from 'utils/external';
+import kunaClient from 'utils/kuna-api';
+
 
 type ApplicationState = {
     isStoreLoading: boolean;
     store?: Store<KunaStore>;
 };
+
 
 export class Application extends React.PureComponent<any, ApplicationState> {
     public state: ApplicationState = {
@@ -80,6 +82,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
             tickers: tickers,
         });
     };
+
 
     protected updateUsdRate = async (): Promise<void> => {
         const { store } = this.state;

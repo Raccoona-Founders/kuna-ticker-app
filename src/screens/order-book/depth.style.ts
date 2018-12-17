@@ -14,10 +14,17 @@ export default StyleSheet.create({
     topic: {
         paddingLeft: 20,
         paddingRight: 20,
-        marginBottom: 20,
+        marginBottom: 40,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
-    topicTitle: {
-        fontSize: 24,
+
+    topicText: {
+        fontSize: 20,
+    },
+
+    topicTextMarket: {
+        color: Color.Gray2,
     },
 
     depthSheet: {
@@ -37,7 +44,7 @@ export default StyleSheet.create({
     depthHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 5,
+        marginBottom: 10,
     },
     depthHeaderCell: {
         fontSize: 12,

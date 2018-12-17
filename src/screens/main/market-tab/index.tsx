@@ -1,19 +1,20 @@
 import React from 'react';
-
 import { filter, map } from 'lodash';
 import { Dispatch } from 'redux';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { ScrollView, RefreshControl } from 'react-native';
+import { ScrollView, RefreshControl, StyleSheet } from 'react-native';
 import { KunaAssetUnit, KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
 import MarketRow from 'components/market-row';
 import { Ticker } from 'store/actions';
 import { TabnavRoute } from 'screens/main/tab-bar';
-import kunaClient from 'utils/kuna-client';
+import kunaClient from 'utils/kuna-api';
+
 
 type State = {
     refreshing: boolean;
 };
+
 
 class MarketTab extends React.PureComponent<Props, State> {
     public state: State = {
@@ -27,7 +28,7 @@ class MarketTab extends React.PureComponent<Props, State> {
 
         return (
             <ScrollView
-                style={{ flex: 1 }}
+                style={styles.flatList}
                 showsVerticalScrollIndicator={false}
                 refreshControl={this._renderRefreshControl()}
             >
@@ -88,3 +89,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 export default compose<Props, OuterProps>(
     connect(undefined, mapDispatchToProps),
 )(MarketTab);
+
+const styles = StyleSheet.create({
+    flatList: {
+        flex: 1,
+    },
+});

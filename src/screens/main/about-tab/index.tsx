@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
+import qs from 'querystring';
 import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
 import Analytics from 'utils/ga-tracker';
-import { textContent } from './text-content';
+import i18n, { _ } from 'utils/i18n';
+
+import textContent from './text-content';
+const language: string = i18n.currentLocale().split('-')[0];
+
 
 type LinkItem = {
     title: string;
@@ -14,26 +19,26 @@ type LinkItem = {
 };
 
 const links: LinkItem[] = [{
-    title: 'GitHub Repository',
-    label: 'CoinWizard/mobile-ticker-for-kuna',
-    url: 'https://github.com/CoinWizard/mobile-ticker-for-kuna',
+    title: _('about.github'),
+    label: 'CoinWizard/kuna-ticker-app',
+    url: 'https://github.com/CoinWizard/kuna-ticker-app',
 }, {
-    title: 'Roadmap',
+    title: _('about.roadmap'),
     label: 'Trello Board',
     url: 'https://trello.com/b/9k4PHBO4/kuna-tiker-mobile-roadmap',
 }, {
-    title: 'Kuna Ticker Website',
-    label: 'coinwizard.github.io',
-    url: 'https://coinwizard.github.io/mobile-ticker-for-kuna?ref=application',
+    title: _('about.website'),
+    label: 'coinwizard.github.io/kuna-ticker-app',
+    url: 'https://coinwizard.github.io/kuna-ticker-app?ref=application',
     disabled: true,
 }, {
-    title: 'Telegram',
+    title: _('about.telegram'),
     label: '@MaksymTymchyk',
     url: 'https://t.me/MaksymTymchyk',
 }, {
-    title: 'Email',
+    title: _('about.email'),
     label: 'maksym.tymchyk@gmail.com',
-    url: 'mailto:maksym.tymchyk@gmail.com?subject=KunaTicker',
+    url: `mailto:maksym.tymchyk@gmail.com?${qs.stringify({ subject: 'Kuna Ticker' })}`,
 }];
 
 
@@ -56,10 +61,12 @@ const AboutTab = (): JSX.Element => {
         <ScrollView style={styles.container}>
             <View>
                 <View style={styles.topic}>
-                    <SpanText style={styles.topicTitle}>About Kuna Ticker</SpanText>
+                    <SpanText style={styles.topicTitle}>{_('about.title')}</SpanText>
                 </View>
 
-                <Markdown style={mdStyles}>{textContent}</Markdown>
+                <SpanText>{}</SpanText>
+
+                <Markdown style={mdStyles}>{textContent[language] || textContent.en}</Markdown>
             </View>
 
             <View style={styles.separator} />
@@ -84,6 +91,7 @@ const AboutTab = (): JSX.Element => {
     );
 };
 
+export default AboutTab;
 
 const mdStyles = StyleSheet.create({
     root: {},
@@ -136,4 +144,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AboutTab;
+

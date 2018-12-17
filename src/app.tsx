@@ -1,6 +1,6 @@
 import React from 'react';
 import { Store } from 'redux';
-import { View, StyleSheet, AsyncStorage } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import 'utils/setup-locale';

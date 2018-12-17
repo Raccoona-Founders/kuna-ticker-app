@@ -1,36 +1,31 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
-import { slice, map, maxBy, meanBy, sumBy } from 'lodash';
-import Numeral from 'numeral';
+import { map, maxBy, meanBy, sumBy } from 'lodash';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
-import { KunaAsset, KunaMarket, kunaMarketMap, KunaV3Order, KunaV3OrderBook, KunaV3Ticker } from 'kuna-sdk';
+import { KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
-import InfoUnit from 'components/info-unit';
 import { SpanText } from 'components/span-text';
 import { ShadeScrollCard } from 'components/shade-navigator';
-import { Color } from 'styles/variables';
 import kunaClient from 'utils/kuna-api';
 import { _ } from 'utils/i18n';
+import OrderBookProcessor from 'utils/order-book-processor';
 import styles from './depth.style';
 import OrderRow from './order-row';
-
-
-type State = {
-    depth: undefined | KunaV3OrderBook;
-};
 
 const ORDER_DEPTH = 35;
 
 type SideRowsProps = {
     side: 'ask' | 'bid';
-    items: KunaV3Order[];
+    orderBook: OrderBookProcessor;
     market: KunaMarket;
 };
 
 const SideRows = (props: SideRowsProps): JSX.Element => {
-    const items = slice(props.items, 0, ORDER_DEPTH);
+    const items = props.side === 'ask'
+        ? props.orderBook.getAsk()
+        : props.orderBook.getBid();
 
     const avr = meanBy(items, ([price, value]) => +value);
     const max = maxBy(items, ([price, value]) => +value);
@@ -62,9 +57,13 @@ const SideRows = (props: SideRowsProps): JSX.Element => {
 };
 
 
+type State = {
+    orderBook?: OrderBookProcessor;
+};
+
 class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
     public state: State = {
-        depth: undefined,
+        orderBook: undefined,
     };
 
 
@@ -74,14 +73,17 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         AnalTracker.trackScreen(`market/order-book/${marketSymbol}`, 'OrderBookScreen');
 
         setTimeout(async () => {
-            const book = await kunaClient.getOrderBook(marketSymbol);
-            this.setState({ depth: book });
+            const orderBook = await kunaClient.getOrderBook(marketSymbol);
+
+            this.setState({
+                orderBook: new OrderBookProcessor(orderBook, ORDER_DEPTH),
+            });
         }, 400);
     }
 
 
     public render(): JSX.Element {
-        const { depth } = this.state;
+        const { orderBook } = this.state;
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
@@ -95,9 +97,9 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                         </SpanText>
                     </View>
 
-                    {depth ? (
+                    {orderBook ? (
                         <View style={styles.depthSheetContainer}>
-                            {this._renderDepthSheet(depth)}
+                            {this._renderDepthSheet(orderBook)}
                         </View>
                     ) : <ActivityIndicator />}
                 </View>
@@ -106,7 +108,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
     }
 
 
-    protected _renderDepthSheet(depth: KunaV3OrderBook): JSX.Element {
+    protected _renderDepthSheet(orderBook: OrderBookProcessor): JSX.Element {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
@@ -121,7 +123,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                             {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
                         </SpanText>
                     </View>
-                    <SideRows side="bid" items={depth.bid} market={kunaMarket} />
+                    <SideRows side="bid" orderBook={orderBook} market={kunaMarket} />
                 </View>
 
                 <View style={[styles.depthSheetSide]}>
@@ -133,7 +135,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                             {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
                         </SpanText>
                     </View>
-                    <SideRows side="ask" items={depth.ask} market={kunaMarket} />
+                    <SideRows side="ask" orderBook={orderBook} market={kunaMarket} />
                 </View>
             </View>
         );

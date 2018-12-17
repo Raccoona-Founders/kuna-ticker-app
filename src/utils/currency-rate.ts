@@ -48,6 +48,16 @@ export class UsdCalculator {
                 return Numeral(ticker.lastPrice || 0)
                     .multiply(golosTicker ? golosTicker.lastPrice : 0)
                     .divide(this.usdRate);
+
+            case KunaAssetUnit.AdvancedUSD:
+                return Numeral(ticker.lastPrice || 0);
+
+            case KunaAssetUnit.AdvancedRUB:
+
+                const advTicker = this.tickers['ausdarub'];
+
+                return Numeral(ticker.lastPrice || 0)
+                    .divide(advTicker ? advTicker.lastPrice : 0);
         }
 
         return Numeral(0);

@@ -4242,9 +4242,9 @@ kleur@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-2.0.1.tgz#7cc64b0d188d0dcbc98bdcdfdda2cc10619ddce8"
 
-kuna-sdk@^0.4.0-beta.2:
-  version "0.4.0-beta.2"
-  resolved "https://registry.yarnpkg.com/kuna-sdk/-/kuna-sdk-0.4.0-beta.2.tgz#f1c507b167448d11229322b7ebae3fa272503ca5"
+kuna-sdk@^0.4.0-beta.3:
+  version "0.4.0-beta.3"
+  resolved "https://registry.yarnpkg.com/kuna-sdk/-/kuna-sdk-0.4.0-beta.3.tgz#11f3f766a6bf4f6b09678d0c6ba897ca288f808e"
   dependencies:
     axios "0.18.0"
     debug "3.1.0"

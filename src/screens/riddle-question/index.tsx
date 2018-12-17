@@ -7,7 +7,7 @@ import { RiddleQuestion, riddleList, Riddle } from 'components/riddle';
 import SpanText from 'components/span-text';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import { Color } from 'styles/variables';
-import Analitics from 'utils/ga-tracker';
+import AnalTracker from 'utils/ga-tracker';
 
 
 type RiddleQuestionScreenProps = NavigationInjectedProps<{ index: number; }>;
@@ -27,7 +27,7 @@ export default class RiddleQuestionScreen extends React.PureComponent<RiddleQues
     public componentDidMount() {
         const index = this.props.navigation.getParam('index');
 
-        Analitics.trackScreen(`riddle/question/${index}`);
+        AnalTracker.trackScreen(`riddle/question/${index}`, 'RiddleQuestion');
     }
 
     public render(): JSX.Element {

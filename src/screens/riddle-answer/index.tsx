@@ -39,7 +39,7 @@ export default class RiddleAnswerScreen extends React.PureComponent<RiddleQuesti
         const index = navigation.getParam('index');
         const riddle = riddleList[index];
 
-        Analitics.trackScreen(`riddle/answer/${index}`);
+        Analitics.trackScreen(`riddle/answer/${index}`, 'RiddleAnswer');
 
         if (!riddle) {
             this.props.navigation.goBack();

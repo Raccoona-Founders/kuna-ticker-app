@@ -84,7 +84,12 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
         const priceChangeStyles = [
             styles.priceChange,
-            ticker.dailyChangePercent >= 0 ? styles.priceChangeUp : styles.priceChangeDown
+            ticker.dailyChangePercent > 0 ? styles.priceChangeUp : styles.priceChangeDown
+        ];
+
+        const priceChangeBoxStyle = [
+            styles.priceChangeBox,
+            ticker.dailyChangePercent > 0 ? styles.priceChangeBoxUp : styles.priceChangeBoxDown
         ];
 
         return (
@@ -117,7 +122,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                             <SpanText style={styles.priceTextAsset}>{quoteAsset.key}</SpanText>
                         </View>
 
-                        <View>
+                        <View style={priceChangeBoxStyle}>
                             <SpanText style={priceChangeStyles}>
                                 {numeral(ticker.dailyChangePercent).format('+0,0.00')}%
                             </SpanText>

@@ -75,6 +75,8 @@ export const QuoteTabItem = (props: TabItemProps) => {
             scale: interpolate(1.35, 1),
         }, {
             translateY: interpolate(-2, 0),
+        }, {
+            translateX: interpolate(5, 0),
         }],
     };
 

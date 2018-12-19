@@ -9,7 +9,6 @@ export const screen = {
 export const styles = StyleSheet.create({
     marketInfoContainer: {
         flex: 1,
-        paddingBottom: 20,
     },
     backButton: {
         color: Color.Main,
@@ -68,16 +67,17 @@ export const styles = StyleSheet.create({
 
     priceContainer: {
         marginTop: 20,
+        marginLeft: 88,
+        marginRight: 20,
     },
-    priceMarketContainer: {
+    priceCoinContainer: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        fontWeight: '500',
+        alignItems: 'flex-end',
+
     },
-    priceUsd: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: Color.Gray2,
+
+    priceSecondaryInfoContainer: {
+
     },
     priceTextValue: {
         lineHeight: 24,
@@ -85,7 +85,14 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
         color: Color.DarkPurple,
     },
+
+    priceUsd: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: Color.Gray2,
+    },
     priceTextAsset: {
+        fontSize: 16,
         lineHeight: 24,
         marginLeft: 5,
     },
@@ -119,5 +126,18 @@ export const styles = StyleSheet.create({
         right: 20,
         top: 0,
         width: 80,
+    },
+
+
+
+    priceChange: {
+        lineHeight: 26,
+        fontSize: 18,
+    },
+    priceChangeUp: {
+        color: Color.Success
+    },
+    priceChangeDown: {
+        color: Color.Danger
     },
 });

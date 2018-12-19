@@ -12,6 +12,8 @@ import { Color } from 'styles/variables';
 import { getUahRate } from 'utils/external';
 import kunaClient from 'utils/kuna-api';
 
+import configureRemoteConfig from 'utils/remote-config';
+
 
 type ApplicationState = {
     isStoreLoading: boolean;
@@ -39,18 +41,18 @@ export class Application extends React.PureComponent<any, ApplicationState> {
 
         try {
             await this.updateTickers();
+            await this.updateUsdRate();
 
             setInterval(this.updateTickers, 10 * 60 * 1000);
+            setInterval(this.updateUsdRate, 4 * 60 * 60 * 1000);
         } catch (error) {
 
         }
 
         try {
-            await this.updateUsdRate();
-
-            setInterval(this.updateUsdRate, 4 * 60 * 60 * 1000);
+            await configureRemoteConfig();
         } catch (error) {
-
+            console.error(error);
         }
     }
 

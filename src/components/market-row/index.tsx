@@ -1,5 +1,6 @@
 import React from 'react';
 import { find } from 'lodash';
+import numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
@@ -15,6 +16,10 @@ import { UsdCalculator } from 'utils/currency-rate';
 const MarketRow = (props: MarketRowProps) => {
     const { market, ticker, tickers, usdRate, navigation, index } = props;
 
+    if (!ticker || !ticker.lastPrice) {
+        return <View />;
+    }
+
     const onPress = () => {
         if (!ticker) {
             return;
@@ -24,6 +29,10 @@ const MarketRow = (props: MarketRowProps) => {
     };
 
     const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(market.key);
+    const dailyChangeStyles = [
+        styles.dailyChange,
+        ticker.dailyChangePercent > 0 ? styles.dailyChangeUp : styles.dailyChangeDown,
+    ];
 
     return (
         <>
@@ -36,14 +45,18 @@ const MarketRow = (props: MarketRowProps) => {
                     <View style={styles.tickerCell}>
                         <View style={styles.priceBox}>
                             <SpanText style={styles.priceValue}>
-                                {(ticker && ticker.lastPrice) ? numFormat(ticker.lastPrice || 0, market.format) : '—'}
+                                {ticker.lastPrice ? numFormat(ticker.lastPrice || 0, market.format) : '—'}
                             </SpanText>
                             <SpanText style={styles.priceLabel}>{market.quoteAsset}</SpanText>
                         </View>
 
-                        <View>
+                        <View style={styles.secondaryInfo}>
                             <SpanText style={styles.marketVolume}>
                                 ≈ ${usdPrice.format('0,0.00')}
+                            </SpanText>
+                            <SpanText style={styles.separator}> / </SpanText>
+                            <SpanText style={dailyChangeStyles}>
+                                {numeral(ticker.dailyChangePercent).format('+0,0.00')}%
                             </SpanText>
                         </View>
                     </View>

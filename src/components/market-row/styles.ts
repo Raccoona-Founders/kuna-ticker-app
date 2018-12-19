@@ -38,9 +38,28 @@ export const styles = StyleSheet.create({
         color: Color.Gray2,
     },
 
-    marketVolume: {
+    secondaryInfo: {
         marginTop: 5,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
+    marketVolume: {
         fontSize: 14,
         color: Color.Gray2,
+    },
+
+    separator: {
+        fontSize: 14,
+        color: Color.Gray2,
+    },
+    dailyChange: {
+        fontSize: 14,
+    },
+    dailyChangeUp: {
+        color: Color.Success
+    },
+    dailyChangeDown: {
+        color: Color.Danger
     },
 });

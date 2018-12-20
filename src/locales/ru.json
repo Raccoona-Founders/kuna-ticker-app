@@ -1,12 +1,12 @@
 {
     "menu": {
         "other": "Другое",
-        "about": "О тикире"
+        "about": "О тикере"
     },
     "about": {
         "title": "Про Kuna Ticker",
         "github": "Репозиторий на GitHub",
-        "roadmap": "Планы на будующее",
+        "roadmap": "Планы на будущее",
         "website": "Website",
         "telegram": "Telegram",
         "email": "Почта"
@@ -19,5 +19,8 @@
     },
     "notice": {
         "ripple": "Если ты инвестируешь свои деньги в Ripple, то я надеюсь ты знаешь что делаешь"
+    },
+    "riddle": {
+        "message": ""
     }
 }

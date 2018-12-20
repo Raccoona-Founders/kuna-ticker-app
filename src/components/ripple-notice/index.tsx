@@ -16,8 +16,8 @@ export default () => (
 
 const style = StyleSheet.create({
     rippleNotice: {
-        marginLeft: 10,
-        marginRight: 10,
+        marginLeft: 20,
+        marginRight: 20,
 
         paddingTop: 10,
         paddingBottom: 10,

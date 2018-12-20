@@ -68,16 +68,17 @@ export const styles = StyleSheet.create({
 
     priceContainer: {
         marginTop: 20,
+        marginLeft: 88,
+        marginRight: 20,
     },
-    priceMarketContainer: {
+    priceCoinContainer: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        fontWeight: '500',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
-    priceUsd: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: Color.Gray2,
+
+    priceSecondaryInfoContainer: {
+
     },
     priceTextValue: {
         lineHeight: 24,
@@ -85,7 +86,14 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
         color: Color.DarkPurple,
     },
+
+    priceUsd: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: Color.Gray2,
+    },
     priceTextAsset: {
+        fontSize: 16,
         lineHeight: 24,
         marginLeft: 5,
     },
@@ -120,4 +128,30 @@ export const styles = StyleSheet.create({
         top: 0,
         width: 80,
     },
+
+
+    priceChangeBox: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 5,
+        justifyContent: 'center',
+        height: 30
+    },
+    priceChangeBoxUp: {
+        backgroundColor: '#00BA4F33'
+    },
+    priceChangeBoxDown: {
+        backgroundColor: '#FD2A4733'
+    },
+
+
+    priceChange: {
+        fontSize: 14,
+    },
+    priceChangeUp: {
+        color: Color.Success
+    },
+    priceChangeDown: {
+        color: Color.Danger
+    }
 });

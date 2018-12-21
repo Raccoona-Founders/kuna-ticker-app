@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "axios": "0.18.0",
-        "i18n-js": "^3.1.0",
+        "i18n-js": "3.1.0",
         "kuna-sdk": "^0.4.0-beta.3",
         "lodash": "4.17.10",
         "node-libs-react-native": "1.0.2",
@@ -25,7 +25,7 @@
         "react-native": "0.56.1",
         "react-native-crypto": "2.1.2",
         "react-native-device-info": "0.22.4",
-        "react-native-firebase": "5.0.0-rc4",
+        "react-native-firebase": "5.0.0",
         "react-native-interactable": "0.1.10",
         "react-native-languages": "3.0.1",
         "react-native-markdown-renderer": "3.2.8",
@@ -44,7 +44,7 @@
     },
     "devDependencies": {
         "@types/es6-promise": "3.3.0",
-        "@types/i18n-js": "^3.0.1",
+        "@types/i18n-js": "3.0.1",
         "@types/lodash": "4.14.116",
         "@types/numeral": "0.0.25",
         "@types/react": "16.4.11",

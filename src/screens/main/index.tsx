@@ -14,7 +14,7 @@ type MainScreenState = {
     routes: TabnavRoute[];
 };
 
-export class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
+export default class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
     public state: MainScreenState = {
         index: 0,
         routes: tabNavigationRoutes,

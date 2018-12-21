@@ -37,7 +37,6 @@ export const cardStyles = StyleSheet.create({
     },
     innerContent: {
         flex: 1,
-        paddingTop: 40,
     },
 
     footer: {

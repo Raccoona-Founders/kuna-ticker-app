@@ -15,7 +15,8 @@ import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import { _ } from 'utils/i18n';
-import {} from './styles';
+import styles from './styles';
+import PriceChangeBox from 'screens/market/change-price-box';
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -44,15 +45,62 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
 
     public render(): JSX.Element {
-        const { ticker } = this.props;
+        const { ticker, usdRate, tickers } = this.props;
 
         if (!ticker) {
             return <ShadeScrollCard />;
         }
 
+        const symbol = this.currentSymbol;
+        const currentMarket = kunaMarketMap[symbol];
+
+        const quoteAsset = getAsset(currentMarket.quoteAsset);
+        const baseAsset = getAsset(currentMarket.baseAsset);
+
+        const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
+
         return (
             <ShadeScrollCard>
+                <View style={styles.topic}>
+                    <CoinIcon asset={getAsset(currentMarket.baseAsset)}
+                              naked={true}
+                              withShadow={false}
+                              size={68}
+                              style={{ marginRight: 20 }}
+                    />
 
+                    <View style={styles.topicName}>
+                        <SpanText style={styles.topicNameUnit}>
+                            {currentMarket.baseAsset}/{currentMarket.quoteAsset}
+                        </SpanText>
+                        <SpanText style={styles.topicNameFullname}>
+                            {baseAsset.name} to {quoteAsset.name}
+                        </SpanText>
+                    </View>
+                </View>
+
+                <View style={styles.separator}/>
+
+                <View style={styles.sectionPrice}>
+                    <View>
+                        <SpanText style={styles.price} weight="700">
+                            {numFormat(ticker.lastPrice || 0, currentMarket.format)} {quoteAsset.key}
+                        </SpanText>
+
+                        <PriceChangeBox
+                            value={ticker.dailyChangePercent}
+                            style={{ position: 'absolute', right: 0, top: 4 }}
+                        />
+
+                        {usdPrice && (
+                            <SpanText style={styles.priceUsd}>
+                                ~ ${usdPrice.format('0,0.[00]')}
+                            </SpanText>
+                        )}
+                    </View>
+                </View>
+
+                <View style={styles.separator}/>
             </ShadeScrollCard>
         );
     }

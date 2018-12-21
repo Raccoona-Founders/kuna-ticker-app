@@ -13,14 +13,16 @@ import { UsdCalculator } from 'utils/currency-rate';
 import { numFormat } from 'utils/number-helper';
 import { CoinIcon } from 'components/coin-icon';
 import { SpanText } from 'components/span-text';
+import { ShadeScrollCard } from 'components/shade-navigator';
 import InfoUnit from 'components/info-unit';
 import RippleNotice from 'components/ripple-notice';
 import UIButton from 'components/ui-button';
-import { ShadeScrollCard } from 'components/shade-navigator';
+
 import { _ } from 'utils/i18n';
 
 import { Calculator } from './calculator';
 import { styles, screen } from './styles';
+import PriceChangeBox from 'screens/market-old/change-price-box';
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -82,16 +84,6 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
         const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
 
-        const priceChangeStyles = [
-            styles.priceChange,
-            ticker.dailyChangePercent > 0 ? styles.priceChangeUp : styles.priceChangeDown
-        ];
-
-        const priceChangeBoxStyle = [
-            styles.priceChangeBox,
-            ticker.dailyChangePercent > 0 ? styles.priceChangeBoxUp : styles.priceChangeBoxDown
-        ];
-
         return (
             <ShadeScrollCard style={styles.marketInfoContainer}>
                 <View style={styles.topic}>
@@ -122,11 +114,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                             <SpanText style={styles.priceTextAsset}>{quoteAsset.key}</SpanText>
                         </View>
 
-                        <View style={priceChangeBoxStyle}>
-                            <SpanText style={priceChangeStyles}>
-                                {numeral(ticker.dailyChangePercent).format('+0,0.00')}%
-                            </SpanText>
-                        </View>
+                        <PriceChangeBox value={ticker.dailyChangePercent} />
                     </View>
 
                     <View style={styles.priceSecondaryInfoContainer}>

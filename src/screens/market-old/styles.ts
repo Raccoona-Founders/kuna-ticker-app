@@ -128,30 +128,4 @@ export const styles = StyleSheet.create({
         top: 0,
         width: 80,
     },
-
-
-    priceChangeBox: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        borderRadius: 5,
-        justifyContent: 'center',
-        height: 30
-    },
-    priceChangeBoxUp: {
-        backgroundColor: '#00BA4F33'
-    },
-    priceChangeBoxDown: {
-        backgroundColor: '#FD2A4733'
-    },
-
-
-    priceChange: {
-        fontSize: 14,
-    },
-    priceChangeUp: {
-        color: Color.Success
-    },
-    priceChangeDown: {
-        color: Color.Danger
-    }
 });

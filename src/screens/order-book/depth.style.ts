@@ -20,11 +20,11 @@ export default StyleSheet.create({
     },
 
     topicText: {
-        fontSize: 20,
+        fontSize: 24,
     },
 
     topicTextMarket: {
-        color: Color.Gray2,
+        opacity: 0.8,
     },
 
     depthSheet: {

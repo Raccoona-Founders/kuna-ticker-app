@@ -31,7 +31,6 @@ export default UIButton;
 
 const styles = StyleSheet.create({
     button: {
-        marginBottom: 20,
         borderColor: Color.Gray3,
         borderWidth: 1,
         justifyContent: 'center',

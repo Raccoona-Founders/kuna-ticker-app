@@ -2,21 +2,24 @@ import React from 'react';
 import numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { View, Animated, Keyboard, Text } from 'react-native';
+import { View, Keyboard } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { getAsset, kunaMarketMap, KunaOrderBook, KunaV3Ticker, KunaAssetUnit } from 'kuna-sdk';
-
+import { getAsset, KunaAssetUnit, kunaMarketMap, KunaOrderBook, KunaV3Ticker } from 'kuna-sdk';
 import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
+import { _ } from 'utils/i18n';
 import { UsdCalculator } from 'utils/currency-rate';
 import { numFormat } from 'utils/number-helper';
 import { CoinIcon } from 'components/coin-icon';
 import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
 import { ShadeScrollCard } from 'components/shade-navigator';
-import { _ } from 'utils/i18n';
+import RippleNotice from 'components/ripple-notice';
+import InfoUnit from 'components/info-unit';
+import PriceChangeBox from './change-price-box';
+import Calculator from './calculator';
 import styles from './styles';
-import PriceChangeBox from 'screens/market/change-price-box';
+
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -60,7 +63,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
 
         return (
-            <ShadeScrollCard>
+            <ShadeScrollCard renderFooter={this.__renderFooter}>
                 <View style={styles.topic}>
                     <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                               naked={true}
@@ -79,9 +82,9 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                     </View>
                 </View>
 
-                <View style={styles.separator}/>
+                <View style={styles.separator} />
 
-                <View style={styles.sectionPrice}>
+                <View style={[styles.section, styles.sectionPrice]}>
                     <View>
                         <SpanText style={styles.price} weight="700">
                             {numFormat(ticker.lastPrice || 0, currentMarket.format)} {quoteAsset.key}
@@ -89,7 +92,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
                         <PriceChangeBox
                             value={ticker.dailyChangePercent}
-                            style={{ position: 'absolute', right: 0, top: 4 }}
+                            style={{ position: 'absolute', right: 0, top: 0 }}
                         />
 
                         {usdPrice && (
@@ -100,7 +103,37 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                     </View>
                 </View>
 
-                <View style={styles.separator}/>
+                <View style={styles.separator} />
+
+                <View style={[styles.section, styles.sectionInformation]}>
+                    <InfoUnit topic={`Vol ${baseAsset.key}`}
+                              value={numFormat(ticker.volume)}
+                    />
+
+                    <InfoUnit topic={`Vol ${quoteAsset.key}`}
+                              value={numFormat(numeral(ticker.volume).multiply(ticker.lastPrice || 0))}
+                    />
+
+                    <InfoUnit topic="24H Min"
+                              value={numFormat(ticker.low, quoteAsset.format)}
+                              style={{ marginBottom: 0 }}
+                    />
+
+                    <InfoUnit topic="24H Max"
+                              value={numFormat(ticker.high, quoteAsset.format)}
+                              style={{ marginBottom: 0 }}
+                    />
+                </View>
+
+                <View style={styles.separator} />
+
+                <Calculator
+                    market={currentMarket}
+                    ticker={ticker}
+                    usdPrice={usdPrice.value()}
+                />
+
+                {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}
             </ShadeScrollCard>
         );
     }
@@ -113,6 +146,15 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         this.props.navigation.push(RouteKeys.OrderBook, {
             marketSymbol: this.currentSymbol,
         });
+    };
+
+
+    private __renderFooter = () => {
+        return (
+            <View style={styles.footer}>
+                <UIButton onPress={this.__openDepth}>{_('market.order-book')}</UIButton>
+            </View>
+        )
     };
 }
 

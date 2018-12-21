@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
     },
     topicNameFullname: {
-        fontSize: 12,
+        fontSize: 14,
         opacity: 0.8,
     },
 
@@ -32,6 +32,11 @@ const styles = StyleSheet.create({
         backgroundColor: Color.GrayLight,
         marginTop: 20,
         marginBottom: 20,
+    },
+
+    section: {
+        paddingLeft: 20,
+        paddingRight: 20
     },
 
     sectionPrice: {
@@ -47,29 +52,17 @@ const styles = StyleSheet.create({
         opacity: 0.8,
     },
 
-    priceChangeBox: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        borderRadius: 5,
-        justifyContent: 'center',
-        height: 30
-    },
-    priceChangeBoxUp: {
-        backgroundColor: '#00BA4F33'
-    },
-    priceChangeBoxDown: {
-        backgroundColor: '#FD2A4733'
+    sectionInformation: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     },
 
 
-    priceChange: {
-        fontSize: 14,
-    },
-    priceChangeUp: {
-        color: Color.Success
-    },
-    priceChangeDown: {
-        color: Color.Danger
+    footer: {
+        borderTopWidth: 1,
+        borderTopColor: Color.GrayLight,
+        padding: 20,
+        backgroundColor: '#FFFFFF'
     }
 });
 

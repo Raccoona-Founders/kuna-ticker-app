@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { SpanText } from 'components/span-text';
 import { styles } from 'screens/market/calculator/calculator.style';
 import { _ } from 'utils/i18n';
 
-export default () => (
-    <View style={style.rippleNotice}>
+type RippleNoticeProps = {
+    style?: StyleProp<ViewStyle>;
+};
+
+export default (props: RippleNoticeProps) => (
+    <View style={[style.rippleNotice, props.style]}>
         <SpanText style={{ textAlign: 'center', paddingBottom: 10 }}>💩💩💩💩💩</SpanText>
 
         <SpanText style={style.rippleNoticeText}>
@@ -16,8 +20,7 @@ export default () => (
 
 const style = StyleSheet.create({
     rippleNotice: {
-        marginLeft: 20,
-        marginRight: 20,
+        margin: 20,
 
         paddingTop: 10,
         paddingBottom: 10,

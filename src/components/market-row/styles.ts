@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     },
 
     listItemSeparator: {
-        borderBottomColor: Color.Gray3,
+        borderBottomColor: Color.GrayLight,
         borderBottomWidth: 1,
         marginTop: 0,
         marginBottom: 0,
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     },
     priceLabel: {
         fontSize: 18,
-        color: Color.Gray2,
+        opacity: 0.8,
     },
 
     secondaryInfo: {
@@ -46,12 +46,12 @@ export const styles = StyleSheet.create({
 
     marketVolume: {
         fontSize: 14,
-        color: Color.Gray2,
+        opacity: 0.8,
     },
 
     separator: {
         fontSize: 14,
-        color: Color.Gray2,
+        opacity: 0.8,
     },
     dailyChange: {
         fontSize: 14,

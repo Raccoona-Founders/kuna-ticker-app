@@ -1,12 +1,12 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { Color, Fonts } from 'styles/variables';
+import { Color } from 'styles/variables';
 
 export const screen = {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height - 75,
 };
 
-const styles = StyleSheet.create({
+const marketStyle = StyleSheet.create({
     topic: {
         paddingLeft: 10,
         paddingRight: 20,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     },
     topicNameFullname: {
         fontSize: 14,
-        opacity: 0.8,
+        color: Color.GrayBlues,
     },
 
     separator: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
     section: {
         paddingLeft: 20,
-        paddingRight: 20
+        paddingRight: 20,
     },
 
     sectionPrice: {
@@ -46,24 +46,31 @@ const styles = StyleSheet.create({
 
     price: {
         fontSize: 28,
-        fontFamily: Fonts.TTNorms_Bold,
+        fontWeight: '700',
     },
     priceUsd: {
-        opacity: 0.8,
+        color: Color.GrayBlues,
     },
 
     sectionInformation: {
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
     },
 
 
     footer: {
         borderTopWidth: 1,
         borderTopColor: Color.GrayLight,
-        padding: 20,
-        backgroundColor: '#FFFFFF'
+        padding: 10,
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    footerButton: {
+        flex: 1,
+        marginLeft: 10,
+        marginRight: 10,
     }
 });
 
-export default styles;
+export default marketStyle;

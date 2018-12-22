@@ -17,7 +17,7 @@ export const Layout = (props: LayoutProps) => {
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
-        backgroundColor: Color.Gray,
+        backgroundColor: Color.GrayWhite,
     },
     safeArea: {
         flex: 1,

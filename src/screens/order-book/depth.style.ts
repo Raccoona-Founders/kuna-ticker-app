@@ -24,7 +24,7 @@ export default StyleSheet.create({
     },
 
     topicTextMarket: {
-        opacity: 0.8,
+        color: Color.GrayBlues
     },
 
     depthSheet: {
@@ -48,7 +48,7 @@ export default StyleSheet.create({
     },
     depthHeaderCell: {
         fontSize: 12,
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
 });
 

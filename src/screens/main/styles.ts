@@ -43,7 +43,7 @@ export const tabBarStyles = StyleSheet.create({
         fontSize: 18,
         fontFamily: Fonts.TTNorms_Regular,
         alignItems: 'center',
-        color: Color.Gray2,
+        color: Color.GrayBlues,
         fontWeight: '600',
     },
 

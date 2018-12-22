@@ -31,11 +31,6 @@ export const styles = StyleSheet.create({
     },
     priceValue: {
         fontSize: 18,
-        marginRight: 4,
-    },
-    priceLabel: {
-        fontSize: 18,
-        opacity: 0.8,
     },
 
     secondaryInfo: {
@@ -46,12 +41,12 @@ export const styles = StyleSheet.create({
 
     marketVolume: {
         fontSize: 14,
-        opacity: 0.8,
+        color: Color.GrayBlues,
     },
 
     separator: {
         fontSize: 14,
-        opacity: 0.8,
+        color: Color.GrayBlues,
     },
     dailyChange: {
         fontSize: 14,

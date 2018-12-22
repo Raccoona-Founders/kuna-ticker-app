@@ -14,6 +14,7 @@
     "market": {
         "calculate": "Калькулятор",
         "order-book": "Список ордерів",
+        "last-trades": "Останні угоди",
         "price-asset": "Ціна ({{asset}})",
         "amount-asset": "Об'єм ({{asset}})"
     },

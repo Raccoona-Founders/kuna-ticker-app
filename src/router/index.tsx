@@ -5,6 +5,7 @@ import { KunaAssetUnit } from 'kuna-sdk';
 import MainScreen from 'screens/main';
 import MarketScreen from 'screens/market';
 import OrderBookScreen from 'screens/order-book';
+import CalculatorScreen from 'screens/calculator';
 import RouteKeys from 'router/route-keys';
 
 
@@ -21,6 +22,10 @@ const routeConfigs = {
 
     [RouteKeys.OrderBook]: {
         screen: OrderBookScreen,
+    },
+
+    [RouteKeys.Calculator]: {
+        screen: CalculatorScreen,
     },
 };
 

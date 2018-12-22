@@ -12,9 +12,9 @@ export enum Color {
 
     PurpleNoactive = '#9DA3B8',
 
-    Gray2 = '#93A9C3',
+    GrayBlues = '#93A9C3',
     Gray3 = '#E6EAEE',
-    Gray = '#F5F7F8',
+    GrayWhite = '#F5F7F8',
 
     GrayLight = '#F2F2F2',
 

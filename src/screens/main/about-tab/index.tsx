@@ -25,7 +25,7 @@ const links: LinkItem[] = [{
 }, {
     title: _('about.roadmap'),
     label: 'Trello Board',
-    url: 'https://trello.com/b/9k4PHBO4/kuna-tiker-mobile-roadmap',
+    url: 'https://trello.com/b/9k4PHBO4/kuna-tiker-roadmap',
 }, {
     title: _('about.website'),
     label: 'coinwizard.github.io/kuna-ticker-app',
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     linkItemTitle: {
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
     linkItemLabel: {
         marginTop: 3,

@@ -3,8 +3,6 @@ import { Color, Fonts } from 'styles/variables';
 
 export const styles = StyleSheet.create({
     container: {
-        marginTop: -20,
-        marginBottom: -20,
         flexDirection: 'column',
     },
 
@@ -54,7 +52,7 @@ export const styles = StyleSheet.create({
 
     assetIconText: {
         fontSize: 16,
-        opacity: 0.8
+        color: Color.GrayBlues,
     },
 
     resultContainer: {
@@ -66,6 +64,6 @@ export const styles = StyleSheet.create({
 
     resultUsdValue: {
         fontSize: 16,
-        opacity: 0.8,
+        color: Color.GrayBlues,
     },
 });

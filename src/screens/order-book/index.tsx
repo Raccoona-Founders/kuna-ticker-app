@@ -14,7 +14,7 @@ import OrderBookProcessor from 'utils/order-book-processor';
 import styles from './depth.style';
 import OrderRow from './order-row';
 
-const ORDER_DEPTH = 35;
+const ORDER_DEPTH = 30;
 
 type SideRowsProps = {
     side: 'ask' | 'bid';

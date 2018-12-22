@@ -49,19 +49,19 @@ const styles = StyleSheet.create({
     pairBoxSeparator: {
         marginLeft: 2,
         marginRight: 2,
-        opacity: 0.8,
+        color: Color.GrayBlues,
         fontSize: 12,
         textAlignVertical: 'bottom',
     },
     pairBoxQuote: {
         fontSize: 12,
-        opacity: 0.8,
+        color: Color.GrayBlues,
         textAlignVertical: 'bottom',
     },
     baseAssetName: {
         marginTop: 5,
     },
     baseAssetNameText: {
-        opacity: 0.8,
+        color: Color.GrayBlues,
     },
 });

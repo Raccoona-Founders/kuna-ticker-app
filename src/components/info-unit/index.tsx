@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { SpanText } from 'components/span-text';
+import { Color } from 'styles/variables';
 
 type InfoUnitProps = {
     topic: string;
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     topic: {
         fontSize: 10,
         marginBottom: 5,
-        opacity: 0.8,
+        color: Color.GrayBlues,
         textTransform: 'uppercase',
     },
     value: {

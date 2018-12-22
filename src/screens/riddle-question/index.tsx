@@ -80,22 +80,22 @@ const styles = StyleSheet.create({
 
     codeTopic: {
         fontSize: 12,
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
     codePrefixContainer: {
         padding: 10,
         marginTop: 10,
         marginBottom: 10,
-        backgroundColor: Color.Gray,
+        backgroundColor: Color.GrayWhite,
         borderRadius: 5,
     },
     codePrefix: {
         fontSize: 18,
         textAlign: 'center',
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
     codePostInformation: {
         fontSize: 12,
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
 });

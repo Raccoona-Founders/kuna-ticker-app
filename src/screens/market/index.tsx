@@ -2,7 +2,7 @@ import React from 'react';
 import numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { View, Keyboard } from 'react-native';
+import { View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { getAsset, KunaAssetUnit, kunaMarketMap, KunaOrderBook, KunaV3Ticker } from 'kuna-sdk';
 import RouteKeys from 'router/route-keys';
@@ -17,8 +17,7 @@ import { ShadeScrollCard } from 'components/shade-navigator';
 import RippleNotice from 'components/ripple-notice';
 import InfoUnit from 'components/info-unit';
 import PriceChangeBox from './change-price-box';
-import Calculator from './calculator';
-import styles from './styles';
+import marketStyle from './market.style';
 
 
 type State = {
@@ -36,14 +35,14 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         const marketSymbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[marketSymbol];
 
-        this.props.navigation.addListener('willBlur', () => {
-            Keyboard.dismiss();
-        });
-
         AnalTracker.trackScreen(
             `market/${currentMarket.baseAsset}-${currentMarket.quoteAsset}`,
             'MarketScreen',
         );
+
+        AnalTracker.logEvent(`open_market_${currentMarket.baseAsset}`, {
+            market: currentMarket.key,
+        });
     }
 
 
@@ -64,7 +63,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
         return (
             <ShadeScrollCard renderFooter={this.__renderFooter}>
-                <View style={styles.topic}>
+                <View style={marketStyle.topic}>
                     <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                               naked={true}
                               withShadow={false}
@@ -72,21 +71,21 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                               style={{ marginRight: 20 }}
                     />
 
-                    <View style={styles.topicName}>
-                        <SpanText style={styles.topicNameUnit}>
+                    <View style={marketStyle.topicName}>
+                        <SpanText style={marketStyle.topicNameUnit}>
                             {currentMarket.baseAsset}/{currentMarket.quoteAsset}
                         </SpanText>
-                        <SpanText style={styles.topicNameFullname}>
+                        <SpanText style={marketStyle.topicNameFullname}>
                             {baseAsset.name} to {quoteAsset.name}
                         </SpanText>
                     </View>
                 </View>
 
-                <View style={styles.separator} />
+                <View style={marketStyle.separator} />
 
-                <View style={[styles.section, styles.sectionPrice]}>
+                <View style={[marketStyle.section, marketStyle.sectionPrice]}>
                     <View>
-                        <SpanText style={styles.price} weight="700">
+                        <SpanText style={marketStyle.price} weight="700">
                             {numFormat(ticker.lastPrice || 0, currentMarket.format)} {quoteAsset.key}
                         </SpanText>
 
@@ -96,16 +95,16 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                         />
 
                         {usdPrice && (
-                            <SpanText style={styles.priceUsd}>
+                            <SpanText style={marketStyle.priceUsd}>
                                 ~ ${usdPrice.format('0,0.[00]')}
                             </SpanText>
                         )}
                     </View>
                 </View>
 
-                <View style={styles.separator} />
+                <View style={marketStyle.separator} />
 
-                <View style={[styles.section, styles.sectionInformation]}>
+                <View style={[marketStyle.section, marketStyle.sectionInformation]}>
                     <InfoUnit topic={`Vol ${baseAsset.key}`}
                               value={numFormat(ticker.volume)}
                     />
@@ -125,13 +124,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                     />
                 </View>
 
-                <View style={styles.separator} />
-
-                <Calculator
-                    market={currentMarket}
-                    ticker={ticker}
-                    usdPrice={usdPrice.value()}
-                />
+                <View style={marketStyle.separator} />
 
                 {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}
             </ShadeScrollCard>
@@ -142,6 +135,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         return this.props.navigation.getParam('symbol');
     }
 
+
     protected __openDepth = () => {
         this.props.navigation.push(RouteKeys.OrderBook, {
             marketSymbol: this.currentSymbol,
@@ -149,10 +143,30 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
     };
 
 
+    protected __openLastTrades = () => {
+        this.props.navigation.push(RouteKeys.LastTrades, {
+            marketSymbol: this.currentSymbol,
+        });
+    };
+
+
+    protected __openCalculator = () => {
+        this.props.navigation.push(RouteKeys.Calculator, {
+            marketSymbol: this.currentSymbol,
+        });
+    };
+
+
     private __renderFooter = () => {
         return (
-            <View style={styles.footer}>
-                <UIButton onPress={this.__openDepth}>{_('market.order-book')}</UIButton>
+            <View style={marketStyle.footer}>
+                <View style={marketStyle.footerButton}>
+                    <UIButton onPress={this.__openDepth}>{_('market.order-book')}</UIButton>
+                </View>
+
+                <View style={marketStyle.footerButton}>
+                    <UIButton onPress={this.__openCalculator}>{_('market.calculate')}</UIButton>
+                </View>
             </View>
         )
     };

@@ -46,13 +46,14 @@ const MarketRow = (props: MarketRowProps) => {
                         <View style={styles.priceBox}>
                             <SpanText style={styles.priceValue}>
                                 {ticker.lastPrice ? numFormat(ticker.lastPrice || 0, market.format) : '—'}
+                                {' '}
+                                {market.quoteAsset}
                             </SpanText>
-                            <SpanText style={styles.priceLabel}>{market.quoteAsset}</SpanText>
                         </View>
 
                         <View style={styles.secondaryInfo}>
                             <SpanText style={styles.marketVolume}>
-                                ≈ ${usdPrice.format('0,0.00')}
+                                ~ ${usdPrice.format('0,0.00')}
                             </SpanText>
                             <SpanText style={styles.separator}> / </SpanText>
                             <SpanText style={dailyChangeStyles}>

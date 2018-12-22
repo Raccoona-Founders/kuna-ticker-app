@@ -27,8 +27,8 @@ export const cardStyles = StyleSheet.create({
         right: 0,
         bottom: 0,
         backgroundColor: '#FFFFFF',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
         overflow: 'hidden',
     },
     scrollView: {
@@ -37,7 +37,6 @@ export const cardStyles = StyleSheet.create({
     },
     innerContent: {
         flex: 1,
-        paddingTop: 40,
     },
 
     footer: {

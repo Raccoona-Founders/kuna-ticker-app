@@ -70,7 +70,7 @@ export const QuoteTabItem = (props: TabItemProps) => {
     const { route, interpolate } = props;
 
     const animatedStyle = {
-        color: interpolate(Color.DarkPurple, Color.Gray2),
+        color: interpolate(Color.Text, Color.GrayBlues),
         transform: [{
             scale: interpolate(1.35, 1),
         }, {

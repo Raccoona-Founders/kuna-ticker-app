@@ -1,37 +1,40 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Color } from 'styles/variables';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { SpanText } from 'components/span-text';
+import { Color } from 'styles/variables';
 
 type InfoUnitProps = {
     topic: string;
     value: string;
     valueColor?: string;
+    style?: StyleProp<ViewStyle>;
 };
 
-export default (props: InfoUnitProps) => {
+const InfoUnit = (props: InfoUnitProps) => {
     const { valueColor = undefined } = props;
 
     return (
-        <View style={styles.container}>
-            <SpanText style={styles.topic}>{props.topic}</SpanText>
+        <View style={[styles.container, props.style]}>
             <SpanText style={[styles.value, valueColor ? { color: valueColor } : {}]}>
                 {props.value}
             </SpanText>
+            <SpanText style={styles.topic}>{props.topic}</SpanText>
         </View>
     );
 };
 
+export default InfoUnit;
+
 const styles = StyleSheet.create({
     container: {
         width: '50%',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     topic: {
-        color: Color.Gray2,
-        fontSize: 16,
+        fontSize: 10,
         marginBottom: 5,
-        fontWeight: '500',
+        color: Color.GrayBlues,
+        textTransform: 'uppercase',
     },
     value: {
         fontSize: 18,

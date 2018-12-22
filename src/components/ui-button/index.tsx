@@ -31,18 +31,21 @@ export default UIButton;
 
 const styles = StyleSheet.create({
     button: {
-        marginBottom: 20,
-        borderColor: Color.Gray3,
-        borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 4,
+        borderRadius: 5,
         paddingLeft: 10,
         paddingRight: 10,
+
+        shadowRadius: 6,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
     },
     defaultBtn: {
         height: 50,
         width: '100%',
+        backgroundColor: Color.Main,
     },
     smallBtn: {
         height: 34,
@@ -50,13 +53,14 @@ const styles = StyleSheet.create({
     },
 
 
-
     buttonText: {
-        color: Color.DarkPurple,
+        color: Color.White,
         textTransform: 'uppercase',
     },
     smallText: {
         fontSize: 12,
+        borderColor: Color.Gray3,
+        borderWidth: 1,
     },
     defaultText: {
         fontSize: 16,

@@ -105,7 +105,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
 export const styles = StyleSheet.create({
     loadingContainer: {
         flex: 1,
-        backgroundColor: Color.Gray,
+        backgroundColor: Color.GrayWhite,
         justifyContent: 'center',
         alignItems: 'center',
     },

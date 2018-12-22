@@ -5,7 +5,10 @@ import {
     View,
     ScrollViewProps,
     NativeSyntheticEvent,
-    NativeScrollEvent, StyleProp, ViewStyle, LayoutChangeEvent,
+    NativeScrollEvent,
+    StyleProp,
+    ViewStyle,
+    LayoutChangeEvent,
 } from 'react-native';
 import { NavigationActions, NavigationTransitionProps } from 'react-navigation';
 import { clamp } from '../helper';
@@ -53,6 +56,8 @@ class ShadeScrollCard extends React.PureComponent<ShadeCardProps, any> {
     }
 
     public render(): JSX.Element {
+        const { withBrow = true } = this.props;
+
         const scrollViewStyles = [cardStyles.scrollView, {
             transform: [{
                 translateY: this._shadeInnerContentOffset,
@@ -61,11 +66,13 @@ class ShadeScrollCard extends React.PureComponent<ShadeCardProps, any> {
 
         return (
             <Animated.View style={cardStyles.shadeView}>
-                <ShadeHeader opacity={this._headerOpacity} />
+                {withBrow ? <ShadeHeader opacity={this._headerOpacity} /> : undefined}
 
                 <Animated.ScrollView {...this.__scrollViewProps} style={scrollViewStyles}>
-                    <View style={[cardStyles.innerContent, this.props.style]}>{this.props.children}</View>
-                    <View style={{ height: this.state.footerHeight }}/>
+                    <View style={[cardStyles.innerContent, { paddingTop: withBrow ? 40 : 0 }, this.props.style]}>
+                        {this.props.children}
+                    </View>
+                    <View style={{ height: this.state.footerHeight }} />
                 </Animated.ScrollView>
 
                 <View style={cardStyles.footer} onLayout={this.__handleFooterLayout}>
@@ -180,6 +187,7 @@ class ShadeScrollCard extends React.PureComponent<ShadeCardProps, any> {
 type ShadeCardOuterProps = {
     children?: any;
     style?: StyleProp<ViewStyle>;
+    withBrow?: boolean;
 
     renderFooter?: () => JSX.Element;
 };

@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
 
     input: {
         paddingLeft: 15,
-        backgroundColor: Color.Gray,
+        backgroundColor: Color.GrayWhite,
         borderRadius: 3,
         height: 48,
         fontSize: 16,
@@ -199,10 +199,10 @@ const styles = StyleSheet.create({
 
     successContainer: {},
     successTitle: {
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
     successPrizeContainer: {
-        backgroundColor: Color.Gray,
+        backgroundColor: Color.GrayWhite,
         padding: 20,
         borderRadius: 5,
         marginTop: 10,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     successPostMessage: {
-        color: Color.Gray2,
+        color: Color.GrayBlues,
         fontSize: 12,
     },
 

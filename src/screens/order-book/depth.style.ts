@@ -20,11 +20,11 @@ export default StyleSheet.create({
     },
 
     topicText: {
-        fontSize: 20,
+        fontSize: 24,
     },
 
     topicTextMarket: {
-        color: Color.Gray2,
+        color: Color.GrayBlues
     },
 
     depthSheet: {
@@ -48,7 +48,7 @@ export default StyleSheet.create({
     },
     depthHeaderCell: {
         fontSize: 12,
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
 });
 

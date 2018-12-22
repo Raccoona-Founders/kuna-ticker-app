@@ -12,12 +12,13 @@ type CoinIconProps = {
     asset: KunaAsset;
 
     withShadow?: boolean;
+    naked?: boolean;
     size?: number;
     style?: StyleProp<ViewStyle>;
 };
 
 export const CoinIcon = (props: CoinIconProps) => {
-    const {size = 32, withShadow = true, asset, style = {}} = props;
+    const { size = 32, withShadow = true, asset, naked = false, style = {} } = props;
 
     const coinIconStyle = {
         height: size,
@@ -32,6 +33,10 @@ export const CoinIcon = (props: CoinIconProps) => {
 
     const existsIcon = findIcon(asset);
 
+    const backgroundLayout = naked
+        ? undefined
+        : <Icon name="shapeBox" size={size} style={svgShapeStyle} fill={asset.color} />;
+
     if (!existsIcon) {
         const symbolContainerStyle: any = {
             width: size,
@@ -41,12 +46,16 @@ export const CoinIcon = (props: CoinIconProps) => {
             textAlign: 'center',
         };
 
+        const iconStyle = [
+            styles.onlySymbolText,
+            { color: naked ? asset.color : '#FFFFFF' },
+            symbolContainerStyle,
+        ];
+
         return (
             <View style={[coinIconStyle, withShadow ? coinShadow : {}, style]}>
-                <Icon name="shapeBox" size={size} style={svgShapeStyle} fill={asset.color}/>
-                <SpanText style={[styles.onlySymbolText, symbolContainerStyle]}>
-                    {asset.name.charAt(0).toUpperCase()}
-                </SpanText>
+                {backgroundLayout}
+                <SpanText style={iconStyle}>{asset.name.charAt(0).toUpperCase()}</SpanText>
             </View>
         );
     }
@@ -59,12 +68,12 @@ export const CoinIcon = (props: CoinIconProps) => {
 
     return (
         <View style={[coinIconStyle, withShadow ? coinShadow : {}, style]}>
-            <Icon name="shapeBox" size={size} style={svgShapeStyle} fill={asset.color}/>
+            {backgroundLayout}
             <SvgIcon svgs={svgIcons}
                      name={asset.key as string}
                      width={size}
                      height={size}
-                     fill="#ffffff"
+                     fill={naked ? asset.color : '#FFFFFF'}
                      style={svgShapeIconStyle}
             />
         </View>
@@ -78,7 +87,6 @@ const styles = StyleSheet.create({
     },
     onlySymbolText: {
         fontWeight: '600',
-        color: '#fff',
         position: 'absolute',
         top: 0,
         left: 0,

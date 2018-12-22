@@ -3,12 +3,10 @@ import { Color, Fonts } from 'styles/variables';
 
 export const styles = StyleSheet.create({
     container: {
-        margin: 20,
         flexDirection: 'column',
     },
 
     topic: {
-        color: Color.Gray2,
         fontSize: 16,
         marginBottom: 5,
         fontWeight: '500',
@@ -29,7 +27,6 @@ export const styles = StyleSheet.create({
 
     valueInput: {
         paddingLeft: 15,
-        backgroundColor: Color.Gray,
         borderRadius: 3,
         height: 48,
         fontSize: 16,
@@ -39,6 +36,11 @@ export const styles = StyleSheet.create({
         borderColor: Color.Gray3,
         fontFamily: Fonts.TTNorms_Regular,
         fontWeight: '500',
+
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
     },
 
     assetIcon: {
@@ -50,7 +52,7 @@ export const styles = StyleSheet.create({
 
     assetIconText: {
         fontSize: 16,
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
 
     resultContainer: {
@@ -62,6 +64,6 @@ export const styles = StyleSheet.create({
 
     resultUsdValue: {
         fontSize: 16,
-        color: Color.Gray2,
+        color: Color.GrayBlues,
     },
 });

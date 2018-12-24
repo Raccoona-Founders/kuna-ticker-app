@@ -80,9 +80,8 @@ function chooseStyles(type: 'ask' | 'bid'): StyleProp<any>[] {
 
 const styles = StyleSheet.create({
     orderRow: {
-        height: 25,
+        height: 28,
         justifyContent: 'center',
-        marginBottom: 2,
     },
     container: {
         flexDirection: 'row',
@@ -101,9 +100,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     priceAsk: {
+        paddingLeft: 5,
         color: Color.Danger,
     },
     priceBid: {
+        paddingRight: 5,
         color: Color.Main,
     },
 
@@ -118,19 +119,18 @@ const styles = StyleSheet.create({
         bottom: 0,
         top: 0,
         zIndex: 1,
-        opacity: 0.5,
-        borderRadius: 1,
+        opacity: 0.1,
         backgroundColor: Color.Gray3,
     },
 
     valueIndicatorAsk: {
         left: 0,
-        // backgroundColor: Color.Danger,
+        backgroundColor: Color.Danger,
     },
 
     valueIndicatorBid: {
         right: 0,
-        // backgroundColor: Color.Main,
+        backgroundColor: Color.Main,
     },
 });
 

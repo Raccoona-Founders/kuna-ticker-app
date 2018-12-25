@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, StyleProp, ViewStyle } from 'react-native';
+import numeral from 'numeral';
 import { compose } from 'recompose';
-import { map, maxBy, meanBy, sumBy } from 'lodash';
+import { map, maxBy, meanBy, max } from 'lodash';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
 import { KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
@@ -20,22 +21,24 @@ type SideRowsProps = {
     side: 'ask' | 'bid';
     orderBook: OrderBookProcessor;
     market: KunaMarket;
+    style?: StyleProp<ViewStyle>;
 };
 
 const SideRows = (props: SideRowsProps): JSX.Element => {
-    const items = props.side === 'ask'
-        ? props.orderBook.getAsk()
-        : props.orderBook.getBid();
+    const { orderBook, side } = props;
+    const items = side === 'ask'
+        ? orderBook.getAsk()
+        : orderBook.getBid();
 
     const avr = meanBy(items, ([price, value]) => +value);
-    const max = maxBy(items, ([price, value]) => +value);
-    const totalValue = sumBy(items, ([price, value]) => +value);
+    const maxItem = maxBy(items, ([price, value]) => +value);
+    const totalValue = max([orderBook.sumByAsk(), orderBook.sumByBid()]) as number;
 
-    const maxValue = max ? max[1] : 0;
+    const maxValue = maxItem ? maxItem[1] : 0;
     let cumulativeValue = 0;
 
     return (
-        <>
+        <View style={props.style}>
             {map(items, ([price, value], index: number) => {
                 cumulativeValue += (+value);
 
@@ -52,7 +55,7 @@ const SideRows = (props: SideRowsProps): JSX.Element => {
                     />
                 );
             })}
-        </>
+        </View>
     );
 };
 
@@ -112,30 +115,30 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
+        const spread = orderBook.getSpread();
+
         return (
             <View style={styles.depthSheet}>
-                <View style={[styles.depthSheetSide]}>
-                    <View style={styles.depthHeader}>
-                        <SpanText style={styles.depthHeaderCell}>
-                            {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
-                        </SpanText>
-                        <SpanText style={styles.depthHeaderCell}>
-                            {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
-                        </SpanText>
-                    </View>
-                    <SideRows side="bid" orderBook={orderBook} market={kunaMarket} />
+                <View style={styles.spreadContainer}>
+                    <SpanText style={styles.spreadText}>
+                        Spread: {numeral(spread.value).format('0,0.[00000000]')} {kunaMarket.quoteAsset} ({numeral(spread.percentage).format('0,0.00')}%)
+                    </SpanText>
+                </View>
+                <View style={styles.depthHeader}>
+                    <SpanText style={styles.depthHeaderCell}>
+                        {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
+                    </SpanText>
+                    <SpanText style={styles.depthHeaderCell}>
+                        {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
+                    </SpanText>
+                    <SpanText style={styles.depthHeaderCell}>
+                        {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
+                    </SpanText>
                 </View>
 
-                <View style={[styles.depthSheetSide]}>
-                    <View style={styles.depthHeader}>
-                        <SpanText style={styles.depthHeaderCell}>
-                            {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
-                        </SpanText>
-                        <SpanText style={styles.depthHeaderCell}>
-                            {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
-                        </SpanText>
-                    </View>
-                    <SideRows side="ask" orderBook={orderBook} market={kunaMarket} />
+                <View style={styles.depthSheetBody}>
+                    <SideRows side="bid" orderBook={orderBook} market={kunaMarket} style={styles.depthSheetSide} />
+                    <SideRows side="ask" orderBook={orderBook} market={kunaMarket} style={styles.depthSheetSide} />
                 </View>
             </View>
         );

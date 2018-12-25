@@ -107,20 +107,22 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                 <View style={[marketStyle.section, marketStyle.sectionInformation]}>
                     <InfoUnit topic={`Vol ${baseAsset.key}`}
                               value={numFormat(ticker.volume)}
+                              style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
                     />
 
                     <InfoUnit topic={`Vol ${quoteAsset.key}`}
                               value={numFormat(numeral(ticker.volume).multiply(ticker.lastPrice || 0))}
+                              style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
                     />
 
                     <InfoUnit topic="24H Min"
                               value={numFormat(ticker.low, quoteAsset.format)}
-                              style={{ marginBottom: 0 }}
+                              style={marketStyle.infoUnit}
                     />
 
                     <InfoUnit topic="24H Max"
                               value={numFormat(ticker.high, quoteAsset.format)}
-                              style={{ marginBottom: 0 }}
+                              style={marketStyle.infoUnit}
                     />
                 </View>
 

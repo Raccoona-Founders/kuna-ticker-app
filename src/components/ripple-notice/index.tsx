@@ -19,7 +19,8 @@ export default (props: RippleNoticeProps) => (
 
 const style = StyleSheet.create({
     rippleNotice: {
-        margin: 20,
+        marginLeft: 20,
+        marginRight: 20,
 
         paddingTop: 10,
         paddingBottom: 10,
@@ -32,10 +33,10 @@ const style = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#FFECA9',
 
-        shadowOffset: { height: 4, width: 0 },
-        shadowRadius: 20,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
+        // shadowOffset: { height: 4, width: 0 },
+        // shadowRadius: 20,
+        // shadowColor: '#000',
+        // shadowOpacity: 0.1,
     },
 
     rippleNoticeText: {

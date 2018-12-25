@@ -27,7 +27,19 @@ export default StyleSheet.create({
     },
 
     spreadContainer: {
+        justifyContent: 'space-between',
+        // alignItems: 'center',
+        flexDirection: 'row',
         marginBottom: 20,
+    },
+
+    spreadValueBox: {
+        alignItems: 'center',
+    },
+    spreadValue: {},
+    spreadPercentage: {
+        marginLeft: 5,
+        fontSize: 12,
     },
 
     spreadText: {
@@ -41,13 +53,36 @@ export default StyleSheet.create({
     depthSheetBody: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignContent: 'center',
     },
     depthSheetSide: {
         width: '50%',
         // aspectRatio: 1,
     },
 
+    groupingButtonContainer: {
+        flexDirection: 'row',
+    },
+    groupingContainer: {
+        alignItems: 'flex-end',
+    },
+    groupingValue: {
+        marginBottom: 5,
+    },
+
+    groupingButton: {
+        marginLeft: 10,
+        height: 28,
+        width: 28,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        borderWidth: 0.5,
+        borderRadius: 5,
+        borderColor: Color.Gray3,
+    },
+    groupingButtonText: {
+        fontSize: 18,
+    },
 
     depthHeader: {
         flexDirection: 'row',

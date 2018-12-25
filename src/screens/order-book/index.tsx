@@ -1,74 +1,51 @@
 import React from 'react';
-import { View, ActivityIndicator, StyleProp, ViewStyle } from 'react-native';
+import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
 import numeral from 'numeral';
 import { compose } from 'recompose';
-import { map, maxBy, meanBy, max } from 'lodash';
 import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
 import { KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
-import { SpanText } from 'components/span-text';
-import { ShadeScrollCard } from 'components/shade-navigator';
 import kunaClient from 'utils/kuna-api';
 import { _ } from 'utils/i18n';
 import OrderBookProcessor from 'utils/order-book-processor';
+import { SpanText } from 'components/span-text';
+import { ShadeScrollCard } from 'components/shade-navigator';
+import InfoUnit from 'components/info-unit';
 import styles from './depth.style';
-import OrderRow from './order-row';
+import SideRows from './side-rows';
+import getPrecisionMap from 'utils/presicion-map';
 
 const ORDER_DEPTH = 30;
 
-type SideRowsProps = {
-    side: 'ask' | 'bid';
-    orderBook: OrderBookProcessor;
-    market: KunaMarket;
-    style?: StyleProp<ViewStyle>;
-};
-
-const SideRows = (props: SideRowsProps): JSX.Element => {
-    const { orderBook, side } = props;
-    const items = side === 'ask'
-        ? orderBook.getAsk()
-        : orderBook.getBid();
-
-    const avr = meanBy(items, ([price, value]) => +value);
-    const maxItem = maxBy(items, ([price, value]) => +value);
-    const totalValue = max([orderBook.sumByAsk(), orderBook.sumByBid()]) as number;
-
-    const maxValue = maxItem ? maxItem[1] : 0;
-    let cumulativeValue = 0;
-
-    return (
-        <View style={props.style}>
-            {map(items, ([price, value], index: number) => {
-                cumulativeValue += (+value);
-
-                return (
-                    <OrderRow key={index}
-                              price={price}
-                              value={value}
-                              cumulativeValue={cumulativeValue}
-                              totalValue={totalValue}
-                              type={props.side}
-                              maxValue={maxValue}
-                              avrValue={avr}
-                              market={props.market}
-                    />
-                );
-            })}
-        </View>
-    );
-};
-
-
 type State = {
     orderBook?: OrderBookProcessor;
+    precisionIndex: number;
+    precisionMap: number[];
 };
 
 class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
     public state: State = {
         orderBook: undefined,
+        precisionIndex: 0,
+        precisionMap: [],
     };
 
+    public constructor(props: DepthScreenProps) {
+        super(props);
+
+        const marketSymbol = this.props.navigation.getParam('marketSymbol');
+        const kunaMarket = kunaMarketMap[marketSymbol];
+
+        this.state.precisionMap = getPrecisionMap(marketSymbol, kunaMarket.quoteAsset);
+    }
+
+
+    public get precision(): number {
+        const {precisionMap, precisionIndex} = this.state;
+
+        return precisionMap[precisionIndex - 1] || 0;
+    }
 
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
@@ -86,7 +63,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
 
     public render(): JSX.Element {
-        const { orderBook } = this.state;
+        const {orderBook} = this.state;
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
@@ -102,47 +79,112 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
                     {orderBook ? (
                         <View style={styles.depthSheetContainer}>
-                            {this._renderDepthSheet(orderBook)}
+                            {this._renderDepthSheet(kunaMarket, orderBook)}
                         </View>
-                    ) : <ActivityIndicator />}
+                    ) : <ActivityIndicator/>}
                 </View>
             </ShadeScrollCard>
         );
     }
 
 
-    protected _renderDepthSheet(orderBook: OrderBookProcessor): JSX.Element {
-        const marketSymbol = this.props.navigation.getParam('marketSymbol');
-        const kunaMarket = kunaMarketMap[marketSymbol];
-
-        const spread = orderBook.getSpread();
+    protected _renderDepthSheet(kunaMarket: KunaMarket, orderBook: OrderBookProcessor): JSX.Element {
+        const precision = this.precision;
 
         return (
             <View style={styles.depthSheet}>
-                <View style={styles.spreadContainer}>
-                    <SpanText style={styles.spreadText}>
-                        Spread: {numeral(spread.value).format('0,0.[00000000]')} {kunaMarket.quoteAsset} ({numeral(spread.percentage).format('0,0.00')}%)
-                    </SpanText>
-                </View>
+
+                {this._renderPreSheet(kunaMarket, orderBook)}
+
                 <View style={styles.depthHeader}>
                     <SpanText style={styles.depthHeaderCell}>
-                        {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
+                        {_('market.amount-asset', {asset: kunaMarket.baseAsset})}
                     </SpanText>
                     <SpanText style={styles.depthHeaderCell}>
-                        {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
+                        {_('market.price-asset', {asset: kunaMarket.quoteAsset})}
                     </SpanText>
                     <SpanText style={styles.depthHeaderCell}>
-                        {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
+                        {_('market.amount-asset', {asset: kunaMarket.baseAsset})}
                     </SpanText>
                 </View>
 
                 <View style={styles.depthSheetBody}>
-                    <SideRows side="bid" orderBook={orderBook} market={kunaMarket} style={styles.depthSheetSide} />
-                    <SideRows side="ask" orderBook={orderBook} market={kunaMarket} style={styles.depthSheetSide} />
+                    <SideRows side="bid"
+                              orderBook={orderBook}
+                              precision={precision}
+                              market={kunaMarket}
+                              style={styles.depthSheetSide}
+                    />
+
+                    <SideRows side="ask"
+                              orderBook={orderBook}
+                              precision={precision}
+                              market={kunaMarket}
+                              style={styles.depthSheetSide}
+                    />
                 </View>
             </View>
         );
     }
+
+    protected _renderPreSheet(kunaMarket: KunaMarket, orderBook: OrderBookProcessor): JSX.Element {
+        const precision = this.precision;
+        const spread = orderBook.getSpread();
+
+        return (
+            <View style={styles.spreadContainer}>
+                <InfoUnit
+                    topic={_('order-book.spread')}
+                    value={<>
+                        <SpanText style={styles.spreadValue}>
+                            {numeral(spread.value).format('0,0.[00000000]')} {kunaMarket.quoteAsset}
+                        </SpanText>
+                        <SpanText style={styles.spreadPercentage}>
+                            ({numeral(spread.percentage).format('0,0.00')}%)
+                        </SpanText>
+                    </>}
+                    valueStyle={styles.spreadValueBox}
+                />
+
+                <View style={styles.groupingContainer}>
+                    <SpanText style={styles.groupingValue}>
+                        {precision > 0
+                            ? numeral(precision).format('0,0.[000000]')
+                            : _('order-book.none')}
+                    </SpanText>
+
+                    <View style={styles.groupingButtonContainer}>
+                        <TouchableOpacity onPress={this.__downPrecision} style={styles.groupingButton}>
+                            <SpanText style={styles.groupingButtonText}>-</SpanText>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.__upPrecision} style={styles.groupingButton}>
+                            <SpanText style={styles.groupingButtonText}>+</SpanText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+
+
+    private __downPrecision = () => {
+        let nextPrecision = this.state.precisionIndex - 1;
+        if (nextPrecision <= 0) {
+            nextPrecision = 0;
+        }
+
+        this.setState({precisionIndex: nextPrecision});
+    };
+
+
+    private __upPrecision = () => {
+        let nextPrecision = this.state.precisionIndex + 1;
+        if (nextPrecision > this.state.precisionMap.length) {
+            nextPrecision = this.state.precisionMap.length;
+        }
+
+        this.setState({precisionIndex: nextPrecision});
+    };
 }
 
 

@@ -18,6 +18,11 @@
         "price-asset": "Ціна ({{asset}})",
         "amount-asset": "Об'єм ({{asset}})"
     },
+    "order-book": {
+        "spread": "Спред",
+        "grouping": "Групування",
+        "none": "Нема"
+    },
     "notice": {
         "ripple": "Якщо ти інвестуешь свої гроші у Ripple, то я сподіваюся що ти знаешь що робишь"
     },

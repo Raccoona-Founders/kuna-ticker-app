@@ -5,9 +5,10 @@ import { Color } from 'styles/variables';
 
 type InfoUnitProps = {
     topic: string;
-    value: string;
+    value: string | JSX.Element | React.ReactNode;
     valueColor?: string;
     style?: StyleProp<ViewStyle>;
+    valueStyle?: StyleProp<ViewStyle>;
 };
 
 const InfoUnit = (props: InfoUnitProps) => {
@@ -15,9 +16,14 @@ const InfoUnit = (props: InfoUnitProps) => {
 
     return (
         <View style={[styles.container, props.style]}>
-            <SpanText style={[styles.value, valueColor ? { color: valueColor } : {}]}>
-                {props.value}
-            </SpanText>
+            {typeof props.value === 'string' ? (
+                <SpanText style={[styles.valueText, valueColor ? { color: valueColor } : {}]}>
+                    {props.value}
+                </SpanText>
+            ) : (
+                <View style={[styles.valueBox, props.valueStyle]}>{props.value}</View>
+            )}
+
             <SpanText style={styles.topic}>{props.topic}</SpanText>
         </View>
     );
@@ -27,8 +33,7 @@ export default InfoUnit;
 
 const styles = StyleSheet.create({
     container: {
-        width: '50%',
-        marginBottom: 10,
+
     },
     topic: {
         fontSize: 10,
@@ -36,8 +41,11 @@ const styles = StyleSheet.create({
         color: Color.GrayBlues,
         textTransform: 'uppercase',
     },
-    value: {
+    valueText: {
         fontSize: 18,
         fontWeight: '500',
     },
+    valueBox: {
+        flexDirection: 'row'
+    }
 });

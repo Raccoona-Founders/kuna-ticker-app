@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { Color } from 'styles/variables';
+import { isIphoneX } from 'utils/helper';
 
 export const screen = {
     width: Dimensions.get('window').width,
@@ -23,6 +24,14 @@ const marketStyle = StyleSheet.create({
     topicNameFullname: {
         fontSize: 14,
         color: Color.GrayBlues,
+    },
+
+    infoUnit: {
+        width: '50%',
+    },
+
+    infoUnitFirstLine: {
+        marginBottom: 10,
     },
 
     separator: {
@@ -61,10 +70,11 @@ const marketStyle = StyleSheet.create({
     footer: {
         borderTopWidth: 1,
         borderTopColor: Color.GrayLight,
-        padding: 10,
         backgroundColor: '#FFFFFF',
         flexDirection: 'row',
         justifyContent: 'space-around',
+        padding: 10,
+        paddingBottom: isIphoneX() ? 30 : 10
     },
     footerButton: {
         flex: 1,

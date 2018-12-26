@@ -18,6 +18,11 @@
         "price-asset": "Price ({{asset}})",
         "amount-asset": "Amount ({{asset}})"
     },
+    "order-book": {
+        "spread": "Spread",
+        "grouping": "Grouping",
+        "none": "None"
+    },
     "notice": {
         "ripple": "If you invest your own money in Ripple, I hope you know what you do"
     },

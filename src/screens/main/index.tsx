@@ -14,6 +14,8 @@ type MainScreenState = {
     routes: TabnavRoute[];
 };
 
+type MainScreenProps = NavigationInjectedProps;
+
 export default class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
     public state: MainScreenState = {
         index: 0,
@@ -102,5 +104,3 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
         Analitics.trackScreen(`main/${routes[index].key}`, 'MainScreen');
     };
 }
-
-type MainScreenProps = NavigationInjectedProps;

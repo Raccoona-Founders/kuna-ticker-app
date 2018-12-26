@@ -14,6 +14,8 @@ import kunaClient from 'utils/kuna-api';
 
 import configureRemoteConfig from 'utils/remote-config';
 
+import i18n from 'utils/i18n';
+import AnalTracker from 'utils/ga-tracker';
 
 type ApplicationState = {
     isStoreLoading: boolean;
@@ -54,6 +56,8 @@ export class Application extends React.PureComponent<any, ApplicationState> {
         } catch (error) {
             console.error(error);
         }
+
+        AnalTracker.setUserProperty('LANGUAGE', i18n.currentLocale());
     }
 
     public render(): JSX.Element {

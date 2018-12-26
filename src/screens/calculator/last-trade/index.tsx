@@ -2,9 +2,10 @@ import React from 'react';
 import numeral from 'numeral';
 import { View, Text } from 'react-native';
 import { getAsset, KunaMarket, KunaV3Ticker } from 'kuna-sdk';
-import { SpanText } from 'components/span-text';
-import CalcAssetRow from '../calc-asset-row';
-import { styles } from './last-trade.style';
+import styles from './last-trade.style';
+
+import CalculatorPair, { Operation } from '../calculator-pair';
+import SpanText from 'components/span-text';
 
 type LastTradeCalcProps = {
     market: KunaMarket;
@@ -12,27 +13,17 @@ type LastTradeCalcProps = {
     usdPrice?: number;
 };
 
-enum Operation {
-    Buy,
-    Sell
-}
-
 type LastTradeCalcState = {
-    inputBuyValue: string;
-    inputSellValue: string;
-    trackedInteraction: boolean;
+    buyValue: number;
 };
 
 export default class LastTradeCalc extends React.PureComponent<LastTradeCalcProps, LastTradeCalcState> {
     public state: LastTradeCalcState = {
-        inputBuyValue: '',
-        inputSellValue: '',
-        trackedInteraction: false,
+        buyValue: 0,
     };
 
 
     public render(): JSX.Element {
-        const { inputBuyValue, inputSellValue } = this.state;
         const { market, ticker } = this.props;
 
         if (!ticker.lastPrice) {
@@ -40,68 +31,40 @@ export default class LastTradeCalc extends React.PureComponent<LastTradeCalcProp
         }
 
         return (
-            <View style={styles.container}>
-                <CalcAssetRow
-                    asset={market.baseAsset}
-                    value={inputBuyValue}
-                    onChangeText={this.changeTextInput(Operation.Buy)}
-                />
-
-                <CalcAssetRow
-                    asset={market.quoteAsset}
-                    value={inputSellValue}
-                    onChangeText={this.changeTextInput(Operation.Sell)}
-                />
+            <>
+                <CalculatorPair market={market} processCalculating={this.__onCalculate} />
 
                 {this.__renderUseEquivalent()}
-            </View>
+            </>
         );
     }
 
 
-    protected changeTextInput = (type: Operation) => (text: string) => {
-        const { ticker, market } = this.props;
+    protected __onCalculate = (value: number, type: Operation): [number, number] => {
+        const { ticker } = this.props;
 
-        const buyAsset = getAsset(market.baseAsset);
-        const sellAsset = getAsset(market.quoteAsset);
-
-        const toUpdateState = {
-            inputBuyValue: '',
-            inputSellValue: '',
-        };
-
-        if (text.length > 24) {
-            text = text.substr(0, 24);
+        if (!value || value <= 0) {
+            return [0, 0];
         }
 
-        text.replace(/\s/gm, '').replace(/,/gm, '.');
-        if (text.length === 2 && text[0] == '0' && text[1] != '.') {
-            text = text[0] + '.' + text[1];
+        switch (type) {
+            case Operation.Sell:
+                return [
+                    numeral(value).divide(ticker.lastPrice || 0).value(),
+                    value,
+
+                ];
+
+            case Operation.Buy:
+                return [
+                    value,
+                    numeral(value).multiply(ticker.lastPrice || 0).value(),
+                ];
         }
-
-        const textNumber = numeral(text);
-
-        if (text && text.length > 0) {
-            switch (type) {
-                case Operation.Sell:
-                    toUpdateState.inputSellValue = text;
-                    toUpdateState.inputBuyValue
-                        = textNumber.divide(ticker.lastPrice || 0).format(buyAsset.format);
-                    break;
-
-                case Operation.Buy:
-                    toUpdateState.inputBuyValue = text;
-                    toUpdateState.inputSellValue
-                        = textNumber.multiply(ticker.lastPrice || 0).format(sellAsset.format);
-                    break;
-            }
-        }
-
-        this.setState(toUpdateState);
     };
 
     private __renderUseEquivalent(): JSX.Element {
-        const { inputBuyValue = '' } = this.state;
+        const { buyValue = 0 } = this.state;
         const { usdPrice, market } = this.props;
 
         const buyAsset = getAsset(market.baseAsset);
@@ -110,12 +73,16 @@ export default class LastTradeCalc extends React.PureComponent<LastTradeCalcProp
             return <View />;
         }
 
+        const buyNumber = numeral(buyValue || 0);
+
         return (
             <View style={styles.resultContainer}>
                 <SpanText style={styles.resultUsdValue}>
-                    <Text style={{ fontWeight: '400' }}>{inputBuyValue || '0'} {buyAsset.key}</Text>
+                    <Text style={{ fontWeight: '400' }}>
+                        {buyNumber.format(buyAsset.format) || '0'} {buyAsset.key}
+                    </Text>
                     <Text> ~ </Text>
-                    <Text>${numeral(inputBuyValue || 0).multiply(usdPrice).format('0,0.00')}</Text>
+                    <Text>${buyNumber.multiply(usdPrice).format('0,0.00')}</Text>
                 </SpanText>
             </View>
         );

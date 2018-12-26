@@ -2,7 +2,7 @@ import { getAsset, KunaAssetUnit } from 'kuna-sdk';
 import React from 'react';
 import { TextInput, View } from 'react-native';
 import { SpanText } from 'components/span-text';
-import { styles } from './calculator.style';
+import styles from './calculator-pair.style';
 
 type CalcAssetRowProps = {
     asset: KunaAssetUnit;

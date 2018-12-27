@@ -877,6 +877,12 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
 						};
 					};
 					6094B07A216DF07E00437862 = {
@@ -1440,6 +1446,7 @@
 			baseConfigurationReference = 4746AE380604E8BF638FABDA /* Pods-KunaTicker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KunaTicker/KunaTicker.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1480,6 +1487,7 @@
 			baseConfigurationReference = 0190BB2C310277E4F22EA727 /* Pods-KunaTicker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KunaTicker/KunaTicker.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

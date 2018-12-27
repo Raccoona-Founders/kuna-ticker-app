@@ -12,15 +12,21 @@ import { ShadeScrollCard } from 'components/shade-navigator';
 import LastTradeCalc from './last-trade';
 import SpanText from 'components/span-text';
 
+enum CalculatorMode {
+    LastPrice = 'last-price',
+    OrderBook = 'order-book',
+}
 
 type State = {
     orderBook?: OrderBookProcessor;
+    mode: CalculatorMode
 };
 
 
 class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State> {
     public state: State = {
         orderBook: undefined,
+        mode: CalculatorMode.LastPrice,
     };
 
     public async componentDidMount(): Promise<void> {
@@ -82,7 +88,6 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         return this.props.navigation.getParam('marketSymbol');
     }
 }
-
 
 
 type CalculatorScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;

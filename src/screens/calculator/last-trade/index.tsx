@@ -40,26 +40,24 @@ export default class LastTradeCalc extends React.PureComponent<LastTradeCalcProp
     }
 
 
-    protected __onCalculate = (value: number, type: Operation): [number, number] => {
+    protected __onCalculate = (value: number, type: Operation): number => {
         const { ticker } = this.props;
 
         if (!value || value <= 0) {
-            return [0, 0];
+            return 0;
         }
 
         switch (type) {
             case Operation.Sell:
-                return [
-                    numeral(value).divide(ticker.lastPrice || 0).value(),
-                    value,
+                const buyValue = numeral(value).divide(ticker.lastPrice || 0).value();
+                this.setState({ buyValue: buyValue });
 
-                ];
+                return buyValue;
 
             case Operation.Buy:
-                return [
-                    value,
-                    numeral(value).multiply(ticker.lastPrice || 0).value(),
-                ];
+                this.setState({ buyValue: value });
+
+                return numeral(value).multiply(ticker.lastPrice || 0).value();
         }
     };
 

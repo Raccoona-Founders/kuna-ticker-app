@@ -7,7 +7,7 @@ import styles from './calculator-pair.style';
 
 type CalculatorPairProps = {
     market: KunaMarket;
-    processCalculating: (value: number, type: Operation) => [number, number];
+    processCalculating: (value: number, type: Operation) => number;
 };
 
 export enum Operation {
@@ -55,28 +55,29 @@ export default class CalculatorPair extends React.PureComponent<CalculatorPairPr
             text = text.substr(0, 24);
         }
 
-        text = text.replace(/\s/gm, '')
+        text = text
+            .replace(/\s/gm, '')
             .replace(/,/gm, '.');
 
         if (text.length === 2 && text[0] == '0' && text[1] != '.') {
             text = text[0] + '.' + text[1];
         }
-        
-        const [buy, sell] = this.props.processCalculating(+text, type);
 
         const updateState = {
-            inputBuyValue: '',
-            inputSellValue: '',
+            inputBuyValue: type === Operation.Buy ? text : '',
+            inputSellValue: type === Operation.Sell ? text : '',
         };
 
-        if (buy && buy > 0) {
-            const buyAsset = getAsset(market.baseAsset);
-            updateState.inputBuyValue = numeral(buy).format(buyAsset.format);
-        }
+        const result = this.props.processCalculating(+text, type);
 
-        if (sell && sell > 0) {
-            const sellAsset = getAsset(market.quoteAsset);
-            updateState.inputSellValue = numeral(sell).format(sellAsset.format);
+        if (result && result > 0) {
+            if (type === Operation.Sell) {
+                const buyAsset = getAsset(market.baseAsset);
+                updateState.inputBuyValue = numeral(result).format(buyAsset.format);
+            } else {
+                const sellAsset = getAsset(market.quoteAsset);
+                updateState.inputSellValue = numeral(result).format(sellAsset.format);
+            }
         }
 
         this.setState(updateState);

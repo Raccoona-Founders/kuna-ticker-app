@@ -1,5 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet } from 'react-native';
 import { Color } from 'styles/variables';
+import { isIphoneX } from 'utils/helper';
 
 export default StyleSheet.create({
     container: {
@@ -61,27 +62,35 @@ export default StyleSheet.create({
 
     groupingButtonContainer: {
         flexDirection: 'row',
+        alignItems: 'center',
     },
     groupingContainer: {
-        alignItems: 'flex-end',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        paddingBottom: isIphoneX() ? 40 : 10,
+        borderTopWidth: 1,
+        borderTopColor: Color.Gray3,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     groupingValue: {
-        marginBottom: 5,
     },
 
     groupingButton: {
-        marginLeft: 10,
-        height: 28,
-        width: 28,
+        marginLeft: 15,
+        height: 32,
+        width: 32,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderRadius: 5,
         borderColor: Color.Gray3,
     },
     groupingButtonText: {
-        fontSize: 18,
+        fontSize: 20,
     },
 
     depthHeader: {
@@ -95,3 +104,76 @@ export default StyleSheet.create({
     },
 });
 
+export const sideRowStyles = StyleSheet.create({
+    orderRow: {
+        height: 28,
+        justifyContent: 'center',
+    },
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        zIndex: 2,
+    },
+
+    containerBid: {
+        flexDirection: 'row-reverse',
+    },
+
+    containerAsk: {},
+
+    price: {
+        fontSize: 14,
+    },
+    priceAsk: {
+        paddingLeft: 5,
+        color: Color.Danger,
+    },
+    priceBid: {
+        paddingRight: 5,
+        color: Color.Main,
+    },
+
+    value: {
+        fontSize: 14,
+        fontWeight: '500',
+        color: Color.DarkPurple,
+    },
+
+    valueIndicator: {
+        position: 'absolute',
+        bottom: 0,
+        top: 0,
+        zIndex: 1,
+        opacity: 0.1,
+        backgroundColor: Color.Gray3,
+    },
+
+    valueIndicatorAsk: {
+        left: 0,
+        backgroundColor: Color.Danger,
+    },
+
+    valueIndicatorBid: {
+        right: 0,
+        backgroundColor: Color.Main,
+    },
+});
+
+export function chooseSideRowStyles(type: 'ask' | 'bid'): StyleProp<any>[] {
+    switch (type) {
+        case 'ask':
+            return [
+                sideRowStyles.containerAsk,
+                sideRowStyles.priceAsk,
+                sideRowStyles.valueIndicatorAsk,
+            ];
+
+        case 'bid':
+            return [
+                sideRowStyles.containerBid,
+                sideRowStyles.priceBid,
+                sideRowStyles.valueIndicatorBid,
+            ];
+    }
+}

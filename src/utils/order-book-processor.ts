@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { slice, orderBy, sumBy, head, groupBy, reduce } from 'lodash';
 import { KunaV3Order, KunaV3OrderBook } from 'kuna-sdk';
 
@@ -60,7 +61,7 @@ export default class OrderBookProcessor {
         return {
             value: spreadValue,
             percentage: (spreadValue / middlePrice) * 100,
-        }
+        };
     }
 
     public getAskWithPrecision(precision: number): KunaV3Order[] {
@@ -76,12 +77,23 @@ export default class OrderBookProcessor {
             return orders;
         }
 
-        const grouped = groupBy(orders, (current: KunaV3Order) => {
-            return Math.round(current[0] / prec) * prec;
-        });
+        const roundingMode = BigNumber.ROUND_UP;
+
+        const grouped = groupBy(orders, (current: KunaV3Order) => (
+            new BigNumber(current[0])
+                .div(prec)
+                .decimalPlaces(0, roundingMode)
+                .times(prec)
+                .toFixed(8)
+        ));
 
         const reducedData = reduce(grouped, (total: KunaV3Order[], current: KunaV3Order[]) => {
-            const price = Math.round(current[0][0] / prec) * prec;
+            const price = new BigNumber(current[0][0])
+                .div(prec)
+                .decimalPlaces(0, roundingMode)
+                .times(prec)
+                .toNumber();
+
             let totalVolume = 0;
             let totalCount = 0;
 

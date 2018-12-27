@@ -42,7 +42,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
 
     public get precision(): number {
-        const {precisionMap, precisionIndex} = this.state;
+        const { precisionMap, precisionIndex } = this.state;
 
         return precisionMap[precisionIndex - 1] || 0;
     }
@@ -63,12 +63,12 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
 
     public render(): JSX.Element {
-        const {orderBook} = this.state;
+        const { orderBook } = this.state;
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
         const kunaMarket = kunaMarketMap[marketSymbol];
 
         return (
-            <ShadeScrollCard>
+            <ShadeScrollCard renderFooter={this.__renderOrderBookFooter}>
                 <View style={styles.container}>
                     <View style={styles.topic}>
                         <SpanText style={styles.topicText}>{_('market.order-book')}</SpanText>
@@ -79,32 +79,32 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
                     {orderBook ? (
                         <View style={styles.depthSheetContainer}>
-                            {this._renderDepthSheet(kunaMarket, orderBook)}
+                            {this.__renderDepthSheet(kunaMarket, orderBook)}
                         </View>
-                    ) : <ActivityIndicator/>}
+                    ) : <ActivityIndicator />}
                 </View>
             </ShadeScrollCard>
         );
     }
 
 
-    protected _renderDepthSheet(kunaMarket: KunaMarket, orderBook: OrderBookProcessor): JSX.Element {
+    private __renderDepthSheet(kunaMarket: KunaMarket, orderBook: OrderBookProcessor): JSX.Element {
         const precision = this.precision;
 
         return (
             <View style={styles.depthSheet}>
 
-                {this._renderPreSheet(kunaMarket, orderBook)}
+                {this.__renderPreSheet(kunaMarket, orderBook)}
 
                 <View style={styles.depthHeader}>
                     <SpanText style={styles.depthHeaderCell}>
-                        {_('market.amount-asset', {asset: kunaMarket.baseAsset})}
+                        {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
                     </SpanText>
                     <SpanText style={styles.depthHeaderCell}>
-                        {_('market.price-asset', {asset: kunaMarket.quoteAsset})}
+                        {_('market.price-asset', { asset: kunaMarket.quoteAsset })}
                     </SpanText>
                     <SpanText style={styles.depthHeaderCell}>
-                        {_('market.amount-asset', {asset: kunaMarket.baseAsset})}
+                        {_('market.amount-asset', { asset: kunaMarket.baseAsset })}
                     </SpanText>
                 </View>
 
@@ -127,8 +127,8 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         );
     }
 
-    protected _renderPreSheet(kunaMarket: KunaMarket, orderBook: OrderBookProcessor): JSX.Element {
-        const precision = this.precision;
+    private __renderPreSheet(kunaMarket: KunaMarket, orderBook: OrderBookProcessor): JSX.Element {
+
         const spread = orderBook.getSpread();
 
         return (
@@ -145,26 +145,34 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
                     </>}
                     valueStyle={styles.spreadValueBox}
                 />
+            </View>
+        );
+    }
 
-                <View style={styles.groupingContainer}>
+    protected __renderOrderBookFooter = () => {
+        const precision = this.precision;
+
+        return (
+            <View style={styles.groupingContainer}>
+                <SpanText>{_('order-book.grouping')}</SpanText>
+
+                <View style={styles.groupingButtonContainer}>
                     <SpanText style={styles.groupingValue}>
                         {precision > 0
                             ? numeral(precision).format('0,0.[000000]')
                             : _('order-book.none')}
                     </SpanText>
 
-                    <View style={styles.groupingButtonContainer}>
-                        <TouchableOpacity onPress={this.__downPrecision} style={styles.groupingButton}>
-                            <SpanText style={styles.groupingButtonText}>-</SpanText>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.__upPrecision} style={styles.groupingButton}>
-                            <SpanText style={styles.groupingButtonText}>+</SpanText>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity onPress={this.__downPrecision} style={styles.groupingButton}>
+                        <SpanText style={styles.groupingButtonText}>-</SpanText>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this.__upPrecision} style={styles.groupingButton}>
+                        <SpanText style={styles.groupingButtonText}>+</SpanText>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
-    }
+    };
 
 
     private __downPrecision = () => {
@@ -173,7 +181,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
             nextPrecision = 0;
         }
 
-        this.setState({precisionIndex: nextPrecision});
+        this.setState({ precisionIndex: nextPrecision });
     };
 
 
@@ -183,7 +191,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
             nextPrecision = this.state.precisionMap.length;
         }
 
-        this.setState({precisionIndex: nextPrecision});
+        this.setState({ precisionIndex: nextPrecision });
     };
 }
 

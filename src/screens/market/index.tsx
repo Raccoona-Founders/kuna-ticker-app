@@ -40,9 +40,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
             'MarketScreen',
         );
 
-        AnalTracker.logEvent(`open_market_${currentMarket.baseAsset}`, {
-            market: currentMarket.key,
-        });
+        AnalTracker.logEvent('open_market', { market: currentMarket.key });
     }
 
 
@@ -170,7 +168,7 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                     <UIButton onPress={this.__openCalculator}>{_('market.calculate')}</UIButton>
                 </View>
             </View>
-        )
+        );
     };
 }
 

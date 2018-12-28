@@ -7,12 +7,12 @@ import styles from './calculator-pair.style';
 
 type CalculatorPairProps = {
     market: KunaMarket;
-    processCalculating: (value: number, type: Operation) => number;
+    processCalculating: (value: number, type: Side) => number;
 };
 
-export enum Operation {
-    Buy,
-    Sell
+export enum Side {
+    Base,
+    Quote
 }
 
 type LastTradeCalcState = {
@@ -35,20 +35,20 @@ export default class CalculatorPair extends React.PureComponent<CalculatorPairPr
                 <CalcAssetRow
                     asset={market.baseAsset}
                     value={inputBuyValue}
-                    onChangeText={this.changeTextInput(Operation.Buy)}
+                    onChangeText={this.changeTextInput(Side.Base)}
                 />
 
                 <CalcAssetRow
                     asset={market.quoteAsset}
                     value={inputSellValue}
-                    onChangeText={this.changeTextInput(Operation.Sell)}
+                    onChangeText={this.changeTextInput(Side.Quote)}
                 />
             </View>
         );
     }
 
 
-    protected changeTextInput = (type: Operation) => (text: string) => {
+    protected changeTextInput = (side: Side) => (text: string) => {
         const { market } = this.props;
 
         if (text.length > 24) {
@@ -64,14 +64,14 @@ export default class CalculatorPair extends React.PureComponent<CalculatorPairPr
         }
 
         const updateState = {
-            inputBuyValue: type === Operation.Buy ? text : '',
-            inputSellValue: type === Operation.Sell ? text : '',
+            inputBuyValue: side === Side.Base ? text : '',
+            inputSellValue: side === Side.Quote ? text : '',
         };
 
-        const result = this.props.processCalculating(+text, type);
+        const result = this.props.processCalculating(+text, side);
 
         if (result && result > 0) {
-            if (type === Operation.Sell) {
+            if (side === Side.Quote) {
                 const buyAsset = getAsset(market.baseAsset);
                 updateState.inputBuyValue = numeral(result).format(buyAsset.format);
             } else {

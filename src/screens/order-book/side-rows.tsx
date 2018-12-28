@@ -14,7 +14,7 @@ type SideRowsProps = {
 };
 
 const SideRows = (props: SideRowsProps): JSX.Element => {
-    const { orderBook, side, precision = 0.05 } = props;
+    const { orderBook, side, precision = 0 } = props;
     const items = (side === 'ask')
         ? orderBook.getAskWithPrecision(precision)
         : orderBook.getBidWithPrecision(precision);
@@ -32,7 +32,7 @@ const SideRows = (props: SideRowsProps): JSX.Element => {
                 cumulativeValue += (+value);
 
                 return (
-                    <OrderRow key={index}
+                    <OrderRow key={`${index}-${precision}`}
                               price={price}
                               value={value}
                               cumulativeValue={cumulativeValue}

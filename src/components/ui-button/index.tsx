@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { Color } from 'styles/variables';
 import SpanText from 'components/span-text';
 
 export type UIButtonProps = TouchableOpacityProps & {
     children: string | number | any;
     type?: 'small';
+    textStyle?: StyleProp<TextStyle>;
 };
 
 const UIButton = (props: UIButtonProps) => {
@@ -18,6 +19,7 @@ const UIButton = (props: UIButtonProps) => {
     const textStyle = [
         styles.buttonText,
         props.type === 'small' ? styles.smallText : styles.defaultText,
+        props.textStyle || {},
     ];
 
     return (
@@ -50,6 +52,8 @@ const styles = StyleSheet.create({
     smallBtn: {
         height: 34,
         width: '100%',
+        borderColor: Color.Gray3,
+        borderWidth: 1,
     },
 
 
@@ -59,8 +63,7 @@ const styles = StyleSheet.create({
     },
     smallText: {
         fontSize: 12,
-        borderColor: Color.Gray3,
-        borderWidth: 1,
+        color: Color.DarkPurple,
     },
     defaultText: {
         fontSize: 16,

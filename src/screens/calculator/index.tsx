@@ -1,5 +1,7 @@
 import React from 'react';
-import { Keyboard } from 'react-native';
+import { Keyboard, ActivityIndicator, View } from 'react-native';
+import { Router, Switch, Route } from 'react-router-native';
+import * as History from 'history';
 import { NavigationInjectedProps } from 'react-navigation';
 import { kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
 import { compose } from 'recompose';
@@ -9,8 +11,13 @@ import AnalTracker from 'utils/ga-tracker';
 import { UsdCalculator } from 'utils/currency-rate';
 import OrderBookProcessor from 'utils/order-book-processor';
 import { ShadeScrollCard } from 'components/shade-navigator';
-import LastTradeCalc from './last-trade';
 import SpanText from 'components/span-text';
+import RouterLink from 'components/router-link';
+
+import LastTradeCalc from './last-trade';
+import OrderBookCalc from './order-book';
+
+import { styles } from './calculator.style';
 
 enum CalculatorMode {
     LastPrice = 'last-price',
@@ -28,6 +35,20 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         orderBook: undefined,
         mode: CalculatorMode.LastPrice,
     };
+
+    protected _history: History.MemoryHistory;
+
+    public constructor(props: CalculatorScreenProps) {
+        super(props);
+
+        this._history = History.createMemoryHistory({
+            initialIndex: 1,
+            initialEntries: [
+                `/${CalculatorMode.LastPrice}`,
+                `/${CalculatorMode.OrderBook}/sell`
+            ],
+        });
+    }
 
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.currentSymbol;
@@ -57,8 +78,9 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         }
     }
 
+
     public render(): JSX.Element {
-        const { ticker, usdRate, tickers } = this.props;
+        const { ticker } = this.props;
 
         if (!ticker) {
             return <ShadeScrollCard />;
@@ -67,26 +89,83 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
-        const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
-
         return (
             <ShadeScrollCard style={{ paddingLeft: 20, paddingRight: 20 }}>
                 <SpanText style={{ fontSize: 24, marginBottom: 20 }}>
                     Calculate {currentMarket.baseAsset}/{currentMarket.quoteAsset}
                 </SpanText>
-
-                <LastTradeCalc
-                    market={currentMarket}
-                    ticker={ticker}
-                    usdPrice={usdPrice.value()}
-                />
+                <Router history={this._history}>{this.__renderRouterPart()}</Router>
             </ShadeScrollCard>
         );
     }
 
+
     protected get currentSymbol(): string {
         return this.props.navigation.getParam('marketSymbol');
     }
+
+
+    protected __renderRouterPart = () => {
+        return (
+            <>
+                <View style={styles.switchCalcButtons}>
+                    <RouterLink to={`/${CalculatorMode.LastPrice}`}
+                                style={styles.switchCalcBtn}
+                                activeStyle={styles.switchCalcBtnActive}
+                    >By Last Price</RouterLink>
+
+                    <RouterLink to={`/${CalculatorMode.OrderBook}/sell`}
+                                style={styles.switchCalcBtn}
+                                activeStyle={styles.switchCalcBtnActive}
+                    >By Order Book</RouterLink>
+                </View>
+
+                <Switch>
+                    <Route path={`/${CalculatorMode.LastPrice}`} render={this.__renderLastTradeCalculator} />
+                    <Route path={`/${CalculatorMode.OrderBook}/:mode`} render={this.__renderOrderBookCalculator} />
+                </Switch>
+            </>
+        );
+    };
+
+
+    protected __renderLastTradeCalculator = () => {
+        const { ticker, usdRate, tickers } = this.props;
+
+        const symbol = this.currentSymbol;
+        const currentMarket = kunaMarketMap[symbol];
+        const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
+
+        return (
+            <LastTradeCalc
+                market={currentMarket}
+                ticker={ticker}
+                usdPrice={usdPrice.value()}
+            />
+        );
+    };
+
+    protected __renderOrderBookCalculator = () => {
+        const { usdRate, tickers } = this.props;
+
+        const { orderBook } = this.state;
+
+        if (!orderBook) {
+            return <ActivityIndicator />;
+        }
+
+        const symbol = this.currentSymbol;
+        const currentMarket = kunaMarketMap[symbol];
+        const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
+
+        return (
+            <OrderBookCalc
+                orderBook={orderBook}
+                market={currentMarket}
+                usdPrice={usdPrice.value()}
+            />
+        );
+    };
 }
 
 

@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { getAsset, KunaMarket, KunaV3Ticker } from 'kuna-sdk';
 import styles from './last-trade.style';
 
-import CalculatorPair, { Operation } from '../calculator-pair';
+import CalculatorPair, { Side } from '../calculator-pair';
 import SpanText from 'components/span-text';
 
 type LastTradeCalcProps = {
@@ -40,7 +40,7 @@ export default class LastTradeCalc extends React.PureComponent<LastTradeCalcProp
     }
 
 
-    protected __onCalculate = (value: number, type: Operation): number => {
+    protected __onCalculate = (value: number, type: Side): number => {
         const { ticker } = this.props;
 
         if (!value || value <= 0) {
@@ -48,18 +48,19 @@ export default class LastTradeCalc extends React.PureComponent<LastTradeCalcProp
         }
 
         switch (type) {
-            case Operation.Sell:
+            case Side.Quote:
                 const buyValue = numeral(value).divide(ticker.lastPrice || 0).value();
                 this.setState({ buyValue: buyValue });
 
                 return buyValue;
 
-            case Operation.Buy:
+            case Side.Base:
                 this.setState({ buyValue: value });
 
                 return numeral(value).multiply(ticker.lastPrice || 0).value();
         }
     };
+            
 
     private __renderUseEquivalent(): JSX.Element {
         const { buyValue = 0 } = this.state;

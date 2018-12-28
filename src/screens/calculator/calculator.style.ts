@@ -38,4 +38,31 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         color: Color.GrayBlues,
     },
+
+
+    switchCalcButtons: {
+        flexDirection: 'row',
+        marginBottom: 20,
+    },
+    switchCalcBtn: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderWidth: 1,
+        borderColor: Color.Gray3,
+        borderRadius: 5,
+        marginRight: 10,
+        backgroundColor: Color.White,
+
+        fontSize: 12,
+        textTransform: 'uppercase',
+        overflow: 'hidden',
+    },
+    switchCalcBtnActive: {
+        borderColor: Color.Main,
+        borderRadius: 5,
+        backgroundColor: Color.Main,
+        color: Color.White,
+    },
 });

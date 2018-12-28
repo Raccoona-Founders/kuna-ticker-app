@@ -14,15 +14,12 @@ import { ShadeScrollCard } from 'components/shade-navigator';
 import SpanText from 'components/span-text';
 import RouterLink from 'components/router-link';
 
+import { CalculatorMode, OperationMode } from './common';
 import LastTradeCalc from './last-trade';
 import OrderBookCalc from './order-book';
 
 import { styles } from './calculator.style';
 
-enum CalculatorMode {
-    LastPrice = 'last-price',
-    OrderBook = 'order-book',
-}
 
 type State = {
     orderBook?: OrderBookProcessor;
@@ -45,7 +42,7 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
             initialIndex: 1,
             initialEntries: [
                 `/${CalculatorMode.LastPrice}`,
-                `/${CalculatorMode.OrderBook}/sell`
+                `/${CalculatorMode.OrderBook}/${OperationMode.Buy}`,
             ],
         });
     }
@@ -107,26 +104,30 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
 
     protected __renderRouterPart = () => {
         return (
-            <>
-                <View style={styles.switchCalcButtons}>
-                    <RouterLink to={`/${CalculatorMode.LastPrice}`}
-                                style={styles.switchCalcBtn}
-                                activeStyle={styles.switchCalcBtnActive}
-                    >By Last Price</RouterLink>
-
-                    <RouterLink to={`/${CalculatorMode.OrderBook}/sell`}
-                                style={styles.switchCalcBtn}
-                                activeStyle={styles.switchCalcBtnActive}
-                    >By Order Book</RouterLink>
-                </View>
-
-                <Switch>
-                    <Route path={`/${CalculatorMode.LastPrice}`} render={this.__renderLastTradeCalculator} />
-                    <Route path={`/${CalculatorMode.OrderBook}/:mode`} render={this.__renderOrderBookCalculator} />
-                </Switch>
-            </>
+            <Switch>
+                <Route path={`/${CalculatorMode.LastPrice}`}
+                       render={this.__renderLastTradeCalculator}
+                />
+                <Route path={`/${CalculatorMode.OrderBook}/:operation`}
+                       render={this.__renderOrderBookCalculator}
+                />
+            </Switch>
         );
     };
+
+    protected __renderButtons = () => (
+        <View style={styles.switchCalcButtons}>
+            <RouterLink to={`/${CalculatorMode.LastPrice}`}
+                        style={styles.switchCalcBtn}
+                        activeStyle={styles.switchCalcBtnActive}
+            >By Last Price</RouterLink>
+
+            <RouterLink to={`/${CalculatorMode.OrderBook}/${OperationMode.Buy}`}
+                        style={styles.switchCalcBtn}
+                        activeStyle={styles.switchCalcBtnActive}
+            >By Order Book</RouterLink>
+        </View>
+    );
 
 
     protected __renderLastTradeCalculator = () => {
@@ -137,11 +138,14 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
 
         return (
-            <LastTradeCalc
-                market={currentMarket}
-                ticker={ticker}
-                usdPrice={usdPrice.value()}
-            />
+            <>
+                {this.__renderButtons()}
+                <LastTradeCalc
+                    market={currentMarket}
+                    ticker={ticker}
+                    usdPrice={usdPrice.value()}
+                />
+            </>
         );
     };
 
@@ -159,11 +163,15 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
 
         return (
-            <OrderBookCalc
-                orderBook={orderBook}
-                market={currentMarket}
-                usdPrice={usdPrice.value()}
-            />
+            <>
+                {this.__renderButtons()}
+                <OrderBookCalc
+                    key={new Date().getTime()}
+                    orderBook={orderBook}
+                    market={currentMarket}
+                    usdPrice={usdPrice.value()}
+                />
+            </>
         );
     };
 }

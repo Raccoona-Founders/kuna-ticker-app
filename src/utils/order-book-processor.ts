@@ -121,4 +121,68 @@ export default class OrderBookProcessor {
             side === 'ask' ? 'asc' : 'desc',
         );
     }
+
+
+    public calculateAmountBase(value: number, book: KunaV3Order[]): any {
+        let orderCounter = 0;
+
+        let baseValue = new BigNumber(0);
+        let quoteValue = new BigNumber(0);
+        let nValue = new BigNumber(value);
+
+        for (let [p, v] of book) {
+            let orderSize = p * v;
+            if (nValue.minus(baseValue).isLessThan(v)) {
+                const leaveValue = nValue.minus(baseValue);
+                baseValue = baseValue.plus(leaveValue);
+                quoteValue = quoteValue.plus(leaveValue.times(p));
+            } else {
+                baseValue = baseValue.plus(v);
+                quoteValue = quoteValue.plus(orderSize);
+            }
+
+            orderCounter++;
+
+            if (baseValue.isGreaterThanOrEqualTo(value)) {
+                break;
+            }
+        }
+
+        return {
+            values: [baseValue.toNumber(), quoteValue.toNumber()],
+            orderCounter: orderCounter,
+        };
+    }
+
+
+    public calculateAmountQuote(value: number, book: KunaV3Order[]): any {
+        let orderCounter = 0;
+
+        let baseValue = new BigNumber(0);
+        let quoteValue = new BigNumber(0);
+        let nValue = new BigNumber(value);
+
+        for (let [p, v] of book) {
+            let orderSize = p * v;
+            if (nValue.minus(quoteValue).isLessThan(orderSize)) {
+                const leaveValue = nValue.minus(quoteValue);
+                baseValue = baseValue.plus(leaveValue.div(p));
+                quoteValue = quoteValue.plus(leaveValue);
+            } else {
+                baseValue = baseValue.plus(v);
+                quoteValue = quoteValue.plus(orderSize);
+            }
+
+            orderCounter++;
+
+            if (quoteValue.isGreaterThanOrEqualTo(value)) {
+                break;
+            }
+        }
+
+        return {
+            values: [baseValue.toNumber(), quoteValue.toNumber()],
+            orderCounter: orderCounter,
+        };
+    }
 }

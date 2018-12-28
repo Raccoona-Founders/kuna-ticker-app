@@ -1,14 +1,19 @@
 import React from 'react';
-import BigNumber from 'bignumber.js';
 import numeral from 'numeral';
+import { RouteComponentProps } from 'react-router-native';
 import { View } from 'react-native';
-import { getAsset, KunaMarket, KunaV3Ticker } from 'kuna-sdk';
+import { getAsset, KunaMarket } from 'kuna-sdk';
 import OrderBookProcessor from 'utils/order-book-processor';
 import SpanText from 'components/span-text';
-
+import RouterLink from 'components/router-link';
 import CalculatorPair, { Side } from '../calculator-pair';
 import styles from './order-book.style';
+import { CalculatorMode, OperationMode } from '../common';
+import { compose } from 'recompose';
+import { withRouter } from 'react-router';
 
+
+type OrderBookCalcFullProps = RouteComponentProps<{ operation: OperationMode }> & OrderBookCalcProps;
 type OrderBookCalcProps = {
     market: KunaMarket;
     usdPrice?: number;
@@ -20,22 +25,43 @@ type OrderBookCalcState = {
     orderCounter: number;
 };
 
-export default class OrderBookCalc extends React.PureComponent<OrderBookCalcProps, OrderBookCalcState> {
+class OrderBookCalc extends React.PureComponent<OrderBookCalcFullProps, OrderBookCalcState> {
     public state: OrderBookCalcState = {
         values: [0, 0],
         orderCounter: 0,
     };
 
-
     public render(): JSX.Element {
-        const { market } = this.props;
+        const { market, match } = this.props;
         const { values, orderCounter } = this.state;
+
+        const mode = match.params.operation;
 
         const baseAsset = getAsset(market.baseAsset);
         const quoteAsset = getAsset(market.quoteAsset);
 
         return (
             <>
+                <View style={styles.modeButtonsBox}>
+                    <RouterLink
+                        to={`/${CalculatorMode.OrderBook}/${OperationMode.Buy}`}
+                        style={[
+                            styles.modeButton,
+                            styles.modeButtonBuy,
+                            mode === OperationMode.Buy ? styles.modeButtonActive : undefined,
+                        ]}
+                    >Buy {baseAsset.key}</RouterLink>
+
+                    <RouterLink
+                        to={`/${CalculatorMode.OrderBook}/${OperationMode.Sell}`}
+                        style={[
+                            styles.modeButton,
+                            styles.modeButtonSell,
+                            mode === OperationMode.Sell ? styles.modeButtonActive : undefined,
+                        ]}
+                    >Sell {baseAsset.key}</RouterLink>
+                </View>
+
                 <CalculatorPair market={market} processCalculating={this.__onCalculate} />
 
                 <SpanText>
@@ -56,7 +82,7 @@ export default class OrderBookCalc extends React.PureComponent<OrderBookCalcProp
 
 
     protected __onCalculate = (value: number, side: Side): number => {
-        const { orderBook } = this.props;
+        const { orderBook, match } = this.props;
 
         if (!value || value <= 0) {
             this.setState({ values: [0, 0], orderCounter: 0 });
@@ -64,75 +90,35 @@ export default class OrderBookCalc extends React.PureComponent<OrderBookCalcProp
             return 0;
         }
 
+        const mode = match.params.operation;
+
+        const book = mode === OperationMode.Buy
+            ? orderBook.getAsk(100)
+            : orderBook.getBid(100);
+
         switch (side) {
             case Side.Quote: {
-                const askBook = orderBook.getAsk(100);
-                let orderCounter = 0;
-
-                let baseValue = new BigNumber(0);
-                let quoteValue = new BigNumber(0);
-                let nValue = new BigNumber(value);
-
-                for (let [p, v] of askBook) {
-                    let orderSize = p * v;
-                    if (nValue.minus(quoteValue).isLessThan(orderSize)) {
-                        const leaveValue = nValue.minus(quoteValue);
-                        baseValue = baseValue.plus(leaveValue.div(p));
-                        quoteValue = quoteValue.plus(leaveValue);
-                    } else {
-                        baseValue = baseValue.plus(v);
-                        quoteValue = quoteValue.plus(orderSize);
-                    }
-
-                    orderCounter++;
-
-                    if (quoteValue.isGreaterThanOrEqualTo(value)) {
-                        break;
-                    }
-                }
-
+                const { values, orderCounter } = orderBook.calculateAmountQuote(value, book);
                 this.setState({
-                    values: [baseValue.toNumber(), quoteValue.toNumber()],
+                    values: values,
                     orderCounter: orderCounter,
                 });
 
-                return baseValue.toNumber();
+                return values[0];
             }
 
 
             case Side.Base: {
-                const askBook = orderBook.getAsk(100);
-                let orderCounter = 0;
-
-                let baseValue = new BigNumber(0);
-                let quoteValue = new BigNumber(0);
-                let nValue = new BigNumber(value);
-
-                for (let [p, v] of askBook) {
-                    let orderSize = p * v;
-                    if (nValue.minus(baseValue).isLessThan(v)) {
-                        const leaveValue = nValue.minus(baseValue);
-                        baseValue = baseValue.plus(leaveValue);
-                        quoteValue = quoteValue.plus(leaveValue.times(p));
-                    } else {
-                        baseValue = baseValue.plus(v);
-                        quoteValue = quoteValue.plus(orderSize);
-                    }
-
-                    orderCounter++;
-
-                    if (baseValue.isGreaterThanOrEqualTo(value)) {
-                        break;
-                    }
-                }
-
+                const { values, orderCounter } = orderBook.calculateAmountBase(value, book);
                 this.setState({
-                    values: [baseValue.toNumber(), quoteValue.toNumber()],
+                    values: values,
                     orderCounter: orderCounter,
                 });
 
-                return quoteValue.toNumber();
+                return values[1];
             }
         }
     };
 }
+
+export default compose<OrderBookCalcFullProps, OrderBookCalcProps>(withRouter)(OrderBookCalc);

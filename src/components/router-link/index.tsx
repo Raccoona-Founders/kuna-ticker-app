@@ -12,7 +12,12 @@ type RouterLinkProps = TouchableOpacityProps & RouteComponentProps & {
 };
 
 const RouterLink = withRouter((props: RouterLinkProps) => {
-    const isMatch = matchPath(props.location.pathname, { path: props.to });
+    const isMatch = matchPath(props.to, {
+        path: props.match.path,
+        exact: true,
+        strict: false,
+    });
+
     const onPress = () => props.history.push(props.to);
 
     return (

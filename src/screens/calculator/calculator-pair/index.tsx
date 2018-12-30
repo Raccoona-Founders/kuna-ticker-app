@@ -27,8 +27,8 @@ export default class CalculatorPair extends React.PureComponent<CalculatorPairPr
     };
 
     public render(): JSX.Element {
-        const { inputBuyValue, inputSellValue } = this.state;
-        const { market } = this.props;
+        const {inputBuyValue, inputSellValue} = this.state;
+        const {market} = this.props;
 
         return (
             <View style={styles.container}>
@@ -48,8 +48,21 @@ export default class CalculatorPair extends React.PureComponent<CalculatorPairPr
     }
 
 
+    public forceSetValues(baseValue: number, quoteValue: number): void {
+        const {market} = this.props;
+
+        const buyAsset = getAsset(market.baseAsset);
+        const sellAsset = getAsset(market.quoteAsset);
+
+        this.setState({
+            inputBuyValue: baseValue > 0 ? numeral(baseValue).format(buyAsset.format) : '',
+            inputSellValue: quoteValue > 0 ? numeral(quoteValue).format(sellAsset.format) : '',
+        });
+    };
+
+
     protected changeTextInput = (side: Side) => (text: string) => {
-        const { market } = this.props;
+        const {market} = this.props;
 
         if (text.length > 24) {
             text = text.substr(0, 24);

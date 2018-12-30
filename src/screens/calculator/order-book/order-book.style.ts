@@ -35,6 +35,25 @@ const styles = StyleSheet.create({
     modeButtonActive: {
         opacity: 1,
     },
+
+
+    avgPrice: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 20,
+    },
+    avgPriceLabel: {
+        width: '100%',
+        color: Color.GrayBlues,
+    },
+    avgPriceValue: {
+        fontSize: 20,
+    },
+    avgPriceAsset: {
+        fontSize: 20,
+        marginLeft: 5,
+        color: Color.GrayBlues,
+    },
 });
 
 export default styles;

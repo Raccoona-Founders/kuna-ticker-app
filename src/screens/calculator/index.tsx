@@ -10,15 +10,10 @@ import kunaClient from 'utils/kuna-api';
 import AnalTracker from 'utils/ga-tracker';
 import { UsdCalculator } from 'utils/currency-rate';
 import OrderBookProcessor from 'utils/order-book-processor';
-import { ShadeScrollCard } from 'components/shade-navigator';
 import SpanText from 'components/span-text';
-import RouterLink from 'components/router-link';
-
+import { ShadeScrollCard } from 'components/shade-navigator';
 import { CalculatorMode, OperationMode } from './common';
-import LastTradeCalc from './last-trade';
 import OrderBookCalc from './order-book';
-
-import { styles } from './calculator.style';
 
 
 type State = {
@@ -39,11 +34,8 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         super(props);
 
         this._history = History.createMemoryHistory({
-            initialIndex: 1,
-            initialEntries: [
-                `/${CalculatorMode.LastPrice}`,
-                `/${CalculatorMode.OrderBook}/${OperationMode.Buy}`,
-            ],
+            initialIndex: 0,
+            initialEntries: [`/${OperationMode.Buy}`],
         });
     }
 
@@ -77,18 +69,18 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
 
 
     public render(): JSX.Element {
-        const { ticker } = this.props;
+        const {ticker} = this.props;
 
         if (!ticker) {
-            return <ShadeScrollCard />;
+            return <ShadeScrollCard/>;
         }
 
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
         return (
-            <ShadeScrollCard style={{ paddingLeft: 20, paddingRight: 20 }}>
-                <SpanText style={{ fontSize: 24, marginBottom: 20 }}>
+            <ShadeScrollCard style={{paddingLeft: 20, paddingRight: 20}}>
+                <SpanText style={{fontSize: 24, marginBottom: 20}}>
                     Calculate {currentMarket.baseAsset}/{currentMarket.quoteAsset}
                 </SpanText>
                 <Router history={this._history}>{this.__renderRouterPart()}</Router>
@@ -105,57 +97,20 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
     protected __renderRouterPart = () => {
         return (
             <Switch>
-                <Route path={`/${CalculatorMode.LastPrice}`}
-                       render={this.__renderLastTradeCalculator}
-                />
-                <Route path={`/${CalculatorMode.OrderBook}/:operation`}
+                <Route path="/:operation"
                        render={this.__renderOrderBookCalculator}
                 />
             </Switch>
         );
     };
 
-    protected __renderButtons = () => (
-        <View style={styles.switchCalcButtons}>
-            <RouterLink to={`/${CalculatorMode.LastPrice}`}
-                        style={styles.switchCalcBtn}
-                        activeStyle={styles.switchCalcBtnActive}
-            >By Last Price</RouterLink>
-
-            <RouterLink to={`/${CalculatorMode.OrderBook}/${OperationMode.Buy}`}
-                        style={styles.switchCalcBtn}
-                        activeStyle={styles.switchCalcBtnActive}
-            >By Order Book</RouterLink>
-        </View>
-    );
-
-
-    protected __renderLastTradeCalculator = () => {
-        const { ticker, usdRate, tickers } = this.props;
-
-        const symbol = this.currentSymbol;
-        const currentMarket = kunaMarketMap[symbol];
-        const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
-
-        return (
-            <>
-                {this.__renderButtons()}
-                <LastTradeCalc
-                    market={currentMarket}
-                    ticker={ticker}
-                    usdPrice={usdPrice.value()}
-                />
-            </>
-        );
-    };
-
     protected __renderOrderBookCalculator = () => {
-        const { usdRate, tickers } = this.props;
+        const {usdRate, tickers, ticker} = this.props;
 
-        const { orderBook } = this.state;
+        const {orderBook} = this.state;
 
         if (!orderBook) {
-            return <ActivityIndicator />;
+            return <ActivityIndicator/>;
         }
 
         const symbol = this.currentSymbol;
@@ -163,15 +118,12 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
 
         return (
-            <>
-                {this.__renderButtons()}
-                <OrderBookCalc
-                    key={new Date().getTime()}
-                    orderBook={orderBook}
-                    market={currentMarket}
-                    usdPrice={usdPrice.value()}
-                />
-            </>
+            <OrderBookCalc
+                ticker={ticker}
+                orderBook={orderBook}
+                market={currentMarket}
+                usdPrice={usdPrice.value()}
+            />
         );
     };
 }

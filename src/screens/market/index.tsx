@@ -16,7 +16,7 @@ import UIButton from 'components/ui-button';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import RippleNotice from 'components/ripple-notice';
 import InfoUnit from 'components/info-unit';
-import PriceChangeBox from './change-price-box';
+import PriceChangeBox from './components/change-price-box';
 import marketStyle from './market.style';
 
 

@@ -13,7 +13,6 @@ import CalculatorPair, { Side } from '../calculator-pair';
 import { OperationMode } from '../common';
 import styles from './order-book.style';
 
-
 type OrderBookCalcFullProps = RouteComponentProps<{ operation: OperationMode }> & OrderBookCalcProps;
 type OrderBookCalcProps = {
     market: KunaMarket;
@@ -50,7 +49,7 @@ class OrderBookCalc extends React.PureComponent<OrderBookCalcFullProps, OrderBoo
             return;
         }
 
-        const {lastSide, lastValue} = this.state;
+        const { lastSide, lastValue } = this.state;
 
         const mode = nextProps.match.params.operation;
         const result = [0, 0];
@@ -73,30 +72,27 @@ class OrderBookCalc extends React.PureComponent<OrderBookCalcFullProps, OrderBoo
     }
 
     public render(): JSX.Element {
-        const {market, match} = this.props;
+        const { market, match } = this.props;
         const mode = match.params.operation;
         const baseAsset = getAsset(market.baseAsset);
+
+        const buyButtonStyle = [
+            styles.modeButton,
+            styles.modeButtonBuy,
+            mode === OperationMode.Buy ? styles.modeButtonActive : undefined,
+        ];
+
+        const sellButtonStyle = [
+            styles.modeButton,
+            styles.modeButtonSell,
+            mode === OperationMode.Sell ? styles.modeButtonActive : undefined,
+        ];
 
         return (
             <>
                 <View style={styles.modeButtonsBox}>
-                    <RouterLink
-                        to={`/${OperationMode.Buy}`}
-                        style={[
-                            styles.modeButton,
-                            styles.modeButtonBuy,
-                            mode === OperationMode.Buy ? styles.modeButtonActive : undefined,
-                        ]}
-                    >Buy {baseAsset.key}</RouterLink>
-
-                    <RouterLink
-                        to={`/${OperationMode.Sell}`}
-                        style={[
-                            styles.modeButton,
-                            styles.modeButtonSell,
-                            mode === OperationMode.Sell ? styles.modeButtonActive : undefined,
-                        ]}
-                    >Sell {baseAsset.key}</RouterLink>
+                    <RouterLink to={`/${OperationMode.Buy}`} style={buyButtonStyle}>Buy {baseAsset.key}</RouterLink>
+                    <RouterLink to={`/${OperationMode.Sell}`} style={sellButtonStyle}>Sell {baseAsset.key}</RouterLink>
                 </View>
 
                 <CalculatorPair market={market}
@@ -110,8 +106,8 @@ class OrderBookCalc extends React.PureComponent<OrderBookCalcFullProps, OrderBoo
     }
 
     private __renderSecondaryInformation = (): JSX.Element => {
-        const {market} = this.props;
-        const {values} = this.state;
+        const { market } = this.props;
+        const { values } = this.state;
 
         return (
             <View style={styles.avgPrice}>
@@ -130,27 +126,27 @@ class OrderBookCalc extends React.PureComponent<OrderBookCalcFullProps, OrderBoo
 
 
     private __buildCalculateHandler = (mode: OperationMode, updateLasts: boolean = false) => {
-        const {orderBook} = this.props;
+        const { orderBook } = this.props;
 
         const book = mode === OperationMode.Buy
-            ? orderBook.getAsk(100)
-            : orderBook.getBid(100);
+            ? orderBook.getAsk(500)
+            : orderBook.getBid(500);
 
         return (value: number, side: Side): number => {
 
             if (updateLasts) {
-                this.setState({lastValue: value, lastSide: side});
+                this.setState({ lastValue: value, lastSide: side });
             }
 
             if (!value || value <= 0) {
-                this.setState({values: [0, 0], orderCounter: 0});
+                this.setState({ values: [0, 0], orderCounter: 0 });
 
                 return 0;
             }
 
             switch (side) {
                 case Side.Quote: {
-                    const {values, orderCounter} = orderBook.calculateAmountQuote(value, book);
+                    const { values, orderCounter } = orderBook.calculateAmountQuote(value, book);
                     this.setState({
                         values: values,
                         orderCounter: orderCounter,
@@ -160,7 +156,7 @@ class OrderBookCalc extends React.PureComponent<OrderBookCalcFullProps, OrderBoo
                 }
 
                 case Side.Base: {
-                    const {values, orderCounter} = orderBook.calculateAmountBase(value, book);
+                    const { values, orderCounter } = orderBook.calculateAmountBase(value, book);
                     this.setState({
                         values: values,
                         orderCounter: orderCounter,
@@ -170,7 +166,7 @@ class OrderBookCalc extends React.PureComponent<OrderBookCalcFullProps, OrderBoo
                 }
             }
         };
-    }
+    };
 }
 
 export default compose<OrderBookCalcFullProps, OrderBookCalcProps>(withRouter)(OrderBookCalc);

@@ -23,7 +23,7 @@ type ApplicationState = {
 };
 
 
-export class Application extends React.PureComponent<any, ApplicationState> {
+export default class Application extends React.PureComponent<any, ApplicationState> {
     public state: ApplicationState = {
         isStoreLoading: false,
         store: undefined,
@@ -106,7 +106,7 @@ export class Application extends React.PureComponent<any, ApplicationState> {
     };
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     loadingContainer: {
         flex: 1,
         backgroundColor: Color.GrayWhite,

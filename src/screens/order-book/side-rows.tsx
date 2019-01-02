@@ -4,6 +4,7 @@ import { map, maxBy, meanBy, max } from 'lodash';
 import { KunaMarket } from 'kuna-sdk';
 import OrderBookProcessor from 'utils/order-book-processor';
 import OrderRow from './order-row';
+import { chooseSideRowStyles } from 'screens/order-book/depth.style';
 
 type SideRowsProps = {
     side: 'ask' | 'bid';
@@ -14,10 +15,8 @@ type SideRowsProps = {
 };
 
 const SideRows = (props: SideRowsProps): JSX.Element => {
-    const { orderBook, side, precision = 0 } = props;
-    const items = (side === 'ask')
-        ? orderBook.getAskWithPrecision(precision)
-        : orderBook.getBidWithPrecision(precision);
+    const { orderBook, side } = props;
+    const items = (side === 'ask') ? orderBook.getAsk() : orderBook.getBid();
 
     const avr = meanBy(items, ([price, value]) => +value);
     const maxItem = maxBy(items, ([price, value]) => +value);
@@ -26,21 +25,32 @@ const SideRows = (props: SideRowsProps): JSX.Element => {
     const maxValue = maxItem ? maxItem[1] : 0;
     let cumulativeValue = 0;
 
+    const [containerStyle, priceStyle, valueIndicatorStyle] = chooseSideRowStyles(props.side);
+
+    const commonProps = {
+        styles: {
+            container: containerStyle,
+            price: priceStyle,
+            valueIndicator: valueIndicatorStyle
+        },
+        totalValue: totalValue,
+        type: props.side,
+        maxValue: maxValue,
+        avrValue: avr,
+        market: props.market
+    };
+
     return (
         <View style={props.style}>
             {map(items, ([price, value], index: number) => {
                 cumulativeValue += (+value);
 
                 return (
-                    <OrderRow key={`${index}-${precision}`}
+                    <OrderRow key={`${index}`}
                               price={price}
                               value={value}
                               cumulativeValue={cumulativeValue}
-                              totalValue={totalValue}
-                              type={props.side}
-                              maxValue={maxValue}
-                              avrValue={avr}
-                              market={props.market}
+                              {...commonProps}
                     />
                 );
             })}

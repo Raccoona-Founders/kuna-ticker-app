@@ -16,7 +16,7 @@ import styles from './depth.style';
 import SideRows from './side-rows';
 import getPrecisionMap from 'utils/presicion-map';
 
-const ORDER_DEPTH = 30;
+const ORDER_DEPTH = 10;
 
 type State = {
     orderBook?: OrderBookProcessor;
@@ -90,10 +90,10 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
     private __renderDepthSheet(kunaMarket: KunaMarket, orderBook: OrderBookProcessor): JSX.Element {
         const precision = this.precision;
+        const precisionOrderBook = orderBook.convertToPrecision(precision);
 
         return (
             <View style={styles.depthSheet}>
-
                 {this.__renderPreSheet(kunaMarket, orderBook)}
 
                 <View style={styles.depthHeader}>
@@ -110,15 +110,13 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
                 <View style={styles.depthSheetBody}>
                     <SideRows side="bid"
-                              orderBook={orderBook}
-                              precision={precision}
+                              orderBook={precisionOrderBook}
                               market={kunaMarket}
                               style={styles.depthSheetSide}
                     />
 
                     <SideRows side="ask"
-                              orderBook={orderBook}
-                              precision={precision}
+                              orderBook={precisionOrderBook}
                               market={kunaMarket}
                               style={styles.depthSheetSide}
                     />

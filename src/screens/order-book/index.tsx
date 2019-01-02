@@ -16,7 +16,7 @@ import styles from './depth.style';
 import SideRows from './side-rows';
 import getPrecisionMap from 'utils/presicion-map';
 
-const ORDER_DEPTH = 10;
+const ORDER_DEPTH = 30;
 
 type State = {
     orderBook?: OrderBookProcessor;

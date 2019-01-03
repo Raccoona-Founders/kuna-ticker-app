@@ -1,7 +1,6 @@
 package com.kunaticker;
 
 import android.app.Application;
-
 import com.facebook.react.ReactApplication;
 import com.reactcommunity.rnlanguages.RNLanguagesPackage;
 import com.horcrux.svg.SvgPackage;
@@ -9,22 +8,18 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.wix.interactable.Interactable;
 import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.bitgo.randombytes.RandomBytesPackage;
-
-import io.invertase.firebase.RNFirebasePackage;
-
 import com.horcrux.svg.SvgPackage;
 import com.wix.interactable.Interactable;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
-
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,19 +35,15 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RNLanguagesPackage(),
-            new SvgPackage(),
-            new SplashScreenReactPackage(),
-            new RandomBytesPackage(),
-            new Interactable(),
-            new RNFirebasePackage(),
-            new RNDeviceInfo(),
-                    new RandomBytesPackage(),
+                    new RNLanguagesPackage(),
                     new RNFirebasePackage(),
-                    new SvgPackage(),
-                    new Interactable(),
+                    new RNFirebaseAnalyticsPackage(),
+                    new RNFirebaseRemoteConfigPackage(),
                     new RNDeviceInfo(),
-                    new SplashScreenReactPackage()
+                    new SvgPackage(),
+                    new RandomBytesPackage(),
+                    new SplashScreenReactPackage(),
+                    new Interactable()
             );
         }
 

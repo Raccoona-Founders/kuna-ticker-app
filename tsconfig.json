@@ -49,7 +49,7 @@
         ],
         // "types": [],
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
 
         // "preserveSymlinks": true,
 
@@ -60,7 +60,7 @@
         // "inlineSources": true,
 
         /* Experimental Options */
-        // "experimentalDecorators": true,
+        "experimentalDecorators": true
         // "emitDecoratorMetadata": true,
     }
 }

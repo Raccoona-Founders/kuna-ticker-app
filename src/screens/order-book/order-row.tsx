@@ -1,9 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
 import numeral from 'numeral';
 import { KunaMarket } from 'kuna-sdk';
 import SpanText from 'components/span-text';
-import { sideRowStyles, chooseSideRowStyles } from './depth.style';
+import { sideRowStyles } from './depth.style';
 
 type OrderRowProps = {
     price: number;
@@ -14,10 +14,11 @@ type OrderRowProps = {
     maxValue: number;
     avrValue: number;
     market: KunaMarket;
+    styles?: Record<string, StyleProp<ViewStyle | TextStyle>>;
 };
 
 const OrderRow = (props: OrderRowProps) => {
-    const [containerStyle, priceStyle, valueIndicatorStyle] = chooseSideRowStyles(props.type);
+    const { styles = {} } = props;
 
     let valueFormat = props.avrValue > 10 ? '0,0' : (props.avrValue > 5 ? '0,0.[00]' : '0,0.[000000]');
     const valuePercent = numeral(props.cumulativeValue).divide(props.totalValue);
@@ -30,8 +31,8 @@ const OrderRow = (props: OrderRowProps) => {
 
     return (
         <View style={sideRowStyles.orderRow}>
-            <View style={[sideRowStyles.container, containerStyle]}>
-                <SpanText style={[sideRowStyles.price, priceStyle]}>
+            <View style={[sideRowStyles.container, styles.container]}>
+                <SpanText style={[sideRowStyles.price, styles.price]}>
                     {numeral(props.price).format(props.market.format)}
                 </SpanText>
                 <SpanText style={valueStyles}>
@@ -41,7 +42,7 @@ const OrderRow = (props: OrderRowProps) => {
 
             <View style={[
                 sideRowStyles.valueIndicator,
-                valueIndicatorStyle,
+                styles.valueIndicator,
                 { width: valuePercent.format('0,0.[00]%') },
             ]} />
         </View>

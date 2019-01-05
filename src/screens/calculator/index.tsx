@@ -1,10 +1,9 @@
 import React from 'react';
-import { Keyboard, ActivityIndicator, View } from 'react-native';
+import { Keyboard, ActivityIndicator } from 'react-native';
 import { Router, Switch, Route } from 'react-router-native';
 import * as History from 'history';
 import { NavigationInjectedProps } from 'react-navigation';
 import { kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
-import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import kunaClient from 'utils/kuna-api';
 import AnalTracker from 'utils/ga-tracker';
@@ -21,8 +20,32 @@ type State = {
     mode: CalculatorMode
 };
 
+type CalculatorScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
 
-class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State> {
+type ConnectedProps = {
+    ticker: KunaV3Ticker;
+    tickers: Record<string, KunaV3Ticker>;
+    usdRate: number;
+}
+
+type CalculatorScreenProps = ConnectedProps & CalculatorScreenOuterProps;
+
+const mapStateToProps = (store: KunaStore, ownProps: CalculatorScreenOuterProps): ConnectedProps => {
+    const symbol = ownProps.navigation.getParam('marketSymbol');
+
+    if (!symbol) {
+        throw new Error('No symbol');
+    }
+
+    return {
+        ticker: store.ticker.tickers[symbol],
+        tickers: store.ticker.tickers,
+        usdRate: store.ticker.usdRate,
+    };
+};
+
+@(connect(mapStateToProps) as any)
+export default class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State> {
     public state: State = {
         orderBook: undefined,
         mode: CalculatorMode.LastPrice,
@@ -69,18 +92,18 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
 
 
     public render(): JSX.Element {
-        const {ticker} = this.props;
+        const { ticker } = this.props;
 
         if (!ticker) {
-            return <ShadeScrollCard/>;
+            return <ShadeScrollCard />;
         }
 
         const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
 
         return (
-            <ShadeScrollCard style={{paddingLeft: 20, paddingRight: 20}}>
-                <SpanText style={{fontSize: 24, marginBottom: 20}}>
+            <ShadeScrollCard style={{ paddingLeft: 20, paddingRight: 20 }}>
+                <SpanText style={{ fontSize: 24, marginBottom: 20 }}>
                     Calculate {currentMarket.baseAsset}/{currentMarket.quoteAsset}
                 </SpanText>
                 <Router history={this._history}>{this.__renderRouterPart()}</Router>
@@ -105,12 +128,12 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
     };
 
     protected __renderOrderBookCalculator = () => {
-        const {usdRate, tickers, ticker} = this.props;
+        const { usdRate, tickers, ticker } = this.props;
 
-        const {orderBook} = this.state;
+        const { orderBook } = this.state;
 
         if (!orderBook) {
-            return <ActivityIndicator/>;
+            return <ActivityIndicator />;
         }
 
         const symbol = this.currentSymbol;
@@ -127,32 +150,3 @@ class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State>
         );
     };
 }
-
-
-type CalculatorScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
-
-type ConnectedProps = {
-    ticker: KunaV3Ticker;
-    tickers: Record<string, KunaV3Ticker>;
-    usdRate: number;
-}
-
-type CalculatorScreenProps = ConnectedProps & CalculatorScreenOuterProps;
-
-const mapStateToProps = (store: KunaStore, ownProps: CalculatorScreenOuterProps): ConnectedProps => {
-    const symbol = ownProps.navigation.getParam('marketSymbol');
-
-    if (!symbol) {
-        throw new Error('No symbol');
-    }
-
-    return {
-        ticker: store.ticker.tickers[symbol],
-        tickers: store.ticker.tickers,
-        usdRate: store.ticker.usdRate,
-    };
-};
-
-export default compose<CalculatorScreenProps, CalculatorScreenOuterProps>(
-    connect(mapStateToProps),
-)(CalculatorScreen);

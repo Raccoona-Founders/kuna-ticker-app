@@ -64,21 +64,14 @@ export default class OrderBookProcessor {
         };
     }
 
-    public getAskWithPrecision(precision: number): KunaV3Order[] {
-        return slice(
-            OrderBookProcessor.getPrecision(this.getAsk(100), precision, 'ask'),
-            0,
-            this.__depth,
-        );
+
+    public convertToPrecision(precision: number): OrderBookProcessor {
+        return new OrderBookProcessor({
+            ask: OrderBookProcessor.getPrecision(this.getFullAsk(), precision, 'ask'),
+            bid: OrderBookProcessor.getPrecision(this.getFullBid(), precision, 'bid'),
+        }, this.__depth);
     }
 
-    public getBidWithPrecision(precision: number): KunaV3Order[] {
-        return slice(
-            OrderBookProcessor.getPrecision(this.getBid(100), precision, 'bid'),
-            0,
-            this.__depth,
-        );
-    }
 
     public static getPrecision(orders: KunaV3Order[], prec: number, side: string): KunaV3Order[] {
         if (prec <= 0) {

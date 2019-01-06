@@ -3,7 +3,7 @@ import { Keyboard, ActivityIndicator } from 'react-native';
 import { Router, Switch, Route } from 'react-router-native';
 import * as History from 'history';
 import { NavigationInjectedProps } from 'react-navigation';
-import { kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
+import { KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
 import { connect } from 'react-redux';
 import kunaClient from 'utils/kuna-api';
 import AnalTracker from 'utils/ga-tracker';
@@ -63,7 +63,7 @@ export default class CalculatorScreen extends React.PureComponent<CalculatorScre
     }
 
     public async componentDidMount(): Promise<void> {
-        const marketSymbol = this.currentSymbol;
+        const marketSymbol = this._marketSymbol;
         const currentMarket = kunaMarketMap[marketSymbol];
 
         this.props.navigation.addListener('willBlur', () => {
@@ -98,8 +98,7 @@ export default class CalculatorScreen extends React.PureComponent<CalculatorScre
             return <ShadeScrollCard />;
         }
 
-        const symbol = this.currentSymbol;
-        const currentMarket = kunaMarketMap[symbol];
+        const currentMarket = this._currentMarket;
 
         return (
             <ShadeScrollCard style={{ paddingLeft: 20, paddingRight: 20 }}>
@@ -112,8 +111,13 @@ export default class CalculatorScreen extends React.PureComponent<CalculatorScre
     }
 
 
-    protected get currentSymbol(): string {
+    protected get _marketSymbol(): string {
         return this.props.navigation.getParam('marketSymbol');
+    }
+
+    protected get _currentMarket(): KunaMarket {
+        const symbol = this._marketSymbol;
+        return kunaMarketMap[symbol];
     }
 
 
@@ -136,9 +140,9 @@ export default class CalculatorScreen extends React.PureComponent<CalculatorScre
             return <ActivityIndicator />;
         }
 
-        const symbol = this.currentSymbol;
-        const currentMarket = kunaMarketMap[symbol];
-        const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
+        const currentMarket = this._currentMarket;
+        const usdCalculator = new UsdCalculator(usdRate, tickers);
+        const usdPrice = usdCalculator.getPrice(currentMarket.key);
 
         return (
             <OrderBookCalc

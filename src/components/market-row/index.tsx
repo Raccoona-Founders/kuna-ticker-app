@@ -10,11 +10,11 @@ import { numFormat } from 'utils/number-helper';
 import { SpanText } from 'components/span-text';
 
 import { MarketNameCell } from './market-name-cell';
-import { styles } from './styles';
+import styles from './market-row.styles';
 import { UsdCalculator } from 'utils/currency-rate';
 
 const MarketRow = (props: MarketRowProps) => {
-    const { market, ticker, tickers, usdRate, navigation, index } = props;
+    const { market, ticker, tickers, usdRate, navigation, visible = true } = props;
 
     if (!ticker || !ticker.lastPrice) {
         return <View />;
@@ -34,42 +34,43 @@ const MarketRow = (props: MarketRowProps) => {
         ticker.dailyChangePercent > 0 ? styles.dailyChangeUp : styles.dailyChangeDown,
     ];
 
+    const containerStyle = [
+        styles.listItemLink,
+        visible ? undefined : styles.listItemLinkInvisible,
+    ];
+
     return (
-        <>
-            {index > 0 ? <View style={styles.listItemSeparator} /> : undefined}
+        <TouchableOpacity key={market.key} onPress={onPress} style={containerStyle}>
+            <View style={styles.listItem}>
+                <MarketNameCell market={market} />
 
-            <TouchableOpacity key={market.key} onPress={onPress} style={styles.listItemLink}>
-                <View style={styles.listItem}>
-                    <MarketNameCell market={market} />
+                <View style={styles.tickerCell}>
+                    <View style={styles.priceBox}>
+                        <SpanText style={styles.priceValue}>
+                            {ticker.lastPrice ? numFormat(ticker.lastPrice || 0, market.format) : '—'}
+                            {' '}
+                            {market.quoteAsset}
+                        </SpanText>
+                    </View>
 
-                    <View style={styles.tickerCell}>
-                        <View style={styles.priceBox}>
-                            <SpanText style={styles.priceValue}>
-                                {ticker.lastPrice ? numFormat(ticker.lastPrice || 0, market.format) : '—'}
-                                {' '}
-                                {market.quoteAsset}
-                            </SpanText>
-                        </View>
-
-                        <View style={styles.secondaryInfo}>
-                            <SpanText style={styles.marketVolume}>
-                                ~ ${usdPrice.format('0,0.00')}
-                            </SpanText>
-                            <SpanText style={styles.separator}> / </SpanText>
-                            <SpanText style={dailyChangeStyles}>
-                                {numeral(ticker.dailyChangePercent).format('+0,0.00')}%
-                            </SpanText>
-                        </View>
+                    <View style={styles.secondaryInfo}>
+                        <SpanText style={styles.marketVolume}>
+                            ~ ${usdPrice.format('0,0.00')}
+                        </SpanText>
+                        <SpanText style={styles.separator}> / </SpanText>
+                        <SpanText style={dailyChangeStyles}>
+                            {numeral(ticker.dailyChangePercent).format('+0,0.00')}%
+                        </SpanText>
                     </View>
                 </View>
-            </TouchableOpacity>
-        </>
+            </View>
+        </TouchableOpacity>
     );
 };
 
 type MarketRowOuterProps = {
     market: KunaMarket;
-    index: number;
+    visible?: boolean;
 };
 
 type ConnectedProps = {

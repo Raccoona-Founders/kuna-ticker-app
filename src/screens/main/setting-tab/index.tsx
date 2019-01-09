@@ -42,7 +42,7 @@ const links: LinkItem[] = [{
 }];
 
 
-const AboutTab = (): JSX.Element => {
+const SettingTab = (): JSX.Element => {
     const linkTo = (url: string, title: string) => {
         return async () => {
             const can = await Linking.canOpenURL(url);
@@ -91,7 +91,7 @@ const AboutTab = (): JSX.Element => {
     );
 };
 
-export default AboutTab;
+export default SettingTab;
 
 const mdStyles = StyleSheet.create({
     root: {},

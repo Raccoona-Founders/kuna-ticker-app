@@ -6,7 +6,8 @@ import { Color } from 'styles/variables';
 import { _ } from 'utils/i18n';
 
 import MarketTab from './market-tab';
-import AboutTab from './about-tab';
+import SettingTab from './setting-tab';
+import Tabs from './tabs';
 
 export type TabnavRoute = {
     key: string;
@@ -23,38 +24,20 @@ export type TabnavRoute = {
 
 export const tabNavigationRoutes: TabnavRoute[] = [
     {
-        key: 'UAH',
-        title: 'UAH',
+        key: 'MARKETS',
+        title: _('menu.markets'),
         index: 0,
         sceneComponent: MarketTab,
-        assets: [
-            KunaAssetUnit.UkrainianHryvnia,
-        ],
     }, {
-        key: KunaAssetUnit.Bitcoin,
-        title: 'BTC',
+        key: 'ACCOUNT',
+        title: _('menu.account'),
         index: 1,
-        sceneComponent: MarketTab,
-        assets: [
-            KunaAssetUnit.Bitcoin,
-        ],
+        sceneComponent: Tabs.AccountTab,
     }, {
-        key: 'OTHER',
-        title: _('menu.other'),
+        key: 'SETTINGS',
+        title: _('menu.setting'),
         index: 2,
-        sceneComponent: MarketTab,
-        assets: [
-            KunaAssetUnit.StasisEuro,
-            KunaAssetUnit.Ethereum,
-            KunaAssetUnit.GolosGold,
-            KunaAssetUnit.AdvancedRUB,
-            KunaAssetUnit.AdvancedUSD,
-        ],
-    }, {
-        key: 'ABOUT',
-        title: _('menu.about'),
-        index: 3,
-        sceneComponent: AboutTab,
+        sceneComponent: SettingTab,
     },
 ];
 
@@ -71,13 +54,6 @@ export const QuoteTabItem = (props: TabItemProps) => {
 
     const animatedStyle = {
         color: interpolate(Color.Text, Color.GrayBlues),
-        transform: [{
-            scale: interpolate(1.35, 1),
-        }, {
-            translateY: interpolate(-2, 0),
-        }, {
-            translateX: interpolate(5, 0),
-        }],
     };
 
     return (

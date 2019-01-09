@@ -1,10 +1,15 @@
 import { StyleSheet } from 'react-native';
 import { Color } from 'styles/variables';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     listItemLink: {
         paddingLeft: 20,
         paddingRight: 20,
+    },
+
+    listItemLinkInvisible: {
+        height: 0,
+        overflow: 'hidden',
     },
 
     listItem: {
@@ -12,14 +17,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         height: 74,
-    },
-
-    listItemSeparator: {
-        borderBottomColor: Color.GrayLight,
-        borderBottomWidth: 1,
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 20,
     },
 
     tickerCell: {
@@ -36,7 +33,7 @@ export const styles = StyleSheet.create({
     secondaryInfo: {
         marginTop: 5,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     marketVolume: {
@@ -52,9 +49,11 @@ export const styles = StyleSheet.create({
         fontSize: 14,
     },
     dailyChangeUp: {
-        color: Color.Success
+        color: Color.Success,
     },
     dailyChangeDown: {
-        color: Color.Danger
+        color: Color.Danger,
     },
 });
+
+export default styles;

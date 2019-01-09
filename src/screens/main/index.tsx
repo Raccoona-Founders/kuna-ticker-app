@@ -1,12 +1,10 @@
 import React from 'react';
-
 import { View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { TabView, Scene, SceneRendererProps, PagerScroll } from 'react-native-tab-view';
+import * as SlideView from 'components/slide-view';
 import Analitics from 'utils/ga-tracker';
 import { tabNavigationRoutes, TabnavRoute, QuoteTabItem } from './tab-bar';
 import { mainStyles, tabBarStyles } from './styles';
-
 import Constants from 'utils/constants';
 
 type MainScreenState = {
@@ -24,10 +22,10 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
 
     public render(): JSX.Element {
         return (
-            <TabView
+            <SlideView.TabView
                 navigationState={this.state}
+                bounces={true}
                 renderScene={this.renderScene}
-                renderTabBar={() => undefined}
                 renderPager={this.renderPager}
                 style={mainStyles.container}
                 onIndexChange={this.onChangeIndex}
@@ -39,18 +37,18 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
         this.setState({ index: index }, this.trackScreen);
     };
 
-    protected renderPager = (props: SceneRendererProps<TabnavRoute>) => {
+    protected renderPager = (props: SlideView.SceneRendererProps<TabnavRoute>) => {
         return (
             <>
                 {this.renderTabBar(props)}
                 <View style={{ height: Constants.IS_IPHONE_X ? 100 : 80 }} />
 
-                <PagerScroll {...props} />
+                <SlideView.PagerScroll {...props} />
             </>
         );
     };
 
-    protected renderScene = (props: SceneRendererProps<TabnavRoute> & Scene<TabnavRoute>) => {
+    protected renderScene = (props: SlideView.SceneRendererProps<TabnavRoute> & SlideView.Scene<TabnavRoute>) => {
         const { sceneComponent, index } = props.route;
         const { position } = props;
 
@@ -68,7 +66,7 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
         );
     };
 
-    protected renderTabBar = (props: SceneRendererProps<TabnavRoute>) => {
+    protected renderTabBar = (props: SlideView.SceneRendererProps<TabnavRoute>) => {
         const { navigationState } = props;
 
         const interpolate = (index: number) => {

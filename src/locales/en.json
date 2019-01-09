@@ -1,7 +1,10 @@
 {
     "menu": {
         "other": "Other",
-        "about": "About"
+        "about": "About",
+        "markets": "Markets",
+        "setting": "Setting",
+        "account": "Account"
     },
     "about": {
         "title": "About Kuna Ticker",

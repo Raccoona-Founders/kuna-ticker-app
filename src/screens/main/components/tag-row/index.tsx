@@ -2,16 +2,17 @@ import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import SpanText from 'components/span-text';
 import { Color } from 'styles/variables';
-import { KunaAssetUnit } from 'kuna-sdk';
+import { getAsset, KunaAssetUnit } from 'kuna-sdk';
 
-const coinTags = [
-    'favorite',
+const FAVORITE_KEY = 'favorite';
+
+const coinTags: string[] = [
     KunaAssetUnit.UkrainianHryvnia,
     KunaAssetUnit.Bitcoin,
     KunaAssetUnit.Ethereum,
     KunaAssetUnit.AdvancedUSD,
     KunaAssetUnit.AdvancedRUB,
-    KunaAssetUnit.Golos,
+    KunaAssetUnit.GolosGold,
 ];
 
 type State = {
@@ -55,25 +56,49 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
         );
     }
 
-    protected __renderTag = (asset: string, index: number) => (
-        <TouchableOpacity
-            style={[styles.tagCell, index === this.state.currentActiveTagIndex ? styles.tagCellActive : undefined]}
-            key={asset}
-            onPress={this.__onPressTag(index)}
-        >
-            <SpanText>{asset}</SpanText>
-        </TouchableOpacity>
-    );
+    protected __renderTag = (assetUnit: string, index: number) => {
+
+        const asset = getAsset(assetUnit as KunaAssetUnit);
+
+        const specificTagStyle: any = {};
+        const specificTextStyle: any = {};
+
+        if (asset) {
+            specificTextStyle.color = asset.color;
+        }
+
+        const isActive = index === this.state.currentActiveTagIndex;
+
+        const tagStyle = [
+            styles.tagCell,
+            specificTagStyle,
+            isActive ? styles.tagCellActive : undefined,
+        ];
+
+        const textStyles = [
+            specificTextStyle,
+            isActive ? styles.textActive : undefined,
+        ];
+
+        return (
+            <TouchableOpacity key={assetUnit} style={tagStyle} onPress={this.__onPressTag(index)}>
+                <SpanText style={textStyles}>{assetUnit}</SpanText>
+            </TouchableOpacity>
+        );
+    };
 
 
     protected __onPressTag = (index: number) => {
         const { onChooseTag } = this.props;
 
         return () => {
-            let assetUnit = index ? coinTags[index] : undefined;
+            let assetUnit = coinTags[index];
             if (index !== this.state.currentActiveTagIndex) {
                 this.setState({ currentActiveTagIndex: index });
-                onChooseTag && onChooseTag(index, assetUnit as KunaAssetUnit);
+                onChooseTag && onChooseTag(
+                    index,
+                    assetUnit !== FAVORITE_KEY ? assetUnit as KunaAssetUnit : undefined,
+                );
             } else {
                 this.setState({ currentActiveTagIndex: undefined });
                 onChooseTag && onChooseTag();
@@ -97,13 +122,18 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         paddingTop: 5,
         paddingBottom: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
         borderWidth: 1,
         borderColor: Color.Gray3,
-        borderRadius: 5,
+        borderRadius: 20,
     },
     tagCellActive: {
         backgroundColor: Color.Gray3,
+    },
+
+    textActive: {
+        color: Color.Text,
+        fontWeight: '700',
     },
 });

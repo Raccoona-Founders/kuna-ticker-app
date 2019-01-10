@@ -1,14 +1,13 @@
 import React from 'react';
 import numeral from 'numeral';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
 import { View } from 'react-native';
+import { inject, observer } from 'mobx-react/native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { getAsset, KunaAssetUnit, kunaMarketMap, KunaOrderBook, KunaV3Ticker } from 'kuna-sdk';
+import { getAsset, KunaAssetUnit, kunaMarketMap, KunaOrderBook } from 'kuna-sdk';
 import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
 import { _ } from 'utils/i18n';
-import { UsdCalculator } from 'utils/currency-rate';
 import { numFormat } from 'utils/number-helper';
 import { CoinIcon } from 'components/coin-icon';
 import SpanText from 'components/span-text';
@@ -19,13 +18,21 @@ import InfoUnit from 'components/info-unit';
 import PriceChangeBox from './components/change-price-box';
 import marketStyle from './market.style';
 
-
 type State = {
     depth: undefined | KunaOrderBook;
     riddle?: any;
 };
 
-export class MarketScreen extends React.PureComponent<MarketScreenProps, State> {
+type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
+
+type MarketScreenProps = MarketScreenOuterProps & MobxTicker.WithTickerProps;
+
+// @ts-ignore
+@compose<MarketScreenProps, MarketScreenOuterProps>(
+    inject('Ticker'),
+    observer,
+)
+export default class MarketScreen extends React.Component<MarketScreenProps, State> {
     public state: State = {
         depth: undefined,
         riddle: undefined,
@@ -45,19 +52,20 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
 
     public render(): JSX.Element {
-        const { ticker, usdRate, tickers } = this.props;
+        const { Ticker } = this.props;
 
-        if (!ticker) {
+        const symbol = this.currentSymbol;
+        const tick = Ticker.getTicker(symbol);
+
+        if (!tick) {
             return <ShadeScrollCard />;
         }
 
-        const symbol = this.currentSymbol;
         const currentMarket = kunaMarketMap[symbol];
-
         const quoteAsset = getAsset(currentMarket.quoteAsset);
         const baseAsset = getAsset(currentMarket.baseAsset);
 
-        const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(symbol);
+        const usdPrice = Ticker.usdCalculator.getPrice(symbol);
 
         return (
             <ShadeScrollCard renderFooter={this.__renderFooter}>
@@ -84,11 +92,11 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
                 <View style={[marketStyle.section, marketStyle.sectionPrice]}>
                     <View>
                         <SpanText style={marketStyle.price} weight="700">
-                            {numFormat(ticker.lastPrice || 0, currentMarket.format)} {quoteAsset.key}
+                            {numFormat(tick.lastPrice || 0, currentMarket.format)} {quoteAsset.key}
                         </SpanText>
 
                         <PriceChangeBox
-                            value={ticker.dailyChangePercent}
+                            value={tick.dailyChangePercent}
                             style={{ position: 'absolute', right: 0, top: 0 }}
                         />
 
@@ -104,22 +112,22 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
                 <View style={[marketStyle.section, marketStyle.sectionInformation]}>
                     <InfoUnit topic={`Vol ${baseAsset.key}`}
-                              value={numFormat(ticker.volume)}
+                              value={numFormat(tick.volume)}
                               style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
                     />
 
                     <InfoUnit topic={`Vol ${quoteAsset.key}`}
-                              value={numFormat(numeral(ticker.volume).multiply(ticker.lastPrice || 0))}
+                              value={numFormat(numeral(tick.volume).multiply(tick.lastPrice || 0))}
                               style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
                     />
 
                     <InfoUnit topic="24H Min"
-                              value={numFormat(ticker.low, quoteAsset.format)}
+                              value={numFormat(tick.low, quoteAsset.format)}
                               style={marketStyle.infoUnit}
                     />
 
                     <InfoUnit topic="24H Max"
-                              value={numFormat(ticker.high, quoteAsset.format)}
+                              value={numFormat(tick.high, quoteAsset.format)}
                               style={marketStyle.infoUnit}
                     />
                 </View>
@@ -137,21 +145,21 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
 
 
     protected __openDepth = () => {
-        this.props.navigation.push(RouteKeys.OrderBook, {
+        this.props.navigation.push(RouteKeys.Market_OrderBook, {
             marketSymbol: this.currentSymbol,
         });
     };
 
 
     protected __openLastTrades = () => {
-        this.props.navigation.push(RouteKeys.LastTrades, {
+        this.props.navigation.push(RouteKeys.Market_LastTrades, {
             marketSymbol: this.currentSymbol,
         });
     };
 
 
     protected __openCalculator = () => {
-        this.props.navigation.push(RouteKeys.Calculator, {
+        this.props.navigation.push(RouteKeys.Market_Calculator, {
             marketSymbol: this.currentSymbol,
         });
     };
@@ -171,31 +179,3 @@ export class MarketScreen extends React.PureComponent<MarketScreenProps, State> 
         );
     };
 }
-
-type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
-
-type ConnectedProps = {
-    ticker: KunaV3Ticker;
-    tickers: Record<string, KunaV3Ticker>;
-    usdRate: number;
-}
-
-type MarketScreenProps = ConnectedProps & MarketScreenOuterProps;
-
-const mapStateToProps = (store: KunaStore, ownProps: MarketScreenProps): ConnectedProps => {
-    const symbol = ownProps.navigation.getParam('symbol');
-
-    if (!symbol) {
-        throw new Error('No symbol');
-    }
-
-    return {
-        ticker: store.ticker.tickers[symbol],
-        tickers: store.ticker.tickers,
-        usdRate: store.ticker.usdRate,
-    };
-};
-
-export default compose<MarketScreenProps, MarketScreenOuterProps>(
-    connect(mapStateToProps),
-)(MarketScreen);

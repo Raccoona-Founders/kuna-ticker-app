@@ -1,17 +1,14 @@
 import React from 'react';
 import { values, chain } from 'lodash';
-import { Dispatch } from 'redux';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
 import { ScrollView, RefreshControl, StyleSheet, View, FlatList, ListRenderItemInfo } from 'react-native';
-import { KunaAssetUnit, KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
-import kunaClient from 'utils/kuna-api';
+import { KunaAssetUnit, KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import MarketRow from 'components/market-row';
 import { Ticker } from 'store/actions';
-import { TabnavRoute } from 'screens/main/tab-bar';
-
-import TagRow from '../components/tag-row';
 import { Color } from 'styles/variables';
+
+import TagRow from '../../components/tag-row';
+import { inject } from 'mobx-react/native';
 
 type State = {
     refreshing: boolean;
@@ -19,25 +16,14 @@ type State = {
     activeAsset?: KunaAssetUnit;
 };
 
-type OuterProps = { route: TabnavRoute; };
-type Props = OuterProps & {
-    updateTickers: (tickers: KunaV3Ticker[]) => void;
-};
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        updateTickers: (tickers: KunaV3Ticker[]) => dispatch({
-            type: Ticker.BulkUpdateTickers,
-            tickers: tickers,
-        }),
-    };
-};
+type OuterProps = {};
+type Props = OuterProps & MobxTicker.WithTickerProps;
 
 // @ts-ignore
 @compose<Props, OuterProps>(
-    connect(undefined, mapDispatchToProps),
+    inject('Ticker'),
 )
-export default class MarketTab extends React.PureComponent<Props, State> {
+export default class MarketTab extends React.Component<Props, State> {
     public state: State = {
         refreshing: false,
         favorite: false,
@@ -86,9 +72,11 @@ export default class MarketTab extends React.PureComponent<Props, State> {
         this.setState(setMode as State);
     };
 
+
     private __renderMarketRow = (item: ListRenderItemInfo<KunaMarket>) => {
         return <MarketRow market={item.item} />;
     };
+
 
     private __renderRefreshControl = () => {
         return (
@@ -107,7 +95,7 @@ export default class MarketTab extends React.PureComponent<Props, State> {
             return values(kunaMarketMap);
         }
 
-        /** @TODO Implement favorite **/
+        /** @TODO Implement favorite */
         return chain(kunaMarketMap)
             .filter((market: KunaMarket): boolean => [market.quoteAsset, market.baseAsset].indexOf(activeAsset) >= 0)
             .value();
@@ -118,8 +106,7 @@ export default class MarketTab extends React.PureComponent<Props, State> {
         this.setState({ refreshing: true });
 
         try {
-            const tickers = await kunaClient.getTickers();
-            this.props.updateTickers(tickers);
+            await this.props.Ticker.fetchTickers();
         } catch (error) {
             console.error(error);
         }

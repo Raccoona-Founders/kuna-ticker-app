@@ -1,109 +1,79 @@
 import React from 'react';
 import { Store } from 'redux';
 import { View, StyleSheet } from 'react-native';
-import { Provider } from 'react-redux';
+import { Provider as MobxProvider } from 'mobx-react/native';
 import SplashScreen from 'react-native-splash-screen';
 import 'utils/setup-locale';
-
-import { ApplicationRouter } from 'router';
-import { initStore } from 'store';
-import { Ticker } from 'store/actions';
-import { Color } from 'styles/variables';
-import { getUahRate } from 'utils/external';
-import kunaClient from 'utils/kuna-api';
-
-import configureRemoteConfig from 'utils/remote-config';
-
 import i18n from 'utils/i18n';
 import AnalTracker from 'utils/ga-tracker';
+import configureRemoteConfig from 'utils/remote-config';
+import ApplicationRouter from 'router';
+import SpanText from 'components/span-text';
+import { Color } from 'styles/variables';
+import buildAppStore from 'mobx-store';
 
 type ApplicationState = {
-    isStoreLoading: boolean;
+    isReady: boolean;
+    /** @deprecated */
     store?: Store<KunaStore>;
+    mobxStore?: MobxStore;
+    error?: Error;
 };
 
 
 export default class Application extends React.PureComponent<any, ApplicationState> {
     public state: ApplicationState = {
-        isStoreLoading: false,
+        isReady: false,
         store: undefined,
+        mobxStore: undefined,
+        error: undefined,
     };
 
     public async componentWillMount(): Promise<void> {
-        this.setState({ isStoreLoading: true });
+        this.setState({ isReady: false });
 
-        const store = await initStore();
+        try {
+            const mobxStore = await buildAppStore();
+            this.setState({ mobxStore: mobxStore, isReady: true });
+            await configureRemoteConfig();
 
-        this.setState({
-            isStoreLoading: false,
-            store: store,
-        });
+        } catch (error) {
+            this.setState({ error: error });
+            SplashScreen.hide();
+
+            console.error(error);
+
+            return;
+        }
 
         SplashScreen.hide();
-
-        try {
-            await this.updateTickers();
-            await this.updateUsdRate();
-
-            setInterval(this.updateTickers, 10 * 60 * 1000);
-            setInterval(this.updateUsdRate, 4 * 60 * 60 * 1000);
-        } catch (error) {
-
-        }
-
-        try {
-            await configureRemoteConfig();
-        } catch (error) {
-            console.error(error);
-        }
 
         AnalTracker.setUserProperty('LANGUAGE', i18n.currentLocale());
     }
 
-    public render(): JSX.Element {
-        const { store, isStoreLoading } = this.state;
 
-        if (!store || isStoreLoading) {
+    public render(): JSX.Element {
+        const { mobxStore, isReady, error } = this.state;
+
+        if (error) {
+            return (
+                <View style={styles.loadingContainer}>
+                    <SpanText>Error!</SpanText>
+                    <SpanText style={{ textAlign: 'center' }}>{error.message}</SpanText>
+                </View>
+            );
+        }
+
+        if (!isReady && !mobxStore) {
             return <View style={styles.loadingContainer} />;
         }
 
         return (
-            <Provider store={store}>
+            <MobxProvider {...this.state.mobxStore}>
                 <ApplicationRouter />
-            </Provider>
+            </MobxProvider>
         );
     }
-
-
-    protected updateTickers = async (): Promise<void> => {
-        const { store } = this.state;
-
-        if (!store) {
-            return;
-        }
-
-        const tickers = await kunaClient.getTickers();
-        store.dispatch({
-            type: Ticker.BulkUpdateTickers,
-            tickers: tickers,
-        });
-    };
-
-
-    protected updateUsdRate = async (): Promise<void> => {
-        const { store } = this.state;
-
-        if (!store) {
-            return;
-        }
-
-        const rate = await getUahRate();
-
-        store.dispatch({
-            type: Ticker.UpdateUSDRate,
-            rate: rate,
-        });
-    };
 }
 
 const styles = StyleSheet.create({
@@ -112,6 +82,8 @@ const styles = StyleSheet.create({
         backgroundColor: Color.GrayWhite,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
     },
     loadingText: {
         color: Color.Purple,

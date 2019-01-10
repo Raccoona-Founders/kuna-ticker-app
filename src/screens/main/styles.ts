@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import { Color, Fonts } from 'styles/variables';
 import Constants from 'utils/constants';
 
-
 export const mainStyles = StyleSheet.create({
     swiperWrapper: {},
     container: {
@@ -27,24 +26,29 @@ export const tabBarStyles = StyleSheet.create({
     },
 
     tabBar: {
-        flexDirection: 'row',
         height: 60,
-        textAlignVertical: 'bottom',
         alignItems: 'center',
+        flexDirection: 'row',
+        textAlignVertical: 'bottom',
         justifyContent: 'flex-start',
     },
-    tab: {
+    tabBtn: {
+        width: '100%',
+        height: '100%',
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    tab: {
+        position: 'absolute',
         height: 60,
-        marginRight: 30,
+        top: 0,
     },
     text: {
-        fontSize: 22,
+        fontSize: 28,
         fontFamily: Fonts.TTNorms_Regular,
         alignItems: 'center',
-        color: Color.GrayBlues,
-        fontWeight: '600',
+        color: Color.Text,
+        fontWeight: '700',
     },
 
     // Info bar

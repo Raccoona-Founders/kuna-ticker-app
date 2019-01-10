@@ -4,7 +4,8 @@
         "about": "About",
         "markets": "Markets",
         "setting": "Setting",
-        "account": "Account"
+        "account": "Account",
+        "portfolio": "Portfolio"
     },
     "about": {
         "title": "About Kuna Ticker",

@@ -3,16 +3,15 @@ import { Keyboard, ActivityIndicator } from 'react-native';
 import { Router, Switch, Route } from 'react-router-native';
 import * as History from 'history';
 import { NavigationInjectedProps } from 'react-navigation';
-import { KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
-import { connect } from 'react-redux';
+import { KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import kunaClient from 'utils/kuna-api';
 import AnalTracker from 'utils/ga-tracker';
-import { UsdCalculator } from 'utils/currency-rate';
 import OrderBookProcessor from 'utils/order-book-processor';
 import SpanText from 'components/span-text';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import { CalculatorMode, OperationMode } from './common';
 import OrderBookCalc from './order-book';
+import { inject, observer } from 'mobx-react/native';
 
 
 type State = {
@@ -21,31 +20,11 @@ type State = {
 };
 
 type CalculatorScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
+type CalculatorScreenProps = CalculatorScreenOuterProps & MobxTicker.WithTickerProps;
 
-type ConnectedProps = {
-    ticker: KunaV3Ticker;
-    tickers: Record<string, KunaV3Ticker>;
-    usdRate: number;
-}
-
-type CalculatorScreenProps = ConnectedProps & CalculatorScreenOuterProps;
-
-const mapStateToProps = (store: KunaStore, ownProps: CalculatorScreenOuterProps): ConnectedProps => {
-    const symbol = ownProps.navigation.getParam('marketSymbol');
-
-    if (!symbol) {
-        throw new Error('No symbol');
-    }
-
-    return {
-        ticker: store.ticker.tickers[symbol],
-        tickers: store.ticker.tickers,
-        usdRate: store.ticker.usdRate,
-    };
-};
-
-@(connect(mapStateToProps) as any)
-export default class CalculatorScreen extends React.PureComponent<CalculatorScreenProps, State> {
+@inject('Ticker')
+@observer
+export default class CalculatorScreen extends React.Component<CalculatorScreenProps, State> {
     public state: State = {
         orderBook: undefined,
         mode: CalculatorMode.LastPrice,
@@ -92,13 +71,14 @@ export default class CalculatorScreen extends React.PureComponent<CalculatorScre
 
 
     public render(): JSX.Element {
-        const { ticker } = this.props;
-
-        if (!ticker) {
-            return <ShadeScrollCard />;
-        }
+        const { Ticker } = this.props;
 
         const currentMarket = this._currentMarket;
+        const tick = Ticker.getTicker(currentMarket.key);
+
+        if (!tick) {
+            return <ShadeScrollCard />;
+        }
 
         return (
             <ShadeScrollCard style={{ paddingLeft: 20, paddingRight: 20 }}>
@@ -132,24 +112,27 @@ export default class CalculatorScreen extends React.PureComponent<CalculatorScre
     };
 
     protected __renderOrderBookCalculator = () => {
-        const { usdRate, tickers, ticker } = this.props;
-
+        const { Ticker } = this.props;
         const { orderBook } = this.state;
 
-        if (!orderBook) {
+        const currentMarket = this._currentMarket;
+        const tick = Ticker.getTicker(currentMarket.key);
+
+        if (!orderBook || !tick) {
             return <ActivityIndicator />;
         }
 
-        const currentMarket = this._currentMarket;
-        const usdCalculator = new UsdCalculator(usdRate, tickers);
+
+        const usdCalculator = Ticker.usdCalculator;
         const usdPrice = usdCalculator.getPrice(currentMarket.key);
 
+
         return (
-            <OrderBookCalc
-                ticker={ticker}
-                orderBook={orderBook}
-                market={currentMarket}
-                usdPrice={usdPrice.value()}
+            // @ts-ignore
+            <OrderBookCalc ticker={tick}
+                           orderBook={orderBook}
+                           market={currentMarket}
+                           usdPrice={usdPrice.value()}
             />
         );
     };

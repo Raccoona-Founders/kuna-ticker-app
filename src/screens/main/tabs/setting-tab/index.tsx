@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     },
 
     separator: {
+        marginTop: 10,
         marginBottom: 10,
         borderTopWidth: 1,
         borderTopColor: Color.Gray3,

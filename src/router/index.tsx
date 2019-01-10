@@ -12,21 +12,11 @@ import RouteKeys from 'router/route-keys';
 /** ============================================================================================================= */
 
 const routeConfigs = {
-    [RouteKeys.Main]: {
-        screen: MainScreen,
-    },
-
-    [RouteKeys.Market]: {
-        screen: MarketScreen,
-    },
-
-    [RouteKeys.OrderBook]: {
-        screen: OrderBookScreen,
-    },
-
-    [RouteKeys.Calculator]: {
-        screen: CalculatorScreen,
-    },
+    [RouteKeys.Main]: { screen: MainScreen },
+    
+    [RouteKeys.Market]: { screen: MarketScreen },
+    [RouteKeys.Market_OrderBook]: { screen: OrderBookScreen },
+    [RouteKeys.Market_Calculator]: { screen: CalculatorScreen },
 };
 
 
@@ -37,4 +27,5 @@ const navigatorConfig = {
     },
 };
 
-export const ApplicationRouter = createShadeNavigator(routeConfigs, navigatorConfig);
+const ApplicationRouter = createShadeNavigator(routeConfigs, navigatorConfig);
+export default ApplicationRouter;

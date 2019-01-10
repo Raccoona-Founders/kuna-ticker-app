@@ -11,8 +11,8 @@ type LiqpayRate = {
 };
 
 export async function getUahRate(): Promise<number> {
-    const {data} = await Axios.get<LiqpayRate[]>(LIQPAY_RATE_URL);
-    const rate = find(data, {ccy: 'USD'});
+    const { data } = await Axios.get<LiqpayRate[]>(LIQPAY_RATE_URL);
+    const rate = find(data, { ccy: 'USD' });
 
     if (!rate) {
         console.log('Liqpay return rates without USD');

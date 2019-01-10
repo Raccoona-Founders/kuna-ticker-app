@@ -1,37 +1,37 @@
 import React from 'react';
-import { find } from 'lodash';
 import numeral from 'numeral';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { View, TouchableOpacity } from 'react-native';
-import { KunaMarket, KunaV3Ticker } from 'kuna-sdk';
+import { KunaMarket } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
 import { SpanText } from 'components/span-text';
 
 import { MarketNameCell } from './market-name-cell';
 import styles from './market-row.styles';
-import { UsdCalculator } from 'utils/currency-rate';
+import { inject, observer } from 'mobx-react/native';
+
 
 const MarketRow = (props: MarketRowProps) => {
-    const { market, ticker, tickers, usdRate, navigation, visible = true } = props;
+    const { market, Ticker, navigation, visible = true } = props;
+    const currentTicker = Ticker.getTicker(market.key);
 
-    if (!ticker || !ticker.lastPrice) {
+    if (!currentTicker || !currentTicker.lastPrice) {
         return <View />;
     }
 
     const onPress = () => {
-        if (!ticker) {
+        if (!currentTicker) {
             return;
         }
 
         navigation.navigate('Market', { symbol: market.key });
     };
 
-    const usdPrice = new UsdCalculator(usdRate, tickers).getPrice(market.key);
+    const usdPrice = Ticker.usdCalculator.getPrice(market.key);
     const dailyChangeStyles = [
         styles.dailyChange,
-        ticker.dailyChangePercent > 0 ? styles.dailyChangeUp : styles.dailyChangeDown,
+        currentTicker.dailyChangePercent > 0 ? styles.dailyChangeUp : styles.dailyChangeDown,
     ];
 
     const containerStyle = [
@@ -47,7 +47,7 @@ const MarketRow = (props: MarketRowProps) => {
                 <View style={styles.tickerCell}>
                     <View style={styles.priceBox}>
                         <SpanText style={styles.priceValue}>
-                            {ticker.lastPrice ? numFormat(ticker.lastPrice || 0, market.format) : '—'}
+                            {currentTicker.lastPrice ? numFormat(currentTicker.lastPrice || 0, market.format) : '—'}
                             {' '}
                             {market.quoteAsset}
                         </SpanText>
@@ -59,7 +59,7 @@ const MarketRow = (props: MarketRowProps) => {
                         </SpanText>
                         <SpanText style={styles.separator}> / </SpanText>
                         <SpanText style={dailyChangeStyles}>
-                            {numeral(ticker.dailyChangePercent).format('+0,0.00')}%
+                            {numeral(currentTicker.dailyChangePercent).format('+0,0.00')}%
                         </SpanText>
                     </View>
                 </View>
@@ -73,23 +73,14 @@ type MarketRowOuterProps = {
     visible?: boolean;
 };
 
-type ConnectedProps = {
-    ticker?: KunaV3Ticker;
-    tickers: Record<string, KunaV3Ticker>;
-    usdRate: number;
-};
-
-type MarketRowProps = NavigationInjectedProps & MarketRowOuterProps & ConnectedProps;
-
-const mapStateToProps = (store: KunaStore, ownProps: MarketRowOuterProps): ConnectedProps => {
-    return {
-        ticker: find(store.ticker.tickers, { symbol: ownProps.market.key }),
-        tickers: store.ticker.tickers,
-        usdRate: store.ticker.usdRate,
-    };
-};
+type MarketRowProps
+    = NavigationInjectedProps
+    & MarketRowOuterProps
+    & MobxUsdRate.WithUsdRateProps
+    & MobxTicker.WithTickerProps;
 
 export default compose<MarketRowProps, MarketRowOuterProps>(
-    connect(mapStateToProps),
     withNavigation,
+    inject('Ticker'),
+    observer,
 )(MarketRow);

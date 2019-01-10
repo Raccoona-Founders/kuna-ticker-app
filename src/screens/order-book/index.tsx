@@ -2,9 +2,9 @@ import React from 'react';
 import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
 import numeral from 'numeral';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
+import { inject, observer } from 'mobx-react/native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { KunaMarket, kunaMarketMap, KunaV3Ticker } from 'kuna-sdk';
+import { KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
 import kunaClient from 'utils/kuna-api';
 import { _ } from 'utils/i18n';
@@ -16,6 +16,7 @@ import styles from './depth.style';
 import SideRows from './side-rows';
 import getPrecisionMap from 'utils/presicion-map';
 
+
 const ORDER_DEPTH = 30;
 
 type State = {
@@ -24,7 +25,15 @@ type State = {
     precisionMap: number[];
 };
 
-class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
+type DepthScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
+type DepthScreenProps = DepthScreenOuterProps & MobxTicker.WithTickerProps;
+
+// @ts-ignore
+@compose<DepthScreenProps, DepthScreenOuterProps>(
+    inject('Ticker'),
+    observer,
+)
+export default class OrderBookScreen extends React.Component<DepthScreenProps, State> {
     public state: State = {
         orderBook: undefined,
         precisionIndex: 0,
@@ -46,6 +55,7 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
 
         return precisionMap[precisionIndex - 1] || 0;
     }
+
 
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
@@ -192,32 +202,3 @@ class OrderBookScreen extends React.PureComponent<DepthScreenProps, State> {
         this.setState({ precisionIndex: nextPrecision });
     };
 }
-
-
-type DepthScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
-type ConnectedProps = {
-    ticker: KunaV3Ticker;
-    usdRate: number;
-}
-
-type DepthScreenProps = DepthScreenOuterProps & ConnectedProps;
-
-
-const mapStateToProps = (store: KunaStore, ownProps: DepthScreenOuterProps): ConnectedProps => {
-    const symbol = ownProps.navigation.getParam('marketSymbol');
-
-    if (!symbol) {
-        throw new Error('No symbol');
-    }
-
-    return {
-        ticker: store.ticker.tickers[symbol],
-        usdRate: store.ticker.usdRate,
-    };
-};
-
-export default compose<DepthScreenProps, DepthScreenOuterProps>(
-    connect(mapStateToProps),
-)(OrderBookScreen);
-
-

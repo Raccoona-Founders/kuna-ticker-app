@@ -28,7 +28,8 @@ type OrderBookCalcState = {
 };
 
 
-@(withRouter as any)
+// @ts-ignore
+@withRouter
 export default class OrderBookCalc extends React.PureComponent<OrderBookCalcFullProps, OrderBookCalcState> {
     public state: OrderBookCalcState = {
         values: [0, 0],

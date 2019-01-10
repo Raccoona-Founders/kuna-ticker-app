@@ -3,9 +3,9 @@ import { View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import * as SlideView from 'components/slide-view';
 import Analitics from 'utils/ga-tracker';
-import { tabNavigationRoutes, TabnavRoute, QuoteTabItem } from './tab-bar';
-import { mainStyles, tabBarStyles } from './styles';
+import { tabNavigationRoutes, TabnavRoute, TabBarComponent } from './components/tab-bar';
 import Constants from 'utils/constants';
+import { mainStyles } from './styles';
 
 type MainScreenState = {
     index: number;
@@ -40,9 +40,11 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
     protected renderPager = (props: SlideView.SceneRendererProps<TabnavRoute>) => {
         return (
             <>
-                {this.renderTabBar(props)}
+                <TabBarComponent navigationState={props.navigationState}
+                                 position={props.position}
+                                 onPressTab={(index: number) => this.setState({ index: index })}
+                />
                 <View style={{ height: Constants.IS_IPHONE_X ? 100 : 80 }} />
-
                 <SlideView.PagerScroll {...props} />
             </>
         );
@@ -63,36 +65,6 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
                     route: props.route,
                 })}
             </Animated.View>
-        );
-    };
-
-    protected renderTabBar = (props: SlideView.SceneRendererProps<TabnavRoute>) => {
-        const { navigationState } = props;
-
-        const interpolate = (index: number) => {
-            return (active: any, inactive: any) => {
-                return props.position.interpolate({
-                    inputRange: [index - 1, index, index + 1],
-                    outputRange: [inactive, active, inactive],
-                    extrapolate: 'clamp',
-                });
-            };
-        };
-
-        return (
-            <View style={tabBarStyles.container}>
-                <View style={tabBarStyles.tabBar}>
-                    {navigationState.routes.map((route: TabnavRoute, i: number) => (
-                        <QuoteTabItem
-                            key={route.key}
-                            route={route}
-                            interpolate={interpolate(i)}
-                            isActive={navigationState.index === i}
-                            onPress={() => this.setState({ index: i })}
-                        />
-                    ))}
-                </View>
-            </View>
         );
     };
 

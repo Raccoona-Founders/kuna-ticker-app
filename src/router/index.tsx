@@ -13,7 +13,7 @@ import RouteKeys from 'router/route-keys';
 
 const routeConfigs = {
     [RouteKeys.Main]: { screen: MainScreen },
-    
+
     [RouteKeys.Market]: { screen: MarketScreen },
     [RouteKeys.Market_OrderBook]: { screen: OrderBookScreen },
     [RouteKeys.Market_Calculator]: { screen: CalculatorScreen },

@@ -34,7 +34,7 @@ export default class MarketTab extends React.Component<Props, State> {
         return (
             <View style={styles.flatList}>
                 <View>
-                    <TagRow onChooseTag={this.__onChooseTag} />
+                    <TagRow onChooseTag={this.__onChooseTag} activeTagIndex={0} />
                 </View>
 
                 <ScrollView

@@ -1,8 +1,9 @@
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { getAsset, KunaAssetUnit } from 'kuna-sdk';
+import AnalTracker from 'utils/ga-tracker';
 import SpanText from 'components/span-text';
 import { Color } from 'styles/variables';
-import { getAsset, KunaAssetUnit } from 'kuna-sdk';
 
 const FAVORITE_KEY = 'favorite';
 
@@ -57,15 +58,8 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
     }
 
     protected __renderTag = (assetUnit: string, index: number) => {
-
-        const asset = getAsset(assetUnit as KunaAssetUnit);
-
         const specificTagStyle: any = {};
         const specificTextStyle: any = {};
-
-        if (asset) {
-            specificTextStyle.color = asset.color;
-        }
 
         const isActive = index === this.state.currentActiveTagIndex;
 
@@ -76,6 +70,7 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
         ];
 
         const textStyles = [
+            styles.text,
             specificTextStyle,
             isActive ? styles.textActive : undefined,
         ];
@@ -93,6 +88,15 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
 
         return () => {
             let assetUnit = coinTags[index];
+
+            const asset = getAsset(assetUnit as KunaAssetUnit);
+            if (asset) {
+                AnalTracker.logEvent('choose_market_tag', {
+                    asset: asset.key,
+                    asset_name: asset.name,
+                });
+            }
+
             if (index !== this.state.currentActiveTagIndex) {
                 this.setState({ currentActiveTagIndex: index });
                 onChooseTag && onChooseTag(
@@ -117,21 +121,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: 10,
         paddingRight: 10,
+
     },
     tagCell: {
-        marginLeft: 10,
-        paddingTop: 5,
-        paddingBottom: 5,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderWidth: 1,
-        borderColor: Color.Gray3,
-        borderRadius: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
     },
-    tagCellActive: {
-        backgroundColor: Color.Gray3,
-    },
+    tagCellActive: {},
 
+    text: {
+        fontSize: 18,
+        color: Color.GrayBlues,
+    },
     textActive: {
         color: Color.Text,
         fontWeight: '700',

@@ -42,8 +42,12 @@ const styles = StyleSheet.create({
     },
 
     separator: {
-        fontSize: 14,
-        color: Color.GrayBlues,
+        height: 3,
+        width: 3,
+        borderRadius: 3,
+        marginLeft: 8,
+        marginRight: 8,
+        backgroundColor: Color.PurpleNoactive,
     },
     dailyChange: {
         fontSize: 14,

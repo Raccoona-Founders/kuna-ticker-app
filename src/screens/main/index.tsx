@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import * as SlideView from 'components/slide-view';
-import Analitics from 'utils/ga-tracker';
-import { tabNavigationRoutes, TabnavRoute, TabBarComponent } from './components/tab-bar';
 import Constants from 'utils/constants';
+import Analitics from 'utils/ga-tracker';
+import * as SlideView from 'components/slide-view';
+import { tabNavigationRoutes, TabnavRoute, TabBarComponent } from './components/tab-bar';
 import { mainStyles } from './styles';
+
 
 type MainScreenState = {
     index: number;
@@ -13,6 +14,7 @@ type MainScreenState = {
 };
 
 type MainScreenProps = NavigationInjectedProps;
+
 
 export default class MainScreen extends React.PureComponent<MainScreenProps, MainScreenState> {
     public state: MainScreenState = {

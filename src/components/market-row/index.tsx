@@ -57,7 +57,7 @@ const MarketRow = (props: MarketRowProps) => {
                         <SpanText style={styles.marketVolume}>
                             ~ ${usdPrice.format('0,0.00')}
                         </SpanText>
-                        <SpanText style={styles.separator}> / </SpanText>
+                        <View style={styles.separator} />
                         <SpanText style={dailyChangeStyles}>
                             {numeral(currentTicker.dailyChangePercent).format('+0,0.00')}%
                         </SpanText>

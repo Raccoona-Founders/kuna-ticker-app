@@ -22,6 +22,7 @@ type State = {
 type CalculatorScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
 type CalculatorScreenProps = CalculatorScreenOuterProps & MobxTicker.WithTickerProps;
 
+
 @inject('Ticker')
 @observer
 export default class CalculatorScreen extends React.Component<CalculatorScreenProps, State> {

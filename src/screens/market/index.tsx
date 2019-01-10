@@ -39,7 +39,7 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
     };
 
     public async componentDidMount(): Promise<void> {
-        const marketSymbol = this.currentSymbol;
+        const marketSymbol = this._currentSymbol;
         const currentMarket = kunaMarketMap[marketSymbol];
 
         AnalTracker.trackScreen(
@@ -54,7 +54,7 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
     public render(): JSX.Element {
         const { Ticker } = this.props;
 
-        const symbol = this.currentSymbol;
+        const symbol = this._currentSymbol;
         const tick = Ticker.getTicker(symbol);
 
         if (!tick) {
@@ -139,28 +139,28 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
         );
     }
 
-    protected get currentSymbol(): string {
+    protected get _currentSymbol(): string {
         return this.props.navigation.getParam('symbol');
     }
 
 
     protected __openDepth = () => {
         this.props.navigation.push(RouteKeys.Market_OrderBook, {
-            marketSymbol: this.currentSymbol,
+            marketSymbol: this._currentSymbol,
         });
     };
 
 
     protected __openLastTrades = () => {
         this.props.navigation.push(RouteKeys.Market_LastTrades, {
-            marketSymbol: this.currentSymbol,
+            marketSymbol: this._currentSymbol,
         });
     };
 
 
     protected __openCalculator = () => {
         this.props.navigation.push(RouteKeys.Market_Calculator, {
-            marketSymbol: this.currentSymbol,
+            marketSymbol: this._currentSymbol,
         });
     };
 

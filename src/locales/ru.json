@@ -1,7 +1,11 @@
 {
     "menu": {
         "other": "Другое",
-        "about": "О тикере"
+        "about": "О тикере",
+        "markets": "Рынки",
+        "setting": "Настройки",
+        "account": "Акаунт",
+        "portfolio": "Портфолио"
     },
     "about": {
         "title": "Про Kuna Ticker",

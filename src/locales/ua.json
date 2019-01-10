@@ -1,7 +1,11 @@
 {
     "menu": {
         "other": "Інше",
-        "about": "Про тікер"
+        "about": "Про тікер",
+        "markets": "Ринки",
+        "setting": "Налаштунки",
+        "account": "Акаунт",
+        "portfolio": "Портфоліо"
     },
     "about": {
         "title": "Про Kuna Ticker",

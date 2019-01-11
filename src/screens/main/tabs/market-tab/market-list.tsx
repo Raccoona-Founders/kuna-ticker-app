@@ -1,6 +1,5 @@
 import React from 'react';
 import { values, chain } from 'lodash';
-import { compose } from 'recompose';
 import { KunaAssetUnit, KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
@@ -14,7 +13,7 @@ type State = {};
 @withNavigation
 @inject('Ticker')
 @observer
-class MarketList extends React.Component<Props, State> {
+export default class MarketList extends React.Component<Props, State> {
     public render(): JSX.Element {
         return (
             <FlatList
@@ -73,9 +72,6 @@ type OuterProps = {
     activeAsset?: KunaAssetUnit;
 };
 type Props = OuterProps & MobxTicker.WithTickerProps & NavigationInjectedProps;
-
-// @ts-ignore
-export default compose<Props, OuterProps>()(MarketList);
 
 const styles = StyleSheet.create({
     listItemSeparator: {

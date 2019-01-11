@@ -1,17 +1,20 @@
 import { forEach } from 'lodash';
+import { configure } from 'mobx';
 import ModelAsyncStorage from './common/model-async-storage';
 
 import UsdRateModel from './usd-rate-model';
 import TickerModel from './ticker-model';
 import UserModel from './user-model';
 
+configure({ enforceActions: 'observed' });
+
 export default async function buildAppStore(): Promise<MobxStore> {
-    const usdRateStore = new UsdRateModel();
+    const usdRateStore = UsdRateModel.create();
 
     const storage: MobxStore = {
         UsdRate: usdRateStore,
-        Ticker: new TickerModel(usdRateStore),
-        User: new UserModel(),
+        Ticker: TickerModel.create(usdRateStore),
+        User: UserModel.create(),
     };
 
     const awaitInitializations: Array<PromiseLike<any>> = [];

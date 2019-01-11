@@ -1,5 +1,4 @@
 import React from 'react';
-import { compose } from 'recompose';
 import { inject } from 'mobx-react/native';
 import { ScrollView, RefreshControl, StyleSheet, View } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
@@ -19,9 +18,7 @@ type OuterProps = {};
 type Props = OuterProps & MobxTicker.WithTickerProps;
 
 // @ts-ignore
-@compose<Props, OuterProps>(
-    inject('Ticker'),
-)
+@inject('Ticker')
 export default class MarketTab extends React.Component<Props, State> {
     public state: State = {
         refreshing: false,

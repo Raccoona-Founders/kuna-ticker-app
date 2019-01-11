@@ -6,6 +6,11 @@ export default class UserModel extends ModelAsyncStorage implements MobxUser.Sto
     @observable
     public userId?: string;
 
+    @action
+    public static create(): UserModel {
+        return new UserModel();
+    }
+
     public getStoreKey(): string {
         return 'KunaTicker@Mobx_User';
     }

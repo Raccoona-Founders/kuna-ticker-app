@@ -1,4 +1,4 @@
-import { set, autorun, toJS } from 'mobx';
+import { set, autorun, toJS, action } from 'mobx';
 import { AsyncStorage } from 'react-native';
 
 export default abstract class ModelAsyncStorage {
@@ -6,6 +6,7 @@ export default abstract class ModelAsyncStorage {
 
     private __firstRun: boolean = false;
 
+    @action
     public async initialize(): Promise<void> {
         const existingStore = await AsyncStorage.getItem(this.getStoreKey());
 

@@ -18,6 +18,7 @@ type ApplicationState = {
 };
 
 
+
 export default class Application extends React.PureComponent<any, ApplicationState> {
     public state: ApplicationState = {
         isReady: false,

@@ -17,6 +17,11 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
 
     private __usdRateStore: MobxUsdRate.StoreModel;
 
+    @action
+    public static create(usdRateStore: MobxUsdRate.StoreModel): TickerModel {
+        return new TickerModel(usdRateStore);
+    }
+    
     public constructor(usdRateStore: MobxUsdRate.StoreModel) {
         super();
 
@@ -29,7 +34,7 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
 
 
     @action
-    public async fetchTickers(): Promise<void> {
+    public fetchTickers = async (): Promise<void> => {
         try {
             const tickers = await kunaClient.getTickers();
 
@@ -45,11 +50,11 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
         }
 
         this.lastUpdate = new Date().toISOString();
-    }
+    };
 
 
     public getTicker(marketSymbol: string): KunaV3Ticker | undefined {
-        return find(this.tickers, { symbol: marketSymbol });
+        return find(this.tickers, {symbol: marketSymbol});
     }
 
 
@@ -59,6 +64,7 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
     }
 
 
+    @action
     public async initialize(): Promise<void> {
         await super.initialize();
 
@@ -74,7 +80,7 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
         };
     }
 
-
+    @action
     private async __runUpdater() {
         const lastUpdateDate = new Date(this.lastUpdate as string);
 
@@ -86,6 +92,6 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
             await this.fetchTickers();
         }
 
-        setInterval(this.fetchTickers.bind(this), TICKER_UPDATE_TIMEOUT);
+        setInterval(this.fetchTickers, TICKER_UPDATE_TIMEOUT);
     }
 }

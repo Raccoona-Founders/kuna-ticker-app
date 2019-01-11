@@ -11,24 +11,30 @@ export default class UsdRateModel extends ModelAsyncStorage implements MobxUsdRa
     @observable
     public lastUpdate?: string;
 
+    @action
+    public static create(): UsdRateModel {
+        return new UsdRateModel();
+    }
+
     public getStoreKey(): string {
         return 'KunaTicker@Mobx_UsdRate';
     }
 
     @action
-    public async updateUsdRate(): Promise<number> {
+    public updateUsdRate = async (): Promise<number> => {
         try {
             this.rate = await getUahRate();
-        } catch (e) {
-            console.warn(e);
+        } catch (error) {
+            console.warn(error);
         }
 
         this.lastUpdate = new Date().toISOString();
 
         return this.rate;
-    }
+    };
 
 
+    @action
     public async initialize(): Promise<void> {
         await super.initialize();
 
@@ -36,6 +42,7 @@ export default class UsdRateModel extends ModelAsyncStorage implements MobxUsdRa
             .then(() => console.log('Updater successfully run'));
     }
 
+    @action
     private async __runUsdRateUpdater() {
         const lastUpdateDate = new Date(this.lastUpdate as string);
 
@@ -47,6 +54,6 @@ export default class UsdRateModel extends ModelAsyncStorage implements MobxUsdRa
             await this.updateUsdRate();
         }
 
-        setInterval(this.updateUsdRate.bind(this), USD_RATE_UPDATE_TIMEOUT);
+        setInterval(this.updateUsdRate, USD_RATE_UPDATE_TIMEOUT);
     }
 }

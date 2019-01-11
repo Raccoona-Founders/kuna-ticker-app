@@ -6,6 +6,7 @@ import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 import MarketRow from 'components/market-row';
 import { Color } from 'styles/variables';
+import SpanText from 'components/span-text';
 
 type State = {};
 
@@ -16,18 +17,23 @@ type State = {};
 export default class MarketList extends React.Component<Props, State> {
     public render(): JSX.Element {
         return (
-            <FlatList
-                data={values(kunaMarketMap)}
-                renderItem={this.__marketRowRenderer()}
-                initialNumToRender={10}
-                keyExtractor={(m: KunaMarket) => m.key}
-                scrollEnabled={false}
-            />
+            <>
+                <FlatList
+                    data={values(kunaMarketMap)}
+                    renderItem={this.__marketRowRenderer()}
+                    initialNumToRender={10}
+                    keyExtractor={(m: KunaMarket) => m.key}
+                    scrollEnabled={false}
+                />
+                <SpanText style={{ color: Color.GrayBlues, fontSize: 12, paddingLeft: 20, paddingBottom: 20 }}>
+                    {this.props.Ticker.lastUpdate}
+                </SpanText>
+            </>
         );
     }
 
     private __marketRowRenderer = () => {
-        const { Ticker, activeAsset, favorite } = this.props;
+        const {Ticker, activeAsset, favorite} = this.props;
 
         const enabledMarkets = this.__getEnabledMarkets(activeAsset, favorite);
 
@@ -50,7 +56,7 @@ export default class MarketList extends React.Component<Props, State> {
 
     private __pressMarketRow = (market: KunaMarket) => {
         return () => {
-            this.props.navigation.navigate('Market', { symbol: market.key });
+            this.props.navigation.navigate('Market', {symbol: market.key});
         };
     };
 
@@ -72,6 +78,7 @@ type OuterProps = {
     activeAsset?: KunaAssetUnit;
 };
 type Props = OuterProps & MobxTicker.WithTickerProps & NavigationInjectedProps;
+
 
 const styles = StyleSheet.create({
     listItemSeparator: {

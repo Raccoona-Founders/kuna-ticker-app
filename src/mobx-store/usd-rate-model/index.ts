@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { getUahRate } from 'utils/external';
 
@@ -20,15 +20,19 @@ export default class UsdRateModel extends ModelAsyncStorage implements MobxUsdRa
         return 'KunaTicker@Mobx_UsdRate';
     }
 
-    @action
+    @action.bound
     public updateUsdRate = async (): Promise<number> => {
+        let newRate = 28;
         try {
-            this.rate = await getUahRate();
+            newRate = await getUahRate();
         } catch (error) {
             console.warn(error);
         }
 
-        this.lastUpdate = new Date().toISOString();
+        runInAction(() => {
+            this.rate = newRate;
+            this.lastUpdate = new Date().toISOString();
+        });
 
         return this.rate;
     };
@@ -42,7 +46,7 @@ export default class UsdRateModel extends ModelAsyncStorage implements MobxUsdRa
             .then(() => console.log('Updater successfully run'));
     }
 
-    @action
+
     private async __runUsdRateUpdater() {
         const lastUpdateDate = new Date(this.lastUpdate as string);
 

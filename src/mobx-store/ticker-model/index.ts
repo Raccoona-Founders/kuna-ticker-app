@@ -1,5 +1,5 @@
 import { forEach, find } from 'lodash';
-import { action, computed, observable } from 'mobx';
+import { action, computed, observable, runInAction } from 'mobx';
 import { KunaV3Ticker } from 'kuna-sdk';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { UsdCalculator } from 'utils/currency-rate';
@@ -21,7 +21,7 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
     public static create(usdRateStore: MobxUsdRate.StoreModel): TickerModel {
         return new TickerModel(usdRateStore);
     }
-    
+
     public constructor(usdRateStore: MobxUsdRate.StoreModel) {
         super();
 
@@ -33,23 +33,24 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
     }
 
 
-    @action
+    @action.bound
     public fetchTickers = async (): Promise<void> => {
+        const newTickers: Record<string, KunaV3Ticker> = {};
+
         try {
             const tickers = await kunaClient.getTickers();
-
-            const newTickers: Record<string, KunaV3Ticker> = {};
             forEach(tickers, (ticker: KunaV3Ticker) => newTickers[ticker.symbol] = ticker);
-
-            this.tickers = {
-                ...this.tickers,
-                ...newTickers,
-            };
         } catch (e) {
 
         }
 
-        this.lastUpdate = new Date().toISOString();
+        runInAction(() => {
+            this.tickers = {
+                ...this.tickers,
+                ...newTickers,
+            };
+            this.lastUpdate = new Date().toISOString();
+        });
     };
 
 

@@ -33,10 +33,7 @@ export default class MarketTab extends React.Component<Props, State> {
     public render(): JSX.Element {
         return (
             <View style={styles.flatList}>
-                <View>
-                    <TagRow onChooseTag={this.__onChooseTag} activeTagIndex={0} />
-                </View>
-
+                <TagRow onChooseTag={this.__onChooseTag} />
                 <ScrollView
                     style={styles.flatList}
                     showsVerticalScrollIndicator={false}
@@ -77,6 +74,7 @@ export default class MarketTab extends React.Component<Props, State> {
             />
         );
     };
+
 
     private __onRefresh = async () => {
         this.setState({ refreshing: true });

@@ -1,44 +1,40 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-
+import SpanText from 'components/span-text';
 import { Color } from 'styles/variables';
 
 type TopicProps = {
-    title?: React.ReactNode;
-    leftContent?: any;
-    rightContent?: any;
+    title: React.ReactNode;
+    description?: React.ReactNode;
 };
 
-export const Topic = (props: TopicProps) => {
+const Topic = (props: TopicProps) => {
     return (
-        <View style={topicStyles.container}>
-            <View style={topicStyles.titleArea}>
-                <View style={topicStyles.titleAreaSide}>{props.leftContent}</View>
-                <View style={topicStyles.titleText}>{props.title}</View>
-                <View style={topicStyles.titleAreaSide}>{props.rightContent}</View>
-            </View>
+        <View style={styles.container}>
+            <SpanText style={styles.titleText}>{props.title}</SpanText>
+            {props.description ? <SpanText style={styles.descriptionText}>{props.description}</SpanText> : undefined}
         </View>
     );
 };
 
-export const topicStyles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
-        height: 44,
-    },
-    titleArea: {
+        flex: 1,
         paddingLeft: 20,
         paddingRight: 20,
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
     },
     titleText: {
-        fontSize: 16,
+        fontSize: 28,
         textAlign: 'center',
-        color: Color.DarkPurple,
+        fontWeight: 'bold',
+        color: Color.Text,
     },
-    titleAreaSide: {
-        width: 70,
+    descriptionText: {
+        fontSize: 16,
     },
 });
+
+export default Topic;

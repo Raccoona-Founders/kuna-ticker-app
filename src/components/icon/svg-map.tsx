@@ -13,4 +13,8 @@ export const svgs: Record<string, SvgIconProps> = {
             d="M24,48 C47.815,48 48,37.255 48,24 C48,10.745 47.815,0 24,0 C0.185,0 0,10.745 0,24 C0,37.255 0.185,48 24,48 Z"/>,
         viewBox: '0 0 48 48',
     },
+    slideRight: {
+        svg: <Path d="M0 1.3l6.2 6.2L0 13.7 1.6 15 9 7.5 1.6 0z" fill="#CFD1DB" />,
+        viewBox: '0 0 9 15',
+    },
 };

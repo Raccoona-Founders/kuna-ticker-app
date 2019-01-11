@@ -68,7 +68,7 @@ export default class OrderBookScreen extends React.Component<DepthScreenProps, S
             this.setState({
                 orderBook: new OrderBookProcessor(orderBook, ORDER_DEPTH),
             });
-        }, 400);
+        }, 600);
     }
 
 

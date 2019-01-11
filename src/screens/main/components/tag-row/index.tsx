@@ -40,20 +40,22 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
 
     public render(): JSX.Element {
         return (
-            <ScrollView scrollEnabled={false}>
-                {/* @TODO Its hack we use to remove nested scrolling !!! */}
-                <ScrollView
-                    style={styles.tagScrollView}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    nestedScrollEnabled={false}
-                    overScrollMode="never"
-                >
-                    <View style={styles.tagContainer}>
-                        {coinTags.map(this.__renderTag)}
-                    </View>
+            <View>
+                <ScrollView scrollEnabled={false}>
+                    {/* @TODO Its hack we use to remove nested scrolling !!! */}
+                    <ScrollView
+                        style={styles.tagScrollView}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        nestedScrollEnabled={false}
+                        overScrollMode="never"
+                    >
+                        <View style={styles.tagContainer}>
+                            {coinTags.map(this.__renderTag)}
+                        </View>
+                    </ScrollView>
                 </ScrollView>
-            </ScrollView>
+            </View>
         );
     }
 
@@ -62,6 +64,7 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
         const specificTextStyle: any = {};
 
         const isActive = index === this.state.currentActiveTagIndex;
+        const asset = getAsset(assetUnit as KunaAssetUnit);
 
         const tagStyle = [
             styles.tagCell,
@@ -77,7 +80,7 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
 
         return (
             <TouchableOpacity key={assetUnit} style={tagStyle} onPress={this.__onPressTag(index)}>
-                <SpanText style={textStyles}>{assetUnit}</SpanText>
+                <SpanText style={textStyles}>{asset ? asset.name : assetUnit}</SpanText>
             </TouchableOpacity>
         );
     };
@@ -124,19 +127,28 @@ const styles = StyleSheet.create({
 
     },
     tagCell: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
+        backgroundColor: Color.White,
+        borderRadius: 3,
+        marginLeft: 10,
+        paddingTop: 8,
+        paddingBottom: 8,
+        paddingLeft: 15,
+        paddingRight: 15,
+
+        shadowColor: Color.Fade,
+        shadowOpacity: 0.12,
+        shadowRadius: 5,
+        shadowOffset: { width: 0, height: 4 },
     },
-    tagCellActive: {},
+    tagCellActive: {
+        backgroundColor: Color.DeepBlue,
+    },
 
     text: {
-        fontSize: 18,
-        color: Color.GrayBlues,
+        fontSize: 16,
+        color: Color.Fade,
     },
     textActive: {
-        color: Color.Text,
-        fontWeight: '700',
+        color: Color.White,
     },
 });

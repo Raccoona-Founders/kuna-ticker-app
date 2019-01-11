@@ -5,8 +5,10 @@ enum RouteKeys {
     Market_LastTrades = 'Market_LastTrades',
     Market_Calculator = 'Market_Calculator',
 
-    RiddleQuestion = 'RiddleQuestion',
-    RiddleAnswer = 'RiddleAnswer'
+    Setting_About = 'Setting_About',
+
+    Riddle_Question = 'RiddleQuestion',
+    Riddle_Answer = 'RiddleAnswer',
 }
 
 export default RouteKeys;

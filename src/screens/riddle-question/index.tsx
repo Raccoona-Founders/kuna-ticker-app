@@ -61,7 +61,7 @@ export default class RiddleQuestionScreen extends React.PureComponent<RiddleQues
 
         const index = navigation.getParam('index');
 
-        navigation.push(RouteKeys.RiddleAnswer, {
+        navigation.push(RouteKeys.Riddle_Answer, {
             index: index,
         });
     };

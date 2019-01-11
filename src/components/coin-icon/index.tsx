@@ -4,8 +4,8 @@ import SvgIcon from 'react-native-svg-icon';
 import { KunaAsset } from 'kuna-sdk';
 
 import { svgIcons, findIcon } from './svg-icons';
-import { coinShadow } from "styles/shadows";
-import { Icon } from 'components/icon';
+import { coinShadow } from 'styles/shadows';
+import Icon from 'components/icon';
 import { SpanText } from 'components/span-text';
 
 type CoinIconProps = {
@@ -35,7 +35,7 @@ export const CoinIcon = (props: CoinIconProps) => {
 
     const backgroundLayout = naked
         ? undefined
-        : <Icon name="shapeBox" size={size} style={svgShapeStyle} fill={asset.color} />;
+        : <Icon name="shapeBox" height={size} style={svgShapeStyle} fill={asset.color} />;
 
     if (!existsIcon) {
         const symbolContainerStyle: any = {

@@ -1,27 +1,16 @@
 import React from 'react';
 import { values, chain } from 'lodash';
 import { compose } from 'recompose';
+import { KunaAssetUnit, KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import { inject } from 'mobx-react/native';
-import { KunaAssetUnit, KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import MarketRow from 'components/market-row';
 import { Color } from 'styles/variables';
 
 type State = {};
 
-type OuterProps = {
-    favorite: boolean;
-    activeAsset?: KunaAssetUnit;
-};
-type Props = OuterProps & MobxTicker.WithTickerProps & NavigationInjectedProps;
-
-// @ts-ignore
-@compose<Props, OuterProps>(
-    withNavigation,
-    inject('Ticker'),
-)
-export default class MarketList extends React.PureComponent<Props, State> {
+class MarketList extends React.PureComponent<Props, State> {
     public state: State = {} as State;
 
     public render(): JSX.Element {
@@ -77,6 +66,18 @@ export default class MarketList extends React.PureComponent<Props, State> {
             .value();
     };
 }
+
+type OuterProps = {
+    favorite: boolean;
+    activeAsset?: KunaAssetUnit;
+};
+type Props = OuterProps & MobxTicker.WithTickerProps & NavigationInjectedProps;
+
+// @ts-ignore
+export default compose<Props, OuterProps>(
+    withNavigation,
+    inject('Ticker'),
+)(MarketList);
 
 const styles = StyleSheet.create({
     listItemSeparator: {

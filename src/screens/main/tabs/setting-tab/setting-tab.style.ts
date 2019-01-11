@@ -1,33 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { Color, Fonts } from 'styles/variables';
-
-export const mdStyles = StyleSheet.create({
-    root: {},
-    view: {},
-    text: {
-        fontSize: 16,
-        lineHeight: 20,
-        color: Color.DarkPurple,
-        fontFamily: Fonts.TTNorms_Regular,
-    },
-});
-
+import { Color } from 'styles/variables';
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: 40,
+        paddingBottom: 40,
         paddingLeft: 20,
         paddingRight: 20,
-        paddingBottom: 20,
-    },
-    topic: {
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    topicTitle: {
-        color: Color.DarkPurple,
-        fontSize: 24,
-        fontWeight: '600',
     },
 
     separator: {
@@ -35,18 +15,5 @@ export const styles = StyleSheet.create({
         marginBottom: 20,
         borderTopWidth: 1,
         borderTopColor: Color.Gray3,
-    },
-    linksContainer: {
-    },
-    linkItem: {
-        marginBottom: 20,
-    },
-    linkItemTitle: {
-        color: Color.GrayBlues,
-    },
-    linkItemLabel: {
-        marginTop: 3,
-        fontSize: 18,
-        fontWeight: '500',
     },
 });

@@ -11,7 +11,7 @@ import styles from './market-row.styles';
 export default class MarketRow extends React.Component<MarketRowProps> {
     public render(): JSX.Element {
         const { market, ticker, usdPrice, onPress, visible = true } = this.props;
-        
+
         if (!ticker || !ticker.lastPrice) {
             return <View />;
         }

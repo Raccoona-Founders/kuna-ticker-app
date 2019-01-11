@@ -8,6 +8,11 @@
         "kuna_code": "KUNA Code",
         "portfolio": "Portfolio"
     },
+    "setting": {
+        "menu": {
+            "about": "About"
+        }
+    },
     "about": {
         "title": "About Kuna Ticker",
         "github": "GitHub Repository",

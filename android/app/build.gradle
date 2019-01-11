@@ -98,6 +98,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
+        minSdkVersion 21
         applicationId "com.kunaticker"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -107,6 +108,24 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+
+    configurations.all {
+        resolutionStrategy {
+            force 'org.webkit:android-jsc:r236355'
+        }
+    }
+
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+
     splits {
         abi {
             reset()
@@ -119,6 +138,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -145,6 +165,8 @@ dependencies {
     compile project(':react-native-interactable')
     compile project(':react-native-firebase')
     compile project(':react-native-device-info')
+    compile fileTree(dir: "libs", include: ["*.jar"])
+
     implementation project(':react-native-randombytes')
     implementation project(':react-native-firebase')
     implementation project(':react-native-svg')

@@ -47,7 +47,7 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
                         style={styles.tagScrollView}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
-                        nestedScrollEnabled={false}
+                        nestedScrollEnabled={true}
                         overScrollMode="never"
                     >
                         <View style={styles.tagContainer}>

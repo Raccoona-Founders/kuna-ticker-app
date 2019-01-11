@@ -27,16 +27,14 @@ export const tabBarStyles = StyleSheet.create({
 
     tabBar: {
         height: 60,
-        alignItems: 'center',
         flexDirection: 'row',
-        textAlignVertical: 'bottom',
         justifyContent: 'flex-start',
     },
     tabBtn: {
         width: '100%',
         height: '100%',
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-end',
     },
     tab: {
         position: 'absolute',

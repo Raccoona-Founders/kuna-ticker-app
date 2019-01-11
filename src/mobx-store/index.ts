@@ -3,6 +3,7 @@ import ModelAsyncStorage from './common/model-async-storage';
 
 import UsdRateModel from './usd-rate-model';
 import TickerModel from './ticker-model';
+import UserModel from './user-model';
 
 export default async function buildAppStore(): Promise<MobxStore> {
     const usdRateStore = new UsdRateModel();
@@ -10,6 +11,7 @@ export default async function buildAppStore(): Promise<MobxStore> {
     const storage: MobxStore = {
         UsdRate: usdRateStore,
         Ticker: new TickerModel(usdRateStore),
+        User: new UserModel(),
     };
 
     const awaitInitializations: Array<PromiseLike<any>> = [];

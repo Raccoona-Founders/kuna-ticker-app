@@ -1,5 +1,4 @@
 import React from 'react';
-import { Store } from 'redux';
 import { View, StyleSheet } from 'react-native';
 import { Provider as MobxProvider } from 'mobx-react/native';
 import SplashScreen from 'react-native-splash-screen';
@@ -14,8 +13,6 @@ import buildAppStore from 'mobx-store';
 
 type ApplicationState = {
     isReady: boolean;
-    /** @deprecated */
-    store?: Store<KunaStore>;
     mobxStore?: MobxStore;
     error?: Error;
 };
@@ -24,7 +21,6 @@ type ApplicationState = {
 export default class Application extends React.PureComponent<any, ApplicationState> {
     public state: ApplicationState = {
         isReady: false,
-        store: undefined,
         mobxStore: undefined,
         error: undefined,
     };

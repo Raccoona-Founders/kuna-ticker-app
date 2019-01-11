@@ -1,86 +1,65 @@
 import React from 'react';
 import numeral from 'numeral';
-import { compose } from 'recompose';
-import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { View, TouchableOpacity } from 'react-native';
-import { KunaMarket } from 'kuna-sdk';
+import { KunaMarket, KunaV3Ticker } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
 import { SpanText } from 'components/span-text';
-
 import { MarketNameCell } from './market-name-cell';
 import styles from './market-row.styles';
-import { inject, observer } from 'mobx-react/native';
 
 
-const MarketRow = (props: MarketRowProps) => {
-    const { market, Ticker, navigation, visible = true } = props;
-    const currentTicker = Ticker.getTicker(market.key);
-
-    if (!currentTicker || !currentTicker.lastPrice) {
-        return <View />;
-    }
-
-    const onPress = () => {
-        if (!currentTicker) {
-            return;
+export default class MarketRow extends React.Component<MarketRowProps> {
+    public render(): JSX.Element {
+        const { market, ticker, usdPrice, onPress, visible = true } = this.props;
+        
+        if (!ticker || !ticker.lastPrice) {
+            return <View />;
         }
 
-        navigation.navigate('Market', { symbol: market.key });
-    };
+        const dailyChangeStyles = [
+            styles.dailyChange,
+            ticker.dailyChangePercent > 0 ? styles.dailyChangeUp : styles.dailyChangeDown,
+        ];
 
-    const usdPrice = Ticker.usdCalculator.getPrice(market.key);
-    const dailyChangeStyles = [
-        styles.dailyChange,
-        currentTicker.dailyChangePercent > 0 ? styles.dailyChangeUp : styles.dailyChangeDown,
-    ];
+        const containerStyle = [
+            styles.listItemLink,
+            visible ? undefined : styles.listItemLinkInvisible,
+        ];
 
-    const containerStyle = [
-        styles.listItemLink,
-        visible ? undefined : styles.listItemLinkInvisible,
-    ];
+        return (
+            <TouchableOpacity onPress={ticker ? onPress : undefined} style={containerStyle}>
+                <View style={styles.listItem}>
+                    <MarketNameCell market={market} />
 
-    return (
-        <TouchableOpacity key={market.key} onPress={onPress} style={containerStyle}>
-            <View style={styles.listItem}>
-                <MarketNameCell market={market} />
+                    <View style={styles.tickerCell}>
+                        <View style={styles.priceBox}>
+                            <SpanText style={styles.priceValue}>
+                                {ticker.lastPrice ? numFormat(ticker.lastPrice || 0, market.format) : '—'}
+                                {' '}
+                                {market.quoteAsset}
+                            </SpanText>
+                        </View>
 
-                <View style={styles.tickerCell}>
-                    <View style={styles.priceBox}>
-                        <SpanText style={styles.priceValue}>
-                            {currentTicker.lastPrice ? numFormat(currentTicker.lastPrice || 0, market.format) : '—'}
-                            {' '}
-                            {market.quoteAsset}
-                        </SpanText>
-                    </View>
-
-                    <View style={styles.secondaryInfo}>
-                        <SpanText style={styles.marketVolume}>
-                            ~ ${usdPrice.format('0,0.00')}
-                        </SpanText>
-                        <View style={styles.separator} />
-                        <SpanText style={dailyChangeStyles}>
-                            {numeral(currentTicker.dailyChangePercent).format('+0,0.00')}%
-                        </SpanText>
+                        <View style={styles.secondaryInfo}>
+                            <SpanText style={styles.marketVolume}>
+                                ~ ${usdPrice.format('0,0.00')}
+                            </SpanText>
+                            <View style={styles.separator} />
+                            <SpanText style={dailyChangeStyles}>
+                                {numeral(ticker.dailyChangePercent).format('+0,0.00')}%
+                            </SpanText>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </TouchableOpacity>
-    );
-};
+            </TouchableOpacity>
+        );
+    }
+}
 
-type MarketRowOuterProps = {
+type MarketRowProps = {
     market: KunaMarket;
+    usdPrice: Numeral;
+    ticker?: KunaV3Ticker;
     visible?: boolean;
+    onPress?: () => void;
 };
-
-type MarketRowProps
-    = NavigationInjectedProps
-    & MarketRowOuterProps
-    & MobxUsdRate.WithUsdRateProps
-    & MobxTicker.WithTickerProps;
-
-export default compose<MarketRowProps, MarketRowOuterProps>(
-    withNavigation,
-    inject('Ticker'),
-    observer,
-)(MarketRow);

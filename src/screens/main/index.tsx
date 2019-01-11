@@ -25,8 +25,8 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
     public render(): JSX.Element {
         return (
             <SlideView.TabView
-                navigationState={this.state}
                 bounces={true}
+                navigationState={this.state}
                 renderScene={this.renderScene}
                 renderPager={this.renderPager}
                 style={mainStyles.container}

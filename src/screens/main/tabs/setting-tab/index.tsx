@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Linking, TouchableOpacity } from 'react-native';
+import { inject } from 'mobx-react/native';
 import Markdown from 'react-native-markdown-renderer';
 import qs from 'querystring';
-import { Color, Fonts } from 'styles/variables';
 import { SpanText } from 'components/span-text';
 import Analytics from 'utils/ga-tracker';
 import i18n, { _ } from 'utils/i18n';
-
+import { styles, mdStyles } from './setting-tab.style';
 import textContent from './text-content';
+import { Color } from 'styles/variables';
+
 const language: string = i18n.currentLocale().split('-')[0];
 
 
@@ -17,6 +19,9 @@ type LinkItem = {
     url: string;
     disabled?: boolean;
 };
+
+type SettingsProps = MobxUser.WithUserProps;
+
 
 const links: LinkItem[] = [{
     title: _('about.github'),
@@ -42,8 +47,52 @@ const links: LinkItem[] = [{
 }];
 
 
-const SettingTab = (): JSX.Element => {
-    const linkTo = (url: string, title: string) => {
+@inject('User')
+export default class SettingTab extends React.Component<SettingsProps> {
+    public render(): JSX.Element {
+        const { User } = this.props;
+
+        return (
+            <ScrollView style={styles.container}>
+                <View>
+                    <View style={styles.topic}>
+                        <SpanText style={styles.topicTitle}>{_('about.title')}</SpanText>
+                    </View>
+
+                    <SpanText>{}</SpanText>
+
+                    <Markdown style={mdStyles}>{textContent[language] || textContent.en}</Markdown>
+                </View>
+
+                <View style={styles.separator} />
+
+                <View style={styles.linksContainer}>
+                    {links.map((item: LinkItem, index: number) => {
+                        const { title, url, label, disabled = false } = item;
+
+                        if (disabled) {
+                            return <View key={index} />;
+                        }
+
+                        return (
+                            <TouchableOpacity key={index} onPress={this.__linkTo(url, title)} style={styles.linkItem}>
+                                <SpanText style={styles.linkItemTitle}>{title}</SpanText>
+                                <SpanText style={styles.linkItemLabel}>{label}</SpanText>
+                            </TouchableOpacity>
+                        );
+                    })}
+                </View>
+
+                <View style={styles.separator} />
+
+                <SpanText style={{ marginBottom: 20, fontSize: 12, color: Color.GrayBlues }}>
+                    User ID: {User.userId}
+                </SpanText>
+            </ScrollView>
+        );
+    }
+
+    private __linkTo = (url: string, title: string) => {
         return async () => {
             const can = await Linking.canOpenURL(url);
 
@@ -56,93 +105,4 @@ const SettingTab = (): JSX.Element => {
             }
         };
     };
-
-    return (
-        <ScrollView style={styles.container}>
-            <View>
-                <View style={styles.topic}>
-                    <SpanText style={styles.topicTitle}>{_('about.title')}</SpanText>
-                </View>
-
-                <SpanText>{}</SpanText>
-
-                <Markdown style={mdStyles}>{textContent[language] || textContent.en}</Markdown>
-            </View>
-
-            <View style={styles.separator} />
-
-            <View style={styles.linksContainer}>
-                {links.map((item: LinkItem, index: number) => {
-                    const { title, url, label, disabled = false } = item;
-
-                    if (disabled) {
-                        return <View key={index} />;
-                    }
-
-                    return (
-                        <TouchableOpacity key={index} onPress={linkTo(url, title)} style={styles.linkItem}>
-                            <SpanText style={styles.linkItemTitle}>{title}</SpanText>
-                            <SpanText style={styles.linkItemLabel}>{label}</SpanText>
-                        </TouchableOpacity>
-                    );
-                })}
-            </View>
-        </ScrollView>
-    );
-};
-
-export default SettingTab;
-
-const mdStyles = StyleSheet.create({
-    root: {},
-    view: {},
-    text: {
-        fontSize: 16,
-        lineHeight: 20,
-        color: Color.DarkPurple,
-        fontFamily: Fonts.TTNorms_Regular,
-    },
-});
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingBottom: 20,
-    },
-    topic: {
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    topicTitle: {
-        color: Color.DarkPurple,
-        fontSize: 24,
-        fontWeight: '600',
-    },
-
-    separator: {
-        marginTop: 10,
-        marginBottom: 10,
-        borderTopWidth: 1,
-        borderTopColor: Color.Gray3,
-    },
-
-    linksContainer: {
-        paddingTop: 20,
-        paddingBottom: 20,
-    },
-    linkItem: {
-        marginBottom: 20,
-    },
-    linkItemTitle: {
-        color: Color.GrayBlues,
-    },
-    linkItemLabel: {
-        marginTop: 3,
-        fontSize: 18,
-        fontWeight: '500',
-    },
-});
-
-
+}

@@ -1,14 +1,13 @@
 import React from 'react';
-import { values, chain } from 'lodash';
 import { compose } from 'recompose';
-import { ScrollView, RefreshControl, StyleSheet, View, FlatList, ListRenderItemInfo } from 'react-native';
-import { KunaAssetUnit, KunaMarket, kunaMarketMap } from 'kuna-sdk';
-import MarketRow from 'components/market-row';
-import { Ticker } from 'store/actions';
+import { inject } from 'mobx-react/native';
+import { ScrollView, RefreshControl, StyleSheet, View } from 'react-native';
+import { KunaAssetUnit } from 'kuna-sdk';
 import { Color } from 'styles/variables';
 
 import TagRow from '../../components/tag-row';
-import { inject } from 'mobx-react/native';
+import MarketList from './market-list';
+
 
 type State = {
     refreshing: boolean;
@@ -30,6 +29,7 @@ export default class MarketTab extends React.Component<Props, State> {
         activeAsset: undefined,
     };
 
+
     public render(): JSX.Element {
         return (
             <View style={styles.flatList}>
@@ -42,13 +42,9 @@ export default class MarketTab extends React.Component<Props, State> {
                     showsVerticalScrollIndicator={false}
                     refreshControl={this.__renderRefreshControl()}
                 >
-                    <FlatList
-                        data={this.__getEnabledMarkets()}
-                        renderItem={this.__renderMarketRow}
-                        initialNumToRender={7}
-                        keyExtractor={(m: KunaMarket) => m.key}
-                        scrollEnabled={false}
-                        ItemSeparatorComponent={() => <View style={styles.listItemSeparator} />}
+                    <MarketList
+                        favorite={this.state.favorite}
+                        activeAsset={this.state.activeAsset}
                     />
                 </ScrollView>
             </View>
@@ -73,11 +69,6 @@ export default class MarketTab extends React.Component<Props, State> {
     };
 
 
-    private __renderMarketRow = (item: ListRenderItemInfo<KunaMarket>) => {
-        return <MarketRow market={item.item} />;
-    };
-
-
     private __renderRefreshControl = () => {
         return (
             <RefreshControl
@@ -86,21 +77,6 @@ export default class MarketTab extends React.Component<Props, State> {
             />
         );
     };
-
-
-    private __getEnabledMarkets = (): KunaMarket[] => {
-        const { activeAsset, favorite = false } = this.state;
-
-        if (!activeAsset) {
-            return values(kunaMarketMap);
-        }
-
-        /** @TODO Implement favorite */
-        return chain(kunaMarketMap)
-            .filter((market: KunaMarket): boolean => [market.quoteAsset, market.baseAsset].indexOf(activeAsset) >= 0)
-            .value();
-    };
-
 
     private __onRefresh = async () => {
         this.setState({ refreshing: true });

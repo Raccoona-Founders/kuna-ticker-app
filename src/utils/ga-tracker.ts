@@ -2,7 +2,6 @@ import firebase from 'react-native-firebase';
 
 /* @TODO Need to review this options for paranoia users T-T */
 firebase.analytics().setAnalyticsCollectionEnabled(true);
-
 firebase.analytics().setUserProperty('ENV', 'Release');
 
 function setUserProperty(name: string, value: string) {

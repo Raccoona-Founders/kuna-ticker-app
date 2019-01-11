@@ -4,7 +4,8 @@ import { UsdCalculator } from 'utils/currency-rate';
 declare global {
     export type MobxStore
         = MobxUsdRate.WithUsdRateProps
-        & MobxTicker.WithTickerProps;
+        & MobxTicker.WithTickerProps
+        & MobxUser.WithUserProps;
 
     namespace MobxUsdRate {
         export interface StoreModel {
@@ -27,11 +28,22 @@ declare global {
             usdCalculator: UsdCalculator;
 
             fetchTickers(): Promise<void>;
+
             getTicker(marketSymbol: string): KunaV3Ticker | undefined;
         }
 
         export type WithTickerProps = {
             Ticker: StoreModel,
+        };
+    }
+
+    namespace MobxUser {
+        export interface StoreModel {
+            userId?: string;
+        }
+
+        export type WithUserProps = {
+            User: StoreModel,
         };
     }
 }

@@ -6,6 +6,7 @@ import { tabBarStyles } from '../styles';
 import { Color } from 'styles/variables';
 import { _ } from 'utils/i18n';
 import Tabs from '../tabs';
+import SpanText from 'components/span-text';
 
 const { width } = Dimensions.get('window');
 
@@ -30,11 +31,11 @@ export const tabNavigationRoutes: TabnavRoute[] = [
         index: 0,
         sceneComponent: Tabs.MarketTab,
     }, {
-        key: 'PORTFOLIO',
-        title: _('menu.portfolio'),
+        key: 'KUNA_CODE',
+        title: _('menu.kuna_code'),
         index: 1,
-        sceneComponent: Tabs.AccountTab,
-    }, {
+        sceneComponent: Tabs.KunaCode,
+    },{
         key: 'SETTINGS',
         title: _('menu.setting'),
         index: 2,
@@ -51,24 +52,25 @@ type TabBarProps = {
 
 export class TabBarComponent extends React.PureComponent<TabBarProps> {
     public render(): JSX.Element {
-        const { navigationState, position, onPressTab } = this.props;
+        const { navigationState } = this.props;
 
         return (
             <View style={tabBarStyles.container}>
                 <View style={tabBarStyles.tabBar}>
-                    {navigationState.routes.map((route: TabnavRoute, index: number) => (
-                        <QuoteTabItem key={route.key}
-                                      route={route}
-                                      position={position}
-                                      index={index}
-                                      isActive={navigationState.index === index}
-                                      onPress={this.__generatePressTabHandler(index)}
-                        />
-                    ))}
+                    {navigationState.routes.map(this.__renderTabItem)}
                 </View>
             </View>
         );
     }
+
+    private __renderTabItem = (route: TabnavRoute, index: number) => (
+        <QuoteTabItem key={route.key}
+                      route={route}
+                      position={this.props.position}
+                      index={index}
+                      onPress={this.__generatePressTabHandler(index)}
+        />
+    );
 
     protected __generatePressTabHandler = (index: number) => {
         const { onPressTab } = this.props;
@@ -81,15 +83,11 @@ export class TabBarComponent extends React.PureComponent<TabBarProps> {
 type TabItemProps = {
     route: TabnavRoute;
     onPress?: () => void;
-    isActive?: boolean;
     index: number;
-
     position: Animated.Value;
 };
 
 class QuoteTabItem extends React.PureComponent<TabItemProps> {
-
-    protected animatedStyle: StyleProp<any>;
     protected boxAnimatedStyle: StyleProp<any>;
 
     public constructor(props: TabItemProps) {
@@ -97,21 +95,19 @@ class QuoteTabItem extends React.PureComponent<TabItemProps> {
 
         const { position, index } = this.props;
 
-        this.animatedStyle = {
-            color: position.interpolate({
-                inputRange: [index - 1, index, index + 1],
-                outputRange: [Color.GrayBlues, Color.Text, Color.GrayBlues],
-                extrapolate: 'clamp',
-            }),
-        };
+        const inputRange = [index - 1, index, index + 1];
 
         this.boxAnimatedStyle = {
             transform: [{
                 translateX: position.interpolate({
-                    inputRange: [index - 1, index, index + 1],
-                    outputRange: [width - 100, 0, -140],
+                    inputRange: inputRange,
+                    outputRange: [width - 120, 0, -170],
                 }),
             }],
+            opacity: position.interpolate({
+                inputRange: inputRange,
+                outputRange: [0.5, 1, 0.2],
+            }),
         };
     }
 
@@ -121,9 +117,7 @@ class QuoteTabItem extends React.PureComponent<TabItemProps> {
         return (
             <Animated.View style={[tabBarStyles.tab, this.boxAnimatedStyle]}>
                 <TouchableOpacity style={tabBarStyles.tabBtn} onPress={this.props.onPress}>
-                    <Animated.Text style={[tabBarStyles.text, this.animatedStyle]}>
-                        {route.title}
-                    </Animated.Text>
+                    <SpanText style={tabBarStyles.text}>{route.title}</SpanText>
                 </TouchableOpacity>
             </Animated.View>
         );

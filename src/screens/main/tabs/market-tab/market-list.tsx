@@ -22,6 +22,7 @@ export default class MarketList extends React.Component<Props, State> {
                     data={values(kunaMarketMap)}
                     renderItem={this.__marketRowRenderer()}
                     initialNumToRender={10}
+                    maxToRenderPerBatch={5}
                     keyExtractor={(m: KunaMarket) => m.key}
                     scrollEnabled={false}
                 />

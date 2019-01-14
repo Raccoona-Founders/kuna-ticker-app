@@ -5,8 +5,12 @@ declare global {
     export type MobxStore
         = MobxUsdRate.WithUsdRateProps
         & MobxTicker.WithTickerProps
-        & MobxUser.WithUserProps;
+        & MobxUser.WithUserProps
+        & MobxKunaCode.WithKunaCodeProps;
 
+    /**
+     * Mobx model for control USD to UAH rate.
+     */
     namespace MobxUsdRate {
         export interface StoreModel {
             rate: number;
@@ -20,6 +24,10 @@ declare global {
         };
     }
 
+
+    /**
+     * This model helps us to track Ticker list
+     */
     namespace MobxTicker {
         export interface StoreModel {
             tickers: Record<string, KunaV3Ticker>;
@@ -37,6 +45,9 @@ declare global {
         };
     }
 
+    /**
+     * Mobx User
+     */
     namespace MobxUser {
         export interface StoreModel {
             userId?: string;
@@ -44,6 +55,37 @@ declare global {
 
         export type WithUserProps = {
             User: StoreModel,
+        };
+    }
+
+
+    namespace MobxKunaCode {
+        type Offer = {
+            token: string;
+            amount: number;
+            currency: string;
+            side: 'sell' | 'buy';
+            comment?: string;
+            user: {
+                name: string;
+                telegram: string;
+            }
+        };
+
+        type UserOffer = Offer & {
+            security_token: string;
+        };
+
+        export interface StoreModel {
+            offers: Offer[];
+
+            myOffer: UserOffer[];
+
+            fetchOffers(): Promise<Offer[]>;
+        }
+
+        export type WithKunaCodeProps = {
+            KunaCode: StoreModel,
         };
     }
 }

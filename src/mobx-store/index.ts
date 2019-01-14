@@ -5,16 +5,19 @@ import ModelAsyncStorage from './common/model-async-storage';
 import UsdRateModel from './usd-rate-model';
 import TickerModel from './ticker-model';
 import UserModel from './user-model';
+import KunaCodeModel from './kuna-code-model';
 
 configure({ enforceActions: 'observed' });
 
 export default async function buildAppStore(): Promise<MobxStore> {
     const usdRateStore = UsdRateModel.create();
+    const userModel = UserModel.create();
 
     const storage: MobxStore = {
         UsdRate: usdRateStore,
+        User: userModel,
         Ticker: TickerModel.create(usdRateStore),
-        User: UserModel.create(),
+        KunaCode: KunaCodeModel.create(userModel),
     };
 
     const awaitInitializations: Array<PromiseLike<any>> = [];

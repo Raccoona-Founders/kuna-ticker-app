@@ -37,6 +37,8 @@ export const tabBarStyles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     tab: {
+        flexDirection: 'row',
+        alignItems: 'flex-end',
         position: 'absolute',
         height: 60,
         top: 0,

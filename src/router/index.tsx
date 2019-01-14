@@ -5,7 +5,7 @@ import MainScreen from 'screens/main';
 import MarketScreen from 'screens/market';
 import OrderBookScreen from 'screens/order-book';
 import CalculatorScreen from 'screens/calculator';
-import Settings from 'screens/setting';
+import Settings from 'screens/settings';
 import RouteKeys from 'router/route-keys';
 
 

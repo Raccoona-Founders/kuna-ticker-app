@@ -80,7 +80,7 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
 
         return (
             <TouchableOpacity key={assetUnit} style={tagStyle} onPress={this.__onPressTag(index)}>
-                <SpanText style={textStyles}>{asset ? asset.name : assetUnit}</SpanText>
+                <SpanText style={textStyles}>{assetUnit}</SpanText>
             </TouchableOpacity>
         );
     };

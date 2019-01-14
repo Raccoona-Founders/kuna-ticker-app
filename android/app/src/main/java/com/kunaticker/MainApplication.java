@@ -39,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNFirebasePackage(),
                     new RNFirebaseAnalyticsPackage(),
                     new RNFirebaseRemoteConfigPackage(),
+                    new RNFirebaseAdMobPackage(),
                     new RNDeviceInfo(),
                     new SvgPackage(),
                     new RandomBytesPackage(),

@@ -1,4 +1,7 @@
 PODS:
+  - Firebase/AdMob (5.3.0):
+    - Firebase/Core
+    - Google-Mobile-Ads-SDK (= 7.31.0)
   - Firebase/Core (5.3.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.0.1)
@@ -26,6 +29,7 @@ PODS:
     - FirebaseInstanceID (~> 3.0)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - Protobuf (~> 3.5)
+  - Google-Mobile-Ads-SDK (7.31.0)
   - GoogleToolboxForMac/Defines (2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
@@ -37,6 +41,7 @@ PODS:
   - Protobuf (3.6.1)
 
 DEPENDENCIES:
+  - Firebase/AdMob (~> 5.3.0)
   - Firebase/Core (~> 5.3.0)
   - Firebase/RemoteConfig (~> 5.3.0)
 
@@ -48,6 +53,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseInstanceID
     - FirebaseRemoteConfig
+    - Google-Mobile-Ads-SDK
     - GoogleToolboxForMac
     - nanopb
     - Protobuf
@@ -59,10 +65,11 @@ SPEC CHECKSUMS:
   FirebaseCore: 62f1b792a49bb9e8b4073f24606d2c93ffc352f0
   FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
   FirebaseRemoteConfig: 3c57e4644bd6976b671ae0b725cd709f198bd1f5
+  Google-Mobile-Ads-SDK: 6e529e748b45507a2ca904e0b5a52669ba3920c4
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
 
-PODFILE CHECKSUM: 1eae0080f8c05c837ba16539ae8507eabdb99f0d
+PODFILE CHECKSUM: e310ce01d9666d20a11d338f2563c22c9a018b45
 
 COCOAPODS: 1.5.3

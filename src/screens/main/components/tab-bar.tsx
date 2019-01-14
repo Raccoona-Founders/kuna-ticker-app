@@ -35,7 +35,7 @@ export const tabNavigationRoutes: TabnavRoute[] = [
         title: _('menu.kuna_code'),
         index: 1,
         sceneComponent: Tabs.KunaCode,
-    },{
+    }, {
         key: 'SETTINGS',
         title: _('menu.setting'),
         index: 2,

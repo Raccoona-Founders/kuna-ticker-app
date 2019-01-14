@@ -18,13 +18,12 @@ export default class MarketList extends React.Component<Props, State> {
     public render(): JSX.Element {
         return (
             <>
-                <FlatList
-                    data={values(kunaMarketMap)}
-                    renderItem={this.__marketRowRenderer()}
-                    initialNumToRender={10}
-                    maxToRenderPerBatch={5}
-                    keyExtractor={(m: KunaMarket) => m.key}
-                    scrollEnabled={false}
+                <FlatList data={values(kunaMarketMap)}
+                          renderItem={this.__marketRowRenderer()}
+                          initialNumToRender={10}
+                          maxToRenderPerBatch={5}
+                          keyExtractor={(m: KunaMarket) => m.key}
+                          scrollEnabled={false}
                 />
                 <SpanText style={{ color: Color.GrayBlues, fontSize: 12, paddingLeft: 20, paddingBottom: 20 }}>
                     {this.props.Ticker.lastUpdate}
@@ -34,7 +33,7 @@ export default class MarketList extends React.Component<Props, State> {
     }
 
     private __marketRowRenderer = () => {
-        const {Ticker, activeAsset, favorite} = this.props;
+        const { Ticker, activeAsset, favorite } = this.props;
 
         const enabledMarkets = this.__getEnabledMarkets(activeAsset, favorite);
 
@@ -57,7 +56,7 @@ export default class MarketList extends React.Component<Props, State> {
 
     private __pressMarketRow = (market: KunaMarket) => {
         return () => {
-            this.props.navigation.navigate('Market', {symbol: market.key});
+            this.props.navigation.navigate('Market', { symbol: market.key });
         };
     };
 

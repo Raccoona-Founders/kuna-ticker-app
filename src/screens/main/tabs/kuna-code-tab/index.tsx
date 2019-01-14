@@ -7,7 +7,7 @@ import styles from './kuna-code-tab.style';
 
 
 // @ts-ignore
-const advert = firebase.admob().interstitial(Constants.AD_MOB_ID);
+firebase.admob().initialize(Constants.ADMOB_APP_ID);
 
 export default class KunaCodeTab extends React.Component {
     public state: any = {
@@ -29,7 +29,7 @@ export default class KunaCodeTab extends React.Component {
                         It's a test! Don't try to say anything about..! I'll remove it on release next release
                     </SpanText>
                     <Banner
-                        unitId={Constants.AD_MOB_ID}
+                        unitId={Constants.ADMOB_BANNER_ID}
                         size="SMART_BANNER"
                         request={request.build()}
                         onAdLoaded={() => {

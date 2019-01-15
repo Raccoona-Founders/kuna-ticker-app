@@ -13,10 +13,9 @@ import buildAppStore from 'mobx-store';
 
 type ApplicationState = {
     isReady: boolean;
-    mobxStore?: MobxStore;
+    mobxStore?: mobx.Store;
     error?: Error;
 };
-
 
 
 export default class Application extends React.PureComponent<any, ApplicationState> {

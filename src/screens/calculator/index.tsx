@@ -20,7 +20,7 @@ type State = {
 };
 
 type CalculatorScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
-type CalculatorScreenProps = CalculatorScreenOuterProps & MobxTicker.WithTickerProps;
+type CalculatorScreenProps = CalculatorScreenOuterProps & mobx.ticker.WithTickerProps;
 
 
 @inject('Ticker')

@@ -15,6 +15,7 @@ type State = {};
 @inject('Ticker')
 @observer
 export default class MarketList extends React.Component<Props, State> {
+
     public render(): JSX.Element {
         return (
             <>
@@ -34,7 +35,6 @@ export default class MarketList extends React.Component<Props, State> {
 
     private __marketRowRenderer = () => {
         const { Ticker, activeAsset, favorite } = this.props;
-
         const enabledMarkets = this.__getEnabledMarkets(activeAsset, favorite);
 
         return (item: ListRenderItemInfo<KunaMarket>) => {
@@ -77,7 +77,7 @@ type OuterProps = {
     favorite: boolean;
     activeAsset?: KunaAssetUnit;
 };
-type Props = OuterProps & MobxTicker.WithTickerProps & NavigationInjectedProps;
+type Props = OuterProps & mobx.ticker.WithTickerProps & NavigationInjectedProps;
 
 
 const styles = StyleSheet.create({

@@ -20,7 +20,7 @@ type LinkItem = {
     disabled?: boolean;
 };
 
-type SettingsProps = MobxUser.WithUserProps;
+type SettingsProps = mobx.user.WithUserProps;
 
 
 const links: LinkItem[] = [{

@@ -15,7 +15,7 @@ type State = {
 };
 
 type OuterProps = {};
-type Props = OuterProps & MobxTicker.WithTickerProps;
+type Props = OuterProps & mobx.ticker.WithTickerProps;
 
 // @ts-ignore
 @inject('Ticker')
@@ -44,6 +44,7 @@ export default class MarketTab extends React.Component<Props, State> {
             </View>
         );
     }
+
 
     private __onChooseTag = (index?: number, assetUnit?: KunaAssetUnit) => {
         const setMode: Partial<State> = {

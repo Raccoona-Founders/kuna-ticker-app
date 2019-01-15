@@ -9,8 +9,9 @@ import MenuLink from './components/menu-link';
 import RouteKeys from 'router/route-keys';
 
 import { styles } from './setting-tab.style';
+import Icon from 'components/icon';
 
-type SettingsProps = MobxUser.WithUserProps & NavigationInjectedProps;
+type SettingsProps = mobx.user.WithUserProps & NavigationInjectedProps;
 
 
 // @ts-ignore
@@ -28,9 +29,10 @@ export default class SettingTab extends React.Component<SettingsProps> {
 
                 <View style={styles.separator} />
 
-                <SpanText style={{ marginBottom: 20, fontSize: 14, color: Color.GrayBlues }}>
-                    User ID: {User.userId}
-                </SpanText>
+                <View style={styles.settingFooter}>
+                    <SpanText style={styles.userId}>User ID: {User.userId}</SpanText>
+                    <Icon name="raccoona" height={20} fill={Color.GrayBlues} />
+                </View>
             </ScrollView>
         );
     }

@@ -7,7 +7,7 @@ import kunaClient from 'utils/kuna-api';
 
 const TICKER_UPDATE_TIMEOUT = 10 * 60 * 1000;
 
-export default class TickerModel extends ModelAsyncStorage implements MobxTicker.StoreModel {
+export default class TickerModel extends ModelAsyncStorage implements mobx.ticker.StoreModel {
 
     @observable
     public tickers: Record<string, KunaV3Ticker> = {};
@@ -15,14 +15,14 @@ export default class TickerModel extends ModelAsyncStorage implements MobxTicker
     @observable
     public lastUpdate?: string;
 
-    private __usdRateStore: MobxUsdRate.StoreModel;
+    private __usdRateStore: mobx.usdrate.StoreModel;
 
     @action
-    public static create(usdRateStore: MobxUsdRate.StoreModel): TickerModel {
+    public static create(usdRateStore: mobx.usdrate.StoreModel): TickerModel {
         return new TickerModel(usdRateStore);
     }
 
-    public constructor(usdRateStore: MobxUsdRate.StoreModel) {
+    public constructor(usdRateStore: mobx.usdrate.StoreModel) {
         super();
 
         this.__usdRateStore = usdRateStore;

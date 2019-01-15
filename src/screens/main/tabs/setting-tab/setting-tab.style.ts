@@ -16,4 +16,15 @@ export const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: Color.Gray3,
     },
+
+    settingFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+
+    userId: {
+        marginBottom: 20,
+        fontSize: 14,
+        color: Color.GrayBlues
+    },
 });

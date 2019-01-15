@@ -25,7 +25,7 @@ type State = {
 
 type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
 
-type MarketScreenProps = MarketScreenOuterProps & MobxTicker.WithTickerProps;
+type MarketScreenProps = MarketScreenOuterProps & mobx.ticker.WithTickerProps;
 
 // @ts-ignore
 @compose<MarketScreenProps, MarketScreenOuterProps>(

@@ -9,11 +9,11 @@ import KunaCodeModel from './kuna-code-model';
 
 configure({ enforceActions: 'observed' });
 
-export default async function buildAppStore(): Promise<MobxStore> {
+export default async function buildAppStore(): Promise<mobx.Store> {
     const usdRateStore = UsdRateModel.create();
     const userModel = UserModel.create();
 
-    const storage: MobxStore = {
+    const storage: mobx.Store = {
         UsdRate: usdRateStore,
         User: userModel,
         Ticker: TickerModel.create(usdRateStore),

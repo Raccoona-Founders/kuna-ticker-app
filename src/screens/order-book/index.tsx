@@ -26,7 +26,7 @@ type State = {
 };
 
 type DepthScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
-type DepthScreenProps = DepthScreenOuterProps & MobxTicker.WithTickerProps;
+type DepthScreenProps = DepthScreenOuterProps & mobx.ticker.WithTickerProps;
 
 // @ts-ignore
 @compose<DepthScreenProps, DepthScreenOuterProps>(

@@ -4,7 +4,7 @@ import { getUahRate } from 'utils/external';
 
 const USD_RATE_UPDATE_TIMEOUT = 4 * 60 * 60 * 1000;
 
-export default class UsdRateModel extends ModelAsyncStorage implements MobxUsdRate.StoreModel {
+export default class UsdRateModel extends ModelAsyncStorage implements mobx.usdrate.StoreModel {
     @observable
     public rate: number = 28;
 

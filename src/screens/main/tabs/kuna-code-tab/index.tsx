@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, RefreshControl } from 'react-native';
 import firebase from 'react-native-firebase';
 import { inject, observer } from 'mobx-react/native';
 import SpanText from 'components/span-text';
 import Constants from 'utils/constants';
 import styles from './kuna-code-tab.style';
-import TelegramLink from './telegram-link';
+import AnalTracker from 'utils/ga-tracker';
+import OfferRow from 'screens/main/tabs/kuna-code-tab/components/offer-row';
 
 
 // @ts-ignore
@@ -17,6 +18,7 @@ type KunaCodeTabProps = mobx.kunacode.WithKunaCodeProps;
 @observer
 export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
     public state: any = {
+        refreshing: false,
         status: '',
     };
 
@@ -31,14 +33,8 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                 <View style={styles.container}>
                     <SpanText>{this.state.status}</SpanText>
 
-                    <ScrollView style={{ flex: 1 }}>
-                        {kunaCodeOffers.map((offer: kunacodes.Offer) => (
-                            <View key={offer.id} style={{ marginTop: 20 }}>
-                                <SpanText>{offer.amount} {offer.currency}</SpanText>
-                                <SpanText>{offer.comment}</SpanText>
-                                {offer.user && <TelegramLink telegram={offer.user.contact} />}
-                            </View>
-                        ))}
+                    <ScrollView style={{ flex: 1 }} refreshControl={this.__renderRefreshControl()}>
+                        {kunaCodeOffers.map(this.__renderOffer)}
                     </ScrollView>
                 </View>
 
@@ -58,4 +54,32 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
             </>
         );
     }
+
+    private __renderOffer = (offer: kunacodes.Offer) => {
+        return <OfferRow offer={offer} key={offer.id} />;
+    };
+
+    private __renderRefreshControl = () => {
+        return (
+            <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.__onRefresh}
+            />
+        );
+    };
+
+
+    private __onRefresh = async () => {
+        this.setState({ refreshing: true });
+
+        AnalTracker.logEvent('update_kuna_code_offers');
+
+        try {
+            await this.props.KunaCode.fetchOffers();
+        } catch (error) {
+            console.error(error);
+        }
+
+        this.setState({ refreshing: false });
+    };
 }

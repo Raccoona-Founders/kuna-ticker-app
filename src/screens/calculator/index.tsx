@@ -55,7 +55,7 @@ export default class CalculatorScreen extends React.Component<CalculatorScreenPr
             'CalculatorScreen',
         );
 
-        AnalTracker.logEvent('use_calculator', {
+        AnalTracker.logEvent('open_calculator', {
             market: currentMarket.key,
         });
 

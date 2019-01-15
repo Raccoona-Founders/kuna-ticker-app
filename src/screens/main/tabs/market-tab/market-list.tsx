@@ -15,7 +15,6 @@ type State = {};
 @inject('Ticker')
 @observer
 export default class MarketList extends React.Component<Props, State> {
-
     public render(): JSX.Element {
         return (
             <>
@@ -78,7 +77,6 @@ type OuterProps = {
     activeAsset?: KunaAssetUnit;
 };
 type Props = OuterProps & mobx.ticker.WithTickerProps & NavigationInjectedProps;
-
 
 const styles = StyleSheet.create({
     listItemSeparator: {

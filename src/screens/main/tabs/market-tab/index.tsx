@@ -2,6 +2,7 @@ import React from 'react';
 import { inject } from 'mobx-react/native';
 import { ScrollView, RefreshControl, StyleSheet, View } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
+import AnalTracker from 'utils/ga-tracker';
 import { Color } from 'styles/variables';
 
 import TagRow from '../../components/tag-row';
@@ -28,6 +29,12 @@ export default class MarketTab extends React.Component<Props, State> {
 
 
     public render(): JSX.Element {
+        // @ts-ignore
+        const marketList = <MarketList
+            favorite={this.state.favorite}
+            activeAsset={this.state.activeAsset}
+        />;
+
         return (
             <View style={styles.flatList}>
                 <TagRow onChooseTag={this.__onChooseTag} />
@@ -36,10 +43,7 @@ export default class MarketTab extends React.Component<Props, State> {
                     showsVerticalScrollIndicator={false}
                     refreshControl={this.__renderRefreshControl()}
                 >
-                    <MarketList
-                        favorite={this.state.favorite}
-                        activeAsset={this.state.activeAsset}
-                    />
+                    {marketList}
                 </ScrollView>
             </View>
         );
@@ -76,6 +80,8 @@ export default class MarketTab extends React.Component<Props, State> {
 
     private __onRefresh = async () => {
         this.setState({ refreshing: true });
+
+        AnalTracker.logEvent('update_markets');
 
         try {
             await this.props.Ticker.fetchTickers();

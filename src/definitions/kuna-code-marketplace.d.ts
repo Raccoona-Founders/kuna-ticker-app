@@ -11,7 +11,7 @@ declare global {
             id: string;
             amount: number;
             currency: string;
-            comment: string;
+            comment?: string;
             side: 'buy' | 'sell';
             commission: number;
             creation_time: string;

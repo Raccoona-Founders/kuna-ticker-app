@@ -5,6 +5,7 @@ import MainScreen from 'screens/main';
 import MarketScreen from 'screens/market';
 import OrderBookScreen from 'screens/order-book';
 import CalculatorScreen from 'screens/calculator';
+import KunaCode from 'screens/kuna-code';
 import Settings from 'screens/settings';
 import RouteKeys from 'router/route-keys';
 
@@ -19,14 +20,14 @@ const routeConfigs = {
     [RouteKeys.Market_Calculator]: { screen: CalculatorScreen },
 
     [RouteKeys.Setting_About]: { screen: Settings.AboutScreen },
+
+    [RouteKeys.KunaCode_ViewOffer]: { screen: KunaCode.ViewOfferScreen },
+    [RouteKeys.KunaCode_CreateOffer]: { screen: KunaCode.CreateOfferScreen },
 };
 
 
 const navigatorConfig = {
     initialRouteName: RouteKeys.Main,
-    initialRouteParams: {
-        symbol: KunaAssetUnit.UkrainianHryvnia,
-    },
 };
 
 const ApplicationRouter = createShadeNavigator(routeConfigs, navigatorConfig);

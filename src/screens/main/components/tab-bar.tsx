@@ -3,7 +3,6 @@ import { Animated, Dimensions, StyleProp, TouchableOpacity, View, ViewStyle } fr
 import { KunaAssetUnit } from 'kuna-sdk';
 import * as SlideView from 'components/slide-view';
 import { tabBarStyles } from '../styles';
-import { Color } from 'styles/variables';
 import { _ } from 'utils/i18n';
 import Tabs from '../tabs';
 import SpanText from 'components/span-text';
@@ -19,6 +18,7 @@ export type TabnavRoute = {
      */
     index: number;
     title: string;
+    isBeta?: boolean;
     sceneComponent: React.ComponentClass | React.SFC | (() => JSX.Element) | any;
     assets?: KunaAssetUnit[];
 };
@@ -34,6 +34,7 @@ export const tabNavigationRoutes: TabnavRoute[] = [
         key: 'KUNA_CODE',
         title: _('menu.kuna_code'),
         index: 1,
+        isBeta: true,
         sceneComponent: Tabs.KunaCode,
     }, {
         key: 'SETTINGS',
@@ -101,7 +102,7 @@ class QuoteTabItem extends React.PureComponent<TabItemProps> {
             transform: [{
                 translateX: position.interpolate({
                     inputRange: inputRange,
-                    outputRange: [width - 120, 0, -170],
+                    outputRange: [width - 120, 0, -185],
                 }),
             }],
             opacity: position.interpolate({
@@ -118,6 +119,9 @@ class QuoteTabItem extends React.PureComponent<TabItemProps> {
             <Animated.View style={[tabBarStyles.tab, this.boxAnimatedStyle]}>
                 <TouchableOpacity style={tabBarStyles.tabBtn} onPress={this.props.onPress}>
                     <SpanText style={tabBarStyles.text}>{route.title}</SpanText>
+                    {route.isBeta ? (
+                        <SpanText style={tabBarStyles.betaLabel}>beta</SpanText>
+                    ) : undefined}
                 </TouchableOpacity>
             </Animated.View>
         );

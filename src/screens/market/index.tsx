@@ -42,11 +42,6 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
         const marketSymbol = this._currentSymbol;
         const currentMarket = kunaMarketMap[marketSymbol];
 
-        AnalTracker.trackScreen(
-            `market/${currentMarket.baseAsset}-${currentMarket.quoteAsset}`,
-            'MarketScreen',
-        );
-
         AnalTracker.logEvent('open_market', { market: currentMarket.key });
     }
 

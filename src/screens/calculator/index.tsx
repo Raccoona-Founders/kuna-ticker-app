@@ -50,11 +50,6 @@ export default class CalculatorScreen extends React.Component<CalculatorScreenPr
             Keyboard.dismiss();
         });
 
-        AnalTracker.trackScreen(
-            `calculator/${currentMarket.baseAsset}-${currentMarket.quoteAsset}`,
-            'CalculatorScreen',
-        );
-
         AnalTracker.logEvent('open_calculator', {
             market: currentMarket.key,
         });

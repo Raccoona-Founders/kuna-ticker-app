@@ -24,12 +24,6 @@ export default class RiddleQuestionScreen extends React.PureComponent<RiddleQues
         this.__riddle = riddleList[index];
     }
 
-    public componentDidMount() {
-        const index = this.props.navigation.getParam('index');
-
-        AnalTracker.trackScreen(`riddle/question/${index}`, 'RiddleQuestion');
-    }
-
     public render(): JSX.Element {
         const { navigation } = this.props;
         const index = navigation.getParam('index');

@@ -61,4 +61,14 @@ export const tabBarStyles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: Color.Gray3,
     },
+
+
+    betaLabel: {
+        color: Color.Main,
+        position: 'absolute',
+        top: 20,
+        right: -24,
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
 });

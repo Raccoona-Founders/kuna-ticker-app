@@ -1,14 +1,17 @@
 enum RouteKeys {
     Main = 'Main',
     Market = 'Market',
-    Market_OrderBook = 'Market_OrderBook',
-    Market_LastTrades = 'Market_LastTrades',
-    Market_Calculator = 'Market_Calculator',
+    Market_OrderBook = 'Market.OrderBook',
+    Market_LastTrades = 'Market.LastTrades',
+    Market_Calculator = 'Market.Calculator',
 
-    Setting_About = 'Setting_About',
+    Setting_About = 'Setting.About',
 
-    Riddle_Question = 'RiddleQuestion',
-    Riddle_Answer = 'RiddleAnswer',
+    Riddle_Question = 'Riddle.Question',
+    Riddle_Answer = 'Riddle.Answer',
+
+    KunaCode_ViewOffer = 'KunaCode.ViewOffer',
+    KunaCode_CreateOffer = 'KunaCode.CreateOffer',
 }
 
 export default RouteKeys;

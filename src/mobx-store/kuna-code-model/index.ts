@@ -1,4 +1,5 @@
-import { action, observable, runInAction } from 'mobx';
+import { orderBy } from 'lodash';
+import { action, computed, observable, runInAction } from 'mobx';
 import ModelAsyncStorage from '../common/model-async-storage';
 import KunaCodeMarketplaceAPI from 'utils/kuna-code-marketplace-api';
 
@@ -39,6 +40,13 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
         });
 
         return this.offers;
+    }
+
+    @computed
+    public get sortedOffers(): kunacodes.Offer[] {
+        return orderBy(this.offers, [
+            (offer: kunacodes.Offer) => offer.creation_time ? new Date(offer.creation_time).getTime() : 0,
+        ], ['desc']);
     }
 
     @action

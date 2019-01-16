@@ -1,17 +1,32 @@
 import { StyleSheet } from 'react-native';
+import { isIphoneX } from 'utils/helper';
+import { Color } from 'styles/variables';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        paddingLeft: 20,
-        paddingRight: 20,
     },
+    createOffer: {
+        position: 'absolute',
+        top: 20,
+        right: 20,
+        width: 40,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 40,
+        backgroundColor: Color.White,
+        borderColor: Color.Fade,
+        borderWidth: 2,
 
-    adBanner: {
-        width: '100%',
+        shadowColor: Color.Fade,
+        shadowOpacity: 0.12,
+        shadowRadius: 5,
+        shadowOffset: { width: 0, height: 4 },
     },
-    adNotification: {
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
+    createOfferSymbol: {
+        fontSize: 30,
+        lineHeight: 30,
+        color: Color.Fade,
+    }
 });

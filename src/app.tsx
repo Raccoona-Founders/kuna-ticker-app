@@ -2,14 +2,16 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Provider as MobxProvider } from 'mobx-react/native';
 import SplashScreen from 'react-native-splash-screen';
+
 import 'utils/setup-locale';
 import i18n from 'utils/i18n';
 import AnalTracker from 'utils/ga-tracker';
-import configureRemoteConfig from 'utils/remote-config';
+import RemoteConfig from 'utils/remote-config';
 import ApplicationRouter from 'router';
 import SpanText from 'components/span-text';
 import { Color } from 'styles/variables';
 import buildAppStore from 'mobx-store';
+import { onNavigationStateChange } from 'router/helper';
 
 type ApplicationState = {
     isReady: boolean;
@@ -31,7 +33,7 @@ export default class Application extends React.PureComponent<any, ApplicationSta
         try {
             const mobxStore = await buildAppStore();
             this.setState({ mobxStore: mobxStore, isReady: true });
-            await configureRemoteConfig();
+            await RemoteConfig.configure();
 
         } catch (error) {
             this.setState({ error: error });
@@ -66,7 +68,7 @@ export default class Application extends React.PureComponent<any, ApplicationSta
 
         return (
             <MobxProvider {...this.state.mobxStore}>
-                <ApplicationRouter />
+                <ApplicationRouter onNavigationStateChange={onNavigationStateChange()} />
             </MobxProvider>
         );
     }

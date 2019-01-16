@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { inject } from 'mobx-react/native';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { SpanText } from 'components/span-text';

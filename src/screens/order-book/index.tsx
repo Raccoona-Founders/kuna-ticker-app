@@ -60,11 +60,6 @@ export default class OrderBookScreen extends React.Component<DepthScreenProps, S
     public async componentDidMount(): Promise<void> {
         const marketSymbol = this.props.navigation.getParam('marketSymbol');
 
-        AnalTracker.trackScreen(
-            `market/order-book/${marketSymbol}`,
-            'OrderBookScreen',
-        );
-
         AnalTracker.logEvent('open_orderbook', {
             market: marketSymbol,
         });

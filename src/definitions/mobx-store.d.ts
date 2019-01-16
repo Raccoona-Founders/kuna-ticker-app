@@ -62,14 +62,16 @@ declare global {
 
         namespace kunacode {
             type UserOffer = {
-                security_token: string;
-                offer: kunacodes.Offer;
+                offerId: string;
+                securityToken: string;
             };
 
             interface StoreModel {
                 offers: kunacodes.Offer[]
 
                 myOffer: UserOffer[];
+
+                sortedOffers: kunacodes.Offer[];
 
                 fetchOffers(): Promise<kunacodes.Offer[]>;
             }

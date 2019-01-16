@@ -1,62 +1,60 @@
 import React from 'react';
-import { View, ScrollView, RefreshControl } from 'react-native';
+import { View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase';
 import { inject, observer } from 'mobx-react/native';
-import SpanText from 'components/span-text';
+import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import Constants from 'utils/constants';
-import styles from './kuna-code-tab.style';
 import AnalTracker from 'utils/ga-tracker';
-import OfferRow from 'screens/main/tabs/kuna-code-tab/components/offer-row';
-
+import AdvBanner from './components/adv-banner';
+import OfferRow from './components/offer-row';
+import OfficialChannel from './components/official-channel';
+import styles from './kuna-code-tab.style';
+import SpanText from 'components/span-text';
+import RouteKeys from 'router/route-keys';
 
 // @ts-ignore
 firebase.admob().initialize(Constants.ADMOB_APP_ID);
 
-type KunaCodeTabProps = mobx.kunacode.WithKunaCodeProps;
+type KunaCodeTabProps = mobx.kunacode.WithKunaCodeProps & NavigationInjectedProps;
 
+// @ts-ignore
+@withNavigation
 @inject('KunaCode')
 @observer
 export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
     public state: any = {
         refreshing: false,
-        status: '',
     };
 
     public render(): JSX.Element {
-        const { Banner, AdRequest } = (firebase as any).admob;
-        const request = new AdRequest();
-
-        const kunaCodeOffers = this.props.KunaCode.offers;
+        const kunaCodeOffers = this.props.KunaCode.sortedOffers;
 
         return (
             <>
                 <View style={styles.container}>
-                    <SpanText>{this.state.status}</SpanText>
+                    <ScrollView
+                        style={{ flex: 1 }}
+                        refreshControl={this.__renderRefreshControl()}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <OfficialChannel />
 
-                    <ScrollView style={{ flex: 1 }} refreshControl={this.__renderRefreshControl()}>
                         {kunaCodeOffers.map(this.__renderOffer)}
                     </ScrollView>
+
+                    <TouchableOpacity style={styles.createOffer} onPress={this.__onPressAddOffer}>
+                        <SpanText style={styles.createOfferSymbol}>+</SpanText>
+                    </TouchableOpacity>
                 </View>
 
-                <View style={styles.adBanner}>
-                    <SpanText style={styles.adNotification}>
-                        It's a test! Don't try to say anything about..! I'll remove it on release next release
-                    </SpanText>
-                    <Banner
-                        unitId={Constants.ADMOB_BANNERS.test}
-                        size="SMART_BANNER"
-                        request={request.build()}
-                        onAdLoaded={() => {
-                            this.setState({ status: 'Advert loaded' });
-                        }}
-                    />
-                </View>
+                <AdvBanner />
             </>
         );
     }
 
-    private __renderOffer = (offer: kunacodes.Offer) => {
-        return <OfferRow offer={offer} key={offer.id} />;
+    private __renderOffer = (offer: kunacodes.Offer, index: number) => {
+        // @ts-ignore
+        return <OfferRow offer={offer} key={offer.id} index={index} />;
     };
 
     private __renderRefreshControl = () => {
@@ -66,6 +64,11 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                 onRefresh={this.__onRefresh}
             />
         );
+    };
+
+
+    private __onPressAddOffer = () => {
+        this.props.navigation.push(RouteKeys.KunaCode_CreateOffer);
     };
 
 

@@ -8,10 +8,10 @@ if (__DEV__) {
 
 config.setDefaults({
     riddles__4_config: undefined,
+    ab_test_ads_1: false,
 });
 
-
-const configureRemoteConfig = async () => {
+const configure = async () => {
     await config.fetch(14400);
 
     const activated = await config.activateFetched();
@@ -21,4 +21,12 @@ const configureRemoteConfig = async () => {
     }
 };
 
-export default configureRemoteConfig;
+const getValue = (key: string) => {
+    return config.getValue(key);
+};
+
+const getValues = (keys: string[]) => {
+    return config.getValues(keys);
+};
+
+export default { configure, getValue, getValues };

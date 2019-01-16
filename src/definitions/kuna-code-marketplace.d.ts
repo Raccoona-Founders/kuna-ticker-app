@@ -15,7 +15,7 @@ declare global {
             side: 'buy' | 'sell';
             commission: number;
             creation_time: string;
-            user?: User;
+            user: User;
         };
     }
 }

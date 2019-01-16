@@ -19,21 +19,18 @@ const Topic = (props: TopicProps) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         paddingLeft: 20,
         paddingRight: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        marginBottom: 20,
     },
     titleText: {
         fontSize: 28,
-        textAlign: 'center',
         fontWeight: 'bold',
         color: Color.Text,
     },
     descriptionText: {
         fontSize: 16,
+        color: Color.GrayBlues,
     },
 });
 

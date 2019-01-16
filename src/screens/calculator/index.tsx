@@ -1,5 +1,5 @@
 import React from 'react';
-import { Keyboard, ActivityIndicator } from 'react-native';
+import { Keyboard, ActivityIndicator, View } from 'react-native';
 import { Router, Switch, Route } from 'react-router-native';
 import * as History from 'history';
 import { NavigationInjectedProps } from 'react-navigation';
@@ -7,11 +7,11 @@ import { KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import kunaClient from 'utils/kuna-api';
 import AnalTracker from 'utils/ga-tracker';
 import OrderBookProcessor from 'utils/order-book-processor';
-import SpanText from 'components/span-text';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import { CalculatorMode, OperationMode } from './common';
 import OrderBookCalc from './order-book';
 import { inject, observer } from 'mobx-react/native';
+import Topic from 'components/topic';
 
 
 type State = {
@@ -77,11 +77,11 @@ export default class CalculatorScreen extends React.Component<CalculatorScreenPr
         }
 
         return (
-            <ShadeScrollCard style={{ paddingLeft: 20, paddingRight: 20 }}>
-                <SpanText style={{ fontSize: 24, marginBottom: 20 }}>
-                    Calculate {currentMarket.baseAsset}/{currentMarket.quoteAsset}
-                </SpanText>
-                <Router history={this._history}>{this.__renderRouterPart()}</Router>
+            <ShadeScrollCard>
+                <Topic title={`Calculate ${currentMarket.baseAsset}/${currentMarket.quoteAsset}`} />
+                <View style={{ paddingLeft: 20, paddingRight: 20 }}>
+                    <Router history={this._history}>{this.__renderRouterPart()}</Router>
+                </View>
             </ShadeScrollCard>
         );
     }

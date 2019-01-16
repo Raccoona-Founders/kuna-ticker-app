@@ -15,7 +15,7 @@ export default class AdvBanner extends React.PureComponent {
         const enableAdv = await RemoteConfig.getValue('ab_test_ads_1');
 
         this.setState({
-            enableAdv: enableAdv.val(),
+            enableAdv: Boolean(+enableAdv.val()),
         });
     }
 

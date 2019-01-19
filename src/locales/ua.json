@@ -10,7 +10,11 @@
     },
     "setting": {
         "menu": {
-            "about": "Про додаток"
+            "about": "Про додаток",
+            "kuna-code": "KUNA Code"
+        },
+        "kuna-code": {
+            "title": "Налаштунка маркетплейсу KUNA кодів"
         }
     },
     "about": {

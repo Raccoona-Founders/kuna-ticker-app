@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     topic: {
         fontSize: 14,
         color: Color.GrayBlues,
-        marginBottom: 2,
+        marginBottom: 5,
     },
     text: {
         fontSize: 18,

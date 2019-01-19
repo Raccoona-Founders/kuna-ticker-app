@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         color: Color.Text,
     },
     descriptionText: {
+        marginTop: 5,
         fontSize: 16,
         color: Color.GrayBlues,
     },

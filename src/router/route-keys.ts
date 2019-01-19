@@ -6,6 +6,7 @@ enum RouteKeys {
     Market_Calculator = 'Market.Calculator',
 
     Setting_About = 'Setting.About',
+    Setting_KunaCode = 'Setting.KunaCode',
 
     Riddle_Question = 'Riddle.Question',
     Riddle_Answer = 'Riddle.Answer',

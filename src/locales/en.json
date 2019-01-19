@@ -10,7 +10,11 @@
     },
     "setting": {
         "menu": {
-            "about": "About"
+            "about": "About",
+            "kuna-code": "KUNA Code"
+        },
+        "kuna-code": {
+            "title": "Setting of KUNA Code Marketplace"
         }
     },
     "about": {
@@ -42,5 +46,5 @@
     "riddle": {
         "message": ""
     },
-    "official_kuna_chanel": "Official KUNA channel"
+    "official_kuna_chanel": "Official KUNA channel",
 }

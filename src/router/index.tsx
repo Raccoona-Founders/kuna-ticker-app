@@ -1,6 +1,5 @@
 import React from 'react';
 import { createShadeNavigator } from 'components/shade-navigator';
-import { KunaAssetUnit } from 'kuna-sdk';
 import MainScreen from 'screens/main';
 import MarketScreen from 'screens/market';
 import OrderBookScreen from 'screens/order-book';
@@ -20,6 +19,7 @@ const routeConfigs = {
     [RouteKeys.Market_Calculator]: { screen: CalculatorScreen },
 
     [RouteKeys.Setting_About]: { screen: Settings.AboutScreen },
+    [RouteKeys.Setting_KunaCode]: { screen: Settings.KunaCodeScreen },
 
     [RouteKeys.KunaCode_ViewOffer]: { screen: KunaCode.ViewOfferScreen },
     [RouteKeys.KunaCode_CreateOffer]: { screen: KunaCode.CreateOfferScreen },

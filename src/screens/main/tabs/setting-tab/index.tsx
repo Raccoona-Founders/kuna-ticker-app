@@ -27,6 +27,10 @@ export default class SettingTab extends React.Component<SettingsProps> {
                           route={RouteKeys.Setting_About}
                 />
 
+                <MenuLink title={_('setting.menu.kuna-code')}
+                          route={RouteKeys.Setting_KunaCode}
+                />
+
                 <View style={styles.separator} />
 
                 <View style={styles.settingFooter}>

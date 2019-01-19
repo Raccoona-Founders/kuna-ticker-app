@@ -8,8 +8,12 @@ import DescriptionItem from 'components/description-item';
 import TelegramLink from 'components/telegram-link';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import { NavigationInjectedProps } from 'react-navigation';
+import TagSide from 'components/tag-side';
+import TagCommission from 'components/tag-commission';
 import Topic from 'components/topic';
 import SpanText from 'components/span-text';
+
+import styles from './view-offer.style';
 
 
 type Props = NavigationInjectedProps & mobx.kunacode.WithKunaCodeProps;
@@ -45,21 +49,23 @@ export default class ViewOfferScreen extends React.Component<Props> {
                     </DescriptionItem>
 
                     <DescriptionItem topic="Operation">
-                        <SpanText>{offer.side.toUpperCase()}</SpanText>
-                        <SpanText>Fee {numeral(offer.commission).format('+0,0.[00]%')}</SpanText>
+                        <View style={{ marginRight: 10, }}>
+                            <TagSide side={offer.side} />
+                        </View>
+
+                        <TagCommission commission={offer.commission} />
                     </DescriptionItem>
 
-                    <DescriptionItem topic="Contact">
-                        <SpanText>{offer.user.name}, </SpanText>
+                    <DescriptionItem topic={`Telegram (${offer.user.name})`}>
                         <TelegramLink telegram={offer.user.contact}
                                       onPress={this._onPressTelegramLink}
-                                      style={{fontSize: 18}}
+                                      style={styles.telegramLink}
                         />
                     </DescriptionItem>
 
                     {offer.comment ? (
                         <DescriptionItem topic="Comment">
-                            <SpanText>{offer.comment}</SpanText>
+                            <SpanText fontSize={18}>{offer.comment}</SpanText>
                         </DescriptionItem>
                     ) : undefined}
                 </View>

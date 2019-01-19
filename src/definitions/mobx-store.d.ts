@@ -52,6 +52,8 @@ declare global {
         namespace user {
             interface StoreModel {
                 userId?: string;
+                telegram?: string;
+                displayName?: string;
             }
 
             type WithUserProps = {

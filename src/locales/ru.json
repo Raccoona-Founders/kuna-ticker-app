@@ -10,7 +10,11 @@
     },
     "setting": {
         "menu": {
-            "about": "Про приложение"
+            "about": "Про приложение",
+            "kuna-code": "KUNA Code"
+        },
+        "kuna-code": {
+            "title": "Настройки маркетплейса KUNA кодов"
         }
     },
     "about": {

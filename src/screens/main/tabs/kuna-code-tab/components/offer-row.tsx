@@ -5,6 +5,8 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import RouteKeys from 'router/route-keys';
 import SpanText from 'components/span-text';
+import TagCommission from 'components/tag-commission';
+import TagSide from 'components/tag-side';
 import { Color } from 'styles/variables';
 
 
@@ -28,17 +30,10 @@ export default class OfferRow extends React.Component<OfferRowProps> {
                         </SpanText>
 
                         <View style={styles.tags}>
-                            <View style={[styles.tag, offer.side === 'buy' ? styles.sideBuy : styles.sideSell]}>
-                                <SpanText style={[styles.tagText, styles.sideText]}>{offer.side}</SpanText>
+                            <View style={{ marginRight: 10, }}>
+                                <TagSide side={offer.side} />
                             </View>
-
-                            {offer.commission !== 0 ? (
-                                <View style={[styles.tag, styles.feeBox]}>
-                                    <SpanText style={styles.tagText}>
-                                        Fee {numeral(offer.commission).format('+0,0.[00]%')}
-                                    </SpanText>
-                                </View>
-                            ) : undefined}
+                            <TagCommission commission={offer.commission} />
                         </View>
                     </View>
 
@@ -86,38 +81,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    tag: {
-        borderRadius: 20,
-        paddingTop: 5,
-        paddingBottom: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
-
-        marginLeft: 10,
-    },
-    tagText: {
-        fontSize: 12,
-        color: Color.White,
-    },
     amount: {
         fontSize: 18,
         fontWeight: 'bold',
     },
-    feeBox: {
-        backgroundColor: Color.Main,
-    },
     date: {
         marginTop: 5,
         color: Color.GrayBlues,
-    },
-
-    sideText: {
-        textTransform: 'uppercase',
-    },
-    sideBuy: {
-        backgroundColor: Color.Success,
-    },
-    sideSell: {
-        backgroundColor: Color.Danger,
     },
 });

@@ -6,6 +6,12 @@ export default class UserModel extends ModelAsyncStorage implements mobx.user.St
     @observable
     public userId?: string;
 
+    @observable
+    public displayName?: string;
+
+    @observable
+    public telegram?: string;
+    
     @action
     public static create(): UserModel {
         return new UserModel();

@@ -33,6 +33,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
         });
     }
 
+
     public render(): JSX.Element {
         const offer = this._offer;
         const time = moment(offer.creation_time);
@@ -49,11 +50,11 @@ export default class ViewOfferScreen extends React.Component<Props> {
                     </DescriptionItem>
 
                     <DescriptionItem topic="Operation">
-                        <View style={{ marginRight: 10, }}>
-                            <TagSide side={offer.side} />
+                        <View style={{marginRight: 10}}>
+                            <TagSide side={offer.side}/>
                         </View>
 
-                        <TagCommission commission={offer.commission} />
+                        <TagCommission commission={offer.commission}/>
                     </DescriptionItem>
 
                     <DescriptionItem topic={`Telegram (${offer.user.name})`}>
@@ -73,6 +74,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
         );
     }
 
+
     protected _onPressTelegramLink = () => {
         const offer = this._offer;
 
@@ -83,6 +85,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
             user: offer.user.contact,
         });
     };
+
 
     protected get _offer(): kunacodes.Offer {
         return this.props.navigation.getParam('offer');

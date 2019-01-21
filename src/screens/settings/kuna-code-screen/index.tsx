@@ -1,19 +1,85 @@
 import React from 'react';
+import { View } from 'react-native';
+import { NavigationInjectedProps } from 'react-navigation';
+import { inject, observer } from 'mobx-react/native';
+import { _ } from 'utils/i18n';
 import ShadeScrollCard from 'components/shade-navigator/views/shade-scroll-card';
 import Topic from 'components/topic';
-import { _ } from 'utils/i18n';
-import { inject, observer } from 'mobx-react/native';
+import UIInput from 'components/ui-input';
+import UIButton from 'components/ui-button';
 
-type SettingsProps = mobx.user.WithUserProps;
+
+type SettingsProps = mobx.user.WithUserProps & NavigationInjectedProps;
+type SettingsState = {
+    displayName: string;
+    telegram: string;
+    updateCounter: number;
+};
 
 @inject('User')
 @observer
-export default class KunaCodeScreen extends React.Component<SettingsProps> {
+export default class KunaCodeScreen extends React.Component<SettingsProps, SettingsState> {
+    public state: SettingsState = {
+        displayName: '',
+        telegram: '',
+        updateCounter: 0,
+    };
+
+    public constructor(props: SettingsProps) {
+        super(props);
+
+        const { User } = this.props;
+        this.state.displayName = User.displayName || '';
+        this.state.telegram = User.telegram || '';
+    }
+
+
     public render(): JSX.Element {
         return (
             <ShadeScrollCard>
                 <Topic title={_('setting.kuna-code.title')} />
+
+                <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20 }}>
+                    <UIInput label="Name"
+                             placeholder="John Dou"
+                             value={this.state.displayName}
+                             onChangeText={this.__onChangeDisplayName}
+                    />
+
+                    <UIInput label="Telegram"
+                             placeholder="John_Dou_San"
+                             value={this.state.telegram}
+                             onChangeText={this.__onChangeTelegram}
+                    />
+
+                    <UIButton onPress={this.__onClickSave}>Save</UIButton>
+                </View>
             </ShadeScrollCard>
         );
     }
+
+    private __onChangeDisplayName = (text: string) => {
+        this.setState({
+            displayName: text,
+            updateCounter: this.state.updateCounter + 1,
+        });
+    };
+
+    private __onChangeTelegram = (text: string) => {
+        const telegram = text.replace(/[^a-zA-Z1-9\_]/gm, '');
+
+        this.setState({
+            telegram: telegram,
+            updateCounter: this.state.updateCounter + 1,
+        });
+    };
+
+    private __onClickSave = () => {
+        const { User } = this.props;
+
+        User.setDisplayName(this.state.displayName);
+        User.setTelegram(this.state.telegram);
+
+        this.props.navigation.goBack();
+    };
 }

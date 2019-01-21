@@ -33,7 +33,7 @@ type CreateOfferValues = {
     currency: string;
     comment: string;
     side: string;
-    fee: number;
+    commission: string;
 };
 
 const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
@@ -43,7 +43,7 @@ const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
             currency: 'UAH',
             side: 'sell',
             comment: '',
-            fee: 0.005,
+            commission: '0.005',
         };
     },
     handleSubmit: async (values: CreateOfferValues, formikBag: FormikBag<CreateOfferProps, CreateOfferValues>) => {
@@ -90,8 +90,24 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                     />
 
                     <Formik.FormikInput name="currency"
-                                        label="Choose currency"
+                                        label="Choose currency (UAH / RUB / USD)"
                                         placeholder="UAH"
+                    />
+
+                    <Formik.FormikInput name="side"
+                                        label="Choose offer side (buy/sell)"
+                                        placeholder="buy / sell"
+                    />
+
+                    <Formik.FormikInput name="commission"
+                                        label="Enter Fee (%)"
+                                        placeholder="0.5"
+                                        type="number"
+                    />
+
+                    <Formik.FormikInput name="comment"
+                                        label="Enter Comment of Offer"
+                                        placeholder="UAH to Monobank with 1%"
                     />
 
                     <View>

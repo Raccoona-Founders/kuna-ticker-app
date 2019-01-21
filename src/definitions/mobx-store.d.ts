@@ -54,6 +54,10 @@ declare global {
                 userId?: string;
                 telegram?: string;
                 displayName?: string;
+
+                setDisplayName(name: string): void;
+
+                setTelegram(telegram: string): void;
             }
 
             type WithUserProps = {

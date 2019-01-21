@@ -11,7 +11,7 @@ export default class UserModel extends ModelAsyncStorage implements mobx.user.St
 
     @observable
     public telegram?: string;
-    
+
     @action
     public static create(): UserModel {
         return new UserModel();
@@ -31,15 +31,15 @@ export default class UserModel extends ModelAsyncStorage implements mobx.user.St
         firebase.analytics().setUserId(this.userId as string);
     }
 
-
     @action
-    private __generateUserId() {
-        const firstChart = UserModel.randomChart();
-        const randomNumber = UserModel.randomNumber(100000, 999999);
-
-        this.userId = firstChart + randomNumber.toFixed();
+    public setDisplayName(name: string): void {
+        this.displayName = name;
     }
 
+    @action
+    public setTelegram(telegram: string): void {
+        this.telegram = telegram;
+    }
 
     public static randomNumber(from: number = 0, to: number = 100): number {
         return Math.floor(Math.random() * to) + from;
@@ -49,5 +49,13 @@ export default class UserModel extends ModelAsyncStorage implements mobx.user.St
         let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         return possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    @action
+    private __generateUserId() {
+        const firstChart = UserModel.randomChart();
+        const randomNumber = UserModel.randomNumber(100000, 999999);
+
+        this.userId = firstChart + randomNumber.toFixed();
     }
 }

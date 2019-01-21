@@ -6,6 +6,7 @@ export default StyleSheet.create({
     body: {
         paddingLeft: 20,
         paddingRight: 20,
+        paddingBottom: 20,
     },
 
 

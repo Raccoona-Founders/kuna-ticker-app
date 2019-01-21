@@ -1,16 +1,13 @@
 import React from 'react';
-import { TextInput, TextInputProps, View } from 'react-native';
+import { TextInputProps } from 'react-native';
 import { Field, FieldProps as FormikFieldProps, FormikProps } from 'formik';
-import SpanText from 'components/span-text';
+import UIInput from 'components/ui-input';
 
-import styles from './formik-input.style';
-
-type FormikInputProps = {
+type FormikInputProps = TextInputProps & {
     name: string;
     label?: string;
-    placeholder?: string;
     onChange?: (text: string) => any;
-    type?: string;
+    type?: any;
 };
 
 export default class FormikInput extends React.PureComponent<FormikInputProps> {
@@ -19,56 +16,19 @@ export default class FormikInput extends React.PureComponent<FormikInputProps> {
     }
 
     protected __render = ({ field, form }: FormikFieldProps) => {
-        const errorMessage = form.errors[field.name];
-        const inputProps = this._getInputPropsByType();
-
-        const withLabel = Boolean(this.props.label);
+        const { name, onChange, onChangeText, label, ...inputProps } = this.props;
+        const errorMessage: string | undefined = form.errors[field.name] as string;
 
         return (
-            <View style={styles.field}>
-                {withLabel ? <SpanText style={styles.label}>{this.props.label}</SpanText> : undefined}
-                <TextInput
-                    {...inputProps}
-                    style={styles.input}
-                    value={field.value}
-                    onChangeText={this.__onChangeText(form)}
-                    placeholder={this.props.placeholder}
-                />
-
-                {errorMessage ? <SpanText>{errorMessage}</SpanText> : undefined}
-            </View>
+            <UIInput
+                {...inputProps}
+                error={errorMessage}
+                label={label}
+                onChangeText={this.__onChangeText(form)}
+            />
         );
     };
 
-    protected _getInputPropsByType = (): Partial<TextInputProps> => {
-        switch (this.props.type) {
-            case 'email':
-                return {
-                    autoCorrect: false,
-                    keyboardType: 'email-address',
-                    autoCapitalize: 'none',
-                };
-
-            case 'password':
-                return {
-                    autoCorrect: false,
-                    secureTextEntry: true,
-                    autoCapitalize: 'none',
-                };
-
-            case 'digits':
-                return { keyboardType: 'phone-pad' };
-
-            case 'number':
-                return { keyboardType: 'numeric' };
-
-            case 'name':
-                return { autoCorrect: false };
-
-            default:
-                return {};
-        }
-    };
 
     protected __onChangeText = (form: FormikProps<any>) => {
         return (text: string) => {

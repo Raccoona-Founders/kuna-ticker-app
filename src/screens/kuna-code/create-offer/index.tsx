@@ -1,6 +1,7 @@
 import React from 'react';
 import { shuffle } from 'lodash';
 import { View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { withFormik, InjectedFormikProps, WithFormikConfig, FormikBag } from 'formik';
 import { inject, observer } from 'mobx-react/native';
 import { ShadeScrollCard } from 'components/shade-navigator';
@@ -15,7 +16,7 @@ import styles from './create-offer.style';
 
 
 const JOCK_MESSAGES = [
-    'From $3 000 to $20 000 just one moment',
+    'From $20 000 to $3 000 just one moment',
     'Just buy it!',
     'Just sell it!',
     'Just hold it!',
@@ -74,7 +75,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
     }
 
     public render(): JSX.Element {
-        const { User } = this.props;
+        const {User} = this.props;
 
         return (
             <ShadeScrollCard renderFooter={this.__renderFooter}>
@@ -82,32 +83,37 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                        description="Describe what the KUNA Code you want to Buy or Sell"
                 />
 
-                <View style={styles.body}>
+                <KeyboardAwareScrollView style={styles.body}>
                     <Formik.FormikInput name="amount"
                                         placeholder="10 000"
                                         label="Enter your amount"
                                         type="number"
+                                        returnKeyType="next"
                     />
 
                     <Formik.FormikInput name="currency"
                                         label="Choose currency (UAH / RUB / USD)"
                                         placeholder="UAH"
+                                        returnKeyType="next"
                     />
 
                     <Formik.FormikInput name="side"
                                         label="Choose offer side (buy/sell)"
                                         placeholder="buy / sell"
+                                        returnKeyType="next"
                     />
 
                     <Formik.FormikInput name="commission"
                                         label="Enter Fee (%)"
                                         placeholder="0.5"
                                         type="number"
+                                        returnKeyType="next"
                     />
 
                     <Formik.FormikInput name="comment"
                                         label="Enter Comment of Offer"
                                         placeholder="UAH to Monobank with 1%"
+                                        returnKeyType="next"
                     />
 
                     <View>
@@ -116,7 +122,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                     </View>
 
                     <SpanText>{JSON.stringify(this.props.status)}</SpanText>
-                </View>
+                </KeyboardAwareScrollView>
             </ShadeScrollCard>
         );
     }

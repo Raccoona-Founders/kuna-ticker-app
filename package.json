@@ -33,6 +33,7 @@
         "react-native-device-info": "0.22.4",
         "react-native-firebase": "5.0.0",
         "react-native-interactable": "0.1.10",
+        "react-native-keyboard-aware-scroll-view": "^0.8.0",
         "react-native-languages": "3.0.1",
         "react-native-markdown-renderer": "3.2.8",
         "react-native-randombytes": "3.5.1",

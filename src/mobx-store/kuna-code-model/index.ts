@@ -25,10 +25,12 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
         this._client = new KunaCodeMarketplaceAPI();
     }
 
+
     @action
     public static create(user: mobx.user.StoreModel): KunaCodeModel {
         return new KunaCodeModel(user);
     }
+
 
     @action
     public async fetchOffers(): Promise<kunacodes.Offer[]> {
@@ -42,12 +44,43 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
         return this.offers;
     }
 
+
+    @action
+    public async createOffer(offer: kunacodes.RawOffer): Promise<string> {
+        const rawUser: kunacodes.RawUser = {
+            id: this._user.userId || '',
+            name: this._user.displayName || '',
+            telegram: this._user.telegram || '',
+        };
+
+        const response = await this._client.addOffer(offer, rawUser);
+
+        runInAction(() => {
+            this.myOffer.push({
+                offerId: response.id,
+                securityToken: response.securityToken,
+            });
+        });
+
+        await this.fetchOffers();
+
+        return response.id;
+    }
+
+
+    @action
+    public async deleteOffer(id: string): Promise<void> {
+
+    }
+
+
     @computed
     public get sortedOffers(): kunacodes.Offer[] {
         return orderBy(this.offers, [
             (offer: kunacodes.Offer) => offer.creation_time ? new Date(offer.creation_time).getTime() : 0,
         ], ['desc']);
     }
+
 
     @action
     public async initialize(): Promise<void> {
@@ -60,6 +93,11 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
         if (isNeedFetchOffers) {
             this.fetchOffers();
         }
+    }
+
+
+    public isMyOffer(): boolean {
+        return false;
     }
 
 

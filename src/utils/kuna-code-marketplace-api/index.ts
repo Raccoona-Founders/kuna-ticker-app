@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import Axios, { AxiosInstance } from 'axios';
 
 export default class KunaCodeMarketplaceAPI {
@@ -10,8 +11,32 @@ export default class KunaCodeMarketplaceAPI {
     }
 
     public async getAllOffers(): Promise<kunacodes.Offer[]> {
-        const { data } = await this.client.get('/getAllOffers');
+        const {data} = await this.client.get('/getAllOffers');
 
         return data.offers as kunacodes.Offer[];
+    }
+
+    public async addOffer(offer: kunacodes.RawOffer,
+                          user: kunacodes.RawUser): Promise<{ id: string; securityToken: string; }> {
+
+        const requestData = {
+            amount: get(offer, 'amount', 1000),
+            currency: get(offer, 'currency', 'UAH'),
+            comment: get(offer, 'comment', undefined),
+            side: get(offer, 'side', 'sell'),
+            commission: get(offer, 'commission', 0),
+            user: {
+                id: get(user, 'id'),
+                name: get(user, 'name'),
+                telegram: get(user, 'telegram'),
+            },
+        };
+
+        const {data} = await this.client.post('/addOffer', requestData);
+
+        return {
+            id: data.id,
+            securityToken: data.token,
+        };
     }
 }

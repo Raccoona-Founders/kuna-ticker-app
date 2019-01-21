@@ -79,7 +79,13 @@ declare global {
 
                 sortedOffers: kunacodes.Offer[];
 
+                isMyOffer(offerId: string): boolean;
+
                 fetchOffers(): Promise<kunacodes.Offer[]>;
+
+                createOffer(offer: kunacodes.RawOffer): Promise<string>;
+
+                deleteOffer(offerId: string): Promise<void>;
             }
 
             type WithKunaCodeProps = {

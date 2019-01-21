@@ -9,13 +9,28 @@ declare global {
 
         type Offer = {
             id: string;
+            side: 'buy' | 'sell';
             amount: number;
             currency: string;
             comment?: string;
-            side: 'buy' | 'sell';
             commission: number;
             creation_time: string;
             user: User;
+        };
+
+
+        type RawOffer = {
+            side: 'buy' | 'sell';
+            amount: number;
+            currency: string;
+            commission: number;
+            comment?: string;
+        };
+
+        type RawUser = {
+            id: string;
+            name: string;
+            telegram: string;
         };
     }
 }

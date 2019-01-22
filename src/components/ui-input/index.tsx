@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import SpanText from 'components/span-text';
+import Label from 'components/label';
 
 import styles from './ui-input.style';
 
@@ -21,7 +22,7 @@ export default class UIInput extends React.PureComponent<InputProps> {
 
         return (
             <View style={styles.field}>
-                {withLabel ? <SpanText style={styles.label}>{this.props.label}</SpanText> : undefined}
+                {withLabel ? <Label style={styles.label}>{this.props.label}</Label> : undefined}
                 <TextInput
                     {...inputTypeProps}
                     {...textInputProps}

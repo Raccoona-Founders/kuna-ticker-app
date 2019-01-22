@@ -34,7 +34,7 @@ export default compose<MenuLinkProps, MenuLinkOuterProps>(withNavigation)(MenuLi
 
 const styles = StyleSheet.create({
     container: {
-        height: 44,
+        height: 50,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

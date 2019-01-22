@@ -75,9 +75,11 @@ declare global {
             interface StoreModel {
                 offers: kunacodes.Offer[]
 
-                myOffer: UserOffer[];
+                myOffers: UserOffer[];
 
                 sortedOffers: kunacodes.Offer[];
+
+                checkUserReady(): void;
 
                 isMyOffer(offerId: string): boolean;
 

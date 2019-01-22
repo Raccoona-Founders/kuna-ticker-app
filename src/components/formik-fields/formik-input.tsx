@@ -17,11 +17,13 @@ export default class FormikInput extends React.PureComponent<FormikInputProps> {
 
     protected __render = ({ field, form }: FormikFieldProps) => {
         const { name, onChange, onChangeText, label, ...inputProps } = this.props;
+        const value: string | undefined = form.values[field.name] as string;
         const errorMessage: string | undefined = form.errors[field.name] as string;
 
         return (
             <UIInput
                 {...inputProps}
+                value={value}
                 error={errorMessage}
                 label={label}
                 onChangeText={this.__onChangeText(form)}

@@ -1,17 +1,20 @@
 import React from 'react';
+import numeral from 'numeral';
 import { shuffle } from 'lodash';
-import { View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { View, Slider } from 'react-native';
+import { compose } from 'recompose';
 import { withFormik, InjectedFormikProps, WithFormikConfig, FormikBag } from 'formik';
 import { inject, observer } from 'mobx-react/native';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import AnalTracker from 'utils/ga-tracker';
 import Topic from 'components/topic';
+import Label from 'components/label';
 import Formik from 'components/formik-fields';
-import { compose } from 'recompose';
-import UIButton from 'components/ui-button';
 import SpanText from 'components/span-text';
+import UIButton from 'components/ui-button';
 
+import Successful from './components/successful';
+import Selector from './components/selector';
 import styles from './create-offer.style';
 
 
@@ -33,8 +36,8 @@ type CreateOfferValues = {
     amount: string;
     currency: string;
     comment: string;
-    side: string;
-    commission: string;
+    side: 'sell' | 'buy';
+    commission: number;
 };
 
 const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
@@ -44,11 +47,37 @@ const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
             currency: 'UAH',
             side: 'sell',
             comment: '',
-            commission: '0.005',
+            commission: 0,
         };
     },
     handleSubmit: async (values: CreateOfferValues, formikBag: FormikBag<CreateOfferProps, CreateOfferValues>) => {
-        formikBag.setStatus(values);
+        if (formikBag.props.isSubmitting) {
+            return;
+        }
+
+        formikBag.setSubmitting(true);
+
+        const { KunaCode } = formikBag.props;
+
+        try {
+            KunaCode.checkUserReady();
+        } catch (e) {
+            formikBag.setSubmitting(false);
+            return;
+        }
+
+        await formikBag.props.KunaCode.createOffer({
+            side: values.side,
+            amount: +values.amount,
+            currency: values.currency,
+            comment: values.comment,
+            commission: values.commission,
+        });
+
+        formikBag.setSubmitting(false);
+        formikBag.setStatus({
+            successfulCreated: true,
+        });
     },
 };
 
@@ -75,7 +104,21 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
     }
 
     public render(): JSX.Element {
-        const {User} = this.props;
+        const { User, values, status = {}, setFieldValue } = this.props;
+
+        const { successfulCreated = false } = status;
+
+        if (successfulCreated) {
+            return (
+                <ShadeScrollCard>
+                    <Successful />
+                </ShadeScrollCard>
+            );
+        }
+
+        const commissionValue: number = values.commission;
+        const currencyValue: string = values.currency;
+        const sideValue: string = values.side;
 
         return (
             <ShadeScrollCard renderFooter={this.__renderFooter}>
@@ -83,51 +126,72 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                        description="Describe what the KUNA Code you want to Buy or Sell"
                 />
 
-                <KeyboardAwareScrollView style={styles.body}>
-                    <Formik.FormikInput name="amount"
-                                        placeholder="10 000"
-                                        label="Enter your amount"
-                                        type="number"
-                                        returnKeyType="next"
+                <View style={styles.body}>
+                    <Formik.FormikInput
+                        name="amount"
+                        placeholder="10 000"
+                        label="Enter your amount"
+                        type="number"
+                        returnKeyType="next"
                     />
 
-                    <Formik.FormikInput name="currency"
-                                        label="Choose currency (UAH / RUB / USD)"
-                                        placeholder="UAH"
-                                        returnKeyType="next"
-                    />
+                    <View  style={{ marginBottom: 20 }}>
+                        <Label>Choose currency</Label>
+                        <Selector
+                            style={{ marginTop: 10 }}
+                            selectedValue={currencyValue}
+                            items={[
+                                { label: 'UAH', value: 'UAH' },
+                                { label: 'BTC', value: 'BTC' },
+                                { label: 'USD', value: 'USD' },
+                                { label: 'RUB', value: 'RUB' },
+                            ]}
+                            onValueChange={(value: string) => setFieldValue('currency', value)}
+                        />
+                    </View>
 
-                    <Formik.FormikInput name="side"
-                                        label="Choose offer side (buy/sell)"
-                                        placeholder="buy / sell"
-                                        returnKeyType="next"
-                    />
+                    <View style={{ marginBottom: 20 }}>
+                        <Label>Choose offer side</Label>
+                        <Selector
+                            style={{ marginTop: 10 }}
+                            selectedValue={sideValue}
+                            items={[
+                                { label: 'Sell', value: 'sell' },
+                                { label: 'Buy', value: 'buy' },
+                            ]}
+                            onValueChange={(value: string) => setFieldValue('side', value)}
+                        />
+                    </View>
 
-                    <Formik.FormikInput name="commission"
-                                        label="Enter Fee (%)"
-                                        placeholder="0.5"
-                                        type="number"
-                                        returnKeyType="next"
-                    />
+                    <View>
+                        <SpanText>Fee: {numeral(commissionValue).format('+0,0.0%')}</SpanText>
+                        <Slider minimumValue={-3}
+                                maximumValue={3}
+                                step={0.1}
+                                value={0}
+                                onValueChange={this.__handleChangeFee}
+                        />
+                    </View>
 
-                    <Formik.FormikInput name="comment"
-                                        label="Enter Comment of Offer"
-                                        placeholder="UAH to Monobank with 1%"
-                                        returnKeyType="next"
-                    />
+                    {/*<Formik.FormikInput name="comment"*/}
+                                        {/*label="Enter Comment of Offer"*/}
+                                        {/*placeholder="UAH to Monobank with 1%"*/}
+                                        {/*returnKeyType="next"*/}
+                                        {/*multiline={true}*/}
+                    {/*/>*/}
 
                     <View>
                         <SpanText>{User.displayName}</SpanText>
-                        <SpanText>{User.telegram}</SpanText>
+                        <SpanText>@{User.telegram}</SpanText>
                     </View>
-
-                    <SpanText>{JSON.stringify(this.props.status)}</SpanText>
-                </KeyboardAwareScrollView>
+                </View>
             </ShadeScrollCard>
         );
     }
 
     private __renderFooter = () => {
+        const { isSubmitting } = this.props;
+
         return (
             <View style={styles.footer}>
                 <View style={styles.footerTextBox}>
@@ -135,11 +199,21 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                 </View>
 
                 <UIButton type="small"
-                          onPress={this.props.submitForm}
+                          onPress={isSubmitting ? undefined : this.props.submitForm}
                           style={styles.submitButton}
                           textStyle={styles.submitButtonText}
-                >Create</UIButton>
+                >{isSubmitting ? 'Wait' : 'Create'}</UIButton>
             </View>
         );
+    };
+
+    private __handleChangeFee = (value: number) => {
+        let valueFee = Math.round(value * 100) / 10000;
+        this.props.setFieldValue('commission', valueFee);
+    };
+
+    private __handleChangeAmount = (value: number) => {
+        let valueAmount = Math.round(value);
+        this.props.setFieldValue('amount', valueAmount);
     };
 }

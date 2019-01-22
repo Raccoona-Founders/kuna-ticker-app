@@ -37,6 +37,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
     public render(): JSX.Element {
         const offer = this._offer;
         const time = moment(offer.creation_time);
+        const isMine = this.props.KunaCode.isMyOffer(this._offer.id);
 
         return (
             <ShadeScrollCard>
@@ -44,17 +45,17 @@ export default class ViewOfferScreen extends React.Component<Props> {
                        description={time.format('MMM DD, YYYY - HH:mm')}
                 />
 
-                <View style={{paddingLeft: 20, paddingRight: 20}}>
+                <View style={{ paddingLeft: 20, paddingRight: 20 }}>
                     <DescriptionItem topic="Amount">
                         {numeral(offer.amount).format('0,0.[00]') + " " + offer.currency}
                     </DescriptionItem>
 
                     <DescriptionItem topic="Operation">
-                        <View style={{marginRight: 10}}>
-                            <TagSide side={offer.side}/>
+                        <View style={{ marginRight: 10 }}>
+                            <TagSide side={offer.side} />
                         </View>
 
-                        <TagCommission commission={offer.commission}/>
+                        <TagCommission commission={offer.commission} />
                     </DescriptionItem>
 
                     <DescriptionItem topic={`Telegram (${offer.user.name})`}>
@@ -69,6 +70,8 @@ export default class ViewOfferScreen extends React.Component<Props> {
                             <SpanText fontSize={18}>{offer.comment}</SpanText>
                         </DescriptionItem>
                     ) : undefined}
+
+                    {isMine ? <SpanText>The Code is mine!</SpanText> : undefined}
                 </View>
             </ShadeScrollCard>
         );

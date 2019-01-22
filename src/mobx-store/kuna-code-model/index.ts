@@ -1,4 +1,4 @@
-import { orderBy } from 'lodash';
+import { orderBy, find } from 'lodash';
 import { action, computed, observable, runInAction } from 'mobx';
 import ModelAsyncStorage from '../common/model-async-storage';
 import KunaCodeMarketplaceAPI from 'utils/kuna-code-marketplace-api';
@@ -10,7 +10,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
     public offers: kunacodes.Offer[] = [];
 
     @observable
-    public myOffer: mobx.kunacode.UserOffer[] = [];
+    public myOffers: mobx.kunacode.UserOffer[] = [];
 
     @observable
     public lastUpdate?: string;
@@ -56,7 +56,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
         const response = await this._client.addOffer(offer, rawUser);
 
         runInAction(() => {
-            this.myOffer.push({
+            this.myOffers.push({
                 offerId: response.id,
                 securityToken: response.securityToken,
             });
@@ -65,6 +65,17 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
         await this.fetchOffers();
 
         return response.id;
+    }
+
+
+    public checkUserReady(): void {
+        if (!this._user.displayName) {
+            throw new Error('Please setup your name');
+        }
+
+        if (!this._user.telegram) {
+            throw new Error('Please setup your Telegram');
+        }
     }
 
 
@@ -96,15 +107,20 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
     }
 
 
-    public isMyOffer(): boolean {
-        return false;
+    public isMyOffer(offerId: string): boolean {
+
+        console.log(this.myOffers);
+
+        const offer = find(this.myOffers, { offerId: offerId });
+
+        return !!offer;
     }
 
 
     protected _toJS(): Object {
         return {
             offers: this.offers,
-            myOffers: this.myOffer,
+            myOffers: this.myOffers,
             lastUpdate: this.lastUpdate,
         };
     }

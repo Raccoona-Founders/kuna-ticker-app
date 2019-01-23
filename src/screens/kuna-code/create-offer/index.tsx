@@ -1,6 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
-import { shuffle } from 'lodash';
+import { shuffle, debounce } from 'lodash';
 import { View, Slider } from 'react-native';
 import { compose } from 'recompose';
 import { withFormik, InjectedFormikProps, WithFormikConfig, FormikBag } from 'formik';
@@ -14,6 +14,7 @@ import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
 
 import Successful from './components/successful';
+import UserInfo from './components/user-info';
 import Selector from './components/selector';
 import styles from './create-offer.style';
 
@@ -81,6 +82,7 @@ const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
     },
 };
 
+
 type CreateOfferProps
     = InjectedFormikProps<object, CreateOfferValues>
     & mobx.kunacode.WithKunaCodeProps
@@ -135,23 +137,23 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                         returnKeyType="next"
                     />
 
-                    <View  style={{ marginBottom: 20 }}>
+                    <View style={{ marginBottom: 20 }}>
                         <Label>Choose currency</Label>
                         <Selector
                             style={{ marginTop: 10 }}
                             selectedValue={currencyValue}
                             items={[
                                 { label: 'UAH', value: 'UAH' },
-                                { label: 'BTC', value: 'BTC' },
                                 { label: 'USD', value: 'USD' },
-                                { label: 'RUB', value: 'RUB' },
+                                { label: 'AUSD', value: 'AUSD' },
+                                { label: 'ARUB', value: 'ARUB' },
                             ]}
                             onValueChange={(value: string) => setFieldValue('currency', value)}
                         />
                     </View>
 
                     <View style={{ marginBottom: 20 }}>
-                        <Label>Choose offer side</Label>
+                        <Label>Choose offer type</Label>
                         <Selector
                             style={{ marginTop: 10 }}
                             selectedValue={sideValue}
@@ -163,31 +165,42 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                         />
                     </View>
 
-                    <View>
-                        <SpanText>Fee: {numeral(commissionValue).format('+0,0.0%')}</SpanText>
+                    <View style={{ marginBottom: 20 }}>
+                        {this.__renderFeeLabel()}
                         <Slider minimumValue={-3}
                                 maximumValue={3}
                                 step={0.1}
                                 value={0}
-                                onValueChange={this.__handleChangeFee}
+                                onValueChange={debounce(this.__handleChangeFee, 50)}
                         />
                     </View>
 
-                    {/*<Formik.FormikInput name="comment"*/}
-                                        {/*label="Enter Comment of Offer"*/}
-                                        {/*placeholder="UAH to Monobank with 1%"*/}
-                                        {/*returnKeyType="next"*/}
-                                        {/*multiline={true}*/}
-                    {/*/>*/}
-
-                    <View>
-                        <SpanText>{User.displayName}</SpanText>
-                        <SpanText>@{User.telegram}</SpanText>
-                    </View>
+                    <UserInfo />
                 </View>
             </ShadeScrollCard>
         );
     }
+
+
+    private __renderFeeLabel = () => {
+        const { values } = this.props;
+
+        const commissionValue: number = values.commission;
+
+        if (!commissionValue) {
+            // @TODO translate
+            return <SpanText>Without commission</SpanText>;
+        }
+
+        let textTemplate = `He pays {value}`;
+        if (commissionValue < 0) {
+            textTemplate = `You pay {value}`;
+        }
+
+        const comm = numeral(Math.abs(commissionValue));
+
+        return <SpanText>{textTemplate.replace('{value}', comm.format('0,0.0%'))}</SpanText>;
+    };
 
     private __renderFooter = () => {
         const { isSubmitting } = this.props;

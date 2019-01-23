@@ -51,7 +51,6 @@ export default class KunaCodeScreen extends React.Component<SettingsProps, Setti
                              value={this.state.telegram}
                              onChangeText={this.__onChangeTelegram}
                     />
-
                     <UIButton onPress={this.__onClickSave}>Save</UIButton>
                 </View>
             </ShadeScrollCard>
@@ -74,8 +73,25 @@ export default class KunaCodeScreen extends React.Component<SettingsProps, Setti
         });
     };
 
+
+    private __validateData = () => {
+        if (!this.state.displayName) {
+            throw new Error('Invalid name');
+        }
+
+        if (!this.state.telegram) {
+            throw new Error('Invalid telegram');
+        }
+    };
+
     private __onClickSave = () => {
         const { User } = this.props;
+
+        try {
+            // this.__validateData();
+        } catch (error) {
+            return;
+        }
 
         User.setDisplayName(this.state.displayName);
         User.setTelegram(this.state.telegram);

@@ -9,7 +9,7 @@ type LabelProps = {
 };
 
 export default (props: LabelProps) => (
-    <SpanText style={styles.label}>{props.children}</SpanText>
+    <SpanText style={[styles.label, props.style]}>{props.children}</SpanText>
 );
 
 const styles = StyleSheet.create({

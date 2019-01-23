@@ -50,7 +50,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
         const rawUser: kunacodes.RawUser = {
             id: this._user.userId || '',
             name: this._user.displayName || '',
-            telegram: this._user.telegram || '',
+            telegram: '@' + this._user.telegram || '',
         };
 
         const response = await this._client.addOffer(offer, rawUser);
@@ -80,8 +80,14 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
 
 
     @action
-    public async deleteOffer(id: string): Promise<void> {
+    public async deleteOffer(offerId: string): Promise<void> {
+        const offer = find(this.myOffers, { offerId: offerId });
 
+        if (!offer) {
+            return;
+        }
+
+        this.fetchOffers();
     }
 
 
@@ -108,9 +114,6 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
 
 
     public isMyOffer(offerId: string): boolean {
-
-        console.log(this.myOffers);
-
         const offer = find(this.myOffers, { offerId: offerId });
 
         return !!offer;

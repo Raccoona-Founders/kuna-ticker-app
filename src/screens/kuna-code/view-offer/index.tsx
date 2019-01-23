@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 import AnalTracker from 'utils/ga-tracker';
 import DescriptionItem from 'components/description-item';
@@ -14,6 +14,7 @@ import Topic from 'components/topic';
 import SpanText from 'components/span-text';
 
 import styles from './view-offer.style';
+import UIButton from 'components/ui-button';
 
 
 type Props = NavigationInjectedProps & mobx.kunacode.WithKunaCodeProps;
@@ -71,7 +72,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
                         </DescriptionItem>
                     ) : undefined}
 
-                    {isMine ? <SpanText>The Code is mine!</SpanText> : undefined}
+                    {isMine ? <UIButton type="small" onPress={this.__deleteOffer}>Delete</UIButton> : undefined}
                 </View>
             </ShadeScrollCard>
         );
@@ -87,6 +88,24 @@ export default class ViewOfferScreen extends React.Component<Props> {
             side: offer.side,
             user: offer.user.contact,
         });
+    };
+
+    protected __deleteOffer = () => {
+        Alert.alert('Delete offer', 'You can not revert this operation', [
+            {
+                text: 'Cancel',
+            }, {
+                text: 'Delete',
+                style: 'destructive',
+                onPress: this.__agreeDeleteOffer,
+            },
+        ]);
+    };
+
+    private __agreeDeleteOffer = async () => {
+        const offer = this._offer;
+        await this.props.KunaCode.deleteOffer(offer.id);
+
     };
 
 

@@ -4,8 +4,6 @@ import { Fonts, Color } from 'styles/variables';
 export default StyleSheet.create({
     field: {
         marginBottom: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: Color.Gray3,
     },
     label: {
         position: 'absolute',
@@ -20,5 +18,15 @@ export default StyleSheet.create({
 
         paddingTop: 30,
         paddingBottom: 10,
+
+        borderBottomWidth: 1,
+        borderBottomColor: Color.Gray3,
+    },
+
+    description: {
+        marginTop: 10,
+        color: Color.GrayBlues,
+        marginBottom: 20,
+        fontSize: 12,
     },
 });

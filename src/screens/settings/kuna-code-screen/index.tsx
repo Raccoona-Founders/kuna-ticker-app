@@ -7,6 +7,8 @@ import ShadeScrollCard from 'components/shade-navigator/views/shade-scroll-card'
 import Topic from 'components/topic';
 import UIInput from 'components/ui-input';
 import UIButton from 'components/ui-button';
+import SpanText from 'components/span-text';
+import { Color } from 'styles/variables';
 
 
 type SettingsProps = mobx.user.WithUserProps & NavigationInjectedProps;
@@ -35,12 +37,20 @@ export default class KunaCodeScreen extends React.Component<SettingsProps, Setti
 
 
     public render(): JSX.Element {
+
+        let canSave = true;
+        try {
+            this.__validateData();
+        } catch (error) {
+            canSave = false;
+        }
+
         return (
             <ShadeScrollCard>
                 <Topic title={_('setting.kuna-code.title')} />
 
                 <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20 }}>
-                    <UIInput label="Name"
+                    <UIInput label="Display Name"
                              placeholder="John Dou"
                              value={this.state.displayName}
                              onChangeText={this.__onChangeDisplayName}
@@ -48,10 +58,12 @@ export default class KunaCodeScreen extends React.Component<SettingsProps, Setti
 
                     <UIInput label="Telegram"
                              placeholder="John_Dou_San"
+                             description="You can use a-z, 0-9 and underscores. Minimum length is 5 characters."
                              value={this.state.telegram}
                              onChangeText={this.__onChangeTelegram}
                     />
-                    <UIButton onPress={this.__onClickSave}>Save</UIButton>
+
+                    <UIButton title="Save" onPress={this.__onClickSave} disabled={!canSave} />
                 </View>
             </ShadeScrollCard>
         );
@@ -65,10 +77,8 @@ export default class KunaCodeScreen extends React.Component<SettingsProps, Setti
     };
 
     private __onChangeTelegram = (text: string) => {
-        const telegram = text.replace(/[^a-zA-Z1-9\_]/gm, '');
-
         this.setState({
-            telegram: telegram,
+            telegram: text,
             updateCounter: this.state.updateCounter + 1,
         });
     };
@@ -79,7 +89,13 @@ export default class KunaCodeScreen extends React.Component<SettingsProps, Setti
             throw new Error('Invalid name');
         }
 
-        if (!this.state.telegram) {
+        if (this.state.telegram.length < 5) {
+            throw new Error('Telegram must be more then 5 characters');
+        }
+
+        const telegram = this.state.telegram.match(/[^a-zA-Z1-9\_]/gm);
+
+        if (telegram) {
             throw new Error('Invalid telegram');
         }
     };
@@ -88,7 +104,7 @@ export default class KunaCodeScreen extends React.Component<SettingsProps, Setti
         const { User } = this.props;
 
         try {
-            // this.__validateData();
+            this.__validateData();
         } catch (error) {
             return;
         }

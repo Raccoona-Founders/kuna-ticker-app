@@ -1,35 +1,70 @@
 import React from 'react';
-import { StyleProp, StyleSheet, TextStyle, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import {
+    StyleProp,
+    StyleSheet,
+    TextStyle,
+    TouchableOpacity,
+    TouchableOpacityProps,
+    ActivityIndicator,
+} from 'react-native';
 import { Color } from 'styles/variables';
 import SpanText from 'components/span-text';
 
 export type UIButtonProps = TouchableOpacityProps & {
-    children: string | number | any;
+    small?: boolean;
+    title: string | number | any;
     type?: 'small';
     textStyle?: StyleProp<TextStyle>;
+    loading?: boolean;
 };
 
-const UIButton = (props: UIButtonProps) => {
-    const btnStyle = [
-        styles.button,
-        props.type === 'small' ? styles.smallBtn : styles.defaultBtn,
-        props.style || {},
-    ];
 
-    const textStyle = [
-        styles.buttonText,
-        props.type === 'small' ? styles.smallText : styles.defaultText,
-        props.textStyle || {},
-    ];
+export default class UIButton extends React.PureComponent<UIButtonProps> {
+    public static defaultProps: Partial<UIButtonProps> = {
+        onPress: () => console.log('Please attach a method to this component'),
+        small: false,
+        loading: false,
+        disabled: false,
+    };
 
-    return (
-        <TouchableOpacity onPress={props.onPress} style={btnStyle}>
-            <SpanText style={textStyle}>{props.children}</SpanText>
-        </TouchableOpacity>
-    );
-};
+    public render(): JSX.Element {
+        const { onPress, title, loading, disabled } = this.props;
 
-export default UIButton;
+        return (
+            <TouchableOpacity onPress={loading ? undefined : onPress} style={this.__btnStyles} disabled={disabled}>
+                {loading ? (
+                    <ActivityIndicator
+                        animating={true}
+                        style={StyleSheet.flatten(styles.loading)}
+                        color="#FFFFFF"
+                    />
+                ) : (
+                    <SpanText style={this.__btnTitleStyles}>{title}</SpanText>
+                )}
+            </TouchableOpacity>
+        );
+    }
+
+
+    private get __btnStyles() {
+        return StyleSheet.flatten([
+            styles.button,
+            this.props.small ? styles.smallBtn : styles.defaultBtn,
+            this.props.style || {},
+            this.props.disabled ? { backgroundColor: Color.PurpleNoactive } : {},
+        ]);
+    };
+
+
+    private get __btnTitleStyles() {
+        return StyleSheet.flatten([
+            styles.buttonText,
+            this.props.small ? styles.smallText : styles.defaultText,
+            this.props.textStyle || {},
+            this.props.disabled ? { color: Color.Text } : {},
+        ]);
+    };
+}
 
 const styles = StyleSheet.create({
     button: {
@@ -68,4 +103,6 @@ const styles = StyleSheet.create({
     defaultText: {
         fontSize: 16,
     },
+
+    loading: {},
 });

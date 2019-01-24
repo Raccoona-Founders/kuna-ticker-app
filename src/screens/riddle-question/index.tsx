@@ -31,7 +31,7 @@ export default class RiddleQuestionScreen extends React.PureComponent<RiddleQues
         return (
             <ShadeScrollCard style={styles.container} renderFooter={this.__renderFooter}>
                 <RiddleQuestion index={index} riddle={this.__riddle} />
-                <UIButton onPress={this.__openAnswer}>Знаю ответ!</UIButton>
+                <UIButton onPress={this.__openAnswer} title="Знаю ответ!" />
             </ShadeScrollCard>
         );
     }

@@ -9,8 +9,8 @@ type InputProps = TextInputProps & {
     label?: string;
     error?: string;
     type?: 'email' | 'password' | 'digits' | 'number' | 'name';
+    description?: string;
 };
-
 
 export default class UIInput extends React.PureComponent<InputProps> {
     public render(): JSX.Element {
@@ -29,6 +29,10 @@ export default class UIInput extends React.PureComponent<InputProps> {
                     style={styles.input}
                 />
                 {withError ? <SpanText>{error}</SpanText> : undefined}
+
+                {this.props.description ? (
+                    <SpanText style={styles.description}>{this.props.description}</SpanText>
+                ) : undefined}
             </View>
         );
     }

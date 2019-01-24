@@ -25,9 +25,7 @@ export default class UserInfo extends React.Component<any & mobx.user.WithUserPr
                         {errorMessage}
                     </SpanText>
                     {/* @TODO translate */}
-                    <UIButton onPress={this.__openSettings} type="small">
-                        Open settings
-                    </UIButton>
+                    <UIButton onPress={this.__openSettings} small title="Open settings" />
                 </View>
             );
         }

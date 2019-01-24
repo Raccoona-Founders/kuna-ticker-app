@@ -11,7 +11,7 @@ export default class KunaCodeMarketplaceAPI {
     }
 
     public async getAllOffers(): Promise<kunacodes.Offer[]> {
-        const {data} = await this.client.get('/getAllOffers');
+        const { data } = await this.client.get('/getAllOffers');
 
         return data.offers as kunacodes.Offer[];
     }
@@ -32,11 +32,23 @@ export default class KunaCodeMarketplaceAPI {
             },
         };
 
-        const {data} = await this.client.post('/addOffer', requestData);
+        const { data } = await this.client.post('/addOffer', requestData);
 
         return {
             id: data.id,
             securityToken: data.token,
         };
+    }
+
+
+    public async deleteOffer(offerId: string, securityToken: string): Promise<void> {
+        await this.client.delete('/deleteOffer', {
+            params: {
+                id: offerId,
+                token: securityToken,
+            },
+        });
+
+        return;
     }
 }

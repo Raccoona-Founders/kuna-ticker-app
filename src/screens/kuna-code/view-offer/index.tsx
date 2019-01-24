@@ -12,16 +12,18 @@ import TagSide from 'components/tag-side';
 import TagCommission from 'components/tag-commission';
 import Topic from 'components/topic';
 import SpanText from 'components/span-text';
-
-import styles from './view-offer.style';
 import UIButton from 'components/ui-button';
 
+import styles from './view-offer.style';
 
 type Props = NavigationInjectedProps & mobx.kunacode.WithKunaCodeProps;
 
 @inject('KunaCode')
 @observer
 export default class ViewOfferScreen extends React.Component<Props> {
+    public state: any = {
+        deleting: false,
+    };
 
     public componentDidMount(): void {
         const offer = this._offer;
@@ -72,7 +74,14 @@ export default class ViewOfferScreen extends React.Component<Props> {
                         </DescriptionItem>
                     ) : undefined}
 
-                    {isMine ? <UIButton type="small" onPress={this.__deleteOffer}>Delete</UIButton> : undefined}
+                    {isMine ? (
+                        <UIButton
+                            small
+                            onPress={this.__deleteOffer}
+                            title="Delete"
+                            loading={this.state.deleting}
+                        />
+                    ) : undefined}
                 </View>
             </ShadeScrollCard>
         );
@@ -104,8 +113,10 @@ export default class ViewOfferScreen extends React.Component<Props> {
 
     private __agreeDeleteOffer = async () => {
         const offer = this._offer;
+        this.setState({ deleting: true });
         await this.props.KunaCode.deleteOffer(offer.id);
 
+        this.props.navigation.goBack();
     };
 
 

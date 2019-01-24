@@ -32,7 +32,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
     }
 
 
-    @action
+    @action.bound
     public async fetchOffers(): Promise<kunacodes.Offer[]> {
         const offers = await this._client.getAllOffers();
 
@@ -81,13 +81,14 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
 
     @action
     public async deleteOffer(offerId: string): Promise<void> {
-        const offer = find(this.myOffers, { offerId: offerId });
+        const myOffer = find(this.myOffers, { offerId: offerId });
 
-        if (!offer) {
+        if (!myOffer) {
             return;
         }
 
-        this.fetchOffers();
+        await this._client.deleteOffer(myOffer.offerId, myOffer.securityToken);
+        await this.fetchOffers();
     }
 
 

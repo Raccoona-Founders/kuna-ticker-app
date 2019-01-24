@@ -211,11 +211,14 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                     <SpanText numberOfLines={3} style={styles.footerText}>{this.jockMessage}</SpanText>
                 </View>
 
-                <UIButton type="small"
-                          onPress={isSubmitting ? undefined : this.props.submitForm}
-                          style={styles.submitButton}
-                          textStyle={styles.submitButtonText}
-                >{isSubmitting ? 'Wait' : 'Create'}</UIButton>
+                <UIButton
+                    small
+                    title="Create"
+                    onPress={this.props.submitForm}
+                    style={styles.submitButton}
+                    textStyle={styles.submitButtonText}
+                    loading={isSubmitting}
+                />
             </View>
         );
     };

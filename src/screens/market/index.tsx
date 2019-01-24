@@ -164,11 +164,15 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
         return (
             <View style={marketStyle.footer}>
                 <View style={marketStyle.footerButton}>
-                    <UIButton onPress={this.__openDepth}>{_('market.order-book')}</UIButton>
+                    <UIButton onPress={this.__openDepth}
+                              title={_('market.order-book')}
+                    />
                 </View>
 
                 <View style={marketStyle.footerButton}>
-                    <UIButton onPress={this.__openCalculator}>{_('market.calculate')}</UIButton>
+                    <UIButton onPress={this.__openCalculator}
+                              title={_('market.calculate')}
+                    />
                 </View>
             </View>
         );

@@ -14,6 +14,7 @@ import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
 
 import Successful from './components/successful';
+import Awaiting from './components/awaiting';
 import UserInfo from './components/user-info';
 import Selector from './components/selector';
 import styles from './create-offer.style';
@@ -106,19 +107,18 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
     }
 
     public render(): JSX.Element {
-        const { User, values, status = {}, setFieldValue } = this.props;
+        const { values, status = {}, setFieldValue, isSubmitting } = this.props;
 
         const { successfulCreated = false } = status;
 
         if (successfulCreated) {
-            return (
-                <ShadeScrollCard>
-                    <Successful />
-                </ShadeScrollCard>
-            );
+            return <Successful />;
         }
 
-        const commissionValue: number = values.commission;
+        if (isSubmitting) {
+            return <Awaiting />;
+        }
+
         const currencyValue: string = values.currency;
         const sideValue: string = values.side;
 
@@ -227,8 +227,8 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
 
     private __onCreate = () => {
-        // @TODO Translate
 
+        // @TODO Translate
         const { side, amount, currency } = this.props.values;
 
         const offerTitle = 'Do you want to create offer?';

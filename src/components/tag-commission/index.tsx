@@ -13,7 +13,16 @@ export default (props: CommissionProps): JSX.Element => {
         return <View />;
     }
 
-    return <Tag style={{ backgroundColor: Color.Main }}>
-        {`Fee ${numeral(props.commission).format('+0,0.[00]%')}`}
-    </Tag>;
+    let textTemplate = `You pay {value}`;
+    if (props.commission < 0) {
+        textTemplate = `Maker pays {value}`;
+    }
+
+    const comm = numeral(Math.abs(props.commission));
+
+    return (
+        <Tag style={{ backgroundColor: Color.Main }}>
+            {textTemplate.replace('{value}', comm.format('0,0.[00]%'))}
+        </Tag>
+    );
 };

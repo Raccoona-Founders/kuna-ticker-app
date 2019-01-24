@@ -192,7 +192,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
             return <SpanText>Without commission</SpanText>;
         }
 
-        let textTemplate = `He pays {value}`;
+        let textTemplate = `Taker pays {value}`;
         if (commissionValue < 0) {
             textTemplate = `You pay {value}`;
         }
@@ -203,7 +203,9 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
     };
 
     private __renderFooter = () => {
-        const { isSubmitting } = this.props;
+        const { isSubmitting, User } = this.props;
+
+        const disabled = !User.telegram || !User.displayName;
 
         return (
             <View style={styles.footer}>
@@ -211,13 +213,13 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                     <SpanText numberOfLines={3} style={styles.footerText}>{this.jockMessage}</SpanText>
                 </View>
 
-                <UIButton
-                    small
-                    title="Create"
-                    onPress={this.props.submitForm}
-                    style={styles.submitButton}
-                    textStyle={styles.submitButtonText}
-                    loading={isSubmitting}
+                <UIButton small
+                          title="Create"
+                          onPress={this.props.submitForm}
+                          style={styles.submitButton}
+                          textStyle={styles.submitButtonText}
+                          loading={isSubmitting}
+                          disabled={disabled}
                 />
             </View>
         );

@@ -7,8 +7,6 @@ import ShadeScrollCard from 'components/shade-navigator/views/shade-scroll-card'
 import Topic from 'components/topic';
 import UIInput from 'components/ui-input';
 import UIButton from 'components/ui-button';
-import SpanText from 'components/span-text';
-import { Color } from 'styles/variables';
 
 
 type SettingsProps = mobx.user.WithUserProps & NavigationInjectedProps;

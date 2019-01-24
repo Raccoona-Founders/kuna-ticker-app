@@ -75,11 +75,11 @@ export default class ViewOfferScreen extends React.Component<Props> {
                     ) : undefined}
 
                     {isMine ? (
-                        <UIButton
-                            small
-                            onPress={this.__deleteOffer}
-                            title="Delete"
-                            loading={this.state.deleting}
+                        <UIButton small
+                                  danger
+                                  onPress={this.__deleteOffer}
+                                  title="Delete"
+                                  loading={this.state.deleting}
                         />
                     ) : undefined}
                 </View>

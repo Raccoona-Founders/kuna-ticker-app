@@ -1,7 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import { shuffle, debounce } from 'lodash';
-import { View, Slider } from 'react-native';
+import { View, Slider, Alert } from 'react-native';
 import { compose } from 'recompose';
 import { withFormik, InjectedFormikProps, WithFormikConfig, FormikBag } from 'formik';
 import { inject, observer } from 'mobx-react/native';
@@ -215,7 +215,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
                 <UIButton small
                           title="Create"
-                          onPress={this.props.submitForm}
+                          onPress={this.__onCreate}
                           style={styles.submitButton}
                           textStyle={styles.submitButtonText}
                           loading={isSubmitting}
@@ -223,6 +223,25 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                 />
             </View>
         );
+    };
+
+
+    private __onCreate = () => {
+        // @TODO Translate
+
+        const { side, amount, currency } = this.props.values;
+
+        const offerTitle = 'Do you want to create offer?';
+        const offerMessage = `To ${side} KUNA Code for ${numeral(amount).format('0,0')} ${currency}`;
+
+        Alert.alert(offerTitle, offerMessage, [
+            { text: 'Cancel', style: 'cancel' },
+            {
+                text: 'Create',
+                style: 'default',
+                onPress: this.props.submitForm,
+            },
+        ]);
     };
 
     private __handleChangeFee = (value: number) => {

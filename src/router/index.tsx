@@ -6,6 +6,7 @@ import OrderBookScreen from 'screens/order-book';
 import CalculatorScreen from 'screens/calculator';
 import KunaCode from 'screens/kuna-code';
 import Settings from 'screens/settings';
+import Service from 'screens/service';
 import RouteKeys from 'router/route-keys';
 
 
@@ -23,6 +24,8 @@ const routeConfigs = {
 
     [RouteKeys.KunaCode_ViewOffer]: { screen: KunaCode.ViewOfferScreen },
     [RouteKeys.KunaCode_CreateOffer]: { screen: KunaCode.CreateOfferScreen },
+
+    [RouteKeys.Service_EnterText]: { screen: Service.EnterTextScreen },
 };
 
 

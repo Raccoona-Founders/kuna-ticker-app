@@ -5,6 +5,7 @@ import { View, Slider, Alert } from 'react-native';
 import { compose } from 'recompose';
 import { withFormik, InjectedFormikProps, WithFormikConfig, FormikBag } from 'formik';
 import { inject, observer } from 'mobx-react/native';
+
 import { ShadeScrollCard } from 'components/shade-navigator';
 import AnalTracker from 'utils/ga-tracker';
 import Topic from 'components/topic';
@@ -12,12 +13,14 @@ import Label from 'components/label';
 import Formik from 'components/formik-fields';
 import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
-
+import MDMessage from 'components/md-message';
 import Successful from './components/successful';
 import Awaiting from './components/awaiting';
 import UserInfo from './components/user-info';
 import Selector from './components/selector';
 import styles from './create-offer.style';
+import { NavigationInjectedProps } from 'react-navigation';
+import RouteKeys from 'router/route-keys';
 
 
 const JOCK_MESSAGES = [
@@ -86,6 +89,7 @@ const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
 
 type CreateOfferProps
     = InjectedFormikProps<object, CreateOfferValues>
+    & NavigationInjectedProps
     & mobx.kunacode.WithKunaCodeProps
     & mobx.user.WithUserProps;
 
@@ -175,6 +179,10 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                         />
                     </View>
 
+                    <View style={{ marginBottom: 20 }}>
+                        {this.__renderCommentField()}
+                    </View>
+
                     <UserInfo />
                 </View>
             </ShadeScrollCard>
@@ -202,6 +210,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         return <SpanText>{textTemplate.replace('{value}', comm.format('0,0.0%'))}</SpanText>;
     };
 
+
     private __renderFooter = () => {
         const { isSubmitting, User } = this.props;
 
@@ -223,6 +232,56 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                 />
             </View>
         );
+    };
+
+    private __renderCommentField = () => {
+        const { values, setFieldValue } = this.props;
+        const comment: string = values.comment;
+
+        if (!comment) {
+            return (
+                <UIButton
+                    small
+                    title="Add comment"
+                    onPress={this.__editComment}
+                />
+            );
+        }
+
+        return (
+            <>
+                <Label>Comment</Label>
+                <MDMessage content={comment} />
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <UIButton
+                        small
+                        white
+                        style={{ flex: 1, marginRight: 10 }}
+                        title="Remove comment"
+                        onPress={() => setFieldValue('comment', '')}
+                    />
+
+                    <UIButton
+                        small
+                        style={{ flex: 1, marginLeft: 10 }}
+                        title="Edit comment" onPress={this.__editComment}
+                    />
+                </View>
+            </>
+        );
+    };
+
+
+    private __editComment = () => {
+        const { navigation, values, setFieldValue } = this.props;
+
+        navigation.push(RouteKeys.Service_EnterText, {
+            title: 'Enter comment text',
+            description: 'Explain Privatbank or Monobank you need or any conditions',
+            text: values.comment,
+            onSave: (text: string) => setFieldValue('comment', text),
+        });
     };
 
 

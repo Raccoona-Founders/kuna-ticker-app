@@ -1,5 +1,6 @@
 import React from 'react';
 import { Animated, Dimensions, StyleSheet } from 'react-native';
+import { layoutStyles } from './shade.style';
 
 const EPS = 1e-5;
 const screenHeight = Dimensions.get('window').height;
@@ -10,14 +11,14 @@ type SceneLayoutProps = {
 };
 
 export default class SceneLayout extends React.PureComponent<SceneLayoutProps> {
-
     protected _translateY?: Animated.AnimatedInterpolation;
     protected _contentScale?: Animated.AnimatedInterpolation;
     protected _overlayOpacity?: Animated.AnimatedInterpolation;
 
-    public componentWillMount(): void {
-        const { index, position } = this.props;
+    public constructor(props: SceneLayoutProps) {
+        super(props);
 
+        const { index, position } = this.props;
         const inputRange = [index - 1, index, index + 1 - EPS, index + 2];
 
         this._translateY = position.interpolate({
@@ -54,20 +55,9 @@ export default class SceneLayout extends React.PureComponent<SceneLayoutProps> {
 
         return (
             <Animated.View style={[StyleSheet.absoluteFillObject]}>
-                <Animated.View style={[styles.main, style]}>{this.props.children}</Animated.View>
-
-                <Animated.View style={[styles.overlay, overlayStyle]} pointerEvents="box-none" />
+                <Animated.View style={[layoutStyles.main, style]}>{this.props.children}</Animated.View>
+                <Animated.View style={[layoutStyles.overlay, overlayStyle]} pointerEvents="box-none" />
             </Animated.View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    main: {
-        ...StyleSheet.absoluteFillObject,
-    },
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: '#000',
-    },
-});

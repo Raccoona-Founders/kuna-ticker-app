@@ -48,3 +48,13 @@ export const cardStyles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
 });
+
+export const layoutStyles = StyleSheet.create({
+    main: {
+        ...StyleSheet.absoluteFillObject,
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: '#000',
+    },
+});

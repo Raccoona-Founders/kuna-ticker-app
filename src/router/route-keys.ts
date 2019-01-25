@@ -13,6 +13,8 @@ enum RouteKeys {
 
     KunaCode_ViewOffer = 'KunaCode.ViewOffer',
     KunaCode_CreateOffer = 'KunaCode.CreateOffer',
+
+    Service_EnterText = 'Service.EnterText',
 }
 
 export default RouteKeys;

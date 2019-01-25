@@ -8,6 +8,7 @@ import DescriptionItem from 'components/description-item';
 import TelegramLink from 'components/telegram-link';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import { NavigationInjectedProps } from 'react-navigation';
+import MDMessage from 'components/md-message';
 import TagSide from 'components/tag-side';
 import TagCommission from 'components/tag-commission';
 import Topic from 'components/topic';
@@ -70,7 +71,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
 
                     {offer.comment ? (
                         <DescriptionItem topic="Comment">
-                            <SpanText fontSize={18}>{offer.comment}</SpanText>
+                            <MDMessage content={offer.comment} />
                         </DescriptionItem>
                     ) : undefined}
 

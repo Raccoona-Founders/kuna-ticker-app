@@ -27,7 +27,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
     };
 
     public render(): JSX.Element {
-        const kunaCodeOffers = this.props.KunaCode.sortedOffers;
+
 
         return (
             <>
@@ -38,8 +38,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                         showsVerticalScrollIndicator={false}
                     >
                         <OfficialChannel />
-
-                        {kunaCodeOffers.map(this.__renderOffer)}
+                        {this.__renderOffersList()}
                     </ScrollView>
 
                     <TouchableOpacity style={styles.createOffer} onPress={this.__onPressAddOffer}>
@@ -51,6 +50,23 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
             </>
         );
     }
+
+
+    private __renderOffersList = () => {
+        const kunaCodeOffers = this.props.KunaCode.sortedOffers;
+        if (kunaCodeOffers.length === 0) {
+            return (
+                <View style={{ paddingTop: 50, alignItems: 'center' }}>
+                    <SpanText style={{ textAlign: 'center', fontSize: 40 }}>🤓</SpanText>
+                    <SpanText style={{ textAlign: 'center', fontSize: 18 }}>
+                        There is no offers yet...
+                    </SpanText>
+                </View>
+            );
+        }
+
+        return kunaCodeOffers.map(this.__renderOffer);
+    };
 
     private __renderOffer = (offer: kunacodes.Offer, index: number) => {
         // @ts-ignore

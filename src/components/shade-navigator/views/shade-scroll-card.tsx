@@ -37,8 +37,8 @@ class ShadeScrollCard extends React.PureComponent<ShadeCardProps, any> {
         super(props);
 
         this._onScrollViewScroll = Animated.event(
-            [{nativeEvent: {contentOffset: {y: this._scrollViewYOffset}}}],
-            {useNativeDriver: true},
+            [{ nativeEvent: { contentOffset: { y: this._scrollViewYOffset } } }],
+            { useNativeDriver: true },
         );
 
         this._shadeInnerContentOffset = this._scrollViewYOffset.interpolate({
@@ -56,7 +56,7 @@ class ShadeScrollCard extends React.PureComponent<ShadeCardProps, any> {
     }
 
     public render(): JSX.Element {
-        const {withBrow = true} = this.props;
+        const { withBrow = true } = this.props;
 
         const scrollViewStyles = [cardStyles.scrollView, {
             transform: [{
@@ -66,13 +66,13 @@ class ShadeScrollCard extends React.PureComponent<ShadeCardProps, any> {
 
         return (
             <Animated.View style={cardStyles.shadeView}>
-                {withBrow ? <ShadeHeader opacity={this._headerOpacity}/> : undefined}
+                {withBrow ? <ShadeHeader opacity={this._headerOpacity} /> : undefined}
 
                 <Animated.ScrollView {...this.__scrollViewProps} style={scrollViewStyles}>
-                    <View style={[cardStyles.innerContent, {paddingTop: withBrow ? 40 : 0}, this.props.style]}>
+                    <View style={[cardStyles.innerContent, { paddingTop: withBrow ? 40 : 0 }, this.props.style]}>
                         {this.props.children}
                     </View>
-                    <View style={{height: this.state.footerHeight}}/>
+                    <View style={{ height: this.state.footerHeight }} />
                 </Animated.ScrollView>
 
                 <View style={cardStyles.footer} onLayout={this.__handleFooterLayout}>
@@ -83,9 +83,9 @@ class ShadeScrollCard extends React.PureComponent<ShadeCardProps, any> {
     }
 
     protected __renderFooter = (): JSX.Element => {
-        const {renderFooter} = this.props;
+        const { renderFooter } = this.props;
 
-        return renderFooter ? renderFooter() : <View/>;
+        return renderFooter ? renderFooter() : <View />;
     };
 
 

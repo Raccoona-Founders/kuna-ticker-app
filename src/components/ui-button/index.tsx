@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
 
-
         height: 50,
         width: '100%',
         backgroundColor: Color.Main,
@@ -114,6 +113,7 @@ const styles = StyleSheet.create({
 
     whiteBtn: {
         borderColor: Color.Gray3,
+        backgroundColor: Color.White,
         borderWidth: 1,
     },
     whiteText: {

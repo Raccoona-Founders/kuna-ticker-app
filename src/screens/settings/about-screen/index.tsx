@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Linking, TouchableOpacity } from 'react-native';
-import Markdown from 'react-native-markdown-renderer';
 import qs from 'querystring';
 import { SpanText } from 'components/span-text';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import Analytics from 'utils/ga-tracker';
 import i18n, { _ } from 'utils/i18n';
-import { styles, mdStyles } from './about-screen.style';
-import textContent from './text-content';
 import Topic from 'components/topic';
+import MDMessage from 'components/md-message';
+import { styles } from './about-screen.style';
+import textContent from './text-content';
+
 
 const language: string = i18n.currentLocale().split('-')[0];
 
@@ -54,7 +55,8 @@ export default class AboutScreen extends React.Component<SettingsProps> {
                 <Topic title={_('about.title')} />
 
                 <View style={styles.body}>
-                    <Markdown style={mdStyles}>{textContent[language] || textContent.en}</Markdown>
+                    <MDMessage content={textContent[language] || textContent.en} />
+
                     <View style={styles.separator} />
                     <View style={styles.linksContainer}>{links.map(this.__renderLinkItem)}</View>
                 </View>

@@ -18,6 +18,6 @@ export const mdStyles = StyleSheet.create({
         fontSize: 18,
         lineHeight: 20,
         color: Color.Text,
-        fontFamily: Fonts.TTNorms_Medium,
+        fontFamily: Fonts.TTNorms_Regular,
     },
 });

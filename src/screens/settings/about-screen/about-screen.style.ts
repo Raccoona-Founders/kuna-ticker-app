@@ -1,16 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Color, Fonts } from 'styles/variables';
-
-export const mdStyles = StyleSheet.create({
-    root: {},
-    view: {},
-    text: {
-        fontSize: 16,
-        lineHeight: 20,
-        color: Color.DarkPurple,
-        fontFamily: Fonts.TTNorms_Regular,
-    },
-});
+import { Color } from 'styles/variables';
 
 
 export const styles = StyleSheet.create({
@@ -36,8 +25,7 @@ export const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: Color.Gray3,
     },
-    linksContainer: {
-    },
+    linksContainer: {},
     linkItem: {
         marginBottom: 20,
     },

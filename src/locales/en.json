@@ -8,6 +8,16 @@
         "kuna_code": "KUNA Code",
         "portfolio": "Portfolio"
     },
+    "general": {
+        "save": "Save",
+        "update": "Update",
+        "delete": "Delete",
+        "add": "Add",
+        "amount": "Amount",
+        "operation": "Operation",
+        "comment": "Comment",
+        "create": "Create"
+    },
     "setting": {
         "menu": {
             "about": "About",
@@ -47,4 +57,19 @@
         "message": ""
     },
     "official_kuna_chanel": "Official KUNA channel",
+    "kuna-code": {
+        "jokes": [
+            "From $20 000 to $3 000 just one moment",
+            "Just buy it!",
+            "Just sell it!",
+            "Just hold it!",
+            "Hamsters are your hope",
+            "Holy nakamoto! What happened to Bitcoin?",
+            "Buy or not to Buy? That is the question!",
+            "Sell or not to Sell? That is the question!",
+            "Hold or not to Hold? That is the question!",
+            "I bought Ripple for all my salary.",
+            "I bought for $18 000!"
+        ]
+    }
 }

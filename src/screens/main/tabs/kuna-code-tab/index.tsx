@@ -91,7 +91,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
     private __onRefresh = async () => {
         this.setState({ refreshing: true });
 
-        AnalTracker.logEvent('update_kuna_code_offers');
+        AnalTracker.logEvent('KunaCode_UpdateOffers');
 
         try {
             await this.props.KunaCode.fetchOffers();

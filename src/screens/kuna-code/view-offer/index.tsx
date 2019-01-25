@@ -12,7 +12,6 @@ import MDMessage from 'components/md-message';
 import TagSide from 'components/tag-side';
 import TagCommission from 'components/tag-commission';
 import Topic from 'components/topic';
-import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
 
 import styles from './view-offer.style';
@@ -29,7 +28,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
     public componentDidMount(): void {
         const offer = this._offer;
 
-        AnalTracker.logEvent('kuna_code_view_offer', {
+        AnalTracker.logEvent('KunaCode_ViewOffer', {
             amount: offer.amount,
             currency: offer.currency,
             side: offer.side,
@@ -45,15 +44,19 @@ export default class ViewOfferScreen extends React.Component<Props> {
 
         return (
             <ShadeScrollCard>
+                {/* @TODO translate */}
                 <Topic title="KUNA Code Offer"
                        description={time.format('MMM DD, YYYY - HH:mm')}
                 />
 
                 <View style={{ paddingLeft: 20, paddingRight: 20 }}>
+
+                    {/* @TODO translate */}
                     <DescriptionItem topic="Amount">
                         {numeral(offer.amount).format('0,0.[00]') + " " + offer.currency}
                     </DescriptionItem>
 
+                    {/* @TODO translate */}
                     <DescriptionItem topic="Operation">
                         <View style={{ marginRight: 10 }}>
                             <TagSide side={offer.side} />
@@ -62,6 +65,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
                         <TagCommission commission={offer.commission} />
                     </DescriptionItem>
 
+                    {/* @TODO translate */}
                     <DescriptionItem topic={`Telegram (${offer.user.name})`}>
                         <TelegramLink telegram={offer.user.contact}
                                       onPress={this._onPressTelegramLink}
@@ -69,12 +73,14 @@ export default class ViewOfferScreen extends React.Component<Props> {
                         />
                     </DescriptionItem>
 
+                    {/* @TODO translate */}
                     {offer.comment ? (
                         <DescriptionItem topic="Comment">
                             <MDMessage content={offer.comment} />
                         </DescriptionItem>
                     ) : undefined}
 
+                    {/* @TODO translate */}
                     {isMine ? (
                         <UIButton small
                                   danger
@@ -92,7 +98,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
     protected _onPressTelegramLink = () => {
         const offer = this._offer;
 
-        AnalTracker.logEvent('kuna_code_contact_offer', {
+        AnalTracker.logEvent('KunaCode_ContactOffer', {
             amount: offer.amount,
             currency: offer.currency,
             side: offer.side,

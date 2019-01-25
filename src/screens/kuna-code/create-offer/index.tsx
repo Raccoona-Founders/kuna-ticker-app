@@ -5,9 +5,11 @@ import { View, Slider, Alert } from 'react-native';
 import { compose } from 'recompose';
 import { withFormik, InjectedFormikProps, WithFormikConfig, FormikBag } from 'formik';
 import { inject, observer } from 'mobx-react/native';
-
-import { ShadeScrollCard } from 'components/shade-navigator';
+import { NavigationInjectedProps } from 'react-navigation';
+import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
+import { _ } from 'utils/i18n';
+import { ShadeScrollCard } from 'components/shade-navigator';
 import Topic from 'components/topic';
 import Label from 'components/label';
 import Formik from 'components/formik-fields';
@@ -19,23 +21,9 @@ import Awaiting from './components/awaiting';
 import UserInfo from './components/user-info';
 import Selector from './components/selector';
 import styles from './create-offer.style';
-import { NavigationInjectedProps } from 'react-navigation';
-import RouteKeys from 'router/route-keys';
 
 
-const JOCK_MESSAGES = [
-    'From $20 000 to $3 000 just one moment',
-    'Just buy it!',
-    'Just sell it!',
-    'Just hold it!',
-    'Hamsters are your hope',
-    'Holy nakamoto! What happened to Bitcoin?',
-    'Buy or not to Buy? That is the question!',
-    'Sell or not to Sell? That is the question!',
-    'Hold or not to Hold? That is the question!',
-    'I bought Ripple for all my salary.',
-    'I bought for 18k.',
-];
+const JOCK_MESSAGES = _('kuna-code.jokes');
 
 type CreateOfferValues = {
     amount: string;
@@ -48,7 +36,7 @@ type CreateOfferValues = {
 const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
     mapPropsToValues: (): CreateOfferValues => {
         return {
-            amount: '10000',
+            amount: '',
             currency: 'UAH',
             side: 'sell',
             comment: '',
@@ -62,7 +50,7 @@ const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
 
         formikBag.setSubmitting(true);
 
-        const { KunaCode } = formikBag.props;
+        const { KunaCode, User } = formikBag.props;
 
         try {
             KunaCode.checkUserReady();
@@ -71,18 +59,30 @@ const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
             return;
         }
 
-        await formikBag.props.KunaCode.createOffer({
-            side: values.side,
-            amount: +values.amount,
-            currency: values.currency,
-            comment: values.comment,
-            commission: values.commission,
-        });
+        try {
+            await formikBag.props.KunaCode.createOffer({
+                side: values.side,
+                amount: +values.amount,
+                currency: values.currency,
+                comment: values.comment,
+                commission: values.commission,
+            });
 
-        formikBag.setSubmitting(false);
-        formikBag.setStatus({
-            successfulCreated: true,
-        });
+            AnalTracker.logEvent('KunaCode_CreateOffer_Success', {
+                user_id: User.userId,
+                amount: values.amount,
+                currency: values.currency,
+                type: values.side,
+                with_comment: Boolean(values.comment),
+            });
+
+            formikBag.setSubmitting(false);
+            formikBag.setStatus({
+                successfulCreated: true,
+            });
+        } catch (e) {
+            AnalTracker.logEvent('KunaCode_CreateOffer_Error');
+        }
     },
 };
 
@@ -107,7 +107,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
     }
 
     public componentDidMount(): void {
-        AnalTracker.logEvent('kuna_code_start_create_offer');
+        AnalTracker.logEvent('KunaCode_CreateOffer_Start');
     }
 
     public render(): JSX.Element {
@@ -128,11 +128,14 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
         return (
             <ShadeScrollCard renderFooter={this.__renderFooter}>
+                {/* @TODO translate */}
                 <Topic title="Create offer"
                        description="Describe what the KUNA Code you want to Buy or Sell"
                 />
 
                 <View style={styles.body}>
+
+                    {/* @TODO translate */}
                     <Formik.FormikInput
                         name="amount"
                         placeholder="10 000"
@@ -290,8 +293,15 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         // @TODO Translate
         const { side, amount, currency } = this.props.values;
 
+        const numAmount = numeral(amount);
+
+        if (numAmount.value() <= 0) {
+            Alert.alert('Enter amount!');
+            return;
+        }
+
         const offerTitle = 'Do you want to create offer?';
-        const offerMessage = `To ${side} KUNA Code for ${numeral(amount).format('0,0')} ${currency}`;
+        const offerMessage = `To ${side} KUNA Code for ${numAmount.format('0,0')} ${currency}`;
 
         Alert.alert(offerTitle, offerMessage, [
             { text: 'Cancel', style: 'cancel' },

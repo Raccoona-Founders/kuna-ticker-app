@@ -10,6 +10,7 @@ import com.wix.interactable.Interactable;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
+import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.horcrux.svg.SvgPackage;

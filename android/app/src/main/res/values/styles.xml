@@ -9,6 +9,4 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
         <item name="android:statusBarColor">@color/blue</item>
     </style>
-
-
 </resources>

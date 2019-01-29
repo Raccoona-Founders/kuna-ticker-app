@@ -42,8 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNDeviceInfo(),
                     new SvgPackage(),
                     new RandomBytesPackage(),
-                    new SplashScreenReactPackage(),
-                    new Interactable()
+                    new SplashScreenReactPackage()
             );
         }
 

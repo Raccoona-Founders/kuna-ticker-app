@@ -5,7 +5,6 @@
 	};
 	objectVersion = 48;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -59,6 +58,7 @@
 		D9FE4258E29D4BDD803EAFB1 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5D313305D14AF5A263F196 /* libSplashScreen.a */; };
 		EF270C5DAE5F4FEBA42CE32F /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7658EDA19F01457DA3084648 /* libRNSVG.a */; };
 		FD33C51714C746A385B4B3B1 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87998BEA2BB74B17A78C8BBD /* libRNFirebase.a */; };
+		90D830F9B095447F804B69FF /* tt_norms_black.otf in Resources */ = {isa = PBXBuildFile; fileRef = BB01CC125119423994DA904B /* tt_norms_black.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -451,6 +451,7 @@
 		D4C1A34BD0784722826E655B /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		F5EB878476754DB9ABB95DC8 /* tt_norms_bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_bold.otf; path = ../assets/fonts/tt_norms_bold.otf; sourceTree = "<group>"; };
 		FAFE189709134F2FB5C0807B /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
+		BB01CC125119423994DA904B /* tt_norms_black.otf */ = {isa = PBXFileReference; name = "tt_norms_black.otf"; path = "../assets/fonts/tt_norms_black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -655,6 +656,7 @@
 				F5EB878476754DB9ABB95DC8 /* tt_norms_bold.otf */,
 				08B09E3303F74333ABE6E5D1 /* tt_norms_medium.otf */,
 				44B0D113440445AF8316703F /* tt_norms_regular.otf */,
+				BB01CC125119423994DA904B /* tt_norms_black.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1337,6 +1339,7 @@
 				60C8591221909C9900A174BA /* GoogleService-Info.plist in Resources */,
 				118FF7D8C9F6434491BBF9BC /* tt_norms_medium.otf in Resources */,
 				043A5EB286104894A9C4DF68 /* tt_norms_regular.otf in Resources */,
+				90D830F9B095447F804B69FF /* tt_norms_black.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

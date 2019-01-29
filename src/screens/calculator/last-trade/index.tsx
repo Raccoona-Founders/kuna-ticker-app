@@ -6,6 +6,7 @@ import styles from './last-trade.style';
 
 import CalculatorPair, { Side } from '../calculator-pair';
 import SpanText from 'components/span-text';
+import { DefaultStyles } from 'styles/variables';
 
 type LastTradeCalcProps = {
     market: KunaMarket;
@@ -60,7 +61,7 @@ export default class LastTradeCalc extends React.PureComponent<LastTradeCalcProp
                 return numeral(value).multiply(ticker.lastPrice || 0).value();
         }
     };
-            
+
 
     private __renderUseEquivalent(): JSX.Element {
         const { buyValue = 0 } = this.state;
@@ -77,7 +78,7 @@ export default class LastTradeCalc extends React.PureComponent<LastTradeCalcProp
         return (
             <View style={styles.resultContainer}>
                 <SpanText style={styles.resultUsdValue}>
-                    <Text style={{ fontWeight: '400' }}>
+                    <Text style={DefaultStyles.thinFont}>
                         {buyNumber.format(buyAsset.format) || '0'} {buyAsset.key}
                     </Text>
                     <Text> ~ </Text>

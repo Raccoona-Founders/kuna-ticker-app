@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Color, Fonts } from 'styles/variables';
+import { Color, DefaultStyles, Fonts } from 'styles/variables';
 import Constants from 'utils/constants';
 
 export const mainStyles = StyleSheet.create({
@@ -48,7 +48,7 @@ export const tabBarStyles = StyleSheet.create({
         fontFamily: Fonts.TTNorms_Regular,
         alignItems: 'center',
         color: Color.Text,
-        fontWeight: '700',
+        ...DefaultStyles.boldFont
     },
 
     // Info bar
@@ -69,6 +69,6 @@ export const tabBarStyles = StyleSheet.create({
         top: 20,
         right: -24,
         fontSize: 12,
-        fontWeight: 'bold',
+        ...DefaultStyles.boldFont
     },
 });

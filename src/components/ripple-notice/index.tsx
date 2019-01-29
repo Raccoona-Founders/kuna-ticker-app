@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { SpanText } from 'components/span-text';
 import { _ } from 'utils/i18n';
+import { DefaultStyles } from 'styles/variables';
 
 type RippleNoticeProps = {
     style?: StyleProp<ViewStyle>;
@@ -40,9 +41,9 @@ const style = StyleSheet.create({
     },
 
     rippleNoticeText: {
+        ...DefaultStyles.mediumFont,
         fontSize: 14,
         lineHeight: 22,
-        fontWeight: '500',
         color: '#6F5D0B',
         textAlign: 'center',
     },

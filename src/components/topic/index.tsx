@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import SpanText from 'components/span-text';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 
 type TopicProps = {
     title: React.ReactNode;
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     titleText: {
+        ...DefaultStyles.boldFont,
         fontSize: 28,
-        fontWeight: 'bold',
         color: Color.Text,
     },
     descriptionText: {

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 
 const styles = StyleSheet.create({
     modeButtonsBox: {
@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
     },
 
     modeButtonLabel: {
+        ...DefaultStyles.boldFont,
         fontSize: 14,
         textTransform: 'uppercase',
-        fontWeight: '700',
         textAlign: 'center',
     },
     modeButtonBuyLabel: {

@@ -1,29 +1,24 @@
 import React from 'react';
-import { Text, TextProps } from 'react-native';
+import { StyleSheet, Text, TextProps } from 'react-native';
 import { Color, Fonts } from 'styles/variables';
 
 type RegularTextProps = TextProps & {
-    children: 'string' | any;
-    weight?: '400' | '500' | '600' | '700';
-    fontSize?: number;
+    children: string | any;
 };
 
-
 export const SpanText = (props: RegularTextProps) => {
-    const { weight = '500', style = {}, fontSize = 16, children, ...otherProps } = props;
-    const textStyles: any[] = [
-        defaultStyle, {
-            fontSize: fontSize,
-            fontWeight: weight,
-        },
-        style,
-    ];
+    const { style = {}, children, ...otherProps } = props;
+    const textStyles: any[] = [defaultStyle, style];
 
-    return <Text {...otherProps} style={textStyles}>{children}</Text>;
+    return (
+        <Text {...otherProps} style={StyleSheet.flatten(textStyles)}>
+            {children}
+        </Text>
+    );
 };
 
 const defaultStyle = {
-    fontFamily: Fonts.TTNorms_Regular,
+    fontFamily: Fonts.TTNorms_Medium,
     color: Color.Text,
 };
 

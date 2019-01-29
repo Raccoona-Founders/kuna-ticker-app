@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 
 
 export const styles = StyleSheet.create({
@@ -14,9 +14,9 @@ export const styles = StyleSheet.create({
         marginBottom: 10,
     },
     topicTitle: {
+        ...DefaultStyles.boldFont,
         color: Color.DarkPurple,
         fontSize: 24,
-        fontWeight: '600',
     },
 
     separator: {
@@ -33,8 +33,8 @@ export const styles = StyleSheet.create({
         color: Color.GrayBlues,
     },
     linkItemLabel: {
+        ...DefaultStyles.mediumFont,
         marginTop: 3,
         fontSize: 18,
-        fontWeight: '500',
     },
 });

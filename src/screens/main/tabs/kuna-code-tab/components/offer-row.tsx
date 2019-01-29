@@ -7,7 +7,7 @@ import RouteKeys from 'router/route-keys';
 import SpanText from 'components/span-text';
 import TagCommission from 'components/tag-commission';
 import TagSide from 'components/tag-side';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 
 
 type OfferRowProps = NavigationInjectedProps & {
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     amount: {
+        ...DefaultStyles.boldFont,
         fontSize: 18,
-        fontWeight: 'bold',
     },
     date: {
         marginTop: 5,

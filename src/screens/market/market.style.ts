@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 import { isIphoneX } from 'utils/helper';
 
 export const screen = {
@@ -55,7 +55,7 @@ const marketStyle = StyleSheet.create({
 
     price: {
         fontSize: 28,
-        fontWeight: '700',
+        ...DefaultStyles.boldFont,
     },
     priceUsd: {
         color: Color.GrayBlues,
@@ -74,13 +74,13 @@ const marketStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         padding: 10,
-        paddingBottom: isIphoneX() ? 30 : 10
+        paddingBottom: isIphoneX() ? 30 : 10,
     },
     footerButton: {
         flex: 1,
         marginLeft: 10,
         marginRight: 10,
-    }
+    },
 });
 
 export default marketStyle;

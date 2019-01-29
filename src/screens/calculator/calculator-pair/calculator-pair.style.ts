@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Color, Fonts } from 'styles/variables';
+import { Color, DefaultStyles, Fonts } from 'styles/variables';
 
 const styles = StyleSheet.create({
     container: {
@@ -7,9 +7,9 @@ const styles = StyleSheet.create({
     },
 
     topic: {
+        ...DefaultStyles.mediumFont,
         fontSize: 16,
         marginBottom: 5,
-        fontWeight: '500',
     },
 
     valueInputContainer: {
@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
     },
 
     valueInput: {
+        ...DefaultStyles.mediumFont,
+
         paddingLeft: 15,
         borderRadius: 3,
         height: 48,
@@ -34,8 +36,6 @@ const styles = StyleSheet.create({
         paddingRight: 55,
         borderWidth: 1,
         borderColor: Color.Gray3,
-        fontFamily: Fonts.TTNorms_Regular,
-        fontWeight: '500',
 
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },

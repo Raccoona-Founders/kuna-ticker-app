@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Color, Fonts } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 
 export const styles = StyleSheet.create({
     calcAssetRow: {
@@ -10,6 +10,8 @@ export const styles = StyleSheet.create({
     },
 
     valueInput: {
+        ...DefaultStyles.mediumFont,
+
         paddingLeft: 15,
         borderRadius: 3,
         height: 48,
@@ -18,8 +20,6 @@ export const styles = StyleSheet.create({
         paddingRight: 55,
         borderWidth: 1,
         borderColor: Color.Gray3,
-        fontFamily: Fonts.TTNorms_Regular,
-        fontWeight: '500',
 
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },

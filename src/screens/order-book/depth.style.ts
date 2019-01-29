@@ -1,5 +1,5 @@
 import { StyleProp, StyleSheet } from 'react-native';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 import { isIphoneX } from 'utils/helper';
 
 export default StyleSheet.create({
@@ -135,8 +135,8 @@ export const sideRowStyles = StyleSheet.create({
     },
 
     value: {
+        ...DefaultStyles.mediumFont,
         fontSize: 14,
-        fontWeight: '500',
         color: Color.DarkPurple,
     },
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import SpanText from 'components/span-text';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 
 type SelectorItem = {
     label: string;
@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
 
     itemTextActive: {
         color: Color.Text,
-        fontWeight: 'bold',
+        ...DefaultStyles.boldFont,
     },
 });

@@ -7,7 +7,7 @@ import RouteKeys from 'router/route-keys';
 import DescriptionItem from 'components/description-item';
 import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 
 // @ts-ignore
 @compose(withNavigation, inject('User'), observer)
@@ -21,7 +21,7 @@ export default class UserInfo extends React.Component<any & mobx.user.WithUserPr
             return (
                 <View>
                     {/* @TODO translate */}
-                    <SpanText style={{ fontWeight: 'bold', color: Color.Danger, marginBottom: 20 }}>
+                    <SpanText style={{ ...DefaultStyles.boldFont, color: Color.Danger, marginBottom: 20 }}>
                         {errorMessage}
                     </SpanText>
                     {/* @TODO translate */}

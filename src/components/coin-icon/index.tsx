@@ -7,6 +7,7 @@ import { svgIcons, findIcon } from './svg-icons';
 import { coinShadow } from 'styles/shadows';
 import Icon from 'components/icon';
 import { SpanText } from 'components/span-text';
+import { DefaultStyles } from 'styles/variables';
 
 type CoinIconProps = {
     asset: KunaAsset;
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     onlySymbolText: {
-        fontWeight: '600',
+        ...DefaultStyles.boldFont,
         position: 'absolute',
         top: 0,
         left: 0,

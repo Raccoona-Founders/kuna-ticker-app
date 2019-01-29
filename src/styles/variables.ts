@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export enum Color {
     Main = '#5850FA',
     Secondary = '#3DC3FA',
@@ -7,6 +9,7 @@ export enum Color {
     DarkPurple = '#0D0D3F',
 
     Text = '#4A4A4A',
+    SecondaryText = '#5A5A5A',
 
     DeepBlue = '#2E71F0',
 
@@ -27,8 +30,24 @@ export enum Color {
     Danger = '#FD2A47',
 }
 
-export enum Fonts {
-    TTNorms_Bold = 'TTNorms-Bold',             // 600
-    TTNorms_Medium = 'TTNorms-Medium',         // 500
-    TTNorms_Regular = 'TTNorms-Regular',       // 400
-}
+export const Fonts = {
+    TTNorms_Bold: 'TTNorms-Bold',
+    TTNorms_Medium: 'TTNorms-Medium',
+    TTNorms_Regular: 'TTNorms-Regular',
+};
+
+
+export const DefaultStyles: any = {
+    thinFont: {
+        fontWeight: '400',
+        fontFamily: Fonts.TTNorms_Regular,
+    },
+    mediumFont: {
+        fontWeight: '500',
+        fontFamily: Fonts.TTNorms_Medium,
+    },
+    boldFont: {
+        fontWeight: '700',
+        fontFamily: Fonts.TTNorms_Bold,
+    },
+};

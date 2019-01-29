@@ -4,7 +4,7 @@ import { getAsset, KunaMarket, KunaV3Ticker } from 'kuna-sdk';
 import { View, StyleSheet } from 'react-native';
 import { _ } from 'utils/i18n';
 import SpanText from 'components/span-text';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 import { OperationMode } from '../../common';
 import TradeValuesRow from './trade-values-row';
 
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         color: Color.GrayBlues,
     },
     avgPriceValue: {
+        ...DefaultStyles.boldFont,
         fontSize: 20,
-        fontWeight: 'bold',
         marginBottom: 5,
         marginTop: 5,
     },

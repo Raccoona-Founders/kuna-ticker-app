@@ -9,6 +9,7 @@ import { View, StyleSheet } from 'react-native';
 import SpanText from 'components/span-text';
 import RiddleConfig, { Riddle } from './riddle-config';
 import RiddleChecker from 'components/riddle/riddle-checker';
+import { DefaultStyles } from 'styles/variables';
 
 
 type RiddleProps = {
@@ -32,12 +33,12 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     storyText: {
+        ...DefaultStyles.thinFont,
         marginBottom: 20,
-        fontWeight: '400',
         fontSize: 18,
     },
     questionText: {
-        fontWeight: '500',
+        ...DefaultStyles.mediumFont,
         fontSize: 18,
     },
 });

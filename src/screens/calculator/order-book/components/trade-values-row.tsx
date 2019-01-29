@@ -3,7 +3,7 @@ import numeral from 'numeral';
 import { KunaAsset } from 'kuna-sdk';
 import { View, StyleSheet } from 'react-native';
 import SpanText from 'components/span-text';
-import { Color } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 import { OperationMode } from '../../common';
 
 type TradeValuesRowProps = {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     valueAmountReceive: {
-        fontWeight: 'bold',
+        ...DefaultStyles.boldFont,
     },
     valueFee: {
         fontSize: 12,

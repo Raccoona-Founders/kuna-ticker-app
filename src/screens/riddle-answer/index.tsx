@@ -7,7 +7,7 @@ import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
 import { ShadeScrollCard } from 'components/shade-navigator';
 
-import { Color, Fonts } from 'styles/variables';
+import { Color, DefaultStyles, Fonts } from 'styles/variables';
 
 
 const errorMessages: Record<string, string> = {
@@ -174,12 +174,13 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
     question: {
+        ...DefaultStyles.mediumFont,
         fontSize: 18,
-        fontWeight: '500',
         marginBottom: 20,
     },
 
     input: {
+        ...DefaultStyles.mediumFont,
         paddingLeft: 15,
         backgroundColor: Color.GrayWhite,
         borderRadius: 3,
@@ -189,8 +190,6 @@ const styles = StyleSheet.create({
         paddingRight: 55,
         borderWidth: 1,
         borderColor: Color.Gray3,
-        fontFamily: Fonts.TTNorms_Regular,
-        fontWeight: '500',
     },
 
     error: {

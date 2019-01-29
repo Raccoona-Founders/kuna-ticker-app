@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
-import { Color, Fonts } from 'styles/variables';
+import { Color, DefaultStyles } from 'styles/variables';
 
 type MDMessageProps = {
     content: string;
@@ -12,12 +12,15 @@ export default (props: MDMessageProps) => {
 };
 
 export const mdStyles = StyleSheet.create({
-    root: {},
+    root: {
+        marginTop: 0,
+        marginBottom: 0,
+    },
     view: {},
     text: {
-        fontSize: 18,
-        lineHeight: 20,
-        color: Color.Text,
-        fontFamily: Fonts.TTNorms_Regular,
+        ...DefaultStyles.mediumFont,
+        fontSize: 16,
+        lineHeight: 24,
+        color: Color.SecondaryText,
     },
 });

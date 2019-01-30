@@ -5,7 +5,7 @@
         "markets": "Рынки",
         "setting": "Настройки",
         "account": "Акаунт",
-        "kuna_code": "KUNA Code",
+        "kuna_code": "KUNA Коды",
         "portfolio": "Портфолио"
     },
     "general": {
@@ -62,6 +62,7 @@
         "create-offer": "Создать заявку",
         "create-offer-description": "Опишите, что за KUNA код вы хотите купить или продать",
         "channel-title": "Официальный чат KUNA",
+        "offer-title": "Заявка на KUNA код",
         "buy": "Покупаю",
         "sell": "Продаю",
         "open-settings": "Открыть настройки",
@@ -70,6 +71,11 @@
             "name-and-telegram": "Укажите свое имя и телеграм",
             "name": "Укажите свое имя",
             "telegram": "Укажите свой телеграм"
+        },
+        "processing-offer": "Создание вашей заявки. Пожалуйста подождите...",
+        "successful": {
+            "title": "Поздравляет!",
+            "description": "Ваша заявка создана"
         },
         "jokes": [
             "С $20 000 до $3 000 лишь одно мгновение",

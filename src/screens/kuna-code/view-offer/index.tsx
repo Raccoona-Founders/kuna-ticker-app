@@ -44,13 +44,12 @@ export default class ViewOfferScreen extends React.Component<Props> {
 
         return (
             <ShadeScrollCard>
-                {/* @TODO translate */}
-                <Topic title="KUNA Code Offer"
-                       description={time.format('MMM DD, YYYY - HH:mm')}
+                <Topic
+                    title={_('kuna-code.offer-title')}
+                    description={time.format('MMM DD, YYYY - HH:mm')}
                 />
 
                 <View style={{ paddingLeft: 20, paddingRight: 20 }}>
-
                     {/* @TODO translate */}
                     <DescriptionItem topic="Amount">
                         {numeral(offer.amount).format('0,0.[00]') + " " + offer.currency}

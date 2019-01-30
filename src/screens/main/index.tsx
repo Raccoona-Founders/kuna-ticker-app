@@ -45,9 +45,10 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
     protected renderPager = (props: SlideView.SceneRendererProps<TabnavRoute>) => {
         return (
             <>
-                <TabBarComponent navigationState={props.navigationState}
-                                 position={props.position}
-                                 onPressTab={(index: number) => this.setState({ index: index })}
+                <TabBarComponent
+                    navigationState={props.navigationState}
+                    position={props.position}
+                    onPressTab={(index: number) => this.setState({ index: index }, this.trackScreen)}
                 />
                 <View style={{ height: Constants.IS_IPHONE_X ? 100 : 80 }} />
                 <SlideView.PagerScroll {...props} />
@@ -68,6 +69,7 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
             <Animated.View style={{ flex: 1, transform: [{ scale: scale }] }}>
                 {React.createElement(sceneComponent, {
                     route: props.route,
+                    focused: props.focused,
                 })}
             </Animated.View>
         );

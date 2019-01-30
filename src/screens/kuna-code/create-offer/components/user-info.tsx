@@ -21,11 +21,9 @@ export default class UserInfo extends React.Component<any & mobx.user.WithUserPr
         if (errorMessage) {
             return (
                 <View>
-                    {/* @TODO translate */}
                     <SpanText style={{ ...DefaultStyles.boldFont, color: Color.Danger, marginBottom: 20 }}>
                         {errorMessage}
                     </SpanText>
-                    {/* @TODO translate */}
                     <UIButton onPress={this.__openSettings} small title={_('kuna-code.open-settings')} />
                 </View>
             );
@@ -33,14 +31,12 @@ export default class UserInfo extends React.Component<any & mobx.user.WithUserPr
 
         return (
             <View>
-                {/* @TODO translate */}
                 {User.displayName ? (
                     <DescriptionItem topic={_('general.display-name')}>
                         {User.displayName}
                     </DescriptionItem>
                 ) : undefined}
 
-                {/* @TODO translate */}
                 {User.telegram ? (
                     <DescriptionItem topic="Telegram">
                         {`@${User.telegram}`}

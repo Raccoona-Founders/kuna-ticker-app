@@ -192,9 +192,9 @@ type ShadeCardOuterProps = {
     style?: StyleProp<ViewStyle>;
     withBrow?: boolean;
     innerRef?: React.RefObject<ScrollView>;
-
     renderFooter?: () => JSX.Element;
 };
+
 type ShadeCardProps = NavigationTransitionProps & ShadeCardOuterProps;
 
 export default (props: ShadeCardOuterProps) => {

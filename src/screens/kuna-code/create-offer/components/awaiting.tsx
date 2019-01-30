@@ -1,16 +1,16 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
+import { _ } from 'utils/i18n';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import SpanText from 'components/span-text';
 import { DefaultStyles } from 'styles/variables';
 
 export default () => {
-    // @TODO translate
     return (
         <ShadeScrollCard style={{ paddingTop: 100, alignItems: 'center' }}>
             <ActivityIndicator size="large" style={{ marginBottom: 20 }} />
             <SpanText style={styles.title}>
-                Processing you offer. Please wait...
+                {_('kuna-code.processing-offer')}
             </SpanText>
         </ShadeScrollCard>
     );

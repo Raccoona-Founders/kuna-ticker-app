@@ -62,6 +62,7 @@
         "create-offer": "Створити пропозицію",
         "create-offer-description": "Опишить, що за KUNA код ви бажаете купити чи продати",
         "channel-title": "Офіційний чат KUNA",
+        "offer-title": "Пропозиція на KUNA код",
         "buy": "Купую",
         "sell": "Продаю",
         "open-settings": "Відкрити налаштунки",
@@ -70,6 +71,11 @@
             "name-and-telegram": "Please, setup your Display name and Telegram",
             "name": "Please, setup your Display name",
             "telegram": "Please, setup your Telegram"
+        },
+        "processing-offer": "Створення вашої пропозиції. Будьте ласкаві, почекайте...",
+        "successful": {
+            "title": "Наші вітання!",
+            "description": "Ваша, чудова пропозиція, успішно створена і чекає на свого обранця"
         },
         "jokes": [
             "З $20 000 до $3 000 лише одна мить",

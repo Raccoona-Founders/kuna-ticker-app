@@ -128,14 +128,11 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
         return (
             <ShadeScrollCard renderFooter={this.__renderFooter}>
-                {/* @TODO translate */}
                 <Topic title={_('kuna-code.create-offer')}
                        description={_('kuna-code.create-offer-description')}
                 />
 
                 <View style={styles.body}>
-
-                    {/* @TODO translate */}
                     <Formik.FormikInput
                         name="amount"
                         placeholder="10 000"

@@ -15,7 +15,10 @@ import RouteKeys from 'router/route-keys';
 // @ts-ignore
 firebase.admob().initialize(Constants.ADMOB_APP_ID);
 
-type KunaCodeTabProps = mobx.kunacode.WithKunaCodeProps & NavigationInjectedProps;
+type KunaCodeTabProps
+    = mobx.kunacode.WithKunaCodeProps
+    & NavigationInjectedProps
+    & { focused: boolean; };
 
 // @ts-ignore
 @withNavigation
@@ -44,7 +47,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                     </TouchableOpacity>
                 </View>
 
-                <AdvBanner />
+                <AdvBanner showBanner={this.props.focused} />
             </>
         );
     }
@@ -66,10 +69,12 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
         return kunaCodeOffers.map(this.__renderOffer);
     };
 
+
     private __renderOffer = (offer: kunacodes.Offer, index: number) => {
         // @ts-ignore
         return <OfferRow offer={offer} key={offer.id} index={index} />;
     };
+
 
     private __renderRefreshControl = () => {
         return (

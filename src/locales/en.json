@@ -5,7 +5,7 @@
         "markets": "Markets",
         "setting": "Setting",
         "account": "Account",
-        "kuna_code": "KUNA коды",
+        "kuna_code": "KUNA Codes",
         "portfolio": "Portfolio"
     },
     "general": {
@@ -62,6 +62,7 @@
         "create-offer": "Create offer",
         "create-offer-description": "Describe what the KUNA Code you want to Buy or Sell",
         "channel-title": "Official KUNA chat",
+        "offer-title": "KUNA Code Offer",
         "buy": "Buy",
         "sell": "Sell",
         "open-settings": "Open settings",
@@ -70,6 +71,11 @@
             "name-and-telegram": "Please, setup your Display name and Telegram",
             "name": "Please, setup your Display name",
             "telegram": "Please, setup your Telegram"
+        },
+        "processing-offer": "Processing you offer. Please wait...",
+        "successful": {
+            "title": "Congratulation!",
+            "description": "You Offer Successful created"
         },
         "jokes": [
             "From $20 000 to $3 000 just one moment",

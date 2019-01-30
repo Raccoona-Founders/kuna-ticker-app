@@ -130,7 +130,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
             <ShadeScrollCard renderFooter={this.__renderFooter}>
                 {/* @TODO translate */}
                 <Topic title={_('kuna-code.create-offer')}
-                       description="Describe what the KUNA Code you want to Buy or Sell"
+                       description={_('kuna-code.create-offer-description')}
                 />
 
                 <View style={styles.body}>
@@ -139,7 +139,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                     <Formik.FormikInput
                         name="amount"
                         placeholder="10 000"
-                        label="Enter your amount"
+                        label={_('kuna-code.enter-amount')}
                         type="number"
                         returnKeyType="next"
                     />
@@ -203,6 +203,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
             return <SpanText>Without commission</SpanText>;
         }
 
+        // @TODO translate
         let textTemplate = `Taker pays {value}`;
         if (commissionValue < 0) {
             textTemplate = `You pay {value}`;
@@ -225,6 +226,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                     <SpanText numberOfLines={3} style={styles.footerText}>{this.jockMessage}</SpanText>
                 </View>
 
+                {/* @TODO translate */}
                 <UIButton small
                           title="Create"
                           onPress={this.__onCreate}
@@ -242,6 +244,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         const comment: string = values.comment;
 
         if (!comment) {
+            // @TODO translate
             return (
                 <UIButton
                     small
@@ -251,6 +254,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
             );
         }
 
+        // @TODO translate
         return (
             <>
                 <Label>Comment</Label>
@@ -279,6 +283,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
     private __editComment = () => {
         const { navigation, values, setFieldValue } = this.props;
 
+        // @TODO translate
         navigation.push(RouteKeys.Service_EnterText, {
             title: 'Enter comment text',
             description: 'Describe, Privatbank or Monobank you need or any conditions',
@@ -289,24 +294,25 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
 
     private __onCreate = () => {
-
-        // @TODO Translate
         const { side, amount, currency } = this.props.values;
 
         const numAmount = numeral(amount);
 
         if (numAmount.value() <= 0) {
+            // @TODO Translate
             Alert.alert('Enter amount!');
             return;
         }
 
+        // @TODO Translate
         const offerTitle = 'Do you want to create offer?';
         const offerMessage = `To ${side} KUNA Code for ${numAmount.format('0,0')} ${currency}`;
 
+        // @TODO Translate
         Alert.alert(offerTitle, offerMessage, [
-            { text: 'Cancel', style: 'cancel' },
+            { text: _('general.cancel'), style: 'cancel' },
             {
-                text: 'Create',
+                text: _('general.create'),
                 style: 'default',
                 onPress: this.props.submitForm,
             },

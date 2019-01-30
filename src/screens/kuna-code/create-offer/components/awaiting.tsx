@@ -5,6 +5,7 @@ import SpanText from 'components/span-text';
 import { DefaultStyles } from 'styles/variables';
 
 export default () => {
+    // @TODO translate
     return (
         <ShadeScrollCard style={{ paddingTop: 100, alignItems: 'center' }}>
             <ActivityIndicator size="large" style={{ marginBottom: 20 }} />

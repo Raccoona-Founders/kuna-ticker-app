@@ -4,6 +4,7 @@ import ShadeScrollCard from 'components/shade-navigator/views/shade-scroll-card'
 import { DefaultStyles } from 'styles/variables';
 
 export default () => {
+    // @TODO translate
     return (
         <ShadeScrollCard style={{ paddingTop: 100, alignItems: 'center' }}>
             <SpanText style={{ textAlign: 'center', ...DefaultStyles.boldFont, fontSize: 18 }}>

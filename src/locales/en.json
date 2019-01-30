@@ -17,6 +17,7 @@
         "operation": "Operation",
         "comment": "Comment",
         "create": "Create",
+        "cancel": "Cancel",
         "display-name": "Display Name"
     },
     "setting": {
@@ -59,10 +60,12 @@
     },
     "kuna-code": {
         "create-offer": "Create offer",
+        "create-offer-description": "Describe what the KUNA Code you want to Buy or Sell",
         "channel-title": "Official KUNA chat",
         "buy": "Buy",
         "sell": "Sell",
         "open-settings": "Open settings",
+        "enter-amount": "Enter your amount",
         "errors": {
             "name-and-telegram": "Please, setup your Display name and Telegram",
             "name": "Please, setup your Display name",

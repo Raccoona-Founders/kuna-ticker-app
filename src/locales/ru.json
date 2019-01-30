@@ -17,6 +17,7 @@
         "operation": "Операция",
         "comment": "Коментарий",
         "create": "Создать",
+        "cancel": "Отменить",
         "display-name": "Имя"
     },
     "setting": {
@@ -59,10 +60,12 @@
     },
     "kuna-code": {
         "create-offer": "Создать заявку",
+        "create-offer-description": "Опишите, что за KUNA код вы хотите купить или продать",
         "channel-title": "Официальный чат KUNA",
-        "buy": "Куплю",
-        "sell": "Продам",
+        "buy": "Покупаю",
+        "sell": "Продаю",
         "open-settings": "Открыть настройки",
+        "enter-amount": "Укажите суму",
         "errors": {
             "name-and-telegram": "Укажите свое имя и телеграм",
             "name": "Укажите свое имя",

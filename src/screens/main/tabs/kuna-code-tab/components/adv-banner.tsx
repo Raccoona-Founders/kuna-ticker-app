@@ -5,8 +5,11 @@ import RemoteConfig from 'utils/remote-config';
 import { isIphoneX } from 'utils/helper';
 import Constants from 'utils/constants';
 
+type AdvBannerProps = {
+    showBanner?: boolean;
+};
 
-export default class AdvBanner extends React.PureComponent {
+export default class AdvBanner extends React.PureComponent<AdvBannerProps> {
     public state: any = {
         enableAdv: false,
     };
@@ -21,19 +24,23 @@ export default class AdvBanner extends React.PureComponent {
 
     public render(): JSX.Element {
         if (!this.state.enableAdv) {
-            return <View />;
+            return <View/>;
         }
 
         const { Banner, AdRequest } = (firebase as any).admob;
         const request = new AdRequest();
 
+        const { showBanner = false } = this.props;
+
         return (
             <View style={styles.adBanner}>
-                <Banner
-                    unitId={Constants.ADMOB_BANNERS.test}
-                    size="SMART_BANNER"
-                    request={request.build()}
-                />
+                {showBanner ? (
+                    <Banner
+                        unitId={Constants.ADMOB_BANNERS.test}
+                        size="SMART_BANNER"
+                        request={request.build()}
+                    />
+                ) : undefined}
             </View>
         );
     }

@@ -1,5 +1,5 @@
 export default `
-It's an Open Source application that helps you track Kuna market prices in real time.
+It's an Open Source application that helps you track KUNA market prices in real time.
 
 Application is **DESIGNED BY COMMUNITY** by power of enthusiasm.
 

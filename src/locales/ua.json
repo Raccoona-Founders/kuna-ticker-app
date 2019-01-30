@@ -5,7 +5,7 @@
         "markets": "Ринки",
         "setting": "Налаштунки",
         "account": "Акаунт",
-        "kuna_code": "KUNA Code",
+        "kuna_code": "KUNA коди",
         "portfolio": "Портфоліо"
     },
     "general": {
@@ -16,7 +16,8 @@
         "amount": "Сума",
         "operation": "Операція",
         "comment": "Коментар",
-        "create": "Створити"
+        "create": "Створити",
+        "display-name": "Ім'я"
     },
     "setting": {
         "menu": {
@@ -24,11 +25,11 @@
             "kuna-code": "KUNA Code"
         },
         "kuna-code": {
-            "title": "Налаштунка KUNA кодів"
+            "title": "Налаштунки KUNA кодів"
         }
     },
     "about": {
-        "title": "Про Kuna Ticker",
+        "title": "Про KUNA Ticker",
         "github": "Репозиторій на GitHub",
         "roadmap": "Плани на майбутнє",
         "website": "Website",
@@ -37,7 +38,7 @@
     },
     "market": {
         "calculate": "Калькулятор",
-        "order-book": "Список ордерів",
+        "order-book": "Ордери",
         "last-trades": "Останні угоди",
         "price-asset": "Ціна ({{asset}})",
         "amount-asset": "Об'єм ({{asset}})"
@@ -56,8 +57,17 @@
     "riddle": {
         "message": ""
     },
-    "official_kuna_chanel": "Офіційний канал KUNA",
     "kuna-code": {
+        "create-offer": "Створити пропозицію",
+        "channel-title": "Офіційний чат KUNA",
+        "buy": "Куплю",
+        "sell": "Продам",
+        "open-settings": "Відкрити налаштунки",
+        "errors": {
+            "name-and-telegram": "Please, setup your Display name and Telegram",
+            "name": "Please, setup your Display name",
+            "telegram": "Please, setup your Telegram"
+        },
         "jokes": [
             "З $20 000 до $3 000 лише одна мить",
             "Просто купуй!",

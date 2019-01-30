@@ -16,7 +16,8 @@
         "amount": "Сума",
         "operation": "Операция",
         "comment": "Коментарий",
-        "create": "Создать"
+        "create": "Создать",
+        "display-name": "Имя"
     },
     "setting": {
         "menu": {
@@ -28,7 +29,7 @@
         }
     },
     "about": {
-        "title": "Про Kuna Ticker",
+        "title": "Про KUNA Ticker",
         "github": "Репозиторий на GitHub",
         "roadmap": "Планы на будущее",
         "website": "Website",
@@ -37,7 +38,7 @@
     },
     "market": {
         "calculate": "Калькулятор",
-        "order-book": "Список ордеров",
+        "order-book": "Ордера",
         "last-trades": "Последние сделки",
         "price-asset": "Цена ({{asset}})",
         "amount-asset": "Обьем ({{asset}})"
@@ -56,8 +57,17 @@
     "riddle": {
         "message": ""
     },
-    "official_kuna_chanel": "Официальный канал KUNA",
     "kuna-code": {
+        "create-offer": "Создать заявку",
+        "channel-title": "Официальный чат KUNA",
+        "buy": "Куплю",
+        "sell": "Продам",
+        "open-settings": "Открыть настройки",
+        "errors": {
+            "name-and-telegram": "Укажите свое имя и телеграм",
+            "name": "Укажите свое имя",
+            "telegram": "Укажите свой телеграм"
+        },
         "jokes": [
             "С $20 000 до $3 000 лишь одно мгновение",
             "Просто покупай!",

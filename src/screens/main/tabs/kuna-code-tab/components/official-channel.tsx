@@ -8,7 +8,7 @@ import { Color } from 'styles/variables';
 export default () => {
     return (
         <View style={styles.box}>
-            <SpanText>{_('official_kuna_chanel')}: </SpanText>
+            <SpanText>{_('kuna-code.channel-title')}: </SpanText>
             <TelegramLink telegram="@kunacode" style={styles.linkStyle} />
         </View>
     );

@@ -129,7 +129,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         return (
             <ShadeScrollCard renderFooter={this.__renderFooter}>
                 {/* @TODO translate */}
-                <Topic title="Create offer"
+                <Topic title={_('kuna-code.create-offer')}
                        description="Describe what the KUNA Code you want to Buy or Sell"
                 />
 
@@ -165,8 +165,8 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                             style={{ marginTop: 10 }}
                             selectedValue={sideValue}
                             items={[
-                                { label: 'Sell', value: 'sell' },
-                                { label: 'Buy', value: 'buy' },
+                                { label: _('kuna-code.sell'), value: 'sell' },
+                                { label: _('kuna-code.buy'), value: 'buy' },
                             ]}
                             onValueChange={(value: string) => setFieldValue('side', value)}
                         />
@@ -281,7 +281,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
         navigation.push(RouteKeys.Service_EnterText, {
             title: 'Enter comment text',
-            description: 'Explain Privatbank or Monobank you need or any conditions',
+            description: 'Describe, Privatbank or Monobank you need or any conditions',
             text: values.comment,
             onSave: (text: string) => setFieldValue('comment', text),
         });

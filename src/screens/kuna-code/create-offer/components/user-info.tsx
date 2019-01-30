@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
+import { _ } from 'utils/i18n';
 import RouteKeys from 'router/route-keys';
 import DescriptionItem from 'components/description-item';
 import SpanText from 'components/span-text';
@@ -25,7 +26,7 @@ export default class UserInfo extends React.Component<any & mobx.user.WithUserPr
                         {errorMessage}
                     </SpanText>
                     {/* @TODO translate */}
-                    <UIButton onPress={this.__openSettings} small title="Open settings" />
+                    <UIButton onPress={this.__openSettings} small title={_('kuna-code.open-settings')} />
                 </View>
             );
         }
@@ -34,7 +35,7 @@ export default class UserInfo extends React.Component<any & mobx.user.WithUserPr
             <View>
                 {/* @TODO translate */}
                 {User.displayName ? (
-                    <DescriptionItem topic="Display Name">
+                    <DescriptionItem topic={_('general.display-name')}>
                         {User.displayName}
                     </DescriptionItem>
                 ) : undefined}
@@ -57,18 +58,15 @@ export default class UserInfo extends React.Component<any & mobx.user.WithUserPr
         const { User } = this.props as mobx.user.WithUserProps;
 
         if (!User.displayName && !User.telegram) {
-            // @TODO translate
-            return 'Please, setup your Display name and Telegram';
+            return _('kuna-code.errors.name-and-telegram');
         }
 
         if (!User.displayName) {
-            // @TODO translate
-            return 'Please, setup your Display name';
+            return _('kuna-code.errors.name');
         }
 
         if (!User.telegram) {
-            // @TODO translate
-            return 'Please, setup your Telegram';
+            return _('kuna-code.errors.telegram');
         }
 
         return undefined;

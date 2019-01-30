@@ -1,6 +1,6 @@
 {
-    "salt": "Kuna + Bitcoin = Love",
-    "prize_salt": "I love Kuna Ticker",
+    "salt": "KUNA + Bitcoin = Love",
+    "prize_salt": "I love KUNA Ticker",
     "riddles": [
         {
             "story": "Развитие Bitcoin в Украине началось с клуба Satoshi Square Kiev. Это было время, когда Bitcoin стоил $200 и никто не знал, что с ним делать.",
@@ -21,8 +21,8 @@
             }
         },
         {
-            "story": "История Kuna Exchange началась с ICO, когда понятие ICO еще не существовало. Это был один из первых в мире проектов с краудфандигом и эмисией токенов.",
-            "question": "Какую сумму в Bitcoin, Kuna собрала на первом ICO?",
+            "story": "История KUNA Exchange началась с ICO, когда понятие ICO еще не существовало. Это был один из первых в мире проектов с краудфандигом и эмисией токенов.",
+            "question": "Какую сумму в Bitcoin, KUNA собрала на первом ICO?",
             "answer_sha256": "390DAF131E447584CE4380017D76328D964A5D4886D045C93007A5A5E3C421BA",
             "prize_prefix": "857ny",
             "prize": {

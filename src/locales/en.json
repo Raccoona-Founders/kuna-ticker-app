@@ -5,7 +5,7 @@
         "markets": "Markets",
         "setting": "Setting",
         "account": "Account",
-        "kuna_code": "KUNA Code",
+        "kuna_code": "KUNA коды",
         "portfolio": "Portfolio"
     },
     "general": {
@@ -16,7 +16,8 @@
         "amount": "Amount",
         "operation": "Operation",
         "comment": "Comment",
-        "create": "Create"
+        "create": "Create",
+        "display-name": "Display Name"
     },
     "setting": {
         "menu": {
@@ -28,7 +29,7 @@
         }
     },
     "about": {
-        "title": "About Kuna Ticker",
+        "title": "About KUNA Ticker",
         "github": "GitHub Repository",
         "roadmap": "Roadmap",
         "website": "Website",
@@ -56,8 +57,17 @@
     "riddle": {
         "message": ""
     },
-    "official_kuna_chanel": "Official KUNA channel",
     "kuna-code": {
+        "create-offer": "Create offer",
+        "channel-title": "Official KUNA chat",
+        "buy": "Buy",
+        "sell": "Sell",
+        "open-settings": "Open settings",
+        "errors": {
+            "name-and-telegram": "Please, setup your Display name and Telegram",
+            "name": "Please, setup your Display name",
+            "telegram": "Please, setup your Telegram"
+        },
         "jokes": [
             "From $20 000 to $3 000 just one moment",
             "Just buy it!",

@@ -5,6 +5,7 @@ import Constants from 'utils/constants';
 import Analitics from 'utils/ga-tracker';
 import * as SlideView from 'components/slide-view';
 import { tabNavigationRoutes, TabnavRoute, TabBarComponent } from './components/tab-bar';
+import PreviewWrapper from './components/preview-wrapper';
 import { mainStyles } from './styles';
 
 
@@ -24,14 +25,16 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
 
     public render(): JSX.Element {
         return (
-            <SlideView.TabView
-                bounces={true}
-                navigationState={this.state}
-                renderScene={this.renderScene}
-                renderPager={this.renderPager}
-                style={mainStyles.container}
-                onIndexChange={this.onChangeIndex}
-            />
+            <PreviewWrapper>
+                <SlideView.TabView
+                    bounces={true}
+                    navigationState={this.state}
+                    renderScene={this.renderScene}
+                    renderPager={this.renderPager}
+                    style={mainStyles.container}
+                    onIndexChange={this.onChangeIndex}
+                />
+            </PreviewWrapper>
         );
     }
 

@@ -27,8 +27,6 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
     };
 
     public render(): JSX.Element {
-
-
         return (
             <>
                 <View style={styles.container}>

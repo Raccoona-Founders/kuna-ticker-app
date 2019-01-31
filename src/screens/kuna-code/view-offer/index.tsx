@@ -3,6 +3,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 import { Alert, View } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
+import { _ } from 'utils/i18n';
 import AnalTracker from 'utils/ga-tracker';
 import DescriptionItem from 'components/description-item';
 import TelegramLink from 'components/telegram-link';
@@ -44,9 +45,8 @@ export default class ViewOfferScreen extends React.Component<Props> {
 
         return (
             <ShadeScrollCard>
-                <Topic
-                    title={_('kuna-code.offer-title')}
-                    description={time.format('MMM DD, YYYY - HH:mm')}
+                <Topic title={_('kuna-code.offer-title')}
+                       description={time.format('MMM DD, YYYY - HH:mm')}
                 />
 
                 <View style={{ paddingLeft: 20, paddingRight: 20 }}>

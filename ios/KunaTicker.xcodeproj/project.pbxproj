@@ -53,7 +53,6 @@
 		6094B095216DF07E00437862 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		60C8591221909C9900A174BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60C8591121909C9900A174BA /* GoogleService-Info.plist */; };
 		60C8591321909C9900A174BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60C8591121909C9900A174BA /* GoogleService-Info.plist */; };
-		7A112629D8B74E2E9C2379CE /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB48EBEAB5B412F9899CDCA /* libInteractable.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		90D830F9B095447F804B69FF /* tt_norms_black.otf in Resources */ = {isa = PBXBuildFile; fileRef = BB01CC125119423994DA904B /* tt_norms_black.otf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -479,7 +478,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				D9FE4258E29D4BDD803EAFB1 /* libSplashScreen.a in Frameworks */,
 				CF068882B6A74FACADE321F2 /* libRNDeviceInfo.a in Frameworks */,
-				7A112629D8B74E2E9C2379CE /* libInteractable.a in Frameworks */,
 				EF270C5DAE5F4FEBA42CE32F /* libRNSVG.a in Frameworks */,
 				FD33C51714C746A385B4B3B1 /* libRNFirebase.a in Frameworks */,
 				5E07D1E7E24967BF8F77427E /* libPods-KunaTicker.a in Frameworks */,

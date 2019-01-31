@@ -21,12 +21,14 @@ export class UsdCalculator {
             case KunaAssetUnit.UkrainianHryvnia:
                 return Numeral(ticker.lastPrice || 0).divide(this.usdRate);
 
+
             case KunaAssetUnit.Bitcoin:
                 const btcTicker = this.tickers['btcuah'];
 
                 return Numeral(ticker.lastPrice || 0)
                     .multiply(btcTicker ? btcTicker.lastPrice : 0)
                     .divide(this.usdRate);
+
 
             case KunaAssetUnit.Ethereum:
                 const ethTicker = this.tickers['ethuah'];
@@ -35,12 +37,14 @@ export class UsdCalculator {
                     .multiply(ethTicker ? ethTicker.lastPrice : 0)
                     .divide(this.usdRate);
 
+
             case KunaAssetUnit.StasisEuro:
                 const euroTicker = this.tickers['eursuah'];
 
                 return Numeral(ticker.lastPrice || 0)
                     .multiply(euroTicker ? euroTicker.lastPrice : 0)
                     .divide(this.usdRate);
+
 
             case KunaAssetUnit.GolosGold:
                 const golosTicker = this.tickers['gbguah'];
@@ -49,8 +53,12 @@ export class UsdCalculator {
                     .multiply(golosTicker ? golosTicker.lastPrice : 0)
                     .divide(this.usdRate);
 
+
             case KunaAssetUnit.AdvancedUSD:
+            case KunaAssetUnit.TrueUSD:
+            case KunaAssetUnit.Tether:
                 return Numeral(ticker.lastPrice || 0);
+
 
             case KunaAssetUnit.AdvancedRUB:
 

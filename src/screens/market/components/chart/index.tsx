@@ -12,6 +12,7 @@ import SpanText from 'components/span-text';
 const IntervalMap = {
     '24H': ['30', 1],
     '1W': ['60', 7],
+    '1M': ['1D', 30],
     '3M': ['1D', 90],
     '6M': ['1D', 180],
     '1Y': ['1D', 360],
@@ -24,7 +25,7 @@ type ChartProps = {
 
 export default class Chart extends React.PureComponent<ChartProps> {
     public state: any = {
-        currentInterval: '24H',
+        currentInterval: '1M',
         ready: false,
         data: [],
     };

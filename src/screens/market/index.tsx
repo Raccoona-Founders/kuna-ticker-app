@@ -15,7 +15,9 @@ import UIButton from 'components/ui-button';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import RippleNotice from 'components/ripple-notice';
 import InfoUnit from 'components/info-unit';
+
 import PriceChangeBox from './components/change-price-box';
+import Chart from './components/chart';
 import marketStyle from './market.style';
 
 type State = {
@@ -63,7 +65,7 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
         const usdPrice = Ticker.usdCalculator.getPrice(symbol);
 
         return (
-            <ShadeScrollCard renderFooter={this.__renderFooter}>
+            <ShadeScrollCard renderFooter={this.__renderFooter} style={{ paddingBottom: 20 }}>
                 <View style={marketStyle.topic}>
                     <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                               naked={true}
@@ -105,6 +107,10 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
 
                 <View style={marketStyle.separator} />
 
+                <Chart market={currentMarket} />
+
+                <View style={marketStyle.separator} />
+
                 <View style={[marketStyle.section, marketStyle.sectionInformation]}>
                     <InfoUnit topic={`Vol ${baseAsset.key}`}
                               value={numFormat(tick.volume)}
@@ -127,9 +133,12 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
                     />
                 </View>
 
-                <View style={marketStyle.separator} />
-
-                {baseAsset.key === KunaAssetUnit.Ripple ? <RippleNotice /> : undefined}
+                {baseAsset.key === KunaAssetUnit.Ripple ? (
+                    <>
+                        <View style={marketStyle.separator} />
+                        <RippleNotice />
+                    </>
+                ) : undefined}
             </ShadeScrollCard>
         );
     }

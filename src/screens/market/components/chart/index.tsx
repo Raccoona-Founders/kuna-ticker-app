@@ -4,10 +4,14 @@ import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { KunaMarket } from 'kuna-sdk';
 import { AreaChart } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
-import { Defs, LinearGradient, Stop } from 'react-native-svg'
 import { fetchKunaTradeHistory } from 'utils/kuna-client';
 import { Color } from 'styles/variables';
 import SpanText from 'components/span-text';
+
+import LastPriceSvg from './last-price.element';
+import LimitPriceSvg from './limit-price.element';
+
+import ChartStyles from './chart.style';
 
 const IntervalMap = {
     '24H': ['30', 1],
@@ -16,12 +20,13 @@ const IntervalMap = {
     '3M': ['1D', 90],
     '6M': ['1D', 180],
     '1Y': ['1D', 360],
-    '2Y': ['1D', 720],
+    'MAX': ['1D', 1000],
 };
 
 type ChartProps = {
     market: KunaMarket;
 };
+
 
 export default class Chart extends React.PureComponent<ChartProps> {
     public state: any = {
@@ -41,19 +46,12 @@ export default class Chart extends React.PureComponent<ChartProps> {
 
         return (
             <View>
-                <View style={{ height: 200, justifyContent: 'center' }}>
+                <View style={ChartStyles.sheet.chartContainer}>
                     {this.__renderChart()}
                 </View>
 
-                <View style={{
-                    paddingLeft: 20,
-                    paddingRight: 20,
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                    marginTop: 10,
-                }}>
+                <View style={ChartStyles.sheet.tagContainer}>
                     {map(IntervalMap, (item: any[], index: string) => {
-
                         const onPress = () => {
                             if (!ready || currentInterval === index) {
                                 return;
@@ -64,13 +62,10 @@ export default class Chart extends React.PureComponent<ChartProps> {
 
                         return (
                             <TouchableOpacity key={index} onPress={onPress}>
-                                <SpanText style={{
-                                    paddingLeft: 10,
-                                    paddingRight: 10,
-                                    paddingTop: 5,
-                                    paddingBottom: 5,
-                                    color: currentInterval === index ? Color.Main : Color.GrayBlues,
-                                }}>
+                                <SpanText style={[
+                                    ChartStyles.sheet.tagUnit,
+                                    currentInterval === index ? ChartStyles.sheet.tagUnitActive : undefined,
+                                ]}>
                                     {index}
                                 </SpanText>
                             </TouchableOpacity>
@@ -83,37 +78,42 @@ export default class Chart extends React.PureComponent<ChartProps> {
 
 
     private __renderChart = () => {
-        if (!this.state.ready) {
-            return <ActivityIndicator />;
+        const { market } = this.props;
+        const { data } = this.state;
+
+        if (data.length < 2) {
+            return <ActivityIndicator color={Color.Main} />;
         }
 
-        const data = this.state.data;
-        const contentInset = { top: 10, bottom: 1 };
-
-        const Gradient = ({ index }) => (
-            <Defs key={index}>
-                <LinearGradient id="gradient" x1="0%" y={'0%'} x2={'0%'} y2={'100%'}>
-                    <Stop offset="0%" stopColor={Color.Main} stopOpacity={0.8}/>
-                    <Stop offset="100%" stopColor={Color.Main} stopOpacity={0.2}/>
-                </LinearGradient>
-            </Defs>
-        );
+        const contentInset = { top: 0, bottom: 0 };
 
         const minValue = Math.min(...data);
         const maxValue = Math.max(...data);
+        const lastPrice = data[data.length - 1];
+
+        const depth = maxValue - minValue;
 
         return (
-            <AreaChart
-                style={{ flex: 1 }}
-                data={data}
-                contentInset={contentInset}
-                curve={shape.curveNatural}
-                gridMax={maxValue * 1.1}
-                gridMin={minValue * 0.9}
-                svg={{ fill: 'url(#gradient)', strokeWidth: 2, stroke: Color.Main }}
-            >
-                <Gradient />
-            </AreaChart>
+            <>
+                {this.state.ready ? undefined : (
+                    <ActivityIndicator color={Color.White} style={ChartStyles.sheet.loader} />
+                )}
+
+                <AreaChart
+                    style={{ flex: 1 }}
+                    data={data}
+                    contentInset={contentInset}
+                    curve={shape.curveNatural}
+                    gridMax={maxValue + depth * 0.1}
+                    gridMin={minValue - depth * 0.1}
+                    animationDuration={200}
+                    svg={{ fill: Color.Main, strokeWidth: 8, stroke: Color.Main, strokeOpacity: 0.25 }}
+                >
+                    <LastPriceSvg lastPrice={lastPrice} />
+                    <LimitPriceSvg price={minValue} format={market.format} side="bottom" lastPrice={lastPrice} />
+                    <LimitPriceSvg price={maxValue} format={market.format} side="top" lastPrice={lastPrice} />
+                </AreaChart>
+            </>
         );
     };
 

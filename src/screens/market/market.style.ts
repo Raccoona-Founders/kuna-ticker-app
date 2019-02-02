@@ -30,6 +30,10 @@ const marketStyle = StyleSheet.create({
         width: '50%',
     },
 
+    infoUnitValue: {
+        color: Color.White,
+    },
+
     infoUnitFirstLine: {
         marginBottom: 10,
     },

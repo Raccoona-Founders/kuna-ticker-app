@@ -19,6 +19,7 @@ import InfoUnit from 'components/info-unit';
 import PriceChangeBox from './components/change-price-box';
 import Chart from './components/chart';
 import marketStyle from './market.style';
+import { Color } from 'styles/variables';
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -65,7 +66,7 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
         const usdPrice = Ticker.usdCalculator.getPrice(symbol);
 
         return (
-            <ShadeScrollCard renderFooter={this.__renderFooter} style={{ paddingBottom: 20 }}>
+            <ShadeScrollCard renderFooter={this.__renderFooter}>
                 <View style={marketStyle.topic}>
                     <CoinIcon asset={getAsset(currentMarket.baseAsset)}
                               naked={true}
@@ -105,40 +106,42 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
                     </View>
                 </View>
 
-                <View style={marketStyle.separator} />
+                <View style={{ flex: 1, backgroundColor: Color.Main, paddingBottom: 20 }}>
+                    <Chart market={currentMarket} />
 
-                <Chart market={currentMarket} />
+                    <View style={[marketStyle.section, marketStyle.sectionInformation]}>
+                        <InfoUnit topic={`Vol ${baseAsset.key}`}
+                                  value={numFormat(tick.volume)}
+                                  style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
+                                  valueColor={Color.White}
+                        />
 
-                <View style={marketStyle.separator} />
+                        <InfoUnit topic={`Vol ${quoteAsset.key}`}
+                                  value={numFormat(numeral(tick.volume).multiply(tick.lastPrice || 0))}
+                                  style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
+                                  valueColor={Color.White}
+                        />
 
-                <View style={[marketStyle.section, marketStyle.sectionInformation]}>
-                    <InfoUnit topic={`Vol ${baseAsset.key}`}
-                              value={numFormat(tick.volume)}
-                              style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
-                    />
+                        <InfoUnit topic="24H Min"
+                                  value={numFormat(tick.low, quoteAsset.format)}
+                                  style={marketStyle.infoUnit}
+                                  valueColor={Color.White}
+                        />
 
-                    <InfoUnit topic={`Vol ${quoteAsset.key}`}
-                              value={numFormat(numeral(tick.volume).multiply(tick.lastPrice || 0))}
-                              style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
-                    />
+                        <InfoUnit topic="24H Max"
+                                  value={numFormat(tick.high, quoteAsset.format)}
+                                  style={marketStyle.infoUnit}
+                                  valueColor={Color.White}
+                        />
+                    </View>
 
-                    <InfoUnit topic="24H Min"
-                              value={numFormat(tick.low, quoteAsset.format)}
-                              style={marketStyle.infoUnit}
-                    />
-
-                    <InfoUnit topic="24H Max"
-                              value={numFormat(tick.high, quoteAsset.format)}
-                              style={marketStyle.infoUnit}
-                    />
+                    {baseAsset.key === KunaAssetUnit.Ripple ? (
+                        <>
+                            <View style={marketStyle.separator} />
+                            <RippleNotice />
+                        </>
+                    ) : undefined}
                 </View>
-
-                {baseAsset.key === KunaAssetUnit.Ripple ? (
-                    <>
-                        <View style={marketStyle.separator} />
-                        <RippleNotice />
-                    </>
-                ) : undefined}
             </ShadeScrollCard>
         );
     }

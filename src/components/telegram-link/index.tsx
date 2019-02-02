@@ -12,10 +12,17 @@ type TelegramTabProps = {
 
 export default (props: TelegramTabProps) => {
 
-    const onPress = () => {
+    const onPress = async () => {
         props.onPress && props.onPress();
 
-        Linking.openURL(`https://t.me/${props.telegram}`);
+        const domain = props.telegram.replace('@', '');
+
+        const tgURL = `tg://resolve?domain=${domain}`;
+        const httpURL = `https://t.me/${domain}`;
+
+        const canOpen = await Linking.canOpenURL(tgURL);
+
+        Linking.openURL(canOpen ? tgURL : httpURL);
     };
 
     return (

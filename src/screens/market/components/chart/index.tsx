@@ -47,9 +47,7 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
 
         return (
             <View>
-                <View style={ChartStyles.sheet.chartContainer}>
-                    {this.__renderChart()}
-                </View>
+                <View style={ChartStyles.sheet.chartContainer}>{this.__renderChart()}</View>
 
                 <View style={ChartStyles.sheet.tagContainer}>
                     {map(IntervalMap, (item: any[], index: string) => {

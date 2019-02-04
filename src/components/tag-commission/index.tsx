@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
 import numeral from 'numeral';
+import { _ } from 'utils/i18n';
 import Tag from 'components/tag';
 import { Color } from 'styles/variables';
 
@@ -10,12 +10,16 @@ type CommissionProps = {
 
 export default (props: CommissionProps): JSX.Element => {
     if (props.commission === 0) {
-        return <View />;
+        return (
+            <Tag style={{ backgroundColor: Color.Main }}>
+                {_('kuna-code.no-fee')}
+            </Tag>
+        );
     }
 
-    let textTemplate = `You pay {value}`;
+    let textTemplate = _('kuna-code.you-pay');
     if (props.commission < 0) {
-        textTemplate = `Maker pays {value}`;
+        textTemplate = _('kuna-code.maker-pay');
     }
 
     const comm = numeral(Math.abs(props.commission));

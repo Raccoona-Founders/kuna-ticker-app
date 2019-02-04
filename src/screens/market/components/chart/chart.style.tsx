@@ -18,6 +18,7 @@ const sheet = StyleSheet.create({
         bottom: 20,
         right: 0,
         left: 0,
+        zIndex: 10
     },
 
     chartContainer: {

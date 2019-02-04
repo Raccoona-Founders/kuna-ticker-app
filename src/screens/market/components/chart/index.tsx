@@ -10,6 +10,7 @@ import SpanText from 'components/span-text';
 
 import LastPriceSvg from './last-price.element';
 import LimitPriceSvg from './limit-price.element';
+import BottomOverlaySvg from './bottom-overlay.element';
 
 import ChartStyles from './chart.style';
 
@@ -23,12 +24,12 @@ const IntervalMap = {
     'MAX': ['1D', 1000],
 };
 
-type ChartProps = {
+type PriceChartProps = {
     market: KunaMarket;
 };
 
 
-export default class Chart extends React.PureComponent<ChartProps> {
+export default class Chart extends React.PureComponent<PriceChartProps> {
     public state: any = {
         currentInterval: '1M',
         ready: false,
@@ -85,13 +86,12 @@ export default class Chart extends React.PureComponent<ChartProps> {
             return <ActivityIndicator color={Color.Main} />;
         }
 
-        const contentInset = { top: 0, bottom: 0 };
-
-        const minValue = Math.min(...data);
         const maxValue = Math.max(...data);
+        const minValue = Math.min(...data);
         const lastPrice = data[data.length - 1];
-
         const depth = maxValue - minValue;
+
+        const contentInset = { top: 0, bottom: 12 };
 
         return (
             <>
@@ -106,9 +106,9 @@ export default class Chart extends React.PureComponent<ChartProps> {
                     curve={shape.curveNatural}
                     gridMax={maxValue + depth * 0.1}
                     gridMin={minValue - depth * 0.1}
-                    animationDuration={200}
-                    svg={{ fill: Color.Main, strokeWidth: 8, stroke: Color.Main, strokeOpacity: 0.25 }}
+                    svg={{ fill: Color.Main, strokeWidth: 6, stroke: Color.Main, strokeOpacity: 0.25 }}
                 >
+                    <BottomOverlaySvg minValue={minValue} />
                     <LastPriceSvg lastPrice={lastPrice} />
                     <LimitPriceSvg price={minValue} format={market.format} side="bottom" lastPrice={lastPrice} />
                     <LimitPriceSvg price={maxValue} format={market.format} side="top" lastPrice={lastPrice} />

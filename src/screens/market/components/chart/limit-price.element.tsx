@@ -10,21 +10,22 @@ type Props = any & {
 };
 
 export default ({ price, format, side, x, y }: Props) => {
-    const textY = y(price) + (side == 'top' ? -10 : 10);
+    const positionY = y(price);
+    const textY = positionY + (side == 'top' ? -10 : 10);
 
     return (
         <G>
             <Line key="element"
                   x1="97%"
                   x2="100%"
-                  y1={y(price)}
-                  y2={y(price)}
+                  y1={positionY}
+                  y2={positionY}
                   stroke={Color.DarkPurple}
                   strokeWidth={1}
             />
 
             <Text
-                x="97%"
+                x="96%"
                 dy={textY}
                 alignmentBaseline="middle"
                 textAnchor="end"

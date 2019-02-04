@@ -197,13 +197,13 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
         if (!commissionValue) {
             // @TODO translate
-            return <SpanText>Without commission</SpanText>;
+            return <SpanText>{_('kuna-code.no-fee')}</SpanText>;
         }
 
         // @TODO translate
-        let textTemplate = `Taker pays {value}`;
+        let textTemplate = _('kuna-code.taker-pay');
         if (commissionValue < 0) {
-            textTemplate = `You pay {value}`;
+            textTemplate = _('kuna-code.you-pay');
         }
 
         const comm = numeral(Math.abs(commissionValue));

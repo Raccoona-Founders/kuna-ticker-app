@@ -50,13 +50,11 @@ export default class ViewOfferScreen extends React.Component<Props> {
                 />
 
                 <View style={{ paddingLeft: 20, paddingRight: 20 }}>
-                    {/* @TODO translate */}
-                    <DescriptionItem topic="Amount">
+                    <DescriptionItem topic={_('general.amount')}>
                         {numeral(offer.amount).format('0,0.[00]') + " " + offer.currency}
                     </DescriptionItem>
 
-                    {/* @TODO translate */}
-                    <DescriptionItem topic="Operation">
+                    <DescriptionItem topic={_('general.operation')}>
                         <View style={{ marginRight: 10 }}>
                             <TagSide side={offer.side} />
                         </View>
@@ -64,7 +62,6 @@ export default class ViewOfferScreen extends React.Component<Props> {
                         <TagCommission commission={offer.commission} />
                     </DescriptionItem>
 
-                    {/* @TODO translate */}
                     <DescriptionItem topic={`Telegram (${offer.user.name})`}>
                         <TelegramLink telegram={offer.user.contact}
                                       onPress={this._onPressTelegramLink}
@@ -72,19 +69,17 @@ export default class ViewOfferScreen extends React.Component<Props> {
                         />
                     </DescriptionItem>
 
-                    {/* @TODO translate */}
                     {offer.comment ? (
-                        <DescriptionItem topic="Comment">
+                        <DescriptionItem topic={_('general.comment')}>
                             <MDMessage content={offer.comment} />
                         </DescriptionItem>
                     ) : undefined}
 
-                    {/* @TODO translate */}
                     {isMine ? (
                         <UIButton small
                                   danger
                                   onPress={this.__deleteOffer}
-                                  title="Delete"
+                                  title={_('general.delete')}
                                   loading={this.state.deleting}
                         />
                     ) : undefined}
@@ -106,15 +101,17 @@ export default class ViewOfferScreen extends React.Component<Props> {
     };
 
     protected __deleteOffer = () => {
-        Alert.alert('Delete offer', 'You can not revert this operation', [
-            {
-                text: 'Cancel',
+        Alert.alert(
+            _('kuna-code.delete-offer.title'),
+            _('kuna-code.delete-offer.description'),
+            [{
+                text: _('general.cancel'),
             }, {
-                text: 'Delete',
+                text: _('general.delete'),
                 style: 'destructive',
                 onPress: this.__agreeDeleteOffer,
-            },
-        ]);
+            }],
+        );
     };
 
     private __agreeDeleteOffer = async () => {

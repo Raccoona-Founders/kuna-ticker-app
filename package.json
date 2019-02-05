@@ -9,7 +9,7 @@
         "android": "./node_modules/.bin/react-native run-android",
         "bundle:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
         "bundle:android": "react-native bundle --entry-file index.js --platform android --dev false --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-        "build:android:prod": "npm run bundle:android && cd android && ./gradlew assembleRelease",
+        "build:android": "npm run bundle:android && cd android && ./gradlew assembleRelease",
         "make-third-party:1": "cd ./node_modules/react-native/scripts && ./ios-install-third-party.sh",
         "make-third-party:2": "cd ./node_modules/react-native/scripts/third-party/glog-0.3.4 && ./configure && make && make install",
         "make-third-party": "npm run make-third-party:1 && npm run make-third-party:2",

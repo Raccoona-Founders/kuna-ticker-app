@@ -282,8 +282,8 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
         // @TODO translate
         navigation.push(RouteKeys.Service_EnterText, {
-            title: 'Enter comment text',
-            description: 'Describe, Privatbank or Monobank you need or any conditions',
+            title: _('kuna-code.enter-comment.title'),
+            description: _('kuna-code.enter-comment.description'),
             text: values.comment,
             onSave: (text: string) => setFieldValue('comment', text),
         });
@@ -297,7 +297,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
         if (numAmount.value() <= 0) {
             // @TODO Translate
-            Alert.alert('Enter amount!');
+            Alert.alert(_('kuna-code.enter-amount-warning'));
             return;
         }
 

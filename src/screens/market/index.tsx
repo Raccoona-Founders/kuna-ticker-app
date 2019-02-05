@@ -19,7 +19,6 @@ import InfoUnit from 'components/info-unit';
 import PriceChangeBox from './components/change-price-box';
 import Chart from './components/chart';
 import marketStyle from './market.style';
-import { Color } from 'styles/variables';
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -113,25 +112,21 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
                         <InfoUnit topic={`Vol ${baseAsset.key}`}
                                   value={numFormat(tick.volume)}
                                   style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
-                                  // valueColor={Color.White}
                         />
 
                         <InfoUnit topic={`Vol ${quoteAsset.key}`}
                                   value={numFormat(numeral(tick.volume).multiply(tick.lastPrice || 0))}
                                   style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
-                                  // valueColor={Color.White}
                         />
 
                         <InfoUnit topic="24H Min"
                                   value={numFormat(tick.low, quoteAsset.format)}
                                   style={marketStyle.infoUnit}
-                                  // valueColor={Color.White}
                         />
 
                         <InfoUnit topic="24H Max"
                                   value={numFormat(tick.high, quoteAsset.format)}
                                   style={marketStyle.infoUnit}
-                                  // valueColor={Color.White}
                         />
                     </View>
 

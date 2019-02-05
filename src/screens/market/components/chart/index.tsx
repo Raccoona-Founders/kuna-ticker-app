@@ -10,7 +10,7 @@ import SpanText from 'components/span-text';
 
 import LastPriceSvg from './last-price.element';
 import LimitPriceSvg from './limit-price.element';
-import BottomOverlaySvg from './bottom-overlay.element';
+// import BottomOverlaySvg from './bottom-overlay.element';
 
 import ChartStyles from './chart.style';
 

@@ -73,6 +73,15 @@
         "maker-pay": "Вам сверху +{value}",
         "open-settings": "Открыть настройки",
         "enter-amount": "Укажите суму",
+        "delete-offer": {
+            "title": "Удалить заявку",
+            "description": "Вы не сможете отменить эту заявку"
+        },
+        "enter-amount-warning": "Введите сумму!",
+        "enter-comment": {
+            "title": "Укажите коментарий",
+            "description": "Опишите, какой банк вам нужен, Private или Mono. Или укажите особые условия сделки"
+        },
         "errors": {
             "name-and-telegram": "Укажите свое имя и телеграм",
             "name": "Укажите свое имя",

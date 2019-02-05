@@ -25,8 +25,12 @@ type State = {
     precisionMap: number[];
 };
 
-type DepthScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
-type DepthScreenProps = DepthScreenOuterProps & mobx.ticker.WithTickerProps;
+type DepthScreenOuterProps
+    = NavigationInjectedProps<{ marketSymbol: string; }>;
+
+type DepthScreenProps
+    = DepthScreenOuterProps
+    & mobx.ticker.WithTickerProps;
 
 // @ts-ignore
 @compose<DepthScreenProps, DepthScreenOuterProps>(

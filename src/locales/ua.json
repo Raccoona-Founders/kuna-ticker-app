@@ -73,6 +73,15 @@
         "you-pay": "Ви доплачуєте {value}",
         "taker-pay": "Вам доплачують +{value}",
         "maker-pay": "Вам доплачують +{value}",
+        "delete-offer": {
+            "title": "Видалити пропозицію",
+            "description": "Ви не зможете відновити цю пропозицію"
+        },
+        "enter-amount-warning": "Вкажіть сумму!",
+        "enter-comment": {
+            "title": "Вкажіть коментар",
+            "description": "Опишіть, який банк вам потрібен, чи вкажіть особливі умови угоди"
+        },
         "errors": {
             "name-and-telegram": "Please, setup your Display name and Telegram",
             "name": "Please, setup your Display name",

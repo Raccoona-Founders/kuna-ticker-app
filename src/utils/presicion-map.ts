@@ -2,6 +2,7 @@ const precisionMap: Record<string, number[]> = {
     default: [0.01, 0.05, 0.1, 0.5, 1, 5, 10, 50, 100],
 
     btcuah: [10, 50, 100, 250, 500, 1000],
+    btcusdt: [1, 5, 10, 25, 50, 100],
     ethuah: [10, 50, 100, 250, 500],
     dashuah: [10, 50, 100, 250, 500],
     xrpuah: [0.05, 0.1, 0.5, 1, 2.5, 5],

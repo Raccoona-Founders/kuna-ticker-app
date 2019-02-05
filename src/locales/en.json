@@ -73,6 +73,15 @@
         "maker-pay": "Maker pays {value}",
         "open-settings": "Open settings",
         "enter-amount": "Enter your amount",
+        "delete-offer": {
+            "title": "Delete Offer",
+            "description": "You can not revert this operation"
+        },
+        "enter-amount-warning": "Enter amount!",
+        "enter-comment": {
+            "title": "Enter comment text",
+            "description": "Describe, Privatbank or Monobank you need or any conditions"
+        },
         "errors": {
             "name-and-telegram": "Please, setup your Display name and Telegram",
             "name": "Please, setup your Display name",

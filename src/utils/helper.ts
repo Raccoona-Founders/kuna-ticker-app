@@ -1,6 +1,10 @@
 import { Dimensions, Platform } from 'react-native';
 import numeral from 'numeral';
 
+export async function wait(delay: number = 1000): Promise<void> {
+    return new Promise<void>(resolve => setTimeout(resolve, delay));
+}
+
 export function isIphoneX() {
     let d = Dimensions.get('window');
     const { height, width } = d;

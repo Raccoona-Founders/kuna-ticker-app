@@ -12,6 +12,7 @@ import { CalculatorMode, OperationMode } from './common';
 import OrderBookCalc from './order-book';
 import { inject, observer } from 'mobx-react/native';
 import Topic from 'components/topic';
+import { wait } from 'utils/helper';
 
 
 type State = {
@@ -53,6 +54,8 @@ export default class CalculatorScreen extends React.Component<CalculatorScreenPr
         AnalTracker.logEvent('open_calculator', {
             market: currentMarket.key,
         });
+
+        await wait(300);
 
         try {
             const orderBook = await kunaClient.getOrderBook(marketSymbol);

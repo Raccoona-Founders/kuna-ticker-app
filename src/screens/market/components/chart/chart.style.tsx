@@ -15,7 +15,7 @@ const Gradient = ({ index }: any) => (
 const sheet = StyleSheet.create({
     loader: {
         position: 'absolute',
-        bottom: 20,
+        top: 20,
         right: 0,
         left: 0,
         zIndex: 10
@@ -28,8 +28,8 @@ const sheet = StyleSheet.create({
     },
 
     tagContainer: {
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
         justifyContent: 'space-between',
         flexDirection: 'row',
         marginTop: 10,
@@ -40,10 +40,12 @@ const sheet = StyleSheet.create({
         ...DefaultStyles.boldFont,
         paddingTop: 5,
         paddingBottom: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
         color: Color.GrayBlues,
     },
     tagUnitActive: {
-        color: Color.White,
+        color: Color.Main,
     },
 });
 

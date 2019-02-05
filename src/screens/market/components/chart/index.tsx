@@ -1,8 +1,8 @@
 import React from 'react';
-import { map, min, max } from 'lodash';
+import { map } from 'lodash';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { KunaMarket } from 'kuna-sdk';
-import { AreaChart } from 'react-native-svg-charts';
+import { LineChart } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
 import { fetchKunaTradeHistory } from 'utils/kuna-client';
 import { Color } from 'styles/variables';
@@ -94,23 +94,23 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
         return (
             <>
                 {this.state.ready ? undefined : (
-                    <ActivityIndicator color={Color.White} style={ChartStyles.sheet.loader} />
+                    <ActivityIndicator color={Color.Main} style={ChartStyles.sheet.loader} />
                 )}
 
-                <AreaChart
+                <LineChart
                     style={{ flex: 1 }}
                     data={data}
                     contentInset={contentInset}
                     curve={shape.curveNatural}
                     gridMax={maxValue + depth * 0.1}
                     gridMin={minValue - depth * 0.1}
-                    svg={{ fill: Color.Main, strokeWidth: 6, stroke: Color.Main, strokeOpacity: 0.25 }}
+                    svg={{ strokeWidth: 4, stroke: Color.Main }}
                 >
-                    <BottomOverlaySvg minValue={minValue} />
+                    {/*<BottomOverlaySvg minValue={minValue} />*/}
                     <LastPriceSvg lastPrice={lastPrice} />
                     <LimitPriceSvg price={minValue} format={market.format} side="bottom" lastPrice={lastPrice} />
                     <LimitPriceSvg price={maxValue} format={market.format} side="top" lastPrice={lastPrice} />
-                </AreaChart>
+                </LineChart>
             </>
         );
     };

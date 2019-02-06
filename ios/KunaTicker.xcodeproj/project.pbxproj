@@ -56,6 +56,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		90D830F9B095447F804B69FF /* tt_norms_black.otf in Resources */ = {isa = PBXBuildFile; fileRef = BB01CC125119423994DA904B /* tt_norms_black.otf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		C8BD1E110A08457C8CEAA381 /* libRNRate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00CAC43830A4D608938C3A4 /* libRNRate.a */; };
 		CF068882B6A74FACADE321F2 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88711A31D0B742CD81EA600B /* libRNDeviceInfo.a */; };
 		D9FE4258E29D4BDD803EAFB1 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5D313305D14AF5A263F196 /* libSplashScreen.a */; };
 		EF270C5DAE5F4FEBA42CE32F /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7658EDA19F01457DA3084648 /* libRNSVG.a */; };
@@ -336,6 +337,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNFirebase;
 		};
+		602C479C220B2763006BFD00 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9188E66BC1A94B419D6209A2 /* RNRate.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNRate;
+		};
 		6050ED1C22034882003F05DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6050ED1822034882003F05DC /* RNGestureHandler.xcodeproj */;
@@ -445,9 +453,11 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		87998BEA2BB74B17A78C8BBD /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		88711A31D0B742CD81EA600B /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
+		9188E66BC1A94B419D6209A2 /* RNRate.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRate.xcodeproj; path = "../node_modules/react-native-rate/ios/RNRate.xcodeproj"; sourceTree = "<group>"; };
 		9B5D313305D14AF5A263F196 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
 		9F66A67A4DF24D13BDEC11DD /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B00CAC43830A4D608938C3A4 /* libRNRate.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRate.a; sourceTree = "<group>"; };
 		BB01CC125119423994DA904B /* tt_norms_black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tt_norms_black.otf; path = ../assets/fonts/tt_norms_black.otf; sourceTree = "<group>"; };
 		BD0B7AE15AB4FE596D16A978 /* libPods-KunaTicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KunaTicker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFC13AD023AE495EA7B84223 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
@@ -481,6 +491,7 @@
 				EF270C5DAE5F4FEBA42CE32F /* libRNSVG.a in Frameworks */,
 				FD33C51714C746A385B4B3B1 /* libRNFirebase.a in Frameworks */,
 				5E07D1E7E24967BF8F77427E /* libPods-KunaTicker.a in Frameworks */,
+				C8BD1E110A08457C8CEAA381 /* libRNRate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,6 +708,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		602C4799220B2763006BFD00 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				602C479D220B2763006BFD00 /* libRNRate.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		6050ED1922034882003F05DC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,6 +734,7 @@
 				9F66A67A4DF24D13BDEC11DD /* libRNDeviceInfo-tvOS.a */,
 				0CA3888C5E0B4D09A17A90E2 /* libRNSVG-tvOS.a */,
 				87998BEA2BB74B17A78C8BBD /* libRNFirebase.a */,
+				B00CAC43830A4D608938C3A4 /* libRNRate.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -776,6 +796,7 @@
 				1F02D8749B8F4B6184CDD4E8 /* RNDeviceInfo.xcodeproj */,
 				0DBC27653FCD4BBFA6E8EB8D /* RNSVG.xcodeproj */,
 				CFC13AD023AE495EA7B84223 /* RNFirebase.xcodeproj */,
+				9188E66BC1A94B419D6209A2 /* RNRate.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -972,6 +993,10 @@
 				{
 					ProductGroup = 601C99E52163E13F00E74460 /* Products */;
 					ProjectRef = 601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */;
+				},
+				{
+					ProductGroup = 602C4799220B2763006BFD00 /* Products */;
+					ProjectRef = 9188E66BC1A94B419D6209A2 /* RNRate.xcodeproj */;
 				},
 				{
 					ProductGroup = 60EA64A72151B0BF00332904 /* Products */;
@@ -1264,6 +1289,13 @@
 			remoteRef = 601E39B3215545A300C51D58 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		602C479D220B2763006BFD00 /* libRNRate.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNRate.a;
+			remoteRef = 602C479C220B2763006BFD00 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		6050ED1D22034882003F05DC /* libRNGestureHandler.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1464,6 +1496,7 @@
 					"$(SRCROOT)/../node_modules/react-native-interactable/lib/ios/Interactable",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 				);
 				INFOPLIST_FILE = KunaTicker/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1471,7 +1504,10 @@
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/KunaTicker\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1504,6 +1540,7 @@
 					"$(SRCROOT)/../node_modules/react-native-interactable/lib/ios/Interactable",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 				);
 				INFOPLIST_FILE = KunaTicker/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1511,7 +1548,10 @@
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/KunaTicker\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1542,6 +1582,7 @@
 					"$(SRCROOT)/../node_modules/react-native-interactable/lib/ios/Interactable",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 				);
 				INFOPLIST_FILE = KunaTicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1574,6 +1615,7 @@
 					"$(SRCROOT)/../node_modules/react-native-interactable/lib/ios/Interactable",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 				);
 				INFOPLIST_FILE = KunaTicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;

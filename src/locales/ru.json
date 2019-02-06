@@ -20,7 +20,9 @@
         "comment": "Коментарий",
         "create": "Создать",
         "cancel": "Отменить",
-        "display-name": "Имя"
+        "display-name": "Имя",
+        "bid": "Предложение",
+        "ask": "Спрос"
     },
     "setting": {
         "menu": {
@@ -50,7 +52,10 @@
     "order-book": {
         "spread": "Спред",
         "grouping": "Групировка",
-        "none": "Нема"
+        "none": "Нема",
+        "resistance": {
+            "title": "Сопротивление в 10% коридоре"
+        }
     },
     "calculator": {
         "average-price": "Средняя цена"

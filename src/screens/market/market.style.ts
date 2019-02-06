@@ -26,14 +26,6 @@ const marketStyle = StyleSheet.create({
         color: Color.GrayBlues,
     },
 
-    infoUnit: {
-        width: '50%',
-    },
-
-    infoUnitValue: {
-        color: Color.White,
-    },
-
     infoUnitFirstLine: {
         marginBottom: 10,
     },
@@ -68,6 +60,13 @@ const marketStyle = StyleSheet.create({
     sectionInformation: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
+
+    infoUnit: {},
+
+    infoUnitValue: {
+        color: Color.White,
     },
 
 

@@ -18,11 +18,13 @@ const sheet = StyleSheet.create({
         top: 20,
         right: 0,
         left: 0,
-        zIndex: 10
+        zIndex: 10,
     },
 
     chartContainer: {
         height: 200,
+        marginLeft: 20,
+        marginRight: 20,
         justifyContent: 'center',
         backgroundColor: 'white',
     },

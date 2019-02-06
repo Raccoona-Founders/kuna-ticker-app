@@ -17,7 +17,7 @@ const InfoUnit = (props: InfoUnitProps) => {
     return (
         <View style={[styles.container, props.style]}>
             {typeof props.value === 'string' ? (
-                <SpanText style={[styles.valueText, valueColor ? { color: valueColor } : {}]}>
+                <SpanText style={[styles.valueText, valueColor ? { color: valueColor } : {}, props.valueStyle]}>
                     {props.value}
                 </SpanText>
             ) : (

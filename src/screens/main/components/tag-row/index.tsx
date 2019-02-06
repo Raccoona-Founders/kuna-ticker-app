@@ -135,9 +135,9 @@ const styles = StyleSheet.create({
         paddingRight: 15,
 
         shadowColor: Color.Fade,
-        shadowOpacity: 0.12,
-        shadowRadius: 5,
-        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+        shadowOffset: { width: 0, height: 2 },
     },
     tagCellActive: {
         backgroundColor: Color.DeepBlue,

@@ -1,20 +1,24 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
-import { SpanText } from 'components/span-text';
 import { compose } from 'recompose';
+import Icon from 'components/icon';
+import { SpanText } from 'components/span-text';
 import RouteKeys from 'router/route-keys';
 import { Color } from 'styles/variables';
-import Icon from 'components/icon';
+
 
 type MenuLinkOuterProps = {
     title: string;
     onPress?: () => void;
     route?: RouteKeys;
     routeParams?: object;
+    isLoading?: boolean;
 };
 
-type MenuLinkProps = MenuLinkOuterProps & NavigationInjectedProps;
+type MenuLinkProps
+    = MenuLinkOuterProps
+    & NavigationInjectedProps;
 
 const MenuLink = (props: MenuLinkProps) => {
 
@@ -28,7 +32,12 @@ const MenuLink = (props: MenuLinkProps) => {
 
     return (
         <TouchableOpacity onPress={onPress} style={styles.container}>
-            <SpanText style={styles.title}>{props.title}</SpanText>
+            <View style={{ flexDirection: 'row' }}>
+                <SpanText style={styles.title}>{props.title}</SpanText>
+                {props.isLoading ? (
+                    <ActivityIndicator size="small" style={{ marginLeft: 10 }} />
+                ) : undefined}
+            </View>
 
             <Icon name="slideRight" fill={Color.GrayBlues} height={15} width={9} />
         </TouchableOpacity>

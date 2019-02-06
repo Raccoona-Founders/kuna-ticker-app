@@ -20,7 +20,9 @@
         "comment": "Коментар",
         "create": "Створити",
         "cancel": "Скасувати",
-        "display-name": "Ім'я"
+        "display-name": "Ім'я",
+        "bid": "Пропозиція",
+        "ask": "Попит"
     },
     "setting": {
         "menu": {
@@ -50,7 +52,10 @@
     "order-book": {
         "spread": "Спред",
         "grouping": "Групування",
-        "none": "Нема"
+        "none": "Нема",
+        "resistance": {
+            "title": "Опір в 10% коридорі"
+        }
     },
     "calculator": {
         "average-price": "Середня ціна"

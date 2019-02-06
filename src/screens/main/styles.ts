@@ -3,9 +3,9 @@ import { Color, DefaultStyles, Fonts } from 'styles/variables';
 import Constants from 'utils/constants';
 
 export const mainStyles = StyleSheet.create({
-    swiperWrapper: {},
     container: {
         flex: 1,
+        backgroundColor: Color.White,
     },
     baseBackground: {
         flex: 1,
@@ -48,7 +48,7 @@ export const tabBarStyles = StyleSheet.create({
         fontFamily: Fonts.TTNorms_Regular,
         alignItems: 'center',
         color: Color.Text,
-        ...DefaultStyles.boldFont
+        ...DefaultStyles.boldFont,
     },
 
     // Info bar
@@ -69,6 +69,6 @@ export const tabBarStyles = StyleSheet.create({
         top: 20,
         right: -24,
         fontSize: 12,
-        ...DefaultStyles.boldFont
+        ...DefaultStyles.boldFont,
     },
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import firebase from 'react-native-firebase';
 import { Provider as MobxProvider } from 'mobx-react/native';
 import SplashScreen from 'react-native-splash-screen';
-
 import 'utils/setup-locale';
 import i18n from 'utils/i18n';
 import AnalTracker from 'utils/ga-tracker';
@@ -13,12 +13,13 @@ import { Color } from 'styles/variables';
 import buildAppStore from 'mobx-store';
 import { onNavigationStateChange } from 'router/helper';
 
+firebase.perf().setPerformanceCollectionEnabled(true);
+
 type ApplicationState = {
     isReady: boolean;
     mobxStore?: mobx.Store;
     error?: Error;
 };
-
 
 export default class Application extends React.PureComponent<any, ApplicationState> {
     public state: ApplicationState = {

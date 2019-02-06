@@ -22,7 +22,6 @@ export default class MarketList extends React.Component<Props, State> {
                           renderItem={this.__marketRowRenderer()}
                           initialNumToRender={10}
                           maxToRenderPerBatch={5}
-                          keyExtractor={(m: KunaMarket) => m.key}
                           scrollEnabled={false}
                 />
                 <SpanText style={{ color: Color.GrayBlues, fontSize: 12, paddingLeft: 20, paddingBottom: 20 }}>
@@ -31,6 +30,7 @@ export default class MarketList extends React.Component<Props, State> {
             </>
         );
     }
+
 
     private __marketRowRenderer = () => {
         const { Ticker, activeAsset, favorite } = this.props;
@@ -52,6 +52,7 @@ export default class MarketList extends React.Component<Props, State> {
             );
         };
     };
+
 
     private __pressMarketRow = (market: KunaMarket) => {
         return () => {

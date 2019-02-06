@@ -166,7 +166,7 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps,
         const { layout, navigation, position } = this.props;
         const { index } = navigation.state;
 
-        const currentValue = index - (state.value - this._lastScrollYValue) / (layout.height.__getValue() - 40);
+        const currentValue = index - ((state.value - this._lastScrollYValue) / (layout.height.__getValue() - 40)) / 3;
         const value = clamp(index - 1, currentValue, index);
 
         position.setValue(value);

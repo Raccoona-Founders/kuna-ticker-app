@@ -20,7 +20,9 @@
         "comment": "Comment",
         "create": "Create",
         "cancel": "Cancel",
-        "display-name": "Display Name"
+        "display-name": "Display Name",
+        "bid": "Bid",
+        "ask": "Ask"
     },
     "setting": {
         "menu": {
@@ -50,7 +52,10 @@
     "order-book": {
         "spread": "Spread",
         "grouping": "Grouping",
-        "none": "None"
+        "none": "None",
+        "resistance": {
+            "title": "10% price resistance"
+        }
     },
     "calculator": {
         "average-price": "Average Price"

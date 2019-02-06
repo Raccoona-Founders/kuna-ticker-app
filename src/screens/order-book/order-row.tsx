@@ -20,7 +20,7 @@ type OrderRowProps = {
 const OrderRow = (props: OrderRowProps) => {
     const { styles = {} } = props;
 
-    let valueFormat = props.avrValue > 10 ? '0,0' : (props.avrValue > 5 ? '0,0.[00]' : '0,0.[000000]');
+    let valueFormat = props.value > 10 ? '0,0' : (props.value > 5 ? '0,0.[00]' : '0,0.[000000]');
     const valuePercent = numeral(props.cumulativeValue).divide(props.totalValue);
     const valueAvgPercent = numeral(props.value).divide(props.maxValue);
 

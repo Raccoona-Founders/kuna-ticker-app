@@ -7,6 +7,7 @@ import { NavigationInjectedProps } from 'react-navigation';
 import { KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
 import kunaClient from 'utils/kuna-api';
+import getPrecisionMap from 'utils/presicion-map';
 import { _ } from 'utils/i18n';
 import OrderBookProcessor from 'utils/order-book-processor';
 import { SpanText } from 'components/span-text';
@@ -14,7 +15,7 @@ import { ShadeScrollCard } from 'components/shade-navigator';
 import InfoUnit from 'components/info-unit';
 import styles from './depth.style';
 import SideRows from './side-rows';
-import getPrecisionMap from 'utils/presicion-map';
+import ResistanceChart from './components/resistance-chart';
 
 
 const ORDER_DEPTH = 30;
@@ -146,20 +147,27 @@ export default class OrderBookScreen extends React.Component<DepthScreenProps, S
         const spread = orderBook.getSpread();
 
         return (
-            <View style={styles.spreadContainer}>
-                <InfoUnit
-                    topic={_('order-book.spread')}
-                    value={<>
-                        <SpanText style={styles.spreadValue}>
-                            {numeral(spread.value).format('0,0.[00000000]')} {kunaMarket.quoteAsset}
-                        </SpanText>
-                        <SpanText style={styles.spreadPercentage}>
-                            ({numeral(spread.percentage).format('0,0.00')}%)
-                        </SpanText>
-                    </>}
-                    valueStyle={styles.spreadValueBox}
+            <>
+                <View style={styles.spreadContainer}>
+                    <InfoUnit
+                        topic={_('order-book.spread')}
+                        value={<>
+                            <SpanText style={styles.spreadValue}>
+                                {numeral(spread.value).format('0,0.[00000000]')} {kunaMarket.quoteAsset}
+                            </SpanText>
+                            <SpanText style={styles.spreadPercentage}>
+                                ({numeral(spread.percentage).format('0,0.00')}%)
+                            </SpanText>
+                        </>}
+                        valueStyle={styles.spreadValueBox}
+                    />
+                </View>
+
+                <ResistanceChart
+                    market={kunaMarket}
+                    orderBook={orderBook}
                 />
-            </View>
+            </>
         );
     }
 

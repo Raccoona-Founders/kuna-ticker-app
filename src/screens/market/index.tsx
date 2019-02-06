@@ -18,7 +18,9 @@ import InfoUnit from 'components/info-unit';
 
 import PriceChangeBox from './components/change-price-box';
 import Chart from './components/chart';
+import MinMaxIndicator from './components/min-max-indicator';
 import marketStyle from './market.style';
+import { Color, DefaultStyles } from 'styles/variables';
 
 type State = {
     depth: undefined | KunaOrderBook;
@@ -109,26 +111,31 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
                     <Chart market={currentMarket} />
 
                     <View style={[marketStyle.section, marketStyle.sectionInformation]}>
+                        <InfoUnit topic="Vol $"
+                                  value={numFormat(numeral(tick.volume).multiply(usdPrice.value()), '$0,0.[00]')}
+                                  style={marketStyle.infoUnit}
+                                  valueStyle={DefaultStyles.boldFont}
+                        />
+
                         <InfoUnit topic={`Vol ${baseAsset.key}`}
                                   value={numFormat(tick.volume)}
-                                  style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
+                                  style={marketStyle.infoUnit}
+
                         />
 
                         <InfoUnit topic={`Vol ${quoteAsset.key}`}
                                   value={numFormat(numeral(tick.volume).multiply(tick.lastPrice || 0))}
-                                  style={[marketStyle.infoUnit, marketStyle.infoUnitFirstLine]}
-                        />
-
-                        <InfoUnit topic="24H Min"
-                                  value={numFormat(tick.low, quoteAsset.format)}
-                                  style={marketStyle.infoUnit}
-                        />
-
-                        <InfoUnit topic="24H Max"
-                                  value={numFormat(tick.high, quoteAsset.format)}
                                   style={marketStyle.infoUnit}
                         />
                     </View>
+
+                    <MinMaxIndicator
+                        market={currentMarket}
+                        min={tick.low}
+                        max={tick.high}
+                        price={tick.lastPrice || 0}
+                    />
+
 
                     {baseAsset.key === KunaAssetUnit.Ripple ? (
                         <>

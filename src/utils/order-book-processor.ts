@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { slice, orderBy, sumBy, head, groupBy, reduce } from 'lodash';
+import { slice, orderBy, sumBy, head, groupBy, reduce, filter } from 'lodash';
 import { KunaV3Order, KunaV3OrderBook } from 'kuna-sdk';
 
 export type Spread = {
+    middlePrice: number;
     value: number;
     percentage: number;
 };
@@ -50,6 +51,7 @@ export default class OrderBookProcessor {
 
         if (!headBid || !headAsk) {
             return {
+                middlePrice: 0,
                 value: 0,
                 percentage: 0,
             };
@@ -59,9 +61,42 @@ export default class OrderBookProcessor {
         const middlePrice = (headAsk[0] + headBid[0]) / 2;
 
         return {
+            middlePrice: middlePrice,
             value: spreadValue,
             percentage: (spreadValue / middlePrice) * 100,
         };
+    }
+
+    public calculatePriceDepth(side: 'ask' | 'bid', percent: number): number[] {
+        const result = [0, 0];
+
+        if (percent <= 0) {
+            return result;
+        }
+
+        if (percent >= 1) {
+            percent = 1;
+        }
+
+        const isAsk = side === 'ask';
+
+        const middlePrice = this.getSpread().middlePrice;
+
+        let elements = [];
+        if (isAsk) {
+            const borderPrice = middlePrice * (1 + percent);
+            elements = filter(this.getFullAsk(), v => v[0] <= borderPrice);
+        } else {
+            const borderPrice = middlePrice * (1 - percent);
+            elements = filter(this.getFullBid(), v => v[0] >= borderPrice);
+        }
+
+        elements.forEach(v => {
+            result[0] += v[1];
+            result[1] += v[1] * v[0];
+        });
+
+        return result;
     }
 
 

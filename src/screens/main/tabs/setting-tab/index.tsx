@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { inject } from 'mobx-react/native';
+import Rate, { AndroidMarket } from 'react-native-rate';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { SpanText } from 'components/span-text';
+import RouteKeys from 'router/route-keys';
 import { _ } from 'utils/i18n';
 import { Color } from 'styles/variables';
 import MenuLink from './components/menu-link';
-import RouteKeys from 'router/route-keys';
+
 
 import { styles } from './setting-tab.style';
 import Icon from 'components/icon';
@@ -18,6 +20,10 @@ type SettingsProps = mobx.user.WithUserProps & NavigationInjectedProps;
 @withNavigation
 @inject('User')
 export default class SettingTab extends React.Component<SettingsProps> {
+    public state: any = {
+        rated: false,
+    };
+
     public render(): JSX.Element {
         const { User } = this.props;
 
@@ -31,6 +37,10 @@ export default class SettingTab extends React.Component<SettingsProps> {
                           route={RouteKeys.Setting_KunaCode}
                 />
 
+                <MenuLink title={_('settings.menu.rate-app')}
+                          onPress={this.__rateApplication}
+                />
+
                 <View style={styles.separator} />
 
                 <View style={styles.settingFooter}>
@@ -40,4 +50,23 @@ export default class SettingTab extends React.Component<SettingsProps> {
             </ScrollView>
         );
     }
+
+    protected __rateApplication = () => {
+        const options = {
+            AppleAppID: '1441322325',
+            GooglePackageName: 'com.kunaticker',
+            AmazonPackageName: 'com.kunaticker',
+            preferredAndroidMarket: AndroidMarket.Google,
+            preferInApp: false,
+            openAppStoreIfInAppFails: true,
+        };
+
+        Rate.rate(options, success => {
+            if (success) {
+                // this technically only tells us if the user successfully
+                // went to the Review Page. Whether they actually did anything, we do not know.
+                this.setState({ rated: true });
+            }
+        });
+    };
 }

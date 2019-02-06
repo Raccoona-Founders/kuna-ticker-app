@@ -25,7 +25,8 @@
     "setting": {
         "menu": {
             "about": "About",
-            "kuna-code": "KUNA Code"
+            "kuna-code": "KUNA Code",
+            "rate-app": "Rate application"
         },
         "kuna-code": {
             "title": "Setting of KUNA Code"

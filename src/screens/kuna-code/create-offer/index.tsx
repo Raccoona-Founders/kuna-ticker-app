@@ -225,7 +225,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
                 {/* @TODO translate */}
                 <UIButton small
-                          title="Create"
+                          title={_('general.create')}
                           onPress={this.__onCreate}
                           style={styles.submitButton}
                           textStyle={styles.submitButtonText}
@@ -280,7 +280,6 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
     private __editComment = () => {
         const { navigation, values, setFieldValue } = this.props;
 
-        // @TODO translate
         navigation.push(RouteKeys.Service_EnterText, {
             title: _('kuna-code.enter-comment.title'),
             description: _('kuna-code.enter-comment.description'),
@@ -296,7 +295,6 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         const numAmount = numeral(amount);
 
         if (numAmount.value() <= 0) {
-            // @TODO Translate
             Alert.alert(_('kuna-code.enter-amount-warning'));
             return;
         }
@@ -305,7 +303,6 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         const offerTitle = 'Do you want to create offer?';
         const offerMessage = `To ${side} KUNA Code for ${numAmount.format('0,0')} ${currency}`;
 
-        // @TODO Translate
         Alert.alert(offerTitle, offerMessage, [
             { text: _('general.cancel'), style: 'cancel' },
             {

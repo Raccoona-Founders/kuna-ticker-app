@@ -25,7 +25,8 @@
     "setting": {
         "menu": {
             "about": "Про додаток",
-            "kuna-code": "KUNA Code"
+            "kuna-code": "KUNA Code",
+            "rate-app": "Заціни аплікуху"
         },
         "kuna-code": {
             "title": "Налаштунки KUNA кодів"

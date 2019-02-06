@@ -9,7 +9,8 @@ import Icon from 'components/icon';
 
 type MenuLinkOuterProps = {
     title: string;
-    route: RouteKeys;
+    onPress?: () => void;
+    route?: RouteKeys;
     routeParams?: object;
 };
 
@@ -18,7 +19,11 @@ type MenuLinkProps = MenuLinkOuterProps & NavigationInjectedProps;
 const MenuLink = (props: MenuLinkProps) => {
 
     const onPress = () => {
-        props.navigation.push(props.route, props.routeParams);
+        if (props.route) {
+            props.navigation.push(props.route, props.routeParams);
+        } else {
+            props.onPress && props.onPress();
+        }
     };
 
     return (

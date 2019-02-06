@@ -11,9 +11,9 @@ const coinTags: string[] = [
     KunaAssetUnit.UkrainianHryvnia,
     KunaAssetUnit.Bitcoin,
     KunaAssetUnit.Ethereum,
+    KunaAssetUnit.Tether,
     KunaAssetUnit.AdvancedUSD,
     KunaAssetUnit.AdvancedRUB,
-    KunaAssetUnit.GolosGold,
 ];
 
 type State = {
@@ -64,7 +64,6 @@ export default class TagRow extends React.PureComponent<TagRowProps, State> {
         const specificTextStyle: any = {};
 
         const isActive = index === this.state.currentActiveTagIndex;
-        const asset = getAsset(assetUnit as KunaAssetUnit);
 
         const tagStyle = [
             styles.tagCell,

@@ -27,6 +27,7 @@ export default class MarketTab extends React.Component<Props, State> {
         activeAsset: undefined,
     };
 
+
     public render(): JSX.Element {
         // @ts-ignore
         const marketList = <MarketList

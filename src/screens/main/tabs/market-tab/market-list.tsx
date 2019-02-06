@@ -5,8 +5,8 @@ import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 import MarketRow from 'components/market-row';
-import { Color } from 'styles/variables';
 import SpanText from 'components/span-text';
+import { Color } from 'styles/variables';
 
 type State = {};
 

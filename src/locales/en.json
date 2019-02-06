@@ -26,7 +26,7 @@
         "menu": {
             "about": "About",
             "kuna-code": "KUNA Code",
-            "rate-app": "Rate application"
+            "rate-app": "Rate KUNA Ticker"
         },
         "kuna-code": {
             "title": "Setting of KUNA Code"

@@ -2,6 +2,7 @@ package com.kunaticker;
 
 import android.app.Application;
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.rnds.DirectedScrollViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.reactcommunity.rnlanguages.RNLanguagesPackage;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new VectorIconsPackage(),
             new DirectedScrollViewPackage(),
             new RNGestureHandlerPackage(),
                     new RNLanguagesPackage(),

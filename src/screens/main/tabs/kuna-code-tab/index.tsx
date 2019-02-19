@@ -3,14 +3,17 @@ import { View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native
 import firebase from 'react-native-firebase';
 import { inject, observer } from 'mobx-react/native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Constants from 'utils/constants';
+import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
+import SpanText from 'components/span-text';
 import AdvBanner from './components/adv-banner';
 import OfferRow from './components/offer-row';
 import OfficialChannel from './components/official-channel';
 import styles from './kuna-code-tab.style';
-import SpanText from 'components/span-text';
-import RouteKeys from 'router/route-keys';
+import { Color } from 'styles/variables';
+
 
 // @ts-ignore
 firebase.admob().initialize(Constants.ADMOB_APP_ID);
@@ -43,7 +46,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                     </ScrollView>
 
                     <TouchableOpacity style={styles.createOffer} onPress={this.__onPressAddOffer}>
-                        <SpanText style={styles.createOfferSymbol}>+</SpanText>
+                        <Icon name="plus" size={16} color={Color.Fade} />
                     </TouchableOpacity>
                 </View>
 

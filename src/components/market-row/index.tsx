@@ -7,7 +7,6 @@ import { SpanText } from 'components/span-text';
 import { MarketNameCell } from './market-name-cell';
 import styles from './market-row.styles';
 
-
 export default class MarketRow extends React.Component<MarketRowProps> {
     public render(): JSX.Element {
         const { market, ticker, usdPrice, onPress, visible = true } = this.props;

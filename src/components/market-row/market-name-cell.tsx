@@ -14,7 +14,12 @@ export const MarketNameCell = (props: MarketNameProps) => {
 
     return (
         <View style={styles.container}>
-            <CoinIcon size={45} asset={baseAsset} style={{marginRight: 20}}/>
+            <CoinIcon size={45}
+                      asset={baseAsset}
+                      style={{ marginRight: 20 }}
+                      withShadow={false}
+            />
+
             <View>
                 <View style={styles.marketRow}>
                     <SpanText style={[styles.pairBoxText, styles.pairBoxBase]}>{props.market.baseAsset}</SpanText>
@@ -26,7 +31,7 @@ export const MarketNameCell = (props: MarketNameProps) => {
                 </View>
             </View>
         </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

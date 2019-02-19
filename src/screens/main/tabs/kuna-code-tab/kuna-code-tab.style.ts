@@ -24,9 +24,4 @@ export default StyleSheet.create({
         shadowRadius: 5,
         shadowOffset: { width: 0, height: 4 },
     },
-    createOfferSymbol: {
-        fontSize: 30,
-        lineHeight: 30,
-        color: Color.Fade,
-    }
 });

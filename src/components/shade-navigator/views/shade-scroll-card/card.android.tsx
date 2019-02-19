@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Easing, View, ScrollViewProps, Keyboard, LayoutChangeEvent, StyleSheet, } from 'react-native';
+import { Animated, Easing, View, ScrollViewProps, Keyboard, LayoutChangeEvent, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 import {
@@ -133,6 +133,7 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps,
             shouldCancelWhenOutside: false,
             onGestureEvent: this._onGestureEvent,
             onHandlerStateChange: this._onHandlerStateChange,
+            activeOffsetY: 10,
         };
     }
 
@@ -142,6 +143,7 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps,
             ref: this.nativeViewRef,
             simultaneousHandlers: this.masterDrawer,
             enabled: false,
+
         };
     }
 

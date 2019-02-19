@@ -10,7 +10,6 @@ import SpanText from 'components/span-text';
 
 import LastPriceSvg from './last-price.element';
 import LimitPriceSvg from './limit-price.element';
-// import BottomOverlaySvg from './bottom-overlay.element';
 
 import ChartStyles from './chart.style';
 
@@ -106,7 +105,6 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
                     gridMin={minValue - depth * 0.1}
                     svg={{ strokeWidth: 4, stroke: Color.Main }}
                 >
-                    {/*<BottomOverlaySvg minValue={minValue} />*/}
                     <LastPriceSvg lastPrice={lastPrice} />
                     <LimitPriceSvg price={minValue} format={market.format} side="bottom" lastPrice={lastPrice} />
                     <LimitPriceSvg price={maxValue} format={market.format} side="top" lastPrice={lastPrice} />

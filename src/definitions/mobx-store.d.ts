@@ -32,6 +32,7 @@ declare global {
         namespace ticker {
             interface StoreModel {
                 tickers: Record<string, KunaV3Ticker>;
+                favorite: FavoriteModel;
                 lastUpdate?: string;
 
                 usdCalculator: UsdCalculator;
@@ -39,6 +40,18 @@ declare global {
                 fetchTickers(): Promise<void>;
 
                 getTicker(marketSymbol: string): KunaV3Ticker | undefined;
+            }
+
+            interface FavoriteModel {
+                exists(marketSymbol: string): boolean;
+
+                add(marketSymbol: string): void;
+
+                remove(marketSymbol: string): void;
+
+                getList(): string[];
+
+                setList(marketSymbols: string[]): void;
             }
 
             type WithTickerProps = {

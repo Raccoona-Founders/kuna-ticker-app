@@ -1,39 +1,46 @@
-import { forEach, find } from 'lodash';
+import { get, forEach, find } from 'lodash';
 import { action, computed, observable, runInAction } from 'mobx';
 import { KunaV3Ticker } from 'kuna-sdk';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { UsdCalculator } from 'utils/currency-rate';
 import kunaClient from 'utils/kuna-api';
+import FavoriteModel from './favorite-model';
 
 const TICKER_UPDATE_TIMEOUT = 10 * 60 * 1000;
 
 export default class TickerModel extends ModelAsyncStorage implements mobx.ticker.StoreModel {
-
     @observable
     public tickers: Record<string, KunaV3Ticker> = {};
+
+    @observable
+    public favorite: mobx.ticker.FavoriteModel;
 
     @observable
     public lastUpdate?: string;
 
     private __usdRateStore: mobx.usdrate.StoreModel;
 
+
     @action
     public static create(usdRateStore: mobx.usdrate.StoreModel): TickerModel {
         return new TickerModel(usdRateStore);
     }
 
+
     public constructor(usdRateStore: mobx.usdrate.StoreModel) {
         super();
 
         this.__usdRateStore = usdRateStore;
+        this.favorite = new FavoriteModel();
     }
+
 
     public getStoreKey(): string {
         return 'KunaTicker@Mobx_Ticker';
     }
 
 
-    @action.bound
+    @action
     public fetchTickers = async (): Promise<void> => {
         const newTickers: Record<string, KunaV3Ticker> = {};
 
@@ -55,7 +62,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
 
 
     public getTicker(marketSymbol: string): KunaV3Ticker | undefined {
-        return find(this.tickers, {symbol: marketSymbol});
+        return find(this.tickers, { symbol: marketSymbol });
     }
 
 
@@ -78,8 +85,21 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
         return {
             tickers: this.tickers,
             lastUpdate: this.lastUpdate,
+            favorite: this.favorite.getList(),
         };
     }
+
+
+    @action
+    protected _fromJs(object: Object) {
+        this.tickers = get(object, 'tickers', {});
+        this.lastUpdate = get(object, 'lastUpdate', undefined);
+
+        this.favorite.setList(
+            get(object, 'favorite', undefined),
+        );
+    }
+
 
     @action
     private async __runUpdater() {

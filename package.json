@@ -32,6 +32,7 @@
         "react-native": "0.56.1",
         "react-native-crypto": "2.1.2",
         "react-native-device-info": "0.22.4",
+        "react-native-directed-scrollview": "^2.0.0",
         "react-native-firebase": "5.2.2",
         "react-native-gesture-handler": "1.0.15",
         "react-native-languages": "3.0.1",

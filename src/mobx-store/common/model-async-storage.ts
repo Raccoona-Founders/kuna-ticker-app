@@ -13,7 +13,7 @@ export default abstract class ModelAsyncStorage {
         if (existingStore) {
             const storeValue = JSON.parse(existingStore);
             if (storeValue) {
-                set(this, storeValue);
+                this._fromJs(storeValue);
             }
         }
 
@@ -25,6 +25,11 @@ export default abstract class ModelAsyncStorage {
         delete result.__firstRun;
 
         return result;
+    }
+
+    @action
+    protected _fromJs(object: Object) {
+        set(this, object);
     }
 
     private __autorun = async (): Promise<void> => {

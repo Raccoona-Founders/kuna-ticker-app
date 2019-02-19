@@ -15,6 +15,7 @@ enum RouteKeys {
     KunaCode_CreateOffer = 'KunaCode.CreateOffer',
 
     Service_EnterText = 'Service.EnterText',
+    Service_SelectAsset = 'Service.SelectAsset',
 }
 
 export default RouteKeys;

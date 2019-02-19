@@ -17,10 +17,24 @@ type OrderRowProps = {
     styles?: Record<string, StyleProp<ViewStyle | TextStyle>>;
 };
 
+
+const getFormatByValue = (value: number): string => {
+    if (value > 10) {
+        return '0,0';
+    } else if (value > 5) {
+        return '0,0.[00]';
+    } else if (value > 1) {
+        return '0,0.[0000]';
+    } else {
+        return '0,0.[000000]';
+    }
+};
+
+
 const OrderRow = (props: OrderRowProps) => {
     const { styles = {} } = props;
 
-    let valueFormat = props.value > 10 ? '0,0' : (props.value > 5 ? '0,0.[00]' : '0,0.[000000]');
+    let valueFormat = getFormatByValue(props.value);
     const valuePercent = numeral(props.cumulativeValue).divide(props.totalValue);
     const valueAvgPercent = numeral(props.value).divide(props.maxValue);
 

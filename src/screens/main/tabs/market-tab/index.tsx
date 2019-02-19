@@ -5,7 +5,7 @@ import { KunaAssetUnit } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
 import { Color } from 'styles/variables';
 
-import TagRow from '../../components/tag-row';
+import FilterCoin from './filter-coin';
 import MarketList from './market-list';
 
 
@@ -37,7 +37,12 @@ export default class MarketTab extends React.Component<Props, State> {
 
         return (
             <View style={styles.flatList}>
-                <TagRow onChooseTag={this.__onChooseTag} />
+                <View style={styles.filterTab}>
+                    <FilterCoin onChoose={this.__onChooseCoin}
+                                active={this.state.activeAsset}
+                    />
+                </View>
+
                 <ScrollView
                     style={styles.flatList}
                     showsVerticalScrollIndicator={false}
@@ -50,21 +55,10 @@ export default class MarketTab extends React.Component<Props, State> {
     }
 
 
-    private __onChooseTag = (index?: number, assetUnit?: KunaAssetUnit) => {
-        const setMode: Partial<State> = {
-            activeAsset: undefined,
-            favorite: false,
-        };
-
-        if (typeof index !== 'undefined') {
-            if (assetUnit) {
-                setMode.activeAsset = assetUnit;
-            } else {
-                setMode.favorite = true;
-            }
-        }
-
-        this.setState(setMode as State);
+    private __onChooseCoin = (assetUnit?: KunaAssetUnit) => {
+        this.setState({
+            activeAsset: assetUnit,
+        });
     };
 
 
@@ -104,5 +98,14 @@ const styles = StyleSheet.create({
         marginTop: 0,
         marginBottom: 0,
         marginLeft: 20,
+    },
+
+    filterTab: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
     },
 });

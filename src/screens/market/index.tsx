@@ -11,7 +11,7 @@ import { _ } from 'utils/i18n';
 import { numFormat } from 'utils/number-helper';
 import { CoinIcon } from 'components/coin-icon';
 import SpanText from 'components/span-text';
-import UIButton from 'components/ui-button';
+import UIIconButton from 'components/ui-icon-button';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import RippleNotice from 'components/ripple-notice';
 import InfoUnit from 'components/info-unit';
@@ -178,14 +178,27 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
         return (
             <View style={marketStyle.footer}>
                 <View style={marketStyle.footerButton}>
-                    <UIButton onPress={this.__openDepth}
-                              title={_('market.order-book')}
+                    <UIIconButton
+                        icon="book"
+                        onPress={this.__openDepth}
+                        title={_('market.order-book')}
                     />
                 </View>
 
                 <View style={marketStyle.footerButton}>
-                    <UIButton onPress={this.__openCalculator}
-                              title={_('market.calculate')}
+                    <UIIconButton
+                        icon="calculator"
+                        onPress={this.__openCalculator}
+                        title={_('market.calculate')}
+                    />
+                </View>
+
+                <View style={marketStyle.footerButton}>
+                    <UIIconButton
+                        icon="exchange-alt"
+                        onPress={this.__openLastTrades}
+                        title={_('market.last-trades')}
+                        disabled={true}
                     />
                 </View>
             </View>

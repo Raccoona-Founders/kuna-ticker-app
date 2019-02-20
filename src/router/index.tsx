@@ -26,6 +26,7 @@ const routeConfigs = {
     [RouteKeys.KunaCode_CreateOffer]: { screen: KunaCode.CreateOfferScreen },
 
     [RouteKeys.Service_EnterText]: { screen: Service.EnterTextScreen },
+    [RouteKeys.Service_SelectAsset]: { screen: Service.SelectAssetScreen },
 };
 
 

@@ -1,9 +1,13 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { compose } from 'recompose';
+import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { KunaAssetUnit } from 'kuna-sdk';
 import SpanText from 'components/span-text';
+import { SelectAssetParams } from 'screens/service/select-asset';
 import { Color } from 'styles/variables';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import RouteKeys from 'router/route-keys';
 
 const assets: string[] = [
     KunaAssetUnit.UkrainianHryvnia,
@@ -14,12 +18,7 @@ const assets: string[] = [
     KunaAssetUnit.AdvancedRUB,
 ];
 
-type FilterAssetsProps = {
-    active?: KunaAssetUnit;
-    onChoose: (assetUnit?: KunaAssetUnit) => void;
-};
-
-export default class FilterCoin extends React.PureComponent<FilterAssetsProps> {
+class FilterCoin extends React.PureComponent<FilterAssetsProps> {
     public render(): JSX.Element {
         return (
             <TouchableOpacity onPress={this.__pressFilter}>
@@ -35,9 +34,25 @@ export default class FilterCoin extends React.PureComponent<FilterAssetsProps> {
     }
 
     protected __pressFilter = () => {
-
+        this.props.navigation.push(RouteKeys.Service_SelectAsset, {
+            emptyAsset: true,
+            currentAsset: this.props.active,
+            assets: assets,
+            onSelect: this.props.onChoose,
+        } as SelectAssetParams);
     };
 }
+
+type OuterProps = {
+    active?: KunaAssetUnit;
+    onChoose: (assetUnit?: KunaAssetUnit) => void;
+};
+
+type FilterAssetsProps
+    = NavigationInjectedProps
+    & OuterProps;
+
+export default compose<FilterAssetsProps, OuterProps>(withNavigation)(FilterCoin);
 
 const styles = StyleSheet.create({
     box: {
@@ -47,10 +62,10 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderBottomColor: Color.GrayBlues,
         borderBottomWidth: 1,
-        paddingBottom: 2
+        paddingBottom: 2,
     },
 
     icon: {
         marginLeft: 5,
-    }
+    },
 });

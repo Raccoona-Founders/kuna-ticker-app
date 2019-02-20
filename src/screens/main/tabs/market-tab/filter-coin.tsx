@@ -59,13 +59,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
 
-        borderStyle: 'solid',
-        borderBottomColor: Color.GrayBlues,
-        borderBottomWidth: 1,
-        paddingBottom: 2,
+        paddingLeft: 8,
+        paddingRight: 8,
+        paddingTop: 3,
+        paddingBottom: 3,
+        borderRadius: 3,
+        backgroundColor: Color.GrayLight,
     },
 
     icon: {
         marginLeft: 5,
+        color: Color.PurpleNoactive,
     },
 });

@@ -111,5 +111,8 @@
             "I bought Ripple for all my salary.",
             "I bought for $18 000!"
         ]
+    },
+    "choose-coin": {
+        "title": "Choose coin"
     }
 }

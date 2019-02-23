@@ -3,6 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { getAsset, KunaAsset, KunaAssetUnit } from 'kuna-sdk';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { _ } from 'utils/i18n';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import Topic from 'components/topic';
 import SpanText from 'components/span-text';
@@ -12,6 +13,8 @@ import { Color } from 'styles/variables';
 import { CoinIcon } from 'components/coin-icon';
 
 export type SelectAssetParams = {
+    title?: string;
+    description?: string;
     emptyAsset?: boolean;
     assets?: KunaAssetUnit[];
     currentAsset?: KunaAssetUnit;
@@ -27,11 +30,15 @@ export default class SelectAssetScreen extends React.PureComponent<SelectAssetPr
         const assets: Array<KunaAssetUnit | undefined> = navigation.getParam('assets') || [];
 
         const emptyAsset = navigation.getParam('emptyAsset') || false;
+
+        const title = navigation.getParam('title') || _('choose-coin.title');
+        const description = navigation.getParam('description') || undefined;
+
         const rowRenderer = this.__generateRowRenderer(assets.length);
 
         return (
             <ShadeScrollCard>
-                <Topic title="Choose Coin" />
+                <Topic title={title} description={description} />
 
                 <View>
                     {emptyAsset ? rowRenderer(undefined, 0) : undefined}

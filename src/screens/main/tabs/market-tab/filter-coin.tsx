@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { _ } from 'utils/i18n';
 import { compose } from 'recompose';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
-import { KunaAssetUnit } from 'kuna-sdk';
+import { getAsset, KunaAssetUnit } from 'kuna-sdk';
 import SpanText from 'components/span-text';
 import { SelectAssetParams } from 'screens/service/select-asset';
 import { Color } from 'styles/variables';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import RouteKeys from 'router/route-keys';
+import { CoinIcon } from 'components/coin-icon';
 
 const assets: string[] = [
     KunaAssetUnit.UkrainianHryvnia,
@@ -20,9 +22,21 @@ const assets: string[] = [
 
 class FilterCoin extends React.PureComponent<FilterAssetsProps> {
     public render(): JSX.Element {
+        const asset = this.props.active ? getAsset(this.props.active) : undefined;
+
         return (
             <TouchableOpacity onPress={this.__pressFilter}>
                 <View style={styles.box}>
+                    {asset ? (
+                        <CoinIcon asset={asset}
+                                  size={28}
+                                  withShadow={false}
+                                  naked={true}
+                                  style={{ marginRight: 0, marginLeft: -8 }}
+                        />
+                    ) : (
+                        <Icon name="filter" style={{ marginRight: 5, fontSize: 10 }} />
+                    )}
                     <SpanText style={{ fontSize: 16 }}>
                         {this.props.active ? this.props.active : 'Filter by coin'}
                     </SpanText>
@@ -59,10 +73,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
 
-        paddingLeft: 8,
-        paddingRight: 8,
-        paddingTop: 3,
-        paddingBottom: 3,
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: 34,
         borderRadius: 3,
         backgroundColor: Color.GrayLight,
     },

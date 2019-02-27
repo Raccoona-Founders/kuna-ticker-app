@@ -3,7 +3,6 @@ package com.kunaticker;
 import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.rnds.DirectedScrollViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.reactcommunity.rnlanguages.RNLanguagesPackage;
 import com.horcrux.svg.SvgPackage;
@@ -12,6 +11,10 @@ import com.bitgo.randombytes.RandomBytesPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
+import io.invertase.firebase.perf.RNFirebasePerformancePackage;
+import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.bitgo.randombytes.RandomBytesPackage;
@@ -37,13 +40,16 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new VectorIconsPackage(),
-            new DirectedScrollViewPackage(),
-            new RNGestureHandlerPackage(),
+                    new VectorIconsPackage(),
+                    new RNGestureHandlerPackage(),
                     new RNLanguagesPackage(),
                     new RNFirebasePackage(),
                     new RNFirebaseAnalyticsPackage(),
                     new RNFirebaseRemoteConfigPackage(),
+                    new RNFirebasePerformancePackage(),
+                    new RNFirebaseNotificationsPackage(),
+                    new RNFirebaseMessagingPackage(),
+                    new RNFirebaseCrashlyticsPackage(),
                     new RNFirebaseAdMobPackage(),
                     new RNDeviceInfo(),
                     new SvgPackage(),

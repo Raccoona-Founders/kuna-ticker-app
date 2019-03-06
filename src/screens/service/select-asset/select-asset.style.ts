@@ -18,7 +18,14 @@ export default StyleSheet.create({
     coinIcon: {},
     coinTitle: {
         fontSize: 18,
+    },
+    coinTitleBox: {
         marginLeft: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    noCoinTitle: {
+        marginLeft: 16,
     },
     coinTitleEmpty: {
         marginLeft: 10,

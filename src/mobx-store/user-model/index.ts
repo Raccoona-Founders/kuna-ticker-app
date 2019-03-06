@@ -2,7 +2,7 @@ import firebase from 'react-native-firebase';
 import { action, observable } from 'mobx';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 
-export default class UserModel extends ModelAsyncStorage implements mobx.user.StoreModel {
+export default class UserModel extends ModelAsyncStorage implements mobx.user.UserModel {
     @observable
     public userId?: string;
 

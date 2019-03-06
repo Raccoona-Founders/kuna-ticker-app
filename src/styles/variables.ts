@@ -14,10 +14,12 @@ export enum Color {
     DeepBlue = '#2E71F0',
 
     PurpleNoactive = '#9DA3B8',
+    Gold = '#',
 
     GrayBlues = '#93A9C3',
     Gray3 = '#E6EAEE',
     GrayWhite = '#F5F7F8',
+    GrayNoactive = '#DCDCDC',
 
     GrayLight = '#F2F2F2',
 
@@ -27,6 +29,7 @@ export enum Color {
 
 
     Success = '#00BA4F',
+    Warning = '##FFECA9',
     Danger = '#FD2A47',
 }
 

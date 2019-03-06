@@ -1,6 +1,7 @@
 {
     "menu": {
         "other": "Другое",
+        "dashboard": "Дешбор",
         "about": "О тикере",
         "markets": "Рынки",
         "setting": "Настройки",

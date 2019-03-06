@@ -51,6 +51,8 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                 </View>
 
                 <AdvBanner showBanner={this.props.focused} />
+
+                <View style={{ height: Constants.IS_IPHONE_X ? 90 : 60 }} />
             </>
         );
     }

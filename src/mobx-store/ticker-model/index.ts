@@ -8,7 +8,7 @@ import FavoriteModel from './favorite-model';
 
 const TICKER_UPDATE_TIMEOUT = 10 * 60 * 1000;
 
-export default class TickerModel extends ModelAsyncStorage implements mobx.ticker.StoreModel {
+export default class TickerModel extends ModelAsyncStorage implements mobx.ticker.TickerModel {
     @observable
     public tickers: Record<string, KunaV3Ticker> = {};
 
@@ -81,7 +81,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
     }
 
 
-    protected _toJS(): Object {
+    protected _toJSON(): Object {
         return {
             tickers: this.tickers,
             lastUpdate: this.lastUpdate,
@@ -91,12 +91,12 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
 
 
     @action
-    protected _fromJs(object: Object) {
+    protected _fromJSON(object: Object) {
         this.tickers = get(object, 'tickers', {});
         this.lastUpdate = get(object, 'lastUpdate', undefined);
 
         this.favorite.setList(
-            get(object, 'favorite', undefined),
+            get(object, 'favorite', []),
         );
     }
 

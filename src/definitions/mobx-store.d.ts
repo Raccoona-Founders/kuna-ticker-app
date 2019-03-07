@@ -40,6 +40,8 @@ declare global {
                 fetchTickers(): Promise<void>;
 
                 getTicker(marketSymbol: string): KunaV3Ticker | undefined;
+
+                getMarketVolume(): Numeral;
             }
 
             interface FavoriteModel {

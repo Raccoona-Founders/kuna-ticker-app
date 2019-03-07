@@ -3,11 +3,10 @@ import { inject } from 'mobx-react/native';
 import { ScrollView, RefreshControl, StyleSheet, View } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
+import Constants from 'utils/constants';
 import { Color } from 'styles/variables';
-
 import FilterCoin from './filter-coin';
 import MarketList from './market-list';
-
 
 type State = {
     refreshing: boolean;
@@ -49,6 +48,7 @@ export default class MarketTab extends React.Component<Props, State> {
                     refreshControl={this.__renderRefreshControl()}
                 >
                     {marketList}
+                    <View style={{ height: Constants.IS_IPHONE_X ? 90 : 60 }} />
                 </ScrollView>
             </View>
         );

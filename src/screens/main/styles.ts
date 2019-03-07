@@ -38,7 +38,7 @@ export const tabBarStyles = StyleSheet.create({
         flexDirection: 'row',
     },
     tab: {
-        paddingTop: 10,
+        paddingTop: 15,
         flexDirection: 'row',
         alignItems: 'center',
         position: 'absolute',
@@ -68,7 +68,7 @@ export const tabBarStyles = StyleSheet.create({
     betaLabel: {
         color: Color.Main,
         position: 'absolute',
-        top: 20,
+        top: -8,
         right: -24,
         fontSize: 12,
         ...DefaultStyles.boldFont,

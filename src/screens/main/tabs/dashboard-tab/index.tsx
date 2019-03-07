@@ -34,13 +34,26 @@ export default class MarketTab extends React.Component<Props, State> {
                 showsVerticalScrollIndicator={false}
                 refreshControl={this.__renderRefreshControl()}
             >
-                <View style={{ marginLeft: 20, marginRight: 20, height: 200, borderRadius: 5, backgroundColor: Color.GrayLight, padding: 10 }}>
-                    <SpanText style={{ fontSize: 20 }}>$2 290 342 923</SpanText>
-                    <SpanText style={{ fontSize: 12 }}>Total 24H Volume</SpanText>
-                </View>
+
+                {this.__renderBaseBox()}
+
             </ScrollView>
         );
     }
+
+
+    private __renderBaseBox = () => {
+        const { Ticker } = this.props;
+
+        const volume = Ticker.getMarketVolume();
+
+        return (
+            <View style={styles.box}>
+                <SpanText style={{ fontSize: 20 }}>${volume.format('0,0')}</SpanText>
+                <SpanText style={{ fontSize: 12 }}>Total 24H Volume</SpanText>
+            </View>
+        );
+    };
 
 
     private __renderRefreshControl = () => {
@@ -72,6 +85,13 @@ export default class MarketTab extends React.Component<Props, State> {
 const styles = StyleSheet.create({
     flatList: {
         flex: 1,
+    },
+    box: {
+        marginLeft: 20,
+        marginRight: 20,
+        borderRadius: 5,
+        backgroundColor: Color.GrayLight,
+        padding: 10,
     },
     listItemSeparator: {
         borderBottomColor: Color.GrayLight,

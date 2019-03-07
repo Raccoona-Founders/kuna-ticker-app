@@ -1,6 +1,7 @@
 import { get, forEach, find } from 'lodash';
 import { action, computed, observable, runInAction } from 'mobx';
 import { KunaV3Ticker } from 'kuna-sdk';
+import Numeral from 'numeral';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { UsdCalculator } from 'utils/currency-rate';
 import kunaClient from 'utils/kuna-api';
@@ -56,6 +57,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
                 ...this.tickers,
                 ...newTickers,
             };
+
             this.lastUpdate = new Date().toISOString();
         });
     };
@@ -63,6 +65,18 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
 
     public getTicker(marketSymbol: string): KunaV3Ticker | undefined {
         return find(this.tickers, { symbol: marketSymbol });
+    }
+
+
+    public getMarketVolume(): Numeral {
+        let sum = 0;
+        const calculator = this.usdCalculator;
+
+        forEach(this.tickers, (ticker: KunaV3Ticker, market: string) => {
+            sum += calculator.getPrice(market).multiply(ticker.volume).value();
+        });
+
+        return Numeral(sum);
     }
 
 

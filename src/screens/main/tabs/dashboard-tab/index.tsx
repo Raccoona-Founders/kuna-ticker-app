@@ -46,11 +46,28 @@ export default class MarketTab extends React.Component<Props, State> {
         const { Ticker } = this.props;
 
         const volume = Ticker.getMarketVolume();
+        const BTCUSD = Ticker.usdCalculator.getPrice('btcuah');
 
         return (
-            <View style={styles.box}>
-                <SpanText style={{ fontSize: 20 }}>${volume.format('0,0')}</SpanText>
-                <SpanText style={{ fontSize: 12 }}>Total 24H Volume</SpanText>
+            <View style={[styles.box, styles.volumeBox]}>
+
+                <SpanText style={styles.volumeTitle}>24H Volume</SpanText>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View>
+                        <SpanText style={{ fontSize: 20 }}>
+                            ${volume.format('0,0')}
+                        </SpanText>
+                        <SpanText style={{ fontSize: 12, color: Color.GrayBlues }}>Volume, USD</SpanText>
+                    </View>
+
+                    <View>
+                        <SpanText style={{ fontSize: 20 }}>
+                            {volume.divide(BTCUSD.value()).format('0,0.[00]')}
+                        </SpanText>
+                        <SpanText style={{ fontSize: 12, color: Color.GrayBlues }}>Volume, BTC</SpanText>
+                    </View>
+                </View>
             </View>
         );
     };
@@ -91,7 +108,7 @@ const styles = StyleSheet.create({
         marginRight: 20,
         borderRadius: 5,
         backgroundColor: Color.GrayLight,
-        padding: 10,
+        padding: 20,
     },
     listItemSeparator: {
         borderBottomColor: Color.GrayLight,
@@ -108,5 +125,13 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         paddingTop: 10,
         paddingBottom: 10,
+    },
+
+
+    volumeBox: {},
+    volumeTitle: {
+        fontSize: 16,
+        color: Color.GrayBlues,
+        marginBottom: 15,
     },
 });

@@ -9,7 +9,7 @@ export enum Color {
     DarkPurple = '#0D0D3F',
 
     Text = '#4A4A4A',
-    SecondaryText = '#5A5A5A',
+    SecondaryText = '#6A6A6A',
 
     DeepBlue = '#2E71F0',
 

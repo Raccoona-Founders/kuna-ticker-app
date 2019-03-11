@@ -63,6 +63,21 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
     };
 
 
+    public getFavorite(): KunaV3Ticker[] {
+        const list = this.favorite.getList();
+
+        const tickers: KunaV3Ticker[] = [];
+
+        forEach(this.tickers, (ticker: KunaV3Ticker) => {
+            if (list.indexOf(ticker.symbol) >= 0) {
+                tickers.push(ticker);
+            }
+        });
+
+        return tickers;
+    }
+
+
     public getTicker(marketSymbol: string): KunaV3Ticker | undefined {
         return find(this.tickers, { symbol: marketSymbol });
     }

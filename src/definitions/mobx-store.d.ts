@@ -39,6 +39,8 @@ declare global {
 
                 fetchTickers(): Promise<void>;
 
+                getFavorite(): KunaV3Ticker[];
+
                 getTicker(marketSymbol: string): KunaV3Ticker | undefined;
 
                 getMarketVolume(): Numeral;

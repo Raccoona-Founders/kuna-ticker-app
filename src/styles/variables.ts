@@ -34,9 +34,9 @@ export enum Color {
 }
 
 export const Fonts = {
-    TTNorms_Bold: 'TTNorms-Bold',
-    TTNorms_Medium: 'TTNorms-Medium',
-    TTNorms_Regular: 'TTNorms-Regular',
+    TTNorms_Bold: 'TTNorms-Pro-Bold',
+    TTNorms_Medium: 'TTNorms-Pro-Medium',
+    TTNorms_Regular: 'TTNorms-Pro-Regular',
 };
 
 

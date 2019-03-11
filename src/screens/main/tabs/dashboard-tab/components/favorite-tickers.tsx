@@ -11,9 +11,7 @@ import RouteKeys from 'router/route-keys';
 
 const { width } = Dimensions.get('window');
 
-type FavoriteProps
-    = NavigationInjectedProps
-    & {
+type FavoriteProps = {
     tickers: KunaV3Ticker[];
     usdCalculator: UsdCalculator;
 };
@@ -78,7 +76,9 @@ export default class FavoriteTickers extends React.PureComponent<FavoriteProps> 
 
     private __onPressMarket = (market: KunaMarket) => {
         return () => {
-            this.props.navigation.push(RouteKeys.Market, { symbol: market.key });
+            const { navigation } = this.props as any as NavigationInjectedProps;
+
+            navigation.push(RouteKeys.Market, { symbol: market.key });
         };
     };
 }

@@ -39,25 +39,7 @@ const styles = StyleSheet.create({
     marketVolume: {
         fontSize: 14,
         color: Color.GrayBlues,
-    },
-
-    separator: {
-        height: 3,
-        width: 3,
-        borderRadius: 3,
-        marginLeft: 8,
-        marginRight: 8,
-        backgroundColor: Color.PurpleNoactive,
-    },
-    dailyChange: {
-        fontSize: 14,
-    },
-    dailyChangeUp: {
-        color: Color.Success,
-    },
-    dailyChangeDown: {
-        color: Color.Danger,
-    },
+    }
 });
 
 export default styles;

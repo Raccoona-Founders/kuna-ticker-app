@@ -71,18 +71,14 @@ export default class SelectAssetScreen extends React.PureComponent<SelectAssetPr
                                               style={styles.coinIcon}
                                               size={40}
                                     />
-                                    <SpanText style={styles.coinTitle}>
-                                        {coinAsset.key} - {coinAsset.name}
-                                    </SpanText>
+                                    <View style={styles.coinTitleBox}>
+                                        <SpanText style={[styles.coinTitle, { fontWeight: 'bold' }]}>{coinAsset.key}</SpanText>
+                                        <SpanText style={styles.coinTitle}> - {coinAsset.name}</SpanText>
+                                    </View>
                                 </>
                             ) : (
                                 <>
-                                    <Icon name="times"
-                                          size={18}
-                                          color={Color.GrayBlues}
-                                          style={{ width: 40, textAlign: 'center' }}
-                                    />
-                                    <SpanText style={styles.coinTitle}>All coins</SpanText>
+                                    <SpanText style={[styles.coinTitle, styles.noCoinTitle]}>All coins</SpanText>
                                 </>
                             )}
                         </View>

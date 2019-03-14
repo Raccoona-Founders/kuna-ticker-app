@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.finance</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -43,13 +43,6 @@
 	<string/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>tt_norms_black.otf</string>
-		<string>tt_norms_bold.otf</string>
-		<string>tt_norms_extrabold.otf</string>
-		<string>tt_norms_heavy.otf</string>
-		<string>tt_norms_light.otf</string>
-		<string>tt_norms_medium.otf</string>
-		<string>tt_norms_regular.otf</string>
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
@@ -65,6 +58,10 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>tt_norms_pro_black.otf</string>
+		<string>tt_norms_pro_bold.otf</string>
+		<string>tt_norms_pro_medium.otf</string>
+		<string>tt_norms_pro_regular.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

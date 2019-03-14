@@ -19,7 +19,9 @@ import InfoUnit from 'components/info-unit';
 import PriceChangeBox from './components/change-price-box';
 import Chart from './components/chart';
 import MinMaxIndicator from './components/min-max-indicator';
+import Favorite from './components/favorite';
 import marketStyle from './market.style';
+
 import { Color, DefaultStyles } from 'styles/variables';
 
 type State = {
@@ -76,13 +78,17 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
                               style={{ marginRight: 20 }}
                     />
 
-                    <View style={marketStyle.topicName}>
-                        <SpanText style={marketStyle.topicNameUnit}>
-                            {currentMarket.baseAsset}/{currentMarket.quoteAsset}
-                        </SpanText>
-                        <SpanText style={marketStyle.topicNameFullname}>
-                            {baseAsset.name} to {quoteAsset.name}
-                        </SpanText>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={marketStyle.topicName}>
+                            <SpanText style={marketStyle.topicNameUnit}>
+                                {currentMarket.baseAsset}/{currentMarket.quoteAsset}
+                            </SpanText>
+                            <SpanText style={marketStyle.topicNameFullname}>
+                                {baseAsset.name} to {quoteAsset.name}
+                            </SpanText>
+                        </View>
+
+                        <Favorite market={currentMarket} />
                     </View>
                 </View>
 

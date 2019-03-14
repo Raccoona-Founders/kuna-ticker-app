@@ -13,14 +13,14 @@ export default abstract class ModelAsyncStorage {
         if (existingStore) {
             const storeValue = JSON.parse(existingStore);
             if (storeValue) {
-                this._fromJs(storeValue);
+                this._fromJSON(storeValue);
             }
         }
 
         autorun(this.__autorun);
     }
 
-    protected _toJS(): Object {
+    protected _toJSON(): Object {
         const result = toJS(this);
         delete result.__firstRun;
 
@@ -28,7 +28,7 @@ export default abstract class ModelAsyncStorage {
     }
 
     @action
-    protected _fromJs(object: Object) {
+    protected _fromJSON(object: Object) {
         set(this, object);
     }
 
@@ -41,7 +41,7 @@ export default abstract class ModelAsyncStorage {
 
         await AsyncStorage.setItem(
             this.getStoreKey(),
-            JSON.stringify(this._toJS()),
+            JSON.stringify(this._toJSON()),
         );
     };
 }

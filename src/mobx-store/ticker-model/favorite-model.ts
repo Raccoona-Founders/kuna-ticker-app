@@ -2,7 +2,10 @@ import { action, observable } from 'mobx';
 
 export default class FavoriteModel implements mobx.ticker.FavoriteModel {
     @observable
-    protected _symbols: Array<string> = [];
+    protected _symbols: Array<string> = [
+        'btcuah',
+        'kunbtc',
+    ];
 
     public exists(marketSymbol: string): boolean {
         return this._symbols.indexOf(marketSymbol) >= 0;

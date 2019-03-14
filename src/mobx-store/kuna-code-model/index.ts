@@ -15,10 +15,10 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
     @observable
     public lastUpdate?: string;
 
-    protected _user: mobx.user.StoreModel;
+    protected _user: mobx.user.UserModel;
     protected _client: KunaCodeMarketplaceAPI;
 
-    public constructor(user: mobx.user.StoreModel) {
+    public constructor(user: mobx.user.UserModel) {
         super();
 
         this._user = user;
@@ -27,7 +27,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
 
 
     @action
-    public static create(user: mobx.user.StoreModel): KunaCodeModel {
+    public static create(user: mobx.user.UserModel): KunaCodeModel {
         return new KunaCodeModel(user);
     }
 
@@ -121,7 +121,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
     }
 
 
-    protected _toJS(): Object {
+    protected _toJSON(): Object {
         return {
             offers: this.offers,
             myOffers: this.myOffers,

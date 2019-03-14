@@ -2681,6 +2681,10 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
+cryptocurrency-icons@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/cryptocurrency-icons/-/cryptocurrency-icons-0.10.1.tgz#d8d1a71fbf4f9787b50783bbaf170e021415a06e"
+
 cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/cssom/-/cssom-0.3.4.tgz#8cd52e8a3acfd68d3aed38ee0a640177d2f9d797"
@@ -5771,10 +5775,6 @@ react-native-crypto@2.1.2, react-native-crypto@^2.0.1:
 react-native-device-info@0.22.4:
   version "0.22.4"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.22.4.tgz#db7831ad227f7ff9dfb74592e45b58ff3d90ff48"
-
-react-native-directed-scrollview@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-directed-scrollview/-/react-native-directed-scrollview-2.0.0.tgz#b12aaaf7a7e27435dde80a2fc04ec02c5ef571a1"
 
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"

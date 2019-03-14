@@ -1,6 +1,7 @@
 import { get, forEach, find } from 'lodash';
 import { action, computed, observable, runInAction } from 'mobx';
 import { KunaV3Ticker } from 'kuna-sdk';
+import Numeral from 'numeral';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { UsdCalculator } from 'utils/currency-rate';
 import kunaClient from 'utils/kuna-api';
@@ -8,7 +9,7 @@ import FavoriteModel from './favorite-model';
 
 const TICKER_UPDATE_TIMEOUT = 10 * 60 * 1000;
 
-export default class TickerModel extends ModelAsyncStorage implements mobx.ticker.StoreModel {
+export default class TickerModel extends ModelAsyncStorage implements mobx.ticker.TickerModel {
     @observable
     public tickers: Record<string, KunaV3Ticker> = {};
 
@@ -56,13 +57,41 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
                 ...this.tickers,
                 ...newTickers,
             };
+
             this.lastUpdate = new Date().toISOString();
         });
     };
 
 
+    public getFavorite(): KunaV3Ticker[] {
+        const list = this.favorite.getList();
+
+        const tickers: KunaV3Ticker[] = [];
+
+        forEach(this.tickers, (ticker: KunaV3Ticker) => {
+            if (list.indexOf(ticker.symbol) >= 0) {
+                tickers.push(ticker);
+            }
+        });
+
+        return tickers;
+    }
+
+
     public getTicker(marketSymbol: string): KunaV3Ticker | undefined {
         return find(this.tickers, { symbol: marketSymbol });
+    }
+
+
+    public getMarketVolume(): Numeral {
+        let sum = 0;
+        const calculator = this.usdCalculator;
+
+        forEach(this.tickers, (ticker: KunaV3Ticker, market: string) => {
+            sum += calculator.getPrice(market).multiply(ticker.volume).value();
+        });
+
+        return Numeral(sum);
     }
 
 
@@ -81,7 +110,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
     }
 
 
-    protected _toJS(): Object {
+    protected _toJSON(): Object {
         return {
             tickers: this.tickers,
             lastUpdate: this.lastUpdate,
@@ -91,12 +120,12 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
 
 
     @action
-    protected _fromJs(object: Object) {
+    protected _fromJSON(object: Object) {
         this.tickers = get(object, 'tickers', {});
         this.lastUpdate = get(object, 'lastUpdate', undefined);
 
         this.favorite.setList(
-            get(object, 'favorite', undefined),
+            get(object, 'favorite', []),
         );
     }
 

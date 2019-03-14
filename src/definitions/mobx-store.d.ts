@@ -30,7 +30,7 @@ declare global {
          * This model helps us to track Ticker list
          */
         namespace ticker {
-            interface StoreModel {
+            interface TickerModel {
                 tickers: Record<string, KunaV3Ticker>;
                 favorite: FavoriteModel;
                 lastUpdate?: string;
@@ -39,7 +39,11 @@ declare global {
 
                 fetchTickers(): Promise<void>;
 
+                getFavorite(): KunaV3Ticker[];
+
                 getTicker(marketSymbol: string): KunaV3Ticker | undefined;
+
+                getMarketVolume(): Numeral;
             }
 
             interface FavoriteModel {
@@ -55,7 +59,7 @@ declare global {
             }
 
             type WithTickerProps = {
-                Ticker: StoreModel,
+                Ticker: TickerModel,
             };
         }
 
@@ -63,7 +67,7 @@ declare global {
          * Mobx User
          */
         namespace user {
-            interface StoreModel {
+            interface UserModel {
                 userId?: string;
                 telegram?: string;
                 displayName?: string;
@@ -74,7 +78,7 @@ declare global {
             }
 
             type WithUserProps = {
-                User: StoreModel,
+                User: UserModel,
             };
         }
 

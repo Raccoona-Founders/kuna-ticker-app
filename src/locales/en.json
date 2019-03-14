@@ -1,6 +1,7 @@
 {
     "menu": {
         "other": "Other",
+        "dashboard": "Dashboard",
         "about": "About",
         "markets": "Markets",
         "setting": "Setting",

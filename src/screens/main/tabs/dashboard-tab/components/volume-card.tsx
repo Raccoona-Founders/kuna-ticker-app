@@ -12,7 +12,7 @@ type Props = {
 export default class VolumeCard extends React.Component<Props> {
     public render(): JSX.Element {
 
-        const { volumeUSD, volumeBTC } = this.props;
+        const {volumeUSD, volumeBTC} = this.props;
 
         return (
             <View style={styles.box}>
@@ -50,8 +50,7 @@ const styles = StyleSheet.create({
         ...DefaultStyles.boldFont,
     },
     volumeBTC: {
-        fontSize: 12,
-        color: Color.SecondaryText,
+        fontSize: 16,
+        color: Color.Success,
     },
-
 });

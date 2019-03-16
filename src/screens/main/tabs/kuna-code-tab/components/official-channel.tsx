@@ -16,10 +16,8 @@ export default () => {
 
 const styles = StyleSheet.create({
     box: {
-        marginLeft: 20,
-        marginRight: 20,
-        marginTop: 30,
-        marginBottom: 30,
+        marginTop: 10,
+        marginBottom: 20,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },

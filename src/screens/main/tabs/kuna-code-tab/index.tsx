@@ -4,11 +4,11 @@ import firebase from 'react-native-firebase';
 import { inject, observer } from 'mobx-react/native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { _ } from 'utils/i18n';
 import Constants from 'utils/constants';
 import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
 import SpanText from 'components/span-text';
-import AdvBanner from './components/adv-banner';
 import OfferRow from './components/offer-row';
 import OfficialChannel from './components/official-channel';
 import styles from './kuna-code-tab.style';
@@ -36,21 +36,22 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
         return (
             <>
                 <View style={styles.container}>
-                    <ScrollView
-                        style={{ flex: 1 }}
-                        refreshControl={this.__renderRefreshControl()}
-                        showsVerticalScrollIndicator={false}
-                    >
+                    <View style={styles.preBox}>
                         <OfficialChannel />
+
+                        <TouchableOpacity style={styles.createOffer} onPress={this.__onPressAddOffer}>
+                            <Icon name="plus" size={12} color={Color.White} />
+                            <SpanText style={styles.createOfferLabel}>{_('kuna-code.create-offer')}</SpanText>
+                        </TouchableOpacity>
+                    </View>
+
+                    <ScrollView style={{ flex: 1 }}
+                                refreshControl={this.__renderRefreshControl()}
+                                showsVerticalScrollIndicator={false}
+                    >
                         {this.__renderOffersList()}
                     </ScrollView>
-
-                    <TouchableOpacity style={styles.createOffer} onPress={this.__onPressAddOffer}>
-                        <Icon name="plus" size={16} color={Color.Fade} />
-                    </TouchableOpacity>
                 </View>
-
-                <AdvBanner showBanner={this.props.focused} />
 
                 <View style={{ height: Constants.IS_IPHONE_X ? 90 : 60 }} />
             </>
@@ -65,7 +66,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                 <View style={{ paddingTop: 50, alignItems: 'center' }}>
                     <SpanText style={{ textAlign: 'center', fontSize: 40 }}>🤓</SpanText>
                     <SpanText style={{ textAlign: 'center', fontSize: 18 }}>
-                        There is no offers yet...
+                        There is no offers yet.
                     </SpanText>
                 </View>
             );

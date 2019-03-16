@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     pairBoxText: {
         color: Color.DarkPurple,
         fontSize: 18,
-        lineHeight: 18,
     },
     pairBoxBase: {},
     pairBoxSeparator: {
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'bottom',
     },
     baseAssetName: {
-        marginTop: 5,
+        marginTop: 3,
     },
     baseAssetNameText: {
         color: Color.GrayBlues,

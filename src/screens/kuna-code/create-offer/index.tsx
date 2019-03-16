@@ -148,8 +148,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                             selectedValue={currencyValue}
                             items={[
                                 { label: 'UAH', value: 'UAH' },
-                                { label: 'USD', value: 'USD' },
-                                { label: 'AUSD', value: 'AUSD' },
+                                { label: 'USDT', value: 'USDT' },
                                 { label: 'ARUB', value: 'ARUB' },
                             ]}
                             onValueChange={(value: string) => setFieldValue('currency', value)}
@@ -197,7 +196,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
 
         if (!commissionValue) {
             // @TODO translate
-            return <SpanText>{_('kuna-code.no-fee')}</SpanText>;
+            return <SpanText>1 : 1</SpanText>;
         }
 
         // @TODO translate

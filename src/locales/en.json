@@ -75,9 +75,9 @@
         "buy": "Buy",
         "sell": "Sell",
         "no-fee": "No fee",
-        "you-pay": "You pay {value}",
-        "taker-pay": "Taker pays {value}",
-        "maker-pay": "Maker pays {value}",
+        "you-pay": "You pay extra {value}",
+        "taker-pay": "Taker pays extra {value}",
+        "maker-pay": "Maker pays extra {value}",
         "open-settings": "Open settings",
         "enter-amount": "Enter your amount",
         "delete-offer": {

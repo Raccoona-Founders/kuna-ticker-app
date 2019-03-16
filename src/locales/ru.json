@@ -76,8 +76,8 @@
         "sell": "Продаю",
         "no-fee": "Без комисии",
         "you-pay": "Вы доплачиваете {value}",
-        "taker-pay": "Вам сверху +{value}",
-        "maker-pay": "Вам сверху +{value}",
+        "taker-pay": "Вам доплачивают +{value}",
+        "maker-pay": "Вам доплачивают +{value}",
         "open-settings": "Открыть настройки",
         "enter-amount": "Укажите суму",
         "delete-offer": {

@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     rowBox: {
         padding: 15,
-        borderRadius: 10,
+        borderRadius: 5,
         backgroundColor: 'white',
         marginLeft: 10,
         marginRight: 10,

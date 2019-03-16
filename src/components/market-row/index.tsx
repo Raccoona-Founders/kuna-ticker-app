@@ -1,5 +1,4 @@
 import React from 'react';
-import numeral from 'numeral';
 import { View, TouchableOpacity } from 'react-native';
 import { KunaMarket, KunaV3Ticker } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
@@ -15,11 +14,6 @@ export default class MarketRow extends React.Component<MarketRowProps> {
         if (!ticker || !ticker.lastPrice) {
             return <View/>;
         }
-
-        const dailyChangeStyles = [
-            styles.dailyChange,
-            ticker.dailyChangePercent > 0 ? styles.dailyChangeUp : styles.dailyChangeDown,
-        ];
 
         const containerStyle = [
             styles.listItemLink,

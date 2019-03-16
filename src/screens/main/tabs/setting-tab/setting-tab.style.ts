@@ -4,7 +4,7 @@ import { Color } from 'styles/variables';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 40,
+        paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
     },

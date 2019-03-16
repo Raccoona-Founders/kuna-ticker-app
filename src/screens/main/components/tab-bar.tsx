@@ -29,7 +29,6 @@ export const tabNavigationRoutes: TabnavRoute[] = [
         key: 'DASHBOARD',
         title: _('menu.dashboard'),
         index: 0,
-        isBeta: true,
         sceneComponent: Tabs.DashboardTab,
     }, {
         key: 'MARKETS',
@@ -40,7 +39,6 @@ export const tabNavigationRoutes: TabnavRoute[] = [
         key: 'KUNA_CODE',
         title: _('menu.kuna_code'),
         index: 2,
-        isBeta: true,
         sceneComponent: Tabs.KunaCode,
     }, {
         key: 'SETTINGS',

@@ -1,13 +1,17 @@
-import { orderBy, find } from 'lodash';
+import { orderBy, find, map } from 'lodash';
 import { action, computed, observable, runInAction } from 'mobx';
 import ModelAsyncStorage from '../common/model-async-storage';
 import KunaCodeMarketplaceAPI from 'utils/kuna-code-marketplace-api';
+import Axios from 'axios';
 
 const TIME_TIMEOUT = 60 * 60 * 1000;
 
 export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kunacode.StoreModel {
     @observable
     public offers: kunacodes.Offer[] = [];
+
+    @observable
+    public telegramOffers: kunacodes.TelegramOffer[] = [];
 
     @observable
     public myOffers: mobx.kunacode.UserOffer[] = [];
@@ -42,6 +46,33 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
         });
 
         return this.offers;
+    }
+
+    @action.bound
+    public async fetchTelegramOffers(): Promise<kunacodes.TelegramOffer[]> {
+        const { data } = await Axios.get('http://kunacode.parsing.run/orders.json');
+        if (false === Array.isArray(data)) {
+            throw new Error('Invalid data');
+        }
+
+        const offers = map(data, (of) => {
+            return {
+                id: data[0],
+                token: data[1],
+                sum: data[2],
+                partial: data[3] === '-' ? undefined : data[3],
+                price: data[4],
+                percent: data[5],
+                bank: data[6],
+                description: data[7],
+            };
+        });
+
+        runInAction(() => {
+            this.telegramOffers = offers;
+        });
+
+        return offers;
     }
 
 
@@ -104,12 +135,20 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
     public async initialize(): Promise<void> {
         await super.initialize();
 
+        this.fetchTelegramOffers().catch((error) => {
+            console.log(error.message);
+            console.log(error);
+        });
+
         const isNeedFetchOffers
             = !this.lastUpdate
             || new Date(this.lastUpdate).getTime() + TIME_TIMEOUT < new Date().getTime();
 
         if (isNeedFetchOffers) {
-            this.fetchOffers();
+            this.fetchOffers().catch((error) => {
+                console.log(error.message);
+                console.log(error);
+            });
         }
     }
 

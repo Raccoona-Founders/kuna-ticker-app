@@ -90,7 +90,9 @@ declare global {
             };
 
             interface StoreModel {
-                offers: kunacodes.Offer[]
+                offers: kunacodes.Offer[];
+
+                telegramOffers: kunacodes.TelegramOffer[];
 
                 myOffers: UserOffer[];
 

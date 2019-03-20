@@ -75,11 +75,12 @@
         "buy": "Buy",
         "sell": "Sell",
         "no-fee": "No fee",
-        "you-pay": "You pay extra {value}",
-        "taker-pay": "Taker pays extra {value}",
-        "maker-pay": "Maker pays extra {value}",
+        "you-pay": "Markup {value}",
+        "taker-pay": "Discount {value}",
+        "maker-pay": "Discount {value}",
         "open-settings": "Open settings",
         "enter-amount": "Enter your amount",
+        "1to1": "1 to 1",
         "delete-offer": {
             "title": "Delete Offer",
             "description": "You can not revert this operation"

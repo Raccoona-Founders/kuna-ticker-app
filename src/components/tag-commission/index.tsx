@@ -11,7 +11,7 @@ type CommissionProps = {
 export default (props: CommissionProps): JSX.Element => {
     if (props.commission === 0) {
         return (
-            <Tag style={{ backgroundColor: Color.Main }}>1 : 1</Tag>
+            <Tag style={{ backgroundColor: Color.Main }}>{_('kuna-code.1to1')}</Tag>
         );
     }
 

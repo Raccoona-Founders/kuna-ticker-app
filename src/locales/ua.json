@@ -77,9 +77,10 @@
         "open-settings": "Відкрити налаштунки",
         "enter-amount": "Вкажіть суму",
         "no-fee": "Без комісії",
-        "you-pay": "Ви доплачуєте {value}",
-        "taker-pay": "Вам доплачують +{value}",
-        "maker-pay": "Вам доплачують +{value}",
+        "you-pay": "Націнка {value}",
+        "taker-pay": "Знижка {value}",
+        "maker-pay": "Знижка {value}",
+        "1to1": "1 до 1",
         "delete-offer": {
             "title": "Видалити пропозицію",
             "description": "Ви не зможете відновити цю пропозицію"

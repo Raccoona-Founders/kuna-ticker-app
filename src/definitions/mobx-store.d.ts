@@ -89,10 +89,24 @@ declare global {
                 securityToken: string;
             };
 
+            type BankType = 'mono' | 'private' | 'other';
+
+            type TelegramOffer = {
+                id: number;
+                token: string;
+                sum: number;
+                partial?: number;
+                price: number;
+                percent: number;
+                bank: BankType;
+                bankName: string;
+                description: string;
+            };
+
             interface StoreModel {
                 offers: kunacodes.Offer[];
 
-                telegramOffers: kunacodes.TelegramOffer[];
+                telegramOffers: TelegramOffer[];
 
                 myOffers: UserOffer[];
 
@@ -103,6 +117,8 @@ declare global {
                 isMyOffer(offerId: string): boolean;
 
                 fetchOffers(): Promise<kunacodes.Offer[]>;
+
+                fetchTelegramOffers(): Promise<TelegramOffer[]>;
 
                 createOffer(offer: kunacodes.RawOffer): Promise<string>;
 

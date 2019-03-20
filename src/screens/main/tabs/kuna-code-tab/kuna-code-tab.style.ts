@@ -12,7 +12,7 @@ export default StyleSheet.create({
         marginTop: 20,
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: 20,
+        // marginBottom: 20,
     },
 
     createOffer: {

@@ -75,11 +75,12 @@
         "buy": "Покупаю",
         "sell": "Продаю",
         "no-fee": "Без комисии",
-        "you-pay": "Вы доплачиваете {value}",
-        "taker-pay": "Вам доплачивают +{value}",
-        "maker-pay": "Вам доплачивают +{value}",
+        "you-pay": "Наценка {value}",
+        "taker-pay": "Скидка {value}",
+        "maker-pay": "Скидка {value}",
         "open-settings": "Открыть настройки",
         "enter-amount": "Укажите суму",
+        "1to1": "1 к 1",
         "delete-offer": {
             "title": "Удалить заявку",
             "description": "Вы не сможете отменить эту заявку"

@@ -1,8 +1,9 @@
 import { orderBy, find, map } from 'lodash';
-import { action, computed, observable, runInAction } from 'mobx';
-import ModelAsyncStorage from '../common/model-async-storage';
-import KunaCodeMarketplaceAPI from 'utils/kuna-code-marketplace-api';
 import Axios from 'axios';
+import { action, computed, observable, runInAction } from 'mobx';
+import KunaCodeMarketplaceAPI from 'utils/kuna-code-marketplace-api';
+import ModelAsyncStorage from '../common/model-async-storage';
+import Helper from './helper';
 
 const TIME_TIMEOUT = 60 * 60 * 1000;
 
@@ -11,7 +12,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
     public offers: kunacodes.Offer[] = [];
 
     @observable
-    public telegramOffers: kunacodes.TelegramOffer[] = [];
+    public telegramOffers: mobx.kunacode.TelegramOffer[] = [];
 
     @observable
     public myOffers: mobx.kunacode.UserOffer[] = [];
@@ -49,22 +50,27 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
     }
 
     @action.bound
-    public async fetchTelegramOffers(): Promise<kunacodes.TelegramOffer[]> {
+    public async fetchTelegramOffers(): Promise<mobx.kunacode.TelegramOffer[]> {
         const { data } = await Axios.get('http://kunacode.parsing.run/orders.json');
         if (false === Array.isArray(data)) {
             throw new Error('Invalid data');
         }
 
         const offers = map(data, (of) => {
+
+            const [id, token, sum, partial, price, percent, bankName, description] = of;
+
             return {
-                id: data[0],
-                token: data[1],
-                sum: data[2],
-                partial: data[3] === '-' ? undefined : data[3],
-                price: data[4],
-                percent: data[5],
-                bank: data[6],
-                description: data[7],
+                id,
+                token,
+                sum,
+                price,
+                percent,
+                bankName,
+                description,
+
+                partial: partial === '-' ? undefined : partial,
+                bank: Helper.checkBank(of[6]),
             };
         });
 

@@ -195,11 +195,9 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         const commissionValue: number = values.commission;
 
         if (!commissionValue) {
-            // @TODO translate
-            return <SpanText>1 : 1</SpanText>;
+            return <SpanText>{_('kuna-code.1to1')}</SpanText>;
         }
 
-        // @TODO translate
         let textTemplate = _('kuna-code.taker-pay');
         if (commissionValue < 0) {
             textTemplate = _('kuna-code.you-pay');
@@ -222,7 +220,6 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
                     <SpanText numberOfLines={3} style={styles.footerText}>{this.jockMessage}</SpanText>
                 </View>
 
-                {/* @TODO translate */}
                 <UIButton small
                           title={_('general.create')}
                           onPress={this.__onCreate}

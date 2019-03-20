@@ -18,18 +18,6 @@ declare global {
             user: User;
         };
 
-        type TelegramOffer = {
-            id: number;
-            token: string;
-            sum: number;
-            partial?: number;
-            price: number;
-            percent: number;
-            bank: string;
-            description: string;
-        };
-
-
         type RawOffer = {
             side: 'buy' | 'sell';
             amount: number;

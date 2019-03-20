@@ -9,10 +9,9 @@ import Constants from 'utils/constants';
 import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
 import SpanText from 'components/span-text';
-import OfferRow from './components/offer-row';
+import TelegramOfferRow from './components/telegram-offer-row';
 import OfficialChannel from './components/official-channel';
 import styles from './kuna-code-tab.style';
-import { Color } from 'styles/variables';
 
 
 // @ts-ignore
@@ -38,18 +37,15 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                 <View style={styles.container}>
                     <View style={styles.preBox}>
                         <OfficialChannel />
-
-                        <TouchableOpacity style={styles.createOffer} onPress={this.__onPressAddOffer}>
-                            <Icon name="plus" size={12} color={Color.White} />
-                            <SpanText style={styles.createOfferLabel}>{_('kuna-code.create-offer')}</SpanText>
-                        </TouchableOpacity>
                     </View>
 
                     <ScrollView style={{ flex: 1 }}
                                 refreshControl={this.__renderRefreshControl()}
                                 showsVerticalScrollIndicator={false}
                     >
-                        {this.__renderOffersList()}
+                        <View style={{ paddingTop: 20 }}>
+                            {this.__renderTelegramOfferList()}
+                        </View>
                     </ScrollView>
                 </View>
 
@@ -59,9 +55,9 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
     }
 
 
-    private __renderOffersList = () => {
-        const kunaCodeOffers = this.props.KunaCode.sortedOffers;
-        if (kunaCodeOffers.length === 0) {
+    private __renderTelegramOfferList = () => {
+        const telegramOffers = this.props.KunaCode.telegramOffers;
+        if (telegramOffers.length === 0) {
             return (
                 <View style={{ paddingTop: 50, alignItems: 'center' }}>
                     <SpanText style={{ textAlign: 'center', fontSize: 40 }}>🤓</SpanText>
@@ -72,13 +68,13 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
             );
         }
 
-        return kunaCodeOffers.map(this.__renderOffer);
+        return telegramOffers.map(this.__renderTelegramOffer);
     };
 
 
-    private __renderOffer = (offer: kunacodes.Offer, index: number) => {
+    private __renderTelegramOffer = (offer: mobx.kunacode.TelegramOffer, index: number) => {
         // @ts-ignore
-        return <OfferRow offer={offer} key={offer.id} index={index} />;
+        return <TelegramOfferRow offer={offer} key={offer.id} index={index} />;
     };
 
 
@@ -103,7 +99,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
         AnalTracker.logEvent('KunaCode_UpdateOffers');
 
         try {
-            await this.props.KunaCode.fetchOffers();
+            await this.props.KunaCode.fetchTelegramOffers();
         } catch (error) {
             console.error(error);
         }

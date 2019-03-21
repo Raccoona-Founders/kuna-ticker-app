@@ -2,6 +2,7 @@ import React from 'react';
 import numeral from 'numeral';
 import { View, StyleSheet, TouchableOpacity, Alert, Linking } from 'react-native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import AnalTracker from 'utils/ga-tracker';
 import SpanText from 'components/span-text';
 import TagCommission from 'components/tag-commission';
 import { Color, DefaultStyles } from 'styles/variables';
@@ -80,10 +81,16 @@ export default class TelegramOfferRow extends React.Component<OfferRowProps> {
 
 
     protected __openTelegramBot = () => {
-        // const { offer } = this.props;
-        // const link = `https://t.me/kunacodebot?start=${offer.token}`;
+        const { offer } = this.props;
 
         const link = 'https://t.me/kunacodebot';
+        // const link = `https://t.me/kunacodebot?start=${offer.token}`;
+
+        AnalTracker.logEvent('kuna_code_bot_click_offer', {
+            token: offer.token,
+            percent: offer.percent,
+            bank: offer.bankName,
+        });
 
         Linking.openURL(link).catch((error) => {
             console.log(error);

@@ -145,17 +145,6 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
             console.log(error.message);
             console.log(error);
         });
-
-        const isNeedFetchOffers
-            = !this.lastUpdate
-            || new Date(this.lastUpdate).getTime() + TIME_TIMEOUT < new Date().getTime();
-
-        if (isNeedFetchOffers) {
-            this.fetchOffers().catch((error) => {
-                console.log(error.message);
-                console.log(error);
-            });
-        }
     }
 
 

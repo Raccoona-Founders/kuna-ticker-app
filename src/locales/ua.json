@@ -68,6 +68,7 @@
         "message": ""
     },
     "kuna-code": {
+        "topic": "Актуальні заявки з @kunacodebot",
         "create-offer": "Створити пропозицію",
         "create-offer-description": "Опишить, що за KUNA код ви бажаете купити чи продати",
         "channel-title": "Офіційний чат KUNA",

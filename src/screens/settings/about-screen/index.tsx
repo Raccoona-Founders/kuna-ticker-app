@@ -26,12 +26,13 @@ type SettingsProps = mobx.user.WithUserProps;
 
 const links: LinkItem[] = [{
     title: _('about.github'),
-    label: 'CoinWizard/kuna-ticker-app',
+    label: 'Raccoona-Crypto/kuna-ticker-app',
     url: 'https://github.com/Raccoona-Crypto/kuna-ticker-app',
 }, {
     title: _('about.roadmap'),
     label: 'Trello Board',
     url: 'https://trello.com/b/9k4PHBO4/kuna-tiker-roadmap',
+    disabled: true,
 }, {
     title: _('about.website'),
     label: 'coinwizard.github.io/kuna-ticker-app',

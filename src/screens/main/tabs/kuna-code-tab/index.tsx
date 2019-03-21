@@ -36,6 +36,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
             <>
                 <View style={styles.container}>
                     <View style={styles.preBox}>
+                        <SpanText style={styles.topic}>{_('kuna-code.topic')}</SpanText>
                         <OfficialChannel />
                     </View>
 
@@ -44,6 +45,8 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                                 showsVerticalScrollIndicator={false}
                     >
                         <View style={{ paddingTop: 20 }}>
+
+
                             {this.__renderTelegramOfferList()}
                         </View>
                     </ScrollView>
@@ -85,11 +88,6 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
                 onRefresh={this.__onRefresh}
             />
         );
-    };
-
-
-    private __onPressAddOffer = () => {
-        this.props.navigation.push(RouteKeys.KunaCode_CreateOffer);
     };
 
 

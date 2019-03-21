@@ -21,6 +21,9 @@ export const mdStyles = StyleSheet.create({
         ...DefaultStyles.mediumFont,
         fontSize: 16,
         lineHeight: 24,
-        color: Color.SecondaryText,
+        color: Color.Text,
+    },
+    link: {
+        color: Color.DeepBlue,
     },
 });

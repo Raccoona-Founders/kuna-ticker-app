@@ -44,10 +44,6 @@ export default class SettingTab extends React.Component<SettingsProps> {
                               route={RouteKeys.Setting_About}
                     />
 
-                    <MenuLink title={_('setting.menu.kuna-code')}
-                              route={RouteKeys.Setting_KunaCode}
-                    />
-
                     <MenuLink title={_('setting.menu.rate-app')}
                               isLoading={rateLoading}
                               onPress={this.__rateApplication}

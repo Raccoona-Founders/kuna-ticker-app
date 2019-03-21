@@ -68,6 +68,7 @@
         "message": ""
     },
     "kuna-code": {
+        "topic": "Actual offers from @kunacodebot",
         "create-offer": "Create offer",
         "create-offer-description": "Describe what the KUNA Code you want to Buy or Sell",
         "channel-title": "Official KUNA chat",

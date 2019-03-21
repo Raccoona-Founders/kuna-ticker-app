@@ -18,12 +18,19 @@ export default class TelegramOfferRow extends React.Component<OfferRowProps> {
     public render(): JSX.Element {
         const { offer } = this.props;
 
+        const color = '#' + offer.token;
+        const colorIsOk = /^#[0-9A-F]{6}$/i.test(color);
+
         return (
             <>
                 <TouchableOpacity style={styles.rowBox} onPress={this._onPressRow}>
                     <View style={styles.amountBox}>
                         <View>
-                            <SpanText style={styles.token}>#{offer.token}</SpanText>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                {colorIsOk ?
+                                    <View style={[{ backgroundColor: color }, styles.colorPoint]} /> : undefined}
+                                <SpanText style={styles.token}>{offer.token}</SpanText>
+                            </View>
 
                             <SpanText style={styles.amount}>
                                 {numeral(offer.sum).format('0,0.[00]')} UAH
@@ -31,7 +38,7 @@ export default class TelegramOfferRow extends React.Component<OfferRowProps> {
 
                             {offer.partial ? (
                                 <SpanText style={styles.amountPartial}>
-                                    (можно частями, от {numeral(offer.partial).format('0,0')} UAH)
+                                    (частями от {numeral(offer.partial).format('0,0')} UAH)
                                 </SpanText>
                             ) : undefined}
                         </View>
@@ -60,23 +67,23 @@ export default class TelegramOfferRow extends React.Component<OfferRowProps> {
     protected _onPressRow = () => {
         const { offer } = this.props;
 
-        Alert.alert(
-            `Заявка`,
-            `${offer.description}`,
-            [{
-                text: 'Отменить',
-                style: 'cancel',
-            }, {
-                text: 'Перейти в @KUNACodeBot',
-                onPress: this.__openTelegramBot,
-            }],
-        );
+        const buttons: any[] = [{
+            text: 'Отменить',
+            style: 'cancel',
+        }, {
+            text: 'Перейти в @KUNACodeBot',
+            onPress: this.__openTelegramBot,
+        }];
+
+        Alert.alert('Заявка', offer.description, buttons);
     };
 
 
     protected __openTelegramBot = () => {
-        const { offer } = this.props;
-        const link = `https://t.me/kunacodebot?start=${offer.token}`;
+        // const { offer } = this.props;
+        // const link = `https://t.me/kunacodebot?start=${offer.token}`;
+
+        const link = 'https://t.me/kunacodebot';
 
         Linking.openURL(link).catch((error) => {
             console.log(error);
@@ -94,10 +101,16 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 5,
         backgroundColor: 'white',
-        marginLeft: 10,
-        marginRight: 10,
+        marginLeft: 20,
+        marginRight: 20,
         borderWidth: 1,
         borderColor: Color.Gray3,
+    },
+    colorPoint: {
+        height: 10,
+        width: 10,
+        borderRadius: 10,
+        marginRight: 5,
     },
     token: {
         color: Color.GrayBlues,

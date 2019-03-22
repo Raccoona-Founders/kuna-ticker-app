@@ -13,14 +13,23 @@ export class UsdCalculator {
 
     public getPrice(marketSymbol: string): Numeral {
         const currentMarket = kunaMarketMap[marketSymbol];
+
+        if (!currentMarket) {
+            console.warn(marketSymbol);
+
+            return Numeral(0);
+        }
+
         const ticker = find(this.tickers, { symbol: marketSymbol }) as KunaV3Ticker || {
-            last: 0
+            last: 0,
         };
 
         switch (currentMarket.quoteAsset) {
+            case KunaAssetUnit.USDollar:
+                return Numeral(ticker.lastPrice || 0);
+
             case KunaAssetUnit.UkrainianHryvnia:
                 return Numeral(ticker.lastPrice || 0).divide(this.usdRate);
-
 
             case KunaAssetUnit.Bitcoin:
                 const btcTicker = this.tickers['btcuah'];

@@ -15,25 +15,21 @@ type State = {
 };
 
 type OuterProps = {};
-type Props = OuterProps & mobx.ticker.WithTickerProps;
+type MarketTabProps
+    = OuterProps
+    & mobx.ticker.WithTickerProps;
+
 
 // @ts-ignore
 @inject('Ticker')
-export default class MarketTab extends React.Component<Props, State> {
+export default class MarketTab extends React.Component<MarketTabProps, State> {
     public state: State = {
         refreshing: false,
         favorite: false,
         activeAsset: undefined,
     };
 
-
     public render(): JSX.Element {
-        // @ts-ignore
-        const marketList = <MarketList
-            favorite={this.state.favorite}
-            activeAsset={this.state.activeAsset}
-        />;
-
         return (
             <View style={styles.flatList}>
                 <View style={styles.filterTab}>
@@ -47,7 +43,10 @@ export default class MarketTab extends React.Component<Props, State> {
                     showsVerticalScrollIndicator={false}
                     refreshControl={this.__renderRefreshControl()}
                 >
-                    {marketList}
+                    <MarketList
+                        favorite={this.state.favorite}
+                        activeAsset={this.state.activeAsset}
+                    />
                     <View style={{ height: Constants.IS_IPHONE_X ? 90 : 60 }} />
                 </ScrollView>
             </View>

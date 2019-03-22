@@ -58,7 +58,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
 
         const offers = map(data, (of) => {
 
-            const [id, token, sum, partial, price, percent, bankName, description] = of;
+            const [id, token, sum, partial, price, percent, bankName, currency, description] = of;
 
             return {
                 id,
@@ -68,7 +68,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
                 percent,
                 bankName,
                 description,
-
+                currency,
                 partial: partial === '-' ? undefined : partial,
                 bank: Helper.checkBank(of[6]),
             };

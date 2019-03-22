@@ -100,6 +100,7 @@ declare global {
                 percent: number;
                 bank: BankType;
                 bankName: string;
+                currency: string;
                 description: string;
             };
 

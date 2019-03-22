@@ -7,14 +7,11 @@ import { inject, observer } from 'mobx-react/native';
 import MarketRow from 'components/market-row';
 import SpanText from 'components/span-text';
 import { Color } from 'styles/variables';
+import { compose } from 'recompose';
 
 type State = {};
 
-// @ts-ignore
-@withNavigation
-@inject('Ticker')
-@observer
-export default class MarketList extends React.Component<Props, State> {
+class MarketList extends React.Component<Props, State> {
     public render(): JSX.Element {
         return (
             <>
@@ -33,8 +30,8 @@ export default class MarketList extends React.Component<Props, State> {
 
 
     private __marketRowRenderer = () => {
-        const { Ticker, activeAsset, favorite } = this.props;
-        const enabledMarkets = this.__getEnabledMarkets(activeAsset, favorite);
+        const { Ticker, activeAsset } = this.props;
+        const enabledMarkets = this.__getEnabledMarkets(activeAsset);
 
         return (item: ListRenderItemInfo<KunaMarket>) => {
             const market = item.item;
@@ -60,7 +57,7 @@ export default class MarketList extends React.Component<Props, State> {
         };
     };
 
-    private __getEnabledMarkets = (activeAsset?: KunaAssetUnit, favorite: boolean = false): string[] => {
+    private __getEnabledMarkets = (activeAsset?: KunaAssetUnit): string[] => {
         if (!activeAsset) {
             return Object.keys(kunaMarketMap);
         }
@@ -77,14 +74,13 @@ type OuterProps = {
     favorite: boolean;
     activeAsset?: KunaAssetUnit;
 };
-type Props = OuterProps & mobx.ticker.WithTickerProps & NavigationInjectedProps;
+type Props
+    = OuterProps
+    & mobx.ticker.WithTickerProps
+    & NavigationInjectedProps;
 
-const styles = StyleSheet.create({
-    listItemSeparator: {
-        borderBottomColor: Color.GrayLight,
-        borderBottomWidth: 1,
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 20,
-    },
-});
+export default compose<Props, OuterProps>(
+    withNavigation,
+    inject('Ticker'),
+    observer,
+)(MarketList);

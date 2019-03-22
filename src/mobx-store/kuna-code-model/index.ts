@@ -70,7 +70,7 @@ export default class KunaCodeModel extends ModelAsyncStorage implements mobx.kun
                 description,
                 currency,
                 partial: partial === '-' ? undefined : partial,
-                bank: Helper.checkBank(of[6]),
+                bank: Helper.checkBank(bankName),
             };
         });
 

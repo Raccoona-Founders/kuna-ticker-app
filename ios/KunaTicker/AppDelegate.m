@@ -14,9 +14,6 @@
 #import <RNFirebaseNotifications.h>
 #import "RNSplashScreen.h"
 
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -24,7 +21,6 @@
   [FIRApp configure];
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
   [RNFirebaseNotifications configure];
-  [Fabric with:@[[Crashlytics class]]];
   
   NSURL *jsCodeLocation;
 

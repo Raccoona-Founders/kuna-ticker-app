@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import firebase from 'react-native-firebase';
 import { Provider as MobxProvider } from 'mobx-react/native';
 import SplashScreen from 'react-native-splash-screen';
@@ -34,20 +34,23 @@ export default class Application extends React.PureComponent<any, ApplicationSta
         try {
             const mobxStore = await buildAppStore();
             this.setState({ mobxStore: mobxStore, isReady: true });
-            await RemoteConfig.configure();
 
         } catch (error) {
             this.setState({ error: error });
             SplashScreen.hide();
-
             console.error(error);
 
             return;
         }
 
         SplashScreen.hide();
-
         AnalTracker.setUserProperty('LANGUAGE', i18n.currentLocale());
+
+        try {
+            await RemoteConfig.configure();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 
@@ -64,7 +67,11 @@ export default class Application extends React.PureComponent<any, ApplicationSta
         }
 
         if (!isReady && !mobxStore) {
-            return <View style={styles.loadingContainer} />;
+            return (
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator />
+                </View>
+            );
         }
 
         return (

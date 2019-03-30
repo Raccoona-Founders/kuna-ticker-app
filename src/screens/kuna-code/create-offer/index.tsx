@@ -295,6 +295,11 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
             return;
         }
 
+        if (true) {
+            Alert.alert('Currently unavailable');
+            return;
+        }
+
         // @TODO Translate
         const offerTitle = 'Do you want to create offer?';
         const offerMessage = `To ${side} KUNA Code for ${numAmount.format('0,0')} ${currency}`;
@@ -313,6 +318,7 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         let valueFee = Math.round(value * 100) / 10000;
         this.props.setFieldValue('commission', valueFee);
     };
+
 
     private __handleChangeAmount = (value: number) => {
         let valueAmount = Math.round(value);

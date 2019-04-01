@@ -1,11 +1,14 @@
 import { action, observable } from 'mobx';
 
+
+const defaultFavorite: Array<string> = [
+    'btcuah',
+    'kunbtc',
+];
+
 export default class FavoriteModel implements mobx.ticker.FavoriteModel {
     @observable
-    protected _symbols: Array<string> = [
-        'btcuah',
-        'kunbtc',
-    ];
+    protected _symbols: Array<string> = defaultFavorite;
 
     public exists(marketSymbol: string): boolean {
         return this._symbols.indexOf(marketSymbol) >= 0;
@@ -30,7 +33,7 @@ export default class FavoriteModel implements mobx.ticker.FavoriteModel {
     }
 
     @action
-    public setList(marketSymbols: string[]): void {
-        this._symbols = marketSymbols;
+    public setList(marketSymbols?: string[]): void {
+        this._symbols = marketSymbols || defaultFavorite;
     }
 }

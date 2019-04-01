@@ -6,6 +6,7 @@ import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { UsdCalculator } from 'utils/currency-rate';
 import kunaClient from 'utils/kuna-api';
 import FavoriteModel from './favorite-model';
+import { isNull, isNumber } from 'util';
 
 const TICKER_UPDATE_TIMEOUT = 10 * 60 * 1000;
 
@@ -87,8 +88,13 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
         let sum = 0;
         const calculator = this.usdCalculator;
 
-        forEach(this.tickers, (ticker: KunaV3Ticker, market: string) => {
-            sum += calculator.getPrice(market).multiply(ticker.volume).value();
+        forEach(this.tickers, (ticker: KunaV3Ticker) => {
+            const price = calculator.getPrice(ticker.symbol).value();
+            const amount = price * ticker.volume;
+
+            if (amount !== null && amount > 0) {
+                sum += amount;
+            }
         });
 
         return Numeral(sum);
@@ -125,7 +131,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
         this.lastUpdate = get(object, 'lastUpdate', undefined);
 
         this.favorite.setList(
-            get(object, 'favorite', []),
+            get(object, 'favorite', undefined),
         );
     }
 

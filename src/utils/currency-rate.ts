@@ -7,7 +7,7 @@ export class UsdCalculator {
     protected tickers: Record<string, KunaV3Ticker>;
 
     public constructor(usdRate: number, tickers: Record<string, KunaV3Ticker>) {
-        this.usdRate = usdRate || 28;
+        this.usdRate = usdRate || 27.2;
         this.tickers = tickers;
     }
 
@@ -19,7 +19,7 @@ export class UsdCalculator {
 
             return Numeral(0);
         }
-
+        
         const ticker = find(this.tickers, { symbol: marketSymbol }) as KunaV3Ticker || {
             last: 0,
         };
@@ -29,6 +29,10 @@ export class UsdCalculator {
                 return Numeral(ticker.lastPrice || 0);
 
             case KunaAssetUnit.UkrainianHryvnia:
+                if (!this.usdRate) {
+                    return Numeral(0);
+                }
+
                 return Numeral(ticker.lastPrice || 0).divide(this.usdRate);
 
             case KunaAssetUnit.Bitcoin:
@@ -70,11 +74,15 @@ export class UsdCalculator {
 
 
             case KunaAssetUnit.AdvancedRUB:
+                const advTicker = this.tickers['uaharub'];
 
-                const advTicker = this.tickers['ausdarub'];
+                if (!advTicker) {
+                    return Numeral(0);
+                }
 
                 return Numeral(ticker.lastPrice || 0)
-                    .divide(advTicker ? advTicker.lastPrice : 0);
+                    .divide(advTicker.lastPrice)
+                    .divide(this.usdRate);
         }
 
         return Numeral(0);

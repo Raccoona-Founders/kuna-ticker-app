@@ -1,7 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import { compose } from 'recompose';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 import { getAsset, KunaAssetUnit, KunaMarket, KunaOrderBook } from 'kuna-sdk';
 import { numFormat } from 'utils/number-helper';
@@ -37,12 +37,11 @@ class MarketBody extends React.Component<MarketScreenProps, State> {
         const tick = Ticker.getTicker(symbol);
 
         if (!tick) {
-            return <View />;
+            return <View><ActivityIndicator /></View>;
         }
 
         const quoteAsset = getAsset(market.quoteAsset);
         const baseAsset = getAsset(market.baseAsset);
-
         const usdPrice = Ticker.usdCalculator.getPrice(symbol);
 
         return (

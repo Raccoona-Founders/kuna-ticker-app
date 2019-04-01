@@ -1,9 +1,7 @@
 import React from 'react';
-import { compose } from 'recompose';
-import { View } from 'react-native';
-import { inject, observer } from 'mobx-react/native';
+import { Alert, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { kunaMarketMap, KunaOrderBook } from 'kuna-sdk';
+import { kunaMarketMap } from 'kuna-sdk';
 import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
 import { _ } from 'utils/i18n';
@@ -12,33 +10,13 @@ import { ShadeScrollCard } from 'components/shade-navigator';
 import MarketBody from './components/market.body';
 import marketStyle from './market.style';
 
-type State = {
-    depth: undefined | KunaOrderBook;
-    riddle?: any;
-};
+type MarketScreenProps
+    = NavigationInjectedProps<{ symbol: string; }>;
 
-type MarketScreenOuterProps = NavigationInjectedProps<{ symbol: string; }>;
-
-type MarketScreenProps = MarketScreenOuterProps & mobx.ticker.WithTickerProps;
-
-// @ts-ignore
-@compose<MarketScreenProps, MarketScreenOuterProps>(
-    inject('Ticker'),
-    observer,
-)
-export default class MarketScreen extends React.Component<MarketScreenProps, State> {
-    public state: State = {
-        depth: undefined,
-        riddle: undefined,
-    };
-
+export default class MarketScreen extends React.Component<MarketScreenProps> {
     public async componentDidMount(): Promise<void> {
-        const marketSymbol = this._currentSymbol;
-        const currentMarket = kunaMarketMap[marketSymbol];
-
-        AnalTracker.logEvent('open_market', { market: currentMarket.key });
+        AnalTracker.logEvent('open_market', { market: this._currentSymbol });
     }
-
 
     public render(): JSX.Element {
         const symbol = this._currentSymbol;
@@ -67,9 +45,12 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
 
 
     protected __openLastTrades = () => {
-        this.props.navigation.push(RouteKeys.Market_LastTrades, {
-            marketSymbol: this._currentSymbol,
-        });
+        Alert.alert('Temporarily unavailable');
+        AnalTracker.logEvent('Market_TryLastTrades', { market: this._currentSymbol });
+
+        // this.props.navigation.push(RouteKeys.Market_LastTrades, {
+        //     marketSymbol: this._currentSymbol,
+        // });
     };
 
 
@@ -105,6 +86,7 @@ export default class MarketScreen extends React.Component<MarketScreenProps, Sta
                         onPress={this.__openLastTrades}
                         title={_('market.last-trades')}
                         disabled={true}
+                        forcePressEnabled={true}
                     />
                 </View>
             </View>

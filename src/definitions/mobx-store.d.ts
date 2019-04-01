@@ -1,4 +1,4 @@
-import { KunaV3Ticker } from 'kuna-sdk';
+import { KunaV3ExchangeRate, KunaV3Ticker } from 'kuna-sdk';
 import { UsdCalculator } from 'utils/currency-rate';
 
 declare global {
@@ -32,6 +32,7 @@ declare global {
         namespace ticker {
             interface TickerModel {
                 tickers: Record<string, KunaV3Ticker>;
+                exchangeRates: KunaV3ExchangeRate[];
                 favorite: FavoriteModel;
                 lastUpdate?: string;
 

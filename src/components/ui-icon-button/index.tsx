@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import SpanText from 'components/span-text';
-import { UIButtonProps } from 'components/ui-button';
 import { Color } from 'styles/variables';
 
 export type IconButtonProps = TouchableOpacityProps & {
@@ -16,19 +15,26 @@ export type IconButtonProps = TouchableOpacityProps & {
     title: string | number | any;
     textStyle?: StyleProp<TextStyle>;
     disabled?: boolean;
+    forcePressEnabled?: boolean;
 };
 
 export default class UIIconButton extends React.PureComponent<IconButtonProps> {
-    public static defaultProps: Partial<UIButtonProps> = {
+    public static defaultProps: Partial<IconButtonProps> = {
         onPress: () => console.log('Please attach a method to this component'),
+        disabled: false,
+        forcePressEnabled: false,
     };
 
 
     public render(): JSX.Element {
-        const { onPress, title, icon, disabled } = this.props;
+        const { onPress, title, icon, disabled, forcePressEnabled } = this.props;
+
+        const enabledPress
+            = forcePressEnabled
+            || false === disabled;
 
         return (
-            <TouchableOpacity onPress={disabled ? undefined : onPress} style={styles.container}>
+            <TouchableOpacity onPress={enabledPress ? onPress : undefined} style={styles.container}>
                 <Icon name={icon}
                       size={16}
                       style={[styles.icon, disabled ? styles.iconDisabled : {}]}

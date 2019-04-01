@@ -1,12 +1,11 @@
-import { get, forEach, find } from 'lodash';
+import { get, forEach, find, size } from 'lodash';
 import { action, computed, observable, runInAction } from 'mobx';
-import { KunaV3Ticker } from 'kuna-sdk';
+import { KunaV3Ticker, KunaV3ExchangeRate } from 'kuna-sdk';
 import Numeral from 'numeral';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { UsdCalculator } from 'utils/currency-rate';
 import kunaClient from 'utils/kuna-api';
 import FavoriteModel from './favorite-model';
-import { isNull, isNumber } from 'util';
 
 const TICKER_UPDATE_TIMEOUT = 10 * 60 * 1000;
 
@@ -15,13 +14,15 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
     public tickers: Record<string, KunaV3Ticker> = {};
 
     @observable
+    public exchangeRates: KunaV3ExchangeRate[] = [];
+
+    @observable
     public favorite: mobx.ticker.FavoriteModel;
 
     @observable
     public lastUpdate?: string;
 
     private __usdRateStore: mobx.usdrate.StoreModel;
-
 
     @action
     public static create(usdRateStore: mobx.usdrate.StoreModel): TickerModel {
@@ -45,21 +46,28 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
     @action
     public fetchTickers = async (): Promise<void> => {
         const newTickers: Record<string, KunaV3Ticker> = {};
+        let newExchangeRates: KunaV3ExchangeRate[] = [];
 
         try {
             const tickers = await kunaClient.getTickers();
             forEach(tickers, (ticker: KunaV3Ticker) => newTickers[ticker.symbol] = ticker);
         } catch (e) {
+        }
 
+        try {
+            newExchangeRates = await kunaClient.getExchangeRates();
+        } catch (e) {
         }
 
         runInAction(() => {
-            this.tickers = {
-                ...this.tickers,
-                ...newTickers,
-            };
+            if (size(newTickers) > 0) {
+                this.tickers = newTickers;
+                this.lastUpdate = new Date().toISOString();
+            }
 
-            this.lastUpdate = new Date().toISOString();
+            if (newExchangeRates.length > 0) {
+                this.exchangeRates = newExchangeRates;
+            }
         });
     };
 
@@ -103,7 +111,11 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
 
     @computed
     public get usdCalculator(): UsdCalculator {
-        return new UsdCalculator(this.__usdRateStore.rate, this.tickers);
+        return new UsdCalculator(
+            this.__usdRateStore.rate,
+            this.tickers,
+            this.exchangeRates,
+        );
     }
 
 
@@ -119,6 +131,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
     protected _toJSON(): Object {
         return {
             tickers: this.tickers,
+            exchangeRates: this.exchangeRates,
             lastUpdate: this.lastUpdate,
             favorite: this.favorite.getList(),
         };
@@ -128,6 +141,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
     @action
     protected _fromJSON(object: Object) {
         this.tickers = get(object, 'tickers', {});
+        this.exchangeRates = get(object, 'exchangeRates', []);
         this.lastUpdate = get(object, 'lastUpdate', undefined);
 
         this.favorite.setList(
@@ -138,15 +152,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
 
     @action
     private async __runUpdater() {
-        const lastUpdateDate = new Date(this.lastUpdate as string);
-
-        const needUpdate
-            = !this.lastUpdate
-            || lastUpdateDate.getTime() + TICKER_UPDATE_TIMEOUT < new Date().getTime();
-
-        if (needUpdate) {
-            await this.fetchTickers();
-        }
+        await this.fetchTickers();
 
         setInterval(this.fetchTickers, TICKER_UPDATE_TIMEOUT);
     }

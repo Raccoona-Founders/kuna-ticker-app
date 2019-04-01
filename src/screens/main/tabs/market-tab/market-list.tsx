@@ -1,8 +1,8 @@
 import React from 'react';
 import { values, chain } from 'lodash';
+import { FlatList, ListRenderItemInfo, ActivityIndicator } from 'react-native';
 import { KunaAssetUnit, KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
-import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 import MarketRow from 'components/market-row';
 import SpanText from 'components/span-text';
@@ -13,6 +13,10 @@ type State = {};
 
 class MarketList extends React.Component<Props, State> {
     public render(): JSX.Element {
+        if (!this.props.Ticker.lastUpdate) {
+            return <ActivityIndicator />;
+        }
+
         return (
             <>
                 <FlatList data={values(kunaMarketMap)}
@@ -21,6 +25,7 @@ class MarketList extends React.Component<Props, State> {
                           maxToRenderPerBatch={5}
                           scrollEnabled={false}
                 />
+
                 <SpanText style={{ color: Color.GrayBlues, fontSize: 12, paddingLeft: 20, paddingBottom: 20 }}>
                     {this.props.Ticker.lastUpdate}
                 </SpanText>

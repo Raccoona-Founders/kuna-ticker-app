@@ -2681,7 +2681,7 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cryptocurrency-icons@^0.10.1:
+cryptocurrency-icons@0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/cryptocurrency-icons/-/cryptocurrency-icons-0.10.1.tgz#d8d1a71fbf4f9787b50783bbaf170e021415a06e"
 
@@ -4500,9 +4500,9 @@ kleur@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-2.0.1.tgz#7cc64b0d188d0dcbc98bdcdfdda2cc10619ddce8"
 
-kuna-sdk@^0.4.0-beta.7:
-  version "0.4.0-beta.7"
-  resolved "https://registry.yarnpkg.com/kuna-sdk/-/kuna-sdk-0.4.0-beta.7.tgz#d727ad8fd62416e1ce52495e731c3cf5b2a4f065"
+kuna-sdk@^0.4.0-beta.8:
+  version "0.4.0-beta.8"
+  resolved "https://registry.yarnpkg.com/kuna-sdk/-/kuna-sdk-0.4.0-beta.8.tgz#76bd9c6abc8d53e2471f88e2632b27414f6589c2"
   dependencies:
     axios "0.18.0"
     debug "3.1.0"
@@ -5812,10 +5812,6 @@ react-native-gesture-handler@1.0.15:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
     prop-types "^15.5.10"
-
-react-native-google-analytics-bridge@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-google-analytics-bridge/-/react-native-google-analytics-bridge-7.1.0.tgz#f950ad05907467fbd0703649b46dc6ddf5ceb1b0"
 
 react-native-languages@3.0.1:
   version "3.0.1"

@@ -2681,7 +2681,7 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cryptocurrency-icons@^0.10.1:
+cryptocurrency-icons@0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/cryptocurrency-icons/-/cryptocurrency-icons-0.10.1.tgz#d8d1a71fbf4f9787b50783bbaf170e021415a06e"
 
@@ -5812,10 +5812,6 @@ react-native-gesture-handler@1.0.15:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
     prop-types "^15.5.10"
-
-react-native-google-analytics-bridge@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-google-analytics-bridge/-/react-native-google-analytics-bridge-7.1.0.tgz#f950ad05907467fbd0703649b46dc6ddf5ceb1b0"
 
 react-native-languages@3.0.1:
   version "3.0.1"

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { _ } from 'utils/i18n';
 import { compose } from 'recompose';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { getAsset, KunaAssetUnit } from 'kuna-sdk';
@@ -16,8 +15,8 @@ const assets: string[] = [
     KunaAssetUnit.Bitcoin,
     KunaAssetUnit.Ethereum,
     KunaAssetUnit.Tether,
-    KunaAssetUnit.AdvancedUSD,
-    KunaAssetUnit.AdvancedRUB,
+    KunaAssetUnit.USDollar,
+    KunaAssetUnit.RussianRuble,
 ];
 
 class FilterCoin extends React.PureComponent<FilterAssetsProps> {

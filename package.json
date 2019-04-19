@@ -22,7 +22,7 @@
         "cryptocurrency-icons": "0.10.1",
         "formik": "1.4.2",
         "i18n-js": "3.1.0",
-        "kuna-sdk": "^0.4.0-beta.8",
+        "kuna-sdk": "^0.4.0-beta.11",
         "lodash": "4.17.10",
         "mobx": "5.8.0",
         "mobx-react": "5.4.3",

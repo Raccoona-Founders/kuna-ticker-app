@@ -1,6 +1,5 @@
 import './shim';
-
-export const cryp = require('crypto');
+import crypto from 'crypto';
 
 // import 'node-libs-react-native/globals';
 // import 'crypto';

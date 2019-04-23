@@ -1,5 +1,6 @@
 import { set, autorun, toJS, action } from 'mobx';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 export default abstract class ModelAsyncStorage {
     public abstract getStoreKey(): string;

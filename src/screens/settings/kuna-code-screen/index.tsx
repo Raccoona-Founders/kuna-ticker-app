@@ -7,18 +7,15 @@ import ShadeScrollCard from 'components/shade-navigator/views/shade-scroll-card'
 import Topic from 'components/topic';
 import UIInput from 'components/ui-input';
 import UIButton from 'components/ui-button';
+import { compose } from 'recompose';
 
-
-type SettingsProps = mobx.user.WithUserProps & NavigationInjectedProps;
 type SettingsState = {
     displayName: string;
     telegram: string;
     updateCounter: number;
 };
 
-@inject('User')
-@observer
-export default class KunaCodeScreen extends React.Component<SettingsProps, SettingsState> {
+class KunaCodeScreen extends React.Component<SettingsProps, SettingsState> {
     public state: SettingsState = {
         displayName: '',
         telegram: '',
@@ -113,3 +110,12 @@ export default class KunaCodeScreen extends React.Component<SettingsProps, Setti
         this.props.navigation.goBack();
     };
 }
+
+type SettingsProps
+    = mobx.user.WithUserProps
+    & NavigationInjectedProps;
+
+export default compose<SettingsProps, NavigationInjectedProps>(
+    inject('User'),
+    observer
+)(KunaCodeScreen);

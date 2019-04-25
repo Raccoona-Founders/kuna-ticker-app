@@ -6,10 +6,8 @@ export default StyleSheet.create({
         flex: 1,
     },
     preBox: {
-        backgroundColor: Color.GrayLight,
-        borderRadius: 3,
-        padding: 10,
-        marginTop: 10,
+        marginBottom: 20,
+        marginTop: 20,
         marginLeft: 20,
         marginRight: 20,
     },

@@ -15,7 +15,7 @@ export const headerStyles = StyleSheet.create({
         backgroundColor: '#93A9C3',
         height: 4,
         width: 50,
-        borderRadius: 4,
+        borderRadius: 10,
     },
 });
 
@@ -27,8 +27,8 @@ export const cardStyles = StyleSheet.create({
         right: 0,
         bottom: 0,
         backgroundColor: '#FFFFFF',
-        borderTopRightRadius: 5,
-        borderTopLeftRadius: 5,
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
         overflow: 'hidden',
     },
     scrollView: {
@@ -45,7 +45,6 @@ export const cardStyles = StyleSheet.create({
         left: 0,
         right: 0,
         zIndex: 4,
-        backgroundColor: '#FFFFFF'
     },
 });
 
@@ -55,6 +54,6 @@ export const layoutStyles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: '#000',
+        backgroundColor: '#02193B',
     },
 });

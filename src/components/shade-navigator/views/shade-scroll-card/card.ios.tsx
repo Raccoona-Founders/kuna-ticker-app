@@ -1,20 +1,11 @@
 import React from 'react';
-import {
-    Animated,
-    Easing,
-    View,
-    ScrollViewProps,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
-    LayoutChangeEvent,
-} from 'react-native';
+import { Animated, View, LayoutChangeEvent } from 'react-native';
+import { SpringScrollView, SpringScrollViewPropType, ScrollEvent } from 'react-native-spring-scrollview';
 import { NavigationActions } from 'react-navigation';
-import { clamp } from '../../helper';
 import ShadeHeader from '../shade-header';
 import { cardStyles } from '../shade.style';
 import { ShadeCardProps } from './types';
 
-const EaseInOut = Easing.inOut(Easing.ease);
 const ANIMATION_DURATION = 400;
 
 export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps> {
@@ -23,55 +14,24 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps>
         footerHeight: 0,
     };
 
-    protected _headerOpacity: Animated.AnimatedInterpolation;
-    protected _shadeInnerContentOffset: Animated.AnimatedInterpolation;
-
-    protected _scrollViewYOffset: Animated.Value = new Animated.Value(0);
-    protected _scrollEventListenerID: string;
-
-    protected _onScrollViewScroll: (...vars: any[]) => void;
-
     public constructor(props: ShadeCardProps) {
         super(props);
-
-        this._onScrollViewScroll = Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this._scrollViewYOffset } } }],
-            { useNativeDriver: true },
-        );
-
-        this._shadeInnerContentOffset = this._scrollViewYOffset.interpolate({
-            inputRange: [-100, 0, 100],
-            outputRange: [-100, 0, 0],
-            extrapolateRight: "clamp",
-        });
-
-        this._headerOpacity = this._scrollViewYOffset.interpolate({
-            inputRange: [0, 30],
-            outputRange: [1, 0],
-        });
-
-        this._scrollEventListenerID = this._scrollViewYOffset.addListener(this.__onDragScrollTop);
     }
 
     public render(): JSX.Element {
         const { withBrow = true } = this.props;
 
-        const scrollViewStyles = [cardStyles.scrollView, {
-            transform: [{
-                translateY: this._shadeInnerContentOffset,
-            }],
-        }];
-
         return (
             <Animated.View style={cardStyles.shadeView}>
-                {withBrow ? <ShadeHeader opacity={this._headerOpacity} /> : undefined}
+                {withBrow ? <ShadeHeader opacity={0} /> : undefined}
 
-                <Animated.ScrollView {...this.__scrollViewProps} style={scrollViewStyles}>
+                <SpringScrollView {...this.__scrollViewProps} style={cardStyles.scrollView}>
                     <View style={[cardStyles.innerContent, { paddingTop: withBrow ? 40 : 0 }, this.props.style]}>
                         {this.props.children}
                     </View>
+
                     <View style={{ height: this.state.footerHeight }} />
-                </Animated.ScrollView>
+                </SpringScrollView>
 
                 <View style={cardStyles.footer} onLayout={this.__handleFooterLayout}>
                     {this.__renderFooter()}
@@ -94,72 +54,42 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps>
     };
 
 
-    protected get __scrollViewProps(): ScrollViewProps {
+    protected get __scrollViewProps(): SpringScrollViewPropType {
         return {
-            contentContainerStyle: {
+            contentStyle: {
                 minHeight: '100%',
             },
-            keyboardShouldPersistTaps: 'handled',
             showsVerticalScrollIndicator: false,
-            scrollEventThrottle: 1,
             scrollEnabled: this.state.scrollEnabled,
             onScroll: this._onScrollViewScroll,
-            onScrollEndDrag: this.__onScrollEndDrag,
+            bounces: true,
 
             // @ts-ignore
             ref: this.props.innerRef,
         };
     }
 
-    protected __onDragScrollTop = (state: { value: number }): void => {
-        if (state.value > 0) {
+    protected _onScrollViewScroll = (event: ScrollEvent): void => {
+        const { contentOffset } = event.nativeEvent;
+        if (contentOffset.y > 0) {
             return;
         }
 
-        const { layout, navigation, position } = this.props;
-        const { index } = navigation.state;
+        const value = contentOffset.y;
+        if (value < -100) {
+            const { navigation } = this.props;
+            const { index } = navigation.state;
 
-        const currentValue = index + state.value / (layout.height.__getValue() - 40);
-        const value = clamp(index - 1, currentValue, index);
-
-        position.setValue(value);
-    };
-
-
-    protected __onScrollEndDrag = ({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const { navigation, position, layout } = this.props;
-        const { index } = navigation.state;
-        const axisDistance = layout.height.__getValue();
-
-        const scrollV = nativeEvent.velocity;
-        const velocityY = scrollV ? scrollV.y : 0;
-
-        const movedDistance = nativeEvent.contentOffset.y;
-        const gestureVelocity = -velocityY;
-
-        if (movedDistance >= 0) {
-            return;
+            this._goBack(index, ANIMATION_DURATION);
         }
-
-        const defaultVelocity = axisDistance / ANIMATION_DURATION;
-        const velocity = Math.max(Math.abs(gestureVelocity), defaultVelocity);
-        const goBackDuration = (axisDistance - movedDistance) / velocity;
-
-        position.stopAnimation(() => {
-            if (gestureVelocity > 2) {
-                this._goBack(index, goBackDuration);
-                return;
-            }
-        });
     };
 
 
     protected _goBack = (backFromIndex: number, duration: number = ANIMATION_DURATION) => {
         const { navigation, position, scenes } = this.props;
 
-        this._scrollViewYOffset.removeListener(this._scrollEventListenerID);
-
         const toValue = Math.max(backFromIndex - 1, 0);
+        this.setState({ scrollEnabled: false });
 
         const onCompleteAnimation = (result: Animated.EndResult) => {
             if (false === result.finished) {
@@ -178,7 +108,6 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps>
         Animated.timing(position, {
             toValue: toValue,
             duration: duration,
-            easing: EaseInOut,
             useNativeDriver: position.__isNative || false,
         }).start(onCompleteAnimation);
     };

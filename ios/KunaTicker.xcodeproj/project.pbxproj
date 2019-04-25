@@ -35,6 +35,7 @@
 		6050ED1E22034895003F05DC /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6050ED1D22034882003F05DC /* libRNGestureHandler.a */; };
 		606C3578221C6A8400242516 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 606C3574221C6A7D00242516 /* libRNVectorIcons.a */; };
 		606D56B7226F8C3F0020CD6F /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 606D56A5226F8BD70020CD6F /* libRNCAsyncStorage.a */; };
+		608AB3AA227223E900072CF6 /* libRNSpringScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 608AB3A9227223E200072CF6 /* libRNSpringScrollView.a */; };
 		6094B07D216DF07E00437862 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		6094B07E216DF07E00437862 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6094B080216DF07E00437862 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 601C9A132163E13F00E74460 /* libRNRandomBytes.a */; };
@@ -396,6 +397,13 @@
 			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
 			remoteInfo = "RNGestureHandler-tvOS";
 		};
+		608AB3A8227223E200072CF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 608AB3A4227223E200072CF6 /* RNSpringScrollView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNSpringScrollView;
+		};
 		60D50EF92132F4CE00FE96BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D4C1A34BD0784722826E655B /* SplashScreen.xcodeproj */;
@@ -503,6 +511,7 @@
 		6050ED1822034882003F05DC /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		606C353D221C6A7D00242516 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		606D5671226F8BD70020CD6F /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
+		608AB3A4227223E200072CF6 /* RNSpringScrollView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSpringScrollView.xcodeproj; path = "../node_modules/react-native-spring-scrollview/ios/RNSpringScrollView.xcodeproj"; sourceTree = "<group>"; };
 		6094B09B216DF07E00437862 /* KunaTickerDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KunaTickerDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6094B09C216DF07F00437862 /* KunaTicker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "KunaTicker-Info.plist"; path = "/Users/m.tymchyk/projects/kuna/kuna-ticker-mobile/ios/KunaTicker-Info.plist"; sourceTree = "<absolute>"; };
 		60C8591121909C9900A174BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -536,6 +545,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				608AB3AA227223E900072CF6 /* libRNSpringScrollView.a in Frameworks */,
 				606D56B7226F8C3F0020CD6F /* libRNCAsyncStorage.a in Frameworks */,
 				606C3578221C6A8400242516 /* libRNVectorIcons.a in Frameworks */,
 				6050ED1E22034895003F05DC /* libRNGestureHandler.a in Frameworks */,
@@ -829,6 +839,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		608AB3A5227223E200072CF6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				608AB3A9227223E200072CF6 /* libRNSpringScrollView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		609EAF6A212564A600ED02B5 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -882,6 +900,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				608AB3A4227223E200072CF6 /* RNSpringScrollView.xcodeproj */,
 				606D5671226F8BD70020CD6F /* RNCAsyncStorage.xcodeproj */,
 				606C353D221C6A7D00242516 /* RNVectorIcons.xcodeproj */,
 				6050ED1822034882003F05DC /* RNGestureHandler.xcodeproj */,
@@ -1111,6 +1130,10 @@
 				{
 					ProductGroup = 602C4799220B2763006BFD00 /* Products */;
 					ProjectRef = 9188E66BC1A94B419D6209A2 /* RNRate.xcodeproj */;
+				},
+				{
+					ProductGroup = 608AB3A5227223E200072CF6 /* Products */;
+					ProjectRef = 608AB3A4227223E200072CF6 /* RNSpringScrollView.xcodeproj */;
 				},
 				{
 					ProductGroup = 60EA64A72151B0BF00332904 /* Products */;
@@ -1447,6 +1470,13 @@
 			fileType = archive.ar;
 			path = "libRNGestureHandler-tvOS.a";
 			remoteRef = 606D56AB226F8BD70020CD6F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		608AB3A9227223E200072CF6 /* libRNSpringScrollView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpringScrollView.a;
+			remoteRef = 608AB3A8227223E200072CF6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		60D50EFA2132F4CE00FE96BE /* libSplashScreen.a */ = {

@@ -111,9 +111,14 @@ const styles = StyleSheet.create({
     box: {
         width: (width - 20 * 3) / 2,
         marginBottom: 20,
-        borderRadius: 5,
-        backgroundColor: Color.GrayLight,
+        borderRadius: 6,
+        backgroundColor: Color.NewMilkWhite,
         padding: 10,
+
+        shadowColor: '#696969',
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        shadowOffset: { width: 0, height: 2 },
     },
 
     boxHead: {

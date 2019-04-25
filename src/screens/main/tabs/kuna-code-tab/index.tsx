@@ -1,12 +1,10 @@
 import React from 'react';
-import { View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
+import { View, ScrollView, RefreshControl } from 'react-native';
 import firebase from 'react-native-firebase';
 import { inject, observer } from 'mobx-react/native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { _ } from 'utils/i18n';
 import Constants from 'utils/constants';
-import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
 import SpanText from 'components/span-text';
 import TelegramOfferRow from './components/telegram-offer-row';

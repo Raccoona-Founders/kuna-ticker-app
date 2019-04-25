@@ -24,6 +24,10 @@ export enum Color {
     GrayLight = '#F2F2F2',
 
 
+    NewMilkWhite = '#FBFAF7',
+    NewMilkBlue = '#F0F2F4',
+
+
     White = '#FFFFFF',
     Black = '#000000',
 

@@ -5,11 +5,11 @@ import Constants from 'utils/constants';
 export const mainStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Color.White,
+        backgroundColor: Color.NewMilkBlue,
     },
     baseBackground: {
         flex: 1,
-        backgroundColor: Color.Main,
+        backgroundColor: Color.NewMilkBlue,
     },
 });
 
@@ -23,9 +23,9 @@ export const tabBarStyles = StyleSheet.create({
         left: 0,
         right: 0,
         zIndex: 10,
-        backgroundColor: 'rgba(255,255,255, 0.9)',
+        backgroundColor: 'rgba(240,242,244, 0.9)',
         borderTopWidth: 1,
-        borderTopColor: Color.GrayLight,
+        borderTopColor: Color.Gray3,
     },
 
     tabBar: {

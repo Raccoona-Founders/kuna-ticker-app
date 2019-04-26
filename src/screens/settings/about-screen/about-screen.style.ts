@@ -4,7 +4,6 @@ import { Color, DefaultStyles } from 'styles/variables';
 
 export const styles = StyleSheet.create({
     body: {
-        flex: 1,
         paddingLeft: 20,
         paddingRight: 20,
         paddingBottom: 20,

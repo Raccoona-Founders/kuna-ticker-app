@@ -1,3 +1,7 @@
+export const CONSTANTS = {
+    SCROLL_TO_CLOSE: -100,
+};
+
 export function clamp(min: number, value: number, max: number) {
     if (value < min) {
         return min;

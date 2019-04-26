@@ -1,15 +1,26 @@
 import React from 'react';
-import { Animated, View } from 'react-native';
+import { Animated } from 'react-native';
+import { CONSTANTS } from '../helper';
 import { headerStyles } from './shade.style';
 
 export type ShadeHeaderProps = {
     opacity?: any;
+    position: Animated.Value;
 };
 
-const ShadeHeader = (props: ShadeHeaderProps) => (
-    <Animated.View style={[headerStyles.header, { opacity: props.opacity || 1 }]}>
-        <View style={headerStyles.headerBrow} />
-    </Animated.View>
-);
+export default (props: ShadeHeaderProps) => {
 
-export default ShadeHeader;
+    const scaleAnimation = props.position.interpolate({
+        inputRange: [CONSTANTS.SCROLL_TO_CLOSE, 0],
+        outputRange: [0.1, 1],
+        extrapolate: 'clamp',
+    });
+
+    return (
+        <Animated.View style={[headerStyles.header, { opacity: props.opacity || 1 }]}>
+            <Animated.View
+                style={[headerStyles.headerBrow, { transform: [{ scaleX: scaleAnimation }] }]}
+            />
+        </Animated.View>
+    );
+};

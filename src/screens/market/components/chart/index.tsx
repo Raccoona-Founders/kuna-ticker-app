@@ -20,7 +20,7 @@ const IntervalMap = {
     '3M': ['1D', 90],
     '6M': ['1D', 180],
     '1Y': ['1D', 360],
-    'MAX': ['1D', 1000],
+    'ALL': ['1D', 1000],
 };
 
 type PriceChartProps = {
@@ -58,14 +58,21 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
                             this.setState({ currentInterval: index }, this.__fetchTradeHistory);
                         };
 
+                        const isActive = currentInterval === index;
+
                         return (
                             <TouchableOpacity key={index} onPress={onPress}>
-                                <SpanText style={[
+                                <View style={[
                                     ChartStyles.sheet.tagUnit,
-                                    currentInterval === index ? ChartStyles.sheet.tagUnitActive : undefined,
+                                    isActive ? ChartStyles.sheet.tagUnitActive : undefined,
                                 ]}>
-                                    {index}
-                                </SpanText>
+                                    <SpanText style={[
+                                        ChartStyles.sheet.tagUnitText,
+                                        isActive ? ChartStyles.sheet.tagUnitTextActive : undefined,
+                                    ]}>
+                                        {index}
+                                    </SpanText>
+                                </View>
                             </TouchableOpacity>
                         );
                     })}

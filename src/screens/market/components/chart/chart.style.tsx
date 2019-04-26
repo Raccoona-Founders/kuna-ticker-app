@@ -39,15 +39,25 @@ const sheet = StyleSheet.create({
     },
 
     tagUnit: {
-        ...DefaultStyles.boldFont,
-        paddingTop: 5,
-        paddingBottom: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
-        color: Color.GrayBlues,
+        height: 24,
+        width: 36,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Color.Gray3,
     },
     tagUnitActive: {
-        color: Color.Main,
+        backgroundColor: Color.Main,
+    },
+
+    tagUnitText: {
+        ...DefaultStyles.boldFont,
+        fontSize: 11,
+        marginTop: 2,
+        color: Color.Black,
+    },
+    tagUnitTextActive: {
+        color: Color.White,
     },
 });
 

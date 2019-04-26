@@ -9,12 +9,12 @@ export const headerStyles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 2,
+        zIndex: 25,
     },
     headerBrow: {
         backgroundColor: '#93A9C3',
-        height: 4,
         width: 50,
+        height: 4,
         borderRadius: 10,
     },
 });
@@ -32,7 +32,7 @@ export const cardStyles = StyleSheet.create({
         overflow: 'hidden',
     },
     scrollView: {
-        flex: 1,
+        // flex: 1,
         zIndex: 3,
     },
     innerContent: {

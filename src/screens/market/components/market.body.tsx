@@ -89,7 +89,7 @@ class MarketBody extends React.Component<MarketScreenProps, State> {
                     </View>
                 </View>
 
-                <View style={{ flex: 1, paddingBottom: 20 }}>
+                <View style={{ paddingBottom: 20 }}>
                     <Chart market={market} />
 
                     <View style={[marketStyle.section, marketStyle.sectionInformation]}>

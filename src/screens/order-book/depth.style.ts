@@ -3,9 +3,7 @@ import { Color, DefaultStyles } from 'styles/variables';
 import { isIphoneX } from 'utils/helper';
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-    },
+    container: {},
     depthSheetContainer: {
         paddingLeft: 20,
         paddingRight: 20,
@@ -48,7 +46,6 @@ export default StyleSheet.create({
     },
 
     depthSheet: {
-        flex: 1,
         width: '100%',
     },
     depthSheetBody: {
@@ -74,9 +71,9 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        backgroundColor: Color.White,
     },
-    groupingValue: {
-    },
+    groupingValue: {},
 
     groupingButton: {
         marginLeft: 15,

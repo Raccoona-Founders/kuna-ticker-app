@@ -1,41 +1,38 @@
 import React from 'react';
-import { Animated, View, LayoutChangeEvent } from 'react-native';
-import { SpringScrollView, SpringScrollViewPropType, ScrollEvent } from 'react-native-spring-scrollview';
+import { Animated, View, LayoutChangeEvent, Dimensions } from 'react-native';
+import { SpringScrollView, SpringScrollViewPropType, ScrollEvent, Size } from 'react-native-spring-scrollview';
 import { NavigationActions } from 'react-navigation';
+import { CONSTANTS } from '../../helper';
 import ShadeHeader from '../shade-header';
 import { cardStyles } from '../shade.style';
 import { ShadeCardProps } from './types';
 
 const ANIMATION_DURATION = 400;
 
+const MINIMAL_HEIGHT = Dimensions.get('window').height - 40;
+
 export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps> {
-    public state = {
+    public state: any = {
         scrollEnabled: true,
+        headerHeight: 40,
         footerHeight: 0,
+        bottomOffset: 0,
     };
 
-    public constructor(props: ShadeCardProps) {
-        super(props);
-    }
+    protected __scrollValue: Animated.Value = new Animated.Value(0);
 
     public render(): JSX.Element {
-        const { withBrow = true } = this.props;
-
         return (
             <Animated.View style={cardStyles.shadeView}>
-                {withBrow ? <ShadeHeader opacity={0} /> : undefined}
+                {this.__renderHeader()}
 
-                <SpringScrollView {...this.__scrollViewProps} style={cardStyles.scrollView}>
-                    <View style={[cardStyles.innerContent, { paddingTop: withBrow ? 40 : 0 }, this.props.style]}>
-                        {this.props.children}
-                    </View>
-
-                    <View style={{ height: this.state.footerHeight }} />
+                <SpringScrollView{...this.__scrollViewProps} style={cardStyles.scrollView}>
+                    <View style={{ height: this.state.headerHeight }} />
+                    <View>{this.props.children}</View>
+                    <View style={{ height: this.state.footerHeight + this.state.bottomOffset }} />
                 </SpringScrollView>
 
-                <View style={cardStyles.footer} onLayout={this.__handleFooterLayout}>
-                    {this.__renderFooter()}
-                </View>
+                {this.__renderFooter()}
             </Animated.View>
         );
     }
@@ -43,7 +40,16 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps>
     protected __renderFooter = (): JSX.Element => {
         const { renderFooter } = this.props;
 
-        return renderFooter ? renderFooter() : <View />;
+        return (
+            <View style={cardStyles.footer} onLayout={this.__handleFooterLayout}>
+                {renderFooter ? renderFooter() : <View />}
+            </View>
+        );
+    };
+
+
+    protected __renderHeader = (): JSX.Element => {
+        return <ShadeHeader position={this.__scrollValue} />;
     };
 
 
@@ -53,11 +59,10 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps>
         });
     };
 
-
     protected get __scrollViewProps(): SpringScrollViewPropType {
         return {
             contentStyle: {
-                minHeight: '100%',
+                minHeight: MINIMAL_HEIGHT
             },
             showsVerticalScrollIndicator: false,
             scrollEnabled: this.state.scrollEnabled,
@@ -71,12 +76,14 @@ export default class ShadeScrollCard extends React.PureComponent<ShadeCardProps>
 
     protected _onScrollViewScroll = (event: ScrollEvent): void => {
         const { contentOffset } = event.nativeEvent;
+        this.__scrollValue.setValue(contentOffset.y);
+
         if (contentOffset.y > 0) {
             return;
         }
 
         const value = contentOffset.y;
-        if (value < -100) {
+        if (value < CONSTANTS.SCROLL_TO_CLOSE) {
             const { navigation } = this.props;
             const { index } = navigation.state;
 

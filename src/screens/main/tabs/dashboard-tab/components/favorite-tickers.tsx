@@ -11,7 +11,7 @@ import { CoinIcon } from 'components/coin-icon';
 import RouteKeys from 'router/route-keys';
 
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 type FavoriteProps = {
     tickers: KunaV3Ticker[];
@@ -23,10 +23,10 @@ type FavoriteProps = {
 @withNavigation
 export default class FavoriteTickers extends React.PureComponent<FavoriteProps> {
     public render(): JSX.Element {
-        const {tickers} = this.props;
+        const { tickers } = this.props;
 
         if (tickers.length < 1) {
-            return <View/>;
+            return <View />;
         }
 
         return (
@@ -40,11 +40,11 @@ export default class FavoriteTickers extends React.PureComponent<FavoriteProps> 
 
 
     private __itemRenderer = () => {
-        const {usdCalculator} = this.props;
+        const { usdCalculator } = this.props;
 
         return (ticker: KunaV3Ticker) => {
 
-            const {lastPrice} = ticker;
+            const { lastPrice } = ticker;
             const market = kunaMarketMap[ticker.symbol];
             const baseAsset = getAsset(market.baseAsset);
             const usdPrice = usdCalculator.getPrice(market.key);
@@ -54,13 +54,6 @@ export default class FavoriteTickers extends React.PureComponent<FavoriteProps> 
             return (
                 <TouchableOpacity style={styles.box} key={ticker.symbol} onPress={this.__onPressMarket(market)}>
                     <View style={styles.boxHead}>
-                        <CoinIcon asset={baseAsset}
-                                  withShadow={false}
-                                  naked={true}
-                                  size={32}
-                                  style={{marginLeft: -8, marginRight: 2}}
-                        />
-
                         <SpanText>{market.baseAsset}/{market.quoteAsset}</SpanText>
                     </View>
 
@@ -71,11 +64,22 @@ export default class FavoriteTickers extends React.PureComponent<FavoriteProps> 
                         <SpanText style={styles.priceUSD}>
                             ${usdPrice.format('0,0.[00]')}
                         </SpanText>
+                        <SpanText style={styles.priceUSD}>
+                            ${volume.format('0,0')}
+                        </SpanText>
                     </View>
 
                     <View>
-                        <ChangePercent percent={ticker.dailyChangePercent}/>
+                        <ChangePercent percent={ticker.dailyChangePercent} />
                     </View>
+
+
+                    <CoinIcon asset={baseAsset}
+                              withShadow={false}
+                              naked={true}
+                              size={32}
+                              style={styles.boxLogo}
+                    />
                 </TouchableOpacity>
             );
         };
@@ -84,9 +88,9 @@ export default class FavoriteTickers extends React.PureComponent<FavoriteProps> 
 
     private __onPressMarket = (market: KunaMarket) => {
         return () => {
-            const {navigation} = this.props as any as NavigationInjectedProps;
+            const { navigation } = this.props as any as NavigationInjectedProps;
 
-            navigation.push(RouteKeys.Market, {symbol: market.key});
+            navigation.push(RouteKeys.Market, { symbol: market.key });
         };
     };
 }
@@ -115,10 +119,16 @@ const styles = StyleSheet.create({
         backgroundColor: Color.NewMilkWhite,
         padding: 10,
 
-        shadowColor: '#696969',
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
+        shadowColor: '#000000',
+        shadowOpacity: 0.07,
+        shadowRadius: 1,
         shadowOffset: { width: 0, height: 2 },
+    },
+
+    boxLogo: {
+        position: 'absolute',
+        bottom: 5,
+        right: 5,
     },
 
     boxHead: {

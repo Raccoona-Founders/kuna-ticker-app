@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Linking, TouchableOpacity } from 'react-native';
-import qs from 'querystring';
+// import qs from 'querystring';
 import { SpanText } from 'components/span-text';
 import { ShadeScrollCard } from 'components/shade-navigator';
 import Analytics from 'utils/ga-tracker';
@@ -45,7 +45,7 @@ const links: LinkItem[] = [{
 }, {
     title: _('about.email'),
     label: 'maksym.tymchyk@gmail.com',
-    url: `mailto:maksym.tymchyk@gmail.com?${qs.stringify({ subject: 'Kuna Ticker' })}`,
+    url: `mailto:maksym.tymchyk@gmail.com`,
 }];
 
 

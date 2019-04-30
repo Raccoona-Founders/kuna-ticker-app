@@ -30,8 +30,8 @@ const sheet = StyleSheet.create({
     },
 
     tagContainer: {
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
         justifyContent: 'space-between',
         flexDirection: 'row',
         marginTop: 10,

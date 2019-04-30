@@ -83,7 +83,7 @@ class MarketBody extends React.Component<MarketScreenProps, State> {
 
                         {usdPrice && (
                             <SpanText style={marketStyle.priceUsd}>
-                                ~ ${usdPrice.format('0,0.[00]')}
+                                ${usdPrice.format('0,0.[00]')}
                             </SpanText>
                         )}
                     </View>

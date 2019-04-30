@@ -2,7 +2,7 @@ import React from 'react';
 import { map } from 'lodash';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { KunaMarket } from 'kuna-sdk';
-import { LineChart } from 'react-native-svg-charts';
+import { LineChart, BarChart } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
 import { fetchKunaTradeHistory } from 'utils/kuna-client';
 import { Color } from 'styles/variables';
@@ -15,8 +15,8 @@ import ChartStyles from './chart.style';
 
 const IntervalMap = {
     '24H': ['30', 1],
-    '1W': ['60', 7],
-    '1M': ['1D', 30],
+    '7d': ['60', 7],
+    '30d': ['1D', 30],
     '3M': ['1D', 90],
     '6M': ['1D', 180],
     '1Y': ['1D', 360],
@@ -30,9 +30,10 @@ type PriceChartProps = {
 
 export default class Chart extends React.PureComponent<PriceChartProps> {
     public state: any = {
-        currentInterval: '1M',
+        currentInterval: '30d',
         ready: false,
-        data: [],
+        dataClose: [],
+        dataVolume: [],
     };
 
     public async componentDidMount(): Promise<void> {
@@ -46,8 +47,6 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
 
         return (
             <View>
-                <View style={ChartStyles.sheet.chartContainer}>{this.__renderChart()}</View>
-
                 <View style={ChartStyles.sheet.tagContainer}>
                     {map(IntervalMap, (item: any[], index: string) => {
                         const onPress = () => {
@@ -77,6 +76,8 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
                         );
                     })}
                 </View>
+
+                <View style={ChartStyles.sheet.chartContainer}>{this.__renderChart()}</View>
             </View>
         );
     }
@@ -84,18 +85,18 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
 
     private __renderChart = () => {
         const { market } = this.props;
-        const { data } = this.state;
+        const { dataClose, dataVolume } = this.state;
 
-        if (data.length < 2) {
+        if (dataClose.length < 2) {
             return <ActivityIndicator color={Color.Main} />;
         }
 
-        const maxValue = Math.max(...data);
-        const minValue = Math.min(...data);
-        const lastPrice = data[data.length - 1];
+        const maxValue = Math.max(...dataClose);
+        const minValue = Math.min(...dataClose);
+        const lastPrice = dataClose[dataClose.length - 1];
         const depth = maxValue - minValue;
 
-        const contentInset = { top: 0, bottom: 12 };
+        const contentInset = { top: 12, bottom: 12 };
 
         return (
             <>
@@ -105,7 +106,7 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
 
                 <LineChart
                     style={{ flex: 1 }}
-                    data={data}
+                    data={dataClose}
                     contentInset={contentInset}
                     curve={shape.curveNatural}
                     gridMax={maxValue + depth * 0.1}
@@ -116,6 +117,13 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
                     <LimitPriceSvg price={minValue} format={market.format} side="bottom" lastPrice={lastPrice} />
                     <LimitPriceSvg price={maxValue} format={market.format} side="top" lastPrice={lastPrice} />
                 </LineChart>
+
+                <BarChart
+                    data={dataVolume}
+                    style={{ height: 20, width: '100%' }}
+                    svg={{ fill: Color.Gray3, strokeLinecap: 'round' }}
+                />
+
             </>
         );
     };
@@ -132,7 +140,8 @@ export default class Chart extends React.PureComponent<PriceChartProps> {
 
         this.setState({
             ready: true,
-            data: history.c,
+            dataClose: history.c,
+            dataVolume: history.v,
         });
     };
 }

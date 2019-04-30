@@ -6,7 +6,7 @@ export default StyleSheet.create({
         flex: 1,
     },
     preBox: {
-        marginBottom: 20,
+        marginBottom: 10,
         marginTop: 20,
         marginLeft: 20,
         marginRight: 20,

@@ -29,11 +29,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SplashScreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="04a-Qj-GnC">
-                    <rect key="frame" x="62" y="245" width="250" height="176"/>
+                    <rect key="frame" x="120" y="295" width="134" height="76"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.99597054719924927" green="0.99614065885543823" blue="0.99595993757247925" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.24705882352941178" green="0.22352941176470587" blue="0.70196078431372544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -42,6 +42,6 @@
         </view>
     </objects>
     <resources>
-        <image name="SplashScreenLogo" width="374" height="260"/>
+        <image name="SplashScreenLogo" width="256" height="256"/>
     </resources>
 </document>

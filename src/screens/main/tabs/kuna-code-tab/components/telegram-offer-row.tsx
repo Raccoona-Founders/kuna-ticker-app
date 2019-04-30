@@ -106,12 +106,15 @@ const styles = StyleSheet.create({
     },
     rowBox: {
         padding: 15,
-        borderRadius: 5,
+        borderRadius: 6,
         backgroundColor: 'white',
         marginLeft: 20,
         marginRight: 20,
-        borderWidth: 1,
-        borderColor: Color.Gray3,
+
+        shadowColor: '#000000',
+        shadowOpacity: 0.07,
+        shadowRadius: 1,
+        shadowOffset: { width: 0, height: 2 },
     },
     colorPoint: {
         height: 10,

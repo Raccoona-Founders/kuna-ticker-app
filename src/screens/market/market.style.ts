@@ -59,6 +59,7 @@ const marketStyle = StyleSheet.create({
     },
 
     sectionInformation: {
+        marginTop: 20,
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',

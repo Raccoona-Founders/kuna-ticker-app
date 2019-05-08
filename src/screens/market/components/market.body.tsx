@@ -51,10 +51,10 @@ class MarketBody extends React.Component<MarketScreenProps, State> {
                               naked={true}
                               withShadow={false}
                               size={68}
-                              style={{ marginRight: 20 }}
+                              style={{ marginRight: 10 }}
                     />
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                         <View style={marketStyle.topicName}>
                             <SpanText style={marketStyle.topicNameUnit}>
                                 {market.baseAsset}/{market.quoteAsset}

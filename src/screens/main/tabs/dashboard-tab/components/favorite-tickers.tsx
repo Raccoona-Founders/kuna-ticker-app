@@ -61,12 +61,16 @@ export default class FavoriteTickers extends React.PureComponent<FavoriteProps> 
                         <SpanText style={styles.price}>
                             {Numeral(lastPrice).format(market.format)} {market.quoteAsset}
                         </SpanText>
-                        <SpanText style={styles.priceUSD}>
-                            ${usdPrice.format('0,0.[00]')}
-                        </SpanText>
-                        <SpanText style={styles.priceUSD}>
-                            ${volume.format('0,0')}
-                        </SpanText>
+
+                        <View>
+                            <SpanText style={styles.priceUSD}>
+                                1 {market.baseAsset} = ${usdPrice.format('0,0.[00]')}
+                            </SpanText>
+
+                            <SpanText style={styles.priceUSD}>
+                                Vol. ${volume.format('0,0.[0]a')}
+                            </SpanText>
+                        </View>
                     </View>
 
                     <View>

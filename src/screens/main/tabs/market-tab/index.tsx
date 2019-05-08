@@ -33,9 +33,11 @@ export default class MarketTab extends React.Component<MarketTabProps, State> {
         return (
             <View style={styles.flatList}>
                 <View style={styles.filterTab}>
-                    <FilterCoin onChoose={this.__onChooseCoin}
-                                active={this.state.activeAsset}
-                    />
+                    <View style={styles.filterTabContent}>
+                        <FilterCoin onChoose={this.__onChooseCoin}
+                                    active={this.state.activeAsset}
+                        />
+                    </View>
                 </View>
 
                 <ScrollView
@@ -43,6 +45,7 @@ export default class MarketTab extends React.Component<MarketTabProps, State> {
                     showsVerticalScrollIndicator={false}
                     refreshControl={this.__renderRefreshControl()}
                 >
+                    <View style={{ height: 60 }} />
                     <MarketList
                         favorite={this.state.favorite}
                         activeAsset={this.state.activeAsset}
@@ -99,12 +102,27 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
 
-    filterTab: {
+    filterTabContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
+
+        backgroundColor: Color.White,
+        borderRadius: 6,
+
+        overflow: 'hidden',
+        width: '100%',
+    },
+
+    filterTab: {
+
+        zIndex: 5,
+        position: 'absolute',
+        top: 10,
+        left: 10,
+        right: 10,
+        shadowColor: '#000000',
+        shadowOpacity: 0.07,
+        shadowRadius: 1,
+        shadowOffset: { width: 0, height: 2 },
     },
 });

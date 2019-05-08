@@ -22,9 +22,9 @@ export const MarketNameCell = (props: MarketNameProps) => {
 
             <View>
                 <View style={styles.marketRow}>
-                    <SpanText style={[styles.pairBoxText, styles.pairBoxBase]}>{props.market.baseAsset}</SpanText>
-                    <SpanText style={[styles.pairBoxText, styles.pairBoxSeparator]}>/</SpanText>
-                    <SpanText style={[styles.pairBoxText, styles.pairBoxQuote]}>{props.market.quoteAsset}</SpanText>
+                    <SpanText style={[styles.pairBoxText, styles.pairBoxBase]}>
+                        {props.market.baseAsset}/{props.market.quoteAsset}
+                    </SpanText>
                 </View>
                 <View style={styles.baseAssetName}>
                     <SpanText style={styles.baseAssetNameText}>{baseAsset.name}</SpanText>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'bottom',
     },
     baseAssetName: {
-        marginTop: 3,
+        marginTop: 2,
     },
     baseAssetNameText: {
         color: Color.GrayBlues,

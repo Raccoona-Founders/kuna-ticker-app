@@ -16,7 +16,6 @@ const marketStyle = StyleSheet.create({
         alignItems: 'center',
     },
     topicName: {
-        alignItems: 'flex-end',
         marginRight: 20,
     },
     topicNameUnit: {

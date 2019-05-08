@@ -32,6 +32,8 @@
 		60134FDF21C43BDD008485C9 /* libRNLanguages.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60134FD721C43BC3008485C9 /* libRNLanguages.a */; };
 		60134FE021C43BE5008485C9 /* libRNLanguages.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60134FD721C43BC3008485C9 /* libRNLanguages.a */; };
 		601C9A192163E16600E74460 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 601C9A132163E13F00E74460 /* libRNRandomBytes.a */; };
+		604F63992282FB040024A815 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604F63622282FB040024A815 /* iAd.framework */; };
+		604F639B2282FB0D0024A815 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604F639A2282FB0D0024A815 /* AdSupport.framework */; };
 		6050ED1E22034895003F05DC /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6050ED1D22034882003F05DC /* libRNGestureHandler.a */; };
 		606C3578221C6A8400242516 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 606C3574221C6A7D00242516 /* libRNVectorIcons.a */; };
 		606D56B7226F8C3F0020CD6F /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 606D56A5226F8BD70020CD6F /* libRNCAsyncStorage.a */; };
@@ -508,6 +510,8 @@
 		60134F9521C4338D008485C9 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		60134FA821C43BC3008485C9 /* RNLanguages.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLanguages.xcodeproj; path = "../node_modules/react-native-languages/ios/RNLanguages.xcodeproj"; sourceTree = "<group>"; };
 		601C99E42163E13F00E74460 /* RNRandomBytes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNRandomBytes.xcodeproj; path = "../node_modules/react-native-randombytes/RNRandomBytes.xcodeproj"; sourceTree = "<group>"; };
+		604F63622282FB040024A815 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		604F639A2282FB0D0024A815 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6050ED1822034882003F05DC /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		606C353D221C6A7D00242516 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		606D5671226F8BD70020CD6F /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
@@ -545,6 +549,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				604F639B2282FB0D0024A815 /* AdSupport.framework in Frameworks */,
+				604F63992282FB040024A815 /* iAd.framework in Frameworks */,
 				608AB3AA227223E900072CF6 /* libRNSpringScrollView.a in Frameworks */,
 				606D56B7226F8C3F0020CD6F /* libRNCAsyncStorage.a in Frameworks */,
 				606C3578221C6A8400242516 /* libRNVectorIcons.a in Frameworks */,
@@ -733,6 +739,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				604F639A2282FB0D0024A815 /* AdSupport.framework */,
+				604F63622282FB040024A815 /* iAd.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				BD0B7AE15AB4FE596D16A978 /* libPods-KunaTicker.a */,
 				41F0943641E7C1BFF486FF4D /* libPods-KunaTickerTests.a */,

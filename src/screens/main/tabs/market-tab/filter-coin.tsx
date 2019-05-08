@@ -74,9 +74,7 @@ const styles = StyleSheet.create({
 
         paddingLeft: 10,
         paddingRight: 10,
-        height: 34,
-        borderRadius: 3,
-        backgroundColor: Color.GrayLight,
+        height: 44,
     },
 
     icon: {

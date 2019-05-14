@@ -4,6 +4,7 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactcommunity.rnlanguages.RNLanguagesPackage;
 import com.horcrux.svg.SvgPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -17,7 +18,7 @@ import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.bitgo.randombytes.RandomBytesPackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.bolan9999.SpringScrollViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -51,7 +52,9 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNDeviceInfo(),
                     new SvgPackage(),
                     new RandomBytesPackage(),
-                    new SplashScreenReactPackage()
+                    new SplashScreenReactPackage(),
+                    new AsyncStoragePackage(),
+                    new SpringScrollViewPackage()
             );
         }
 

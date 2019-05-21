@@ -2,6 +2,7 @@ package com.kunaticker;
 
 import android.app.Application;
 import com.facebook.react.ReactApplication;
+import com.bolan9999.SpringScrollViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -38,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new SpringScrollViewPackage(),
                     new VectorIconsPackage(),
                     new RNGestureHandlerPackage(),
                     new RNLanguagesPackage(),

@@ -1,6 +1,5 @@
 import moment from 'moment';
-import { KunaApiV3Client } from 'kuna-sdk';
-import Axios from 'axios';
+import kunaClient from './kuna-api';
 
 type KunaTradeHistory = {
     t: number[];
@@ -21,19 +20,5 @@ export async function fetchKunaTradeHistory(market: string,
     const to = moment();
     const from = to.clone().subtract(days, 'days');
 
-    const { data } = await Axios.get('https://kuna.io/api/v2/trades_history', {
-        params: {
-            market: market,
-            resolution: resolution,
-            from: from.unix(),
-            to: to.unix(),
-        },
-    });
-
-    return data;
+    return await kunaClient.chart().history(market, resolution, from.unix(), to.unix());
 }
-
-
-const kunaClient = new KunaApiV3Client();
-
-export default kunaClient;

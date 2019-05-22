@@ -5,6 +5,7 @@
 	};
 	objectVersion = 48;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -34,6 +35,9 @@
 		604F63992282FB040024A815 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604F63622282FB040024A815 /* iAd.framework */; };
 		604F639B2282FB0D0024A815 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604F639A2282FB0D0024A815 /* AdSupport.framework */; };
 		6050ED1E22034895003F05DC /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6050ED1D22034882003F05DC /* libRNGestureHandler.a */; };
+		605A8E6022FC40D9002A183A /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A8E5F22FC40D9002A183A /* JavaScriptCore.framework */; };
+		605A8E6222FC40E7002A183A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A8E6122FC40E7002A183A /* UserNotifications.framework */; };
+		605A8E6422FC40F6002A183A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A8E6322FC40F6002A183A /* NotificationCenter.framework */; };
 		606C3578221C6A8400242516 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 606C3574221C6A7D00242516 /* libRNVectorIcons.a */; };
 		606D56B7226F8C3F0020CD6F /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 606D56A5226F8BD70020CD6F /* libRNCAsyncStorage.a */; };
 		608AB3AA227223E900072CF6 /* libRNSpringScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 608AB3A9227223E200072CF6 /* libRNSpringScrollView.a */; };
@@ -512,6 +516,9 @@
 		604F63622282FB040024A815 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		604F639A2282FB0D0024A815 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6050ED1822034882003F05DC /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
+		605A8E5F22FC40D9002A183A /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		605A8E6122FC40E7002A183A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		605A8E6322FC40F6002A183A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		606C353D221C6A7D00242516 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		606D5671226F8BD70020CD6F /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		608AB3A4227223E200072CF6 /* RNSpringScrollView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSpringScrollView.xcodeproj; path = "../node_modules/react-native-spring-scrollview/ios/RNSpringScrollView.xcodeproj"; sourceTree = "<group>"; };
@@ -548,8 +555,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604F639B2282FB0D0024A815 /* AdSupport.framework in Frameworks */,
+				605A8E6022FC40D9002A183A /* JavaScriptCore.framework in Frameworks */,
+				605A8E6222FC40E7002A183A /* UserNotifications.framework in Frameworks */,
 				604F63992282FB040024A815 /* iAd.framework in Frameworks */,
+				605A8E6422FC40F6002A183A /* NotificationCenter.framework in Frameworks */,
+				604F639B2282FB0D0024A815 /* AdSupport.framework in Frameworks */,
 				608AB3AA227223E900072CF6 /* libRNSpringScrollView.a in Frameworks */,
 				606D56B7226F8C3F0020CD6F /* libRNCAsyncStorage.a in Frameworks */,
 				606C3578221C6A8400242516 /* libRNVectorIcons.a in Frameworks */,
@@ -738,6 +748,9 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				605A8E6322FC40F6002A183A /* NotificationCenter.framework */,
+				605A8E6122FC40E7002A183A /* UserNotifications.framework */,
+				605A8E5F22FC40D9002A183A /* JavaScriptCore.framework */,
 				604F639A2282FB0D0024A815 /* AdSupport.framework */,
 				604F63622282FB040024A815 /* iAd.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -1055,8 +1068,11 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
+				ru,
+				uk,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -1700,7 +1716,7 @@
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1744,7 +1760,7 @@
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

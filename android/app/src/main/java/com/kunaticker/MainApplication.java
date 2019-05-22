@@ -1,6 +1,7 @@
 package com.kunaticker;
 
 import android.app.Application;
+import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
 import com.bolan9999.SpringScrollViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -19,7 +20,6 @@ import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.bitgo.randombytes.RandomBytesPackage;
-import com.bolan9999.SpringScrollViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;

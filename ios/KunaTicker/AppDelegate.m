@@ -13,6 +13,9 @@
 
 #import "RNSplashScreen.h"
 
+#import "Fabric/Fabric.h"
+#import "Crashlytics/Crashlytics.h"
+
 #import <React/RCTLinkingManager.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -26,6 +29,7 @@
   [FIRApp configure];
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
   [RNFirebaseNotifications configure];
+  [Fabric with:@[[Crashlytics class]]];
   
   NSURL *jsCodeLocation;
 
@@ -47,7 +51,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-//  [RNSplashScreen show];
+  [RNSplashScreen show];
   
   return YES;
 }

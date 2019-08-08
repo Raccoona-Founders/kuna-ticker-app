@@ -50,7 +50,6 @@
         // "types": [],
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-
         // "preserveSymlinks": true,
 
         /* Source Map Options */

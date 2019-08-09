@@ -2,6 +2,7 @@ import React from 'react';
 import { Animated, Dimensions, StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
 import * as SlideView from 'components/slide-view';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import { tabBarStyles } from '../styles';
 import { _ } from 'utils/i18n';
 import Tabs from '../tabs';
@@ -18,7 +19,7 @@ export type TabnavRoute = {
      */
     index: number;
     title: string;
-    isBeta?: boolean;
+    icon: string;
     sceneComponent: React.ComponentClass | React.SFC | (() => JSX.Element) | any;
     assets?: KunaAssetUnit[];
 };
@@ -29,21 +30,25 @@ export const tabNavigationRoutes: TabnavRoute[] = [
         key: 'DASHBOARD',
         title: _('menu.dashboard'),
         index: 0,
+        icon: 'chart-bar',
         sceneComponent: Tabs.DashboardTab,
     }, {
         key: 'MARKETS',
         title: _('menu.markets'),
         index: 1,
+        icon: 'list-ul',
         sceneComponent: Tabs.MarketTab,
     }, {
         key: 'KUNA_CODE',
         title: _('menu.kuna_code'),
         index: 2,
+        icon: 'poll',
         sceneComponent: Tabs.KunaCode,
     }, {
         key: 'SETTINGS',
         title: _('menu.setting'),
         index: 3,
+        icon: 'cogs',
         sceneComponent: Tabs.SettingTab,
     },
 ];
@@ -68,19 +73,18 @@ export class TabBarComponent extends React.PureComponent<TabBarProps> {
         );
     }
 
-    private __renderTabItem = (route: TabnavRoute, index: number) => (
-        <QuoteTabItem key={route.key}
-                      route={route}
-                      position={this.props.position}
-                      index={index}
-                      onPress={this.__generatePressTabHandler(index)}
-        />
-    );
-
-    protected __generatePressTabHandler = (index: number) => {
+    private __renderTabItem = (route: TabnavRoute, index: number) => {
         const { onPressTab } = this.props;
 
-        return () => onPressTab ? onPressTab(index) : undefined;
+        return (
+            <QuoteTabItem
+                key={route.key}
+                route={route}
+                position={this.props.position}
+                index={index}
+                onPress={() => onPressTab ? onPressTab(index) : undefined}
+            />
+        )
     };
 }
 
@@ -103,15 +107,10 @@ class QuoteTabItem extends React.PureComponent<TabItemProps> {
         const inputRange = [index - 1, index, index + 1];
 
         this.boxAnimatedStyle = {
-            transform: [{
-                translateX: position.interpolate({
-                    inputRange: inputRange,
-                    outputRange: [width - 120, 0, -185],
-                }),
-            }],
             opacity: position.interpolate({
                 inputRange: inputRange,
-                outputRange: [0.5, 1, 0.2],
+                outputRange: [0.5, 1, 0.5],
+                extrapolate: 'clamp',
             }),
         };
     }
@@ -120,14 +119,12 @@ class QuoteTabItem extends React.PureComponent<TabItemProps> {
         const { route } = this.props;
 
         return (
-            <Animated.View style={[tabBarStyles.tab, this.boxAnimatedStyle]}>
-                <TouchableOpacity style={tabBarStyles.tabBtn} onPress={this.props.onPress}>
+            <TouchableOpacity onPress={this.props.onPress}>
+                <Animated.View style={[tabBarStyles.tab, this.boxAnimatedStyle]}>
+                    <FontAwesome5Icon name={route.icon} size={24} />
                     <SpanText style={tabBarStyles.text}>{route.title}</SpanText>
-                    {route.isBeta ? (
-                        <SpanText style={tabBarStyles.betaLabel}>beta</SpanText>
-                    ) : undefined}
-                </TouchableOpacity>
-            </Animated.View>
+                </Animated.View>
+            </TouchableOpacity>
         );
     }
 }

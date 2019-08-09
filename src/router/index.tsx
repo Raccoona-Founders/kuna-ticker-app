@@ -1,5 +1,7 @@
 import React from 'react';
 import { createShadeNavigator } from 'components/shade-navigator';
+import RouteKeys from 'router/route-keys';
+
 import MainScreen from 'screens/main';
 import MarketScreen from 'screens/market';
 import OrderBookScreen from 'screens/order-book';
@@ -7,7 +9,6 @@ import CalculatorScreen from 'screens/calculator';
 import KunaCode from 'screens/kuna-code';
 import Settings from 'screens/settings';
 import Service from 'screens/service';
-import RouteKeys from 'router/route-keys';
 
 
 /** ============================================================================================================= */
@@ -34,5 +35,4 @@ const navigatorConfig = {
     initialRouteName: RouteKeys.Main,
 };
 
-const ApplicationRouter = createShadeNavigator(routeConfigs, navigatorConfig);
-export default ApplicationRouter;
+export default createShadeNavigator(routeConfigs, navigatorConfig);

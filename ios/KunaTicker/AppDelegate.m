@@ -10,6 +10,7 @@
 #import "Firebase.h"
 #import "RNFirebaseMessaging.h"
 #import "RNFirebaseNotifications.h"
+@import GoogleMobileAds;
 
 #import "RNSplashScreen.h"
 
@@ -51,7 +52,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  [RNSplashScreen show];
+  // [RNSplashScreen show];
   
   return YES;
 }

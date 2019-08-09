@@ -18,7 +18,7 @@ type CoinIconProps = {
     style?: StyleProp<ViewStyle>;
 };
 
-export const CoinIcon = (props: CoinIconProps) => {
+export function CoinIcon(props: CoinIconProps): JSX.Element {
     const { size = 32, withShadow = true, asset, naked = false, style = {} } = props;
 
     const coinIconStyle = {

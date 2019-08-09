@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Animated } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import Constants from 'utils/constants';
-import Analitics from 'utils/ga-tracker';
+import Analytics from 'utils/ga-tracker';
 import * as SlideView from 'components/slide-view';
 import { tabNavigationRoutes, TabnavRoute, TabBarComponent } from './components/tab-bar';
 import PreviewWrapper from './components/preview-wrapper';
@@ -79,6 +79,6 @@ export default class MainScreen extends React.PureComponent<MainScreenProps, Mai
     protected trackScreen = () => {
         const { index, routes } = this.state;
 
-        Analitics.trackScreen(`main/${routes[index].key}`, 'MainScreen');
+        Analytics.trackScreen(`main/${routes[index].key}`, 'MainScreen');
     };
 }

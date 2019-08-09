@@ -17,37 +17,33 @@ export const tabBarStyles = StyleSheet.create({
     container: {
         paddingLeft: 20,
         paddingRight: 20,
-        paddingBottom: Constants.IS_IPHONE_X ? 50 : 20,
+        paddingBottom: Constants.IS_IPHONE_X ? 30 : 0,
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
         zIndex: 10,
-        backgroundColor: 'rgba(240,242,244, 0.9)',
-        borderTopWidth: 1,
-        borderTopColor: Color.Gray3,
+        backgroundColor: Color.White,
+
+        shadowOpacity: 0.4,
+        shadowColor: Color.CommonShadowColor,
+        shadowOffset: { height: 2, width: 0 },
+        shadowRadius: 3,
     },
 
     tabBar: {
-        height: 40,
+        height: 60,
         flexDirection: 'row',
-    },
-    tabBtn: {
-        width: '100%',
-        height: '100%',
-        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     tab: {
-        paddingTop: 15,
-        flexDirection: 'row',
         alignItems: 'center',
-        position: 'absolute',
-        height: 60,
-        top: 0,
     },
     text: {
-        fontSize: 28,
+        marginTop: 2,
         fontFamily: Fonts.TTNorms_Regular,
+        fontSize: 12,
         alignItems: 'center',
         color: Color.Text,
         ...DefaultStyles.boldFont,
@@ -62,15 +58,5 @@ export const tabBarStyles = StyleSheet.create({
 
         borderBottomWidth: 1,
         borderBottomColor: Color.Gray3,
-    },
-
-
-    betaLabel: {
-        color: Color.Main,
-        position: 'absolute',
-        top: -8,
-        right: -24,
-        fontSize: 12,
-        ...DefaultStyles.boldFont,
     },
 });

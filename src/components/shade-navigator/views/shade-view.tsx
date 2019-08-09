@@ -3,10 +3,12 @@ import {
     NavigationDescriptor,
     NavigationInjectedProps,
     NavigationStackViewConfig,
-    Transitioner,
     NavigationTransitionProps,
     NavigationTransitionSpec,
 } from 'react-navigation';
+
+// @ts-ignore
+import { Transitioner } from 'react-navigation-stack';
 
 import { ShadeViewLayout } from 'components/shade-navigator/views/shade-view-layout';
 

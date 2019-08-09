@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
     },
     volumeBTC: {
         fontSize: 16,
-        color: Color.Success,
+        color: Color.Main,
     },
 });

@@ -4,6 +4,8 @@ export enum Color {
     Main = '#5850FA',
     Secondary = '#3DC3FA',
 
+    CommonShadowColor = '#C5C4CC',
+
     Purple = '#312A7D',
     Fade = '#676793',
     DarkPurple = '#0D0D3F',

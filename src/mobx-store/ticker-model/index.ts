@@ -1,7 +1,7 @@
 import { get, forEach, find, size } from 'lodash';
+import Numeral from 'numeral';
 import { action, computed, observable, runInAction } from 'mobx';
 import { KunaV3Ticker, KunaV3ExchangeRate } from 'kuna-sdk';
-import Numeral from 'numeral';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { UsdCalculator } from 'utils/currency-rate';
 import kunaClient from 'utils/kuna-api';

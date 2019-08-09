@@ -52,7 +52,6 @@ export default class SettingTab extends React.Component<SettingsProps> {
                     <View style={styles.separator}/>
 
                     <View style={styles.settingFooter}>
-
                         <Icon name="raccoona" height={20} fill={Color.GrayBlues}/>
                     </View>
                 </View>

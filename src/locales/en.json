@@ -26,6 +26,7 @@
         "ask": "Ask"
     },
     "setting": {
+        "topic": "Settings",
         "menu": {
             "about": "About",
             "kuna-code": "KUNA Code",

@@ -26,6 +26,7 @@
         "ask": "Спрос"
     },
     "setting": {
+        "topic": "Настройки",
         "menu": {
             "about": "Про приложение",
             "kuna-code": "KUNA Code",

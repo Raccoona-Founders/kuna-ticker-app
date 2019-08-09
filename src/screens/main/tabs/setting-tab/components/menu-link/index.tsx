@@ -20,8 +20,7 @@ type MenuLinkProps
     = MenuLinkOuterProps
     & NavigationInjectedProps;
 
-const MenuLink = (props: MenuLinkProps) => {
-
+function MenuLink(props: MenuLinkProps): JSX.Element {
     const onPress = () => {
         if (props.route) {
             props.navigation.push(props.route, props.routeParams);
@@ -39,10 +38,10 @@ const MenuLink = (props: MenuLinkProps) => {
                 ) : undefined}
             </View>
 
-            <Icon name="slideRight" fill={Color.GrayBlues} height={15} width={9} />
+            <Icon name="slideRight" fill={Color.GrayBlues} />
         </TouchableOpacity>
     );
-};
+}
 
 export default compose<MenuLinkProps, MenuLinkOuterProps>(withNavigation)(MenuLink);
 
@@ -54,6 +53,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: 18,
+        fontSize: 14,
     },
 });

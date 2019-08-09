@@ -8,6 +8,7 @@ import { _ } from 'utils/i18n';
 import { SpanText } from 'components/span-text';
 import RouteKeys from 'router/route-keys';
 import { Color } from 'styles/variables';
+import OfficialChannel from '../kuna-code-tab/components/official-channel';
 import MenuLink from './components/menu-link';
 
 
@@ -36,9 +37,10 @@ export default class SettingTab extends React.Component<SettingsProps> {
         return (
             <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
                 <View style={styles.preContent}>
-                    <SpanText style={{fontWeight: 'bold', fontSize: 32}}>Settings</SpanText>
+                    <SpanText style={styles.topic}>{_('setting.topic')}</SpanText>
                     <SpanText style={styles.userId}>User ID: {User.userId}</SpanText>
                 </View>
+
                 <View style={styles.menuBox}>
                     <MenuLink title={_('setting.menu.about')}
                               route={RouteKeys.Setting_About}
@@ -52,7 +54,7 @@ export default class SettingTab extends React.Component<SettingsProps> {
                     <View style={styles.separator}/>
 
                     <View style={styles.settingFooter}>
-                        <Icon name="raccoona" height={20} fill={Color.GrayBlues}/>
+                        <Icon name="raccoona" size={20} fill={Color.GrayBlues}/>
                     </View>
                 </View>
 
@@ -67,7 +69,7 @@ export default class SettingTab extends React.Component<SettingsProps> {
             GooglePackageName: 'com.kunaticker',
             AmazonPackageName: 'com.kunaticker',
             preferredAndroidMarket: AndroidMarket.Google,
-            preferInApp: true,
+            preferInApp: false,
             openAppStoreIfInAppFails: true,
         };
 

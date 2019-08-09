@@ -84,7 +84,6 @@ export default class FavoriteTickers extends React.PureComponent<FavoriteProps> 
                               size={32}
                               style={styles.boxLogo}
                     />
-                    <SpanText>{market.baseAsset}</SpanText>
                 </TouchableOpacity>
             );
         };

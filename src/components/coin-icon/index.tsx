@@ -36,7 +36,7 @@ export function CoinIcon(props: CoinIconProps): JSX.Element {
 
     const backgroundLayout = naked
         ? undefined
-        : <Icon name="shapeBox" height={size} style={svgShapeStyle} fill={asset.color} />;
+        : <Icon name="shapeBox" size={size} style={svgShapeStyle} fill={asset.color} />;
 
     if (!existsIcon) {
         const symbolContainerStyle: any = {

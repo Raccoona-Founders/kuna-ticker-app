@@ -8,8 +8,7 @@ export default StyleSheet.create({
     preBox: {
         marginBottom: 10,
         marginTop: 20,
-        marginLeft: 20,
-        marginRight: 20,
+        marginHorizontal: 20,
     },
 
     topic: {

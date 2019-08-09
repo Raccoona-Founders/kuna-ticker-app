@@ -6,12 +6,11 @@ type IconProps = {
     name: string;
     fill?: string;
     style?: any;
-    height?: number;
-    width?: number;
+    size?: number;
 };
 
-export const Icon = (props: IconProps) => {
-    const { style, name, fill = '#222', height = 32, width, ...anyProps } = props;
+export default function Icon(props: IconProps): JSX.Element {
+    const { style, name, fill = '#222', size = 28, ...anyProps } = props;
 
     return (
         <SvgIcon
@@ -19,11 +18,9 @@ export const Icon = (props: IconProps) => {
             style={style}
             name={name}
             fill={fill}
-            height={height}
-            width={width || height}
+            height={size}
+            width={size}
             {...anyProps}
         />
     );
 };
-
-export default Icon;

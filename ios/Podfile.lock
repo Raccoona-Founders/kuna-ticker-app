@@ -346,7 +346,7 @@ PODS:
     - Fabric
     - Firebase/Core
     - React
-  - RNGestureHandler (1.2.1):
+  - RNGestureHandler (1.5.0):
     - React
   - RNLanguages (3.0.2):
     - React
@@ -556,7 +556,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 02c55fdf22e98cdfdddca674e8ce0bb9f4e32fbf
   RNDeviceInfo: 082622132ceca1e687b2e80530363307eab17e40
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
-  RNGestureHandler: aea90f0ad8e35fec23438db6fc3ad79be58bb734
+  RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
   RNLanguages: 962e562af0d34ab1958d89bcfdb64fafc37c513e
   RNRate: 832f7e4da1b043bda1a138e20afdb75c42a530e9
   RNSpringScrollView: 8b0af44fda8b131d845b93bf5b1d0710152e4e61
@@ -564,6 +564,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 6607bd3a30291d0edb56f9bbe7ae411ee2b928b0
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
-PODFILE CHECKSUM: 31fcb52296db2d90c733f8e580c21325da3f3f35
+PODFILE CHECKSUM: 9e62f96eb8b668dcd6dd4f8844d8b08cfff2b19f
 
 COCOAPODS: 1.8.4

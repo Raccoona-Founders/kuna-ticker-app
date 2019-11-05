@@ -25,7 +25,7 @@ export default StyleSheet.create({
 
     description: {
         marginTop: 10,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         marginBottom: 20,
         fontSize: 12,
     },

@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
 
     codeTopic: {
         fontSize: 12,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     codePrefixContainer: {
         padding: 10,
@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
     codePrefix: {
         fontSize: 18,
         textAlign: 'center',
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     codePostInformation: {
         fontSize: 12,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });

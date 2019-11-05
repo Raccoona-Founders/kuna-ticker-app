@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
 
     successContainer: {},
     successTitle: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     successPrizeContainer: {
         backgroundColor: Color.GrayWhite,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     successPostMessage: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         fontSize: 12,
     },
 

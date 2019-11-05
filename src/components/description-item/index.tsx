@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     topic: {
         fontSize: 14,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         marginBottom: 5,
     },
     text: {

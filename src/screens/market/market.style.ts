@@ -23,7 +23,7 @@ const marketStyle = StyleSheet.create({
     },
     topicNameFullname: {
         fontSize: 14,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 
     infoUnitFirstLine: {
@@ -54,7 +54,7 @@ const marketStyle = StyleSheet.create({
         ...DefaultStyles.boldFont,
     },
     priceUsd: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 
     sectionInformation: {

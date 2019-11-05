@@ -14,7 +14,7 @@ export default (props: LabelProps) => (
 
 const styles = StyleSheet.create({
     label: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         fontSize: 14,
     },
 });

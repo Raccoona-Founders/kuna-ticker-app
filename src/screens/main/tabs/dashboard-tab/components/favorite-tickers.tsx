@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         width: '100%',
         fontSize: 12,
         textTransform: 'uppercase',
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         marginBottom: 10,
     },
     container: {
@@ -137,6 +137,6 @@ const styles = StyleSheet.create({
     },
     priceUSD: {
         fontSize: 14,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });

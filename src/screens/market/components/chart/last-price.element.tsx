@@ -8,7 +8,7 @@ export default (({ lastPrice, y }: any) => (
           x2="100%"
           y1={y(lastPrice)}
           y2={y(lastPrice)}
-          stroke={Color.GrayBlues}
+          stroke={Color.SecondaryText}
           strokeDasharray={[4, 8]}
           strokeWidth={1}
     />

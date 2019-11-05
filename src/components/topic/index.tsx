@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     descriptionText: {
         marginTop: 5,
         fontSize: 16,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });
 

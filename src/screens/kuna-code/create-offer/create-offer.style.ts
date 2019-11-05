@@ -39,6 +39,6 @@ export default StyleSheet.create({
 
     footerText: {
         fontSize: 12,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });

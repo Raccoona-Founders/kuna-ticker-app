@@ -34,11 +34,11 @@ class MarketTab extends React.Component<MarketTabProps, State> {
                 </View>
 
                 <ScrollView
-                    style={styles.flatList}
+                    style={styles.scrollView}
                     showsVerticalScrollIndicator={false}
                     refreshControl={this.__renderRefreshControl()}
+                    contentContainerStyle={styles.scrollView__Content}
                 >
-                    <View style={{ height: 60 }} />
                     <MarketList
                         favorite={this.state.favorite}
                         activeAsset={this.state.activeAsset}
@@ -99,6 +99,14 @@ const styles = StyleSheet.create({
     flatList: {
         flex: 1,
     },
+    scrollView: {
+        flex: 1,
+        marginTop: 50,
+    },
+    scrollView__Content: {
+        paddingTop: 10,
+    },
+
     listItemSeparator: {
         borderBottomColor: Color.GrayLight,
         borderBottomWidth: 1,

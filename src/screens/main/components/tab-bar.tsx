@@ -121,7 +121,7 @@ class QuoteTabItem extends React.PureComponent<TabItemProps> {
         return (
             <TouchableOpacity onPress={this.props.onPress}>
                 <Animated.View style={[tabBarStyles.tab, this.boxAnimatedStyle]}>
-                    <FontAwesome5Icon name={route.icon} size={24} />
+                    <FontAwesome5Icon name={route.icon} size={22} />
                     <SpanText style={tabBarStyles.text}>{route.title}</SpanText>
                 </Animated.View>
             </TouchableOpacity>

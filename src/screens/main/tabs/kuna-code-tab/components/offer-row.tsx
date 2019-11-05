@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
     },
     date: {
         marginTop: 5,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });

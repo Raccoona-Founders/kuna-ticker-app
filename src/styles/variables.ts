@@ -10,15 +10,13 @@ export enum Color {
     Fade = '#676793',
     DarkPurple = '#0D0D3F',
 
-    Text = '#4A4A4A',
-    SecondaryText = '#6A6A6A',
+    Text = '#0B0A0E',
+    SecondaryText = '#858486',
 
     DeepBlue = '#2E71F0',
 
     PurpleNoactive = '#9DA3B8',
-    Gold = '#',
 
-    GrayBlues = '#93A9C3',
     Gray3 = '#E6EAEE',
     GrayWhite = '#F5F7F8',
     GrayNoactive = '#DCDCDC',

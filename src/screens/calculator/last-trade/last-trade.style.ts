@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 
     resultUsdValue: {
         fontSize: 16,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });
 

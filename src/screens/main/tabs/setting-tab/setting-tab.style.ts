@@ -39,6 +39,6 @@ export const styles = StyleSheet.create({
     userId: {
         marginBottom: 20,
         fontSize: 14,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });

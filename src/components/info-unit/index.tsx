@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     topic: {
         fontSize: 10,
         marginBottom: 5,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         textTransform: 'uppercase',
     },
     valueText: {

@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     token: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     amountBox: {
         flexDirection: 'row',
@@ -132,11 +132,11 @@ const styles = StyleSheet.create({
     price: {
         marginTop: 5,
         fontSize: 14,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     amountPartial: {
         fontSize: 14,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     bank: {
         marginTop: 5,

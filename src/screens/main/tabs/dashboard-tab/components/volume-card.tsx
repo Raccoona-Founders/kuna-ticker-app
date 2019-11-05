@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 12,
         textTransform: 'uppercase',
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         marginBottom: 5,
     },
 

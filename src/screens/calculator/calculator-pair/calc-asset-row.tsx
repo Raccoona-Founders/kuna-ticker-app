@@ -23,7 +23,7 @@ export default class CalcAssetRow extends React.PureComponent<CalcAssetRowProps>
                            onChangeText={this.props.onChangeText}
                            keyboardType="numeric"
                            returnKeyType="done"
-                           placeholderTextColor={Color.GrayBlues}
+                           placeholderTextColor={Color.SecondaryText}
 
                 />
 

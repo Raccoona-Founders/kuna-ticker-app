@@ -41,7 +41,7 @@ export const tabBarStyles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        marginTop: 2,
+        marginTop: 5,
         fontFamily: Fonts.TTNorms_Regular,
         fontSize: 12,
         alignItems: 'center',

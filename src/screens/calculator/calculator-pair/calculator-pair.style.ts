@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 
     valueInput: {
         ...DefaultStyles.mediumFont,
+        color: Color.Text,
 
         paddingLeft: 15,
         borderRadius: 3,
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
 
     assetIconText: {
         fontSize: 16,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 
     resultContainer: {
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
 
     resultUsdValue: {
         fontSize: 16,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });
 

@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     arrow: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     boxSell: {},
     boxBuy: {

@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         marginBottom: 20,
     },
     linkItemTitle: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     linkItemLabel: {
         ...DefaultStyles.mediumFont,

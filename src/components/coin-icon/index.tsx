@@ -47,11 +47,11 @@ export function CoinIcon(props: CoinIconProps): JSX.Element {
             textAlign: 'center',
         };
 
-        const iconStyle = [
+        const iconStyle = StyleSheet.flatten([
             styles.onlySymbolText,
             { color: naked ? asset.color : '#FFFFFF' },
             symbolContainerStyle,
-        ];
+        ]);
 
         return (
             <View style={[coinIconStyle, withShadow ? coinShadow : {}, style]}>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     onlySymbolText: {
         ...DefaultStyles.boldFont,
         position: 'absolute',
-        top: 0,
-        left: 0,
+        top: 1,
+        left: 0
     },
 });

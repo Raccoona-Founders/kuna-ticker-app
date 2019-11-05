@@ -14,7 +14,7 @@ export default StyleSheet.create({
         top: 8,
         paddingLeft: 10,
         paddingRight: 10,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         fontSize: 14,
     },
     input: {

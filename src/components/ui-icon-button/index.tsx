@@ -66,9 +66,9 @@ const styles = StyleSheet.create({
     },
 
     iconDisabled: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     titleDisabled: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     }
 });

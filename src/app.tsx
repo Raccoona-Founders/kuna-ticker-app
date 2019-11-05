@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, StatusBar } from 'react-native';
 import firebase from 'react-native-firebase';
 import { Provider as MobxProvider } from 'mobx-react';
 import SplashScreen from 'react-native-splash-screen';
@@ -76,6 +76,7 @@ export default class Application extends React.PureComponent<any, ApplicationSta
 
         return (
             <MobxProvider {...this.state.mobxStore}>
+                <StatusBar barStyle="dark-content" />
                 <ApplicationRouter onNavigationStateChange={onNavigationStateChange()} />
             </MobxProvider>
         );

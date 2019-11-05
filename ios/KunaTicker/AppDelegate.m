@@ -7,19 +7,20 @@
 
 #import "AppDelegate.h"
 
+#import <React/RCTLinkingManager.h>
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
+
+#import "RNSplashScreen.h"
+
 #import "Firebase.h"
 #import "RNFirebaseMessaging.h"
 #import "RNFirebaseNotifications.h"
 @import GoogleMobileAds;
 
-#import "RNSplashScreen.h"
-
 #import "Fabric/Fabric.h"
 #import "Crashlytics/Crashlytics.h"
 
-#import <React/RCTLinkingManager.h>
-#import <React/RCTBundleURLProvider.h>
-#import <React/RCTRootView.h>
 
 
 

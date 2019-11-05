@@ -26,7 +26,7 @@ class MarketList extends React.Component<Props, State> {
                           scrollEnabled={false}
                 />
 
-                <SpanText style={{ color: Color.GrayBlues, fontSize: 12, paddingLeft: 20, paddingBottom: 20 }}>
+                <SpanText style={{ color: Color.SecondaryText, fontSize: 12, paddingLeft: 20, paddingBottom: 20 }}>
                     {this.props.Ticker.lastUpdate}
                 </SpanText>
             </>

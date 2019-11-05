@@ -38,7 +38,7 @@ function MenuLink(props: MenuLinkProps): JSX.Element {
                 ) : undefined}
             </View>
 
-            <Icon name="slideRight" fill={Color.GrayBlues} />
+            <Icon name="slideRight" fill={Color.SecondaryText} />
         </TouchableOpacity>
     );
 }

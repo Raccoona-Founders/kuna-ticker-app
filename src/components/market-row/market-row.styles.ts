@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
     marketVolume: {
         fontSize: 14,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     }
 });
 

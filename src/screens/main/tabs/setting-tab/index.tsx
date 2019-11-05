@@ -66,7 +66,7 @@ export default function SettingTab(): JSX.Element {
                 <View style={styles.separator} />
 
                 <View style={styles.settingFooter}>
-                    <Icon name="raccoona" size={20} fill={Color.GrayBlues} />
+                    <Icon name="raccoona" size={20} fill={Color.SecondaryText} />
                 </View>
             </View>
 

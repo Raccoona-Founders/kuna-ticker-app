@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
 
     itemText: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
         fontSize: 18,
     },
 

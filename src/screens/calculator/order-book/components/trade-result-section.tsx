@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         width: '100%',
         textTransform: 'uppercase',
         fontSize: 14,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
     avgPriceValue: {
         ...DefaultStyles.boldFont,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     avgPriceAsset: {
         fontSize: 20,
         marginLeft: 5,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 
     avgPriceDiff: {
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     avgPriceDiffSeparator: {
         marginLeft: 10,
         marginRight: 10,
-        backgroundColor: Color.GrayBlues,
+        backgroundColor: Color.SecondaryText,
         height: 3,
         width: 3,
         borderRadius: 3,

@@ -22,7 +22,7 @@ export default StyleSheet.create({
     },
 
     topicTextMarket: {
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 
     spreadContainer: {
@@ -97,7 +97,7 @@ export default StyleSheet.create({
     },
     depthHeaderCell: {
         fontSize: 12,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 });
 

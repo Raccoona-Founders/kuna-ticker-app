@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
 
     assetIconText: {
         fontSize: 16,
-        color: Color.GrayBlues,
+        color: Color.SecondaryText,
     },
 
 

@@ -1,7 +1,7 @@
 import { get, forEach, find, size } from 'lodash';
 import Numeral from 'numeral';
 import { action, computed, observable, runInAction } from 'mobx';
-import { KunaV3Ticker, KunaV3ExchangeRate } from 'kuna-sdk';
+import { KunaV3Ticker, KunaV3ExchangeRate, KunaV3Market } from 'kuna-sdk';
 import ModelAsyncStorage from 'mobx-store/common/model-async-storage';
 import { UsdCalculator } from 'utils/currency-rate';
 import kunaClient from 'utils/kuna-api';
@@ -21,6 +21,9 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
 
     @observable
     public lastUpdate?: string;
+
+    @observable
+    public marketList?: Record<string, mobx.ticker.MarketUnit>;
 
     private __usdRateStore: mobx.usdrate.StoreModel;
 
@@ -108,6 +111,24 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
         return Numeral(sum);
     }
 
+    @action
+    public async fetchMarketList(): Promise<void> {
+        const markets = await kunaClient.getMarkets();
+
+        const marketListObj = this.marketList || {};
+        markets.forEach((m: KunaV3Market) => {
+            marketListObj[m.id] = {
+                key: m.id,
+                baseAsset: m.base_unit,
+                quoteAsset: m.quote_unit,
+                precision: m.quote_precision,
+            };
+        });
+
+        runInAction(() => {
+            this.marketList = marketListObj;
+        });
+    }
 
     @computed
     public get usdCalculator(): UsdCalculator {
@@ -123,6 +144,7 @@ export default class TickerModel extends ModelAsyncStorage implements mobx.ticke
     public async initialize(): Promise<void> {
         await super.initialize();
 
+        this.fetchMarketList();
         this.__runUpdater()
             .then(() => console.log('Ticker updater successfully run'));
     }

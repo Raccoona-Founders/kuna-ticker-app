@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, ScrollView, RefreshControl } from 'react-native';
 import firebase from 'react-native-firebase';
-import { inject, observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { compose } from 'recompose';
 import { _ } from 'utils/i18n';
 import Constants from 'utils/constants';
 import AnalTracker from 'utils/ga-tracker';
 import SpanText from 'components/span-text';
+import { Color } from 'styles/variables';
 import TelegramOfferRow from './components/telegram-offer-row';
 import OfficialChannel from './components/official-channel';
 import styles from './kuna-code-tab.style';
@@ -15,16 +17,7 @@ import styles from './kuna-code-tab.style';
 // @ts-ignore
 firebase.admob().initialize(Constants.ADMOB_APP_ID);
 
-type KunaCodeTabProps
-    = mobx.kunacode.WithKunaCodeProps
-    & NavigationInjectedProps
-    & { focused: boolean; };
-
-// @ts-ignore
-@withNavigation
-@inject('KunaCode')
-@observer
-export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
+class KunaCodeTab extends React.Component<KunaCodeTabProps> {
     public state: any = {
         refreshing: false,
     };
@@ -84,6 +77,7 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
             <RefreshControl
                 refreshing={this.state.refreshing}
                 onRefresh={this.__onRefresh}
+                tintColor={Color.Fade}
             />
         );
     };
@@ -103,3 +97,15 @@ export default class KunaCodeTab extends React.Component<KunaCodeTabProps> {
         this.setState({ refreshing: false });
     };
 }
+
+export default compose<KunaCodeTabProps, { focused: boolean; }>(
+    withNavigation,
+    inject('KunaCode'),
+    observer,
+)(KunaCodeTab);
+
+
+type KunaCodeTabProps
+    = mobx.kunacode.WithKunaCodeProps
+    & NavigationInjectedProps
+    & { focused: boolean; };

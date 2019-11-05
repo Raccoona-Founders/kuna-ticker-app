@@ -1,7 +1,8 @@
 import React from 'react';
-import { inject } from 'mobx-react/native';
+import { inject } from 'mobx-react';
 import { ScrollView, RefreshControl, StyleSheet, View } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
+import { compose } from 'recompose';
 import AnalTracker from 'utils/ga-tracker';
 import Constants from 'utils/constants';
 import { Color } from 'styles/variables';
@@ -14,15 +15,7 @@ type State = {
     activeAsset?: KunaAssetUnit;
 };
 
-type OuterProps = {};
-type MarketTabProps
-    = OuterProps
-    & mobx.ticker.WithTickerProps;
-
-
-// @ts-ignore
-@inject('Ticker')
-export default class MarketTab extends React.Component<MarketTabProps, State> {
+class MarketTab extends React.Component<MarketTabProps, State> {
     public state: State = {
         refreshing: false,
         favorite: false,
@@ -69,6 +62,7 @@ export default class MarketTab extends React.Component<MarketTabProps, State> {
             <RefreshControl
                 refreshing={this.state.refreshing}
                 onRefresh={this.__onRefresh}
+                tintColor={Color.Fade}
             />
         );
     };
@@ -88,6 +82,17 @@ export default class MarketTab extends React.Component<MarketTabProps, State> {
         this.setState({ refreshing: false });
     };
 }
+
+
+type MarketTabOuterProps = {};
+
+type MarketTabProps
+    = MarketTabOuterProps
+    & mobx.ticker.WithTickerProps;
+
+export default compose<MarketTabProps, MarketTabOuterProps>(
+    inject('Ticker'),
+)(MarketTab);
 
 
 const styles = StyleSheet.create({

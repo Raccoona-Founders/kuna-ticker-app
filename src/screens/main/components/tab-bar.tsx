@@ -1,12 +1,12 @@
 import React from 'react';
-import { Animated, Dimensions, StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Animated, Dimensions, StyleProp, TouchableOpacity, View } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
-import * as SlideView from 'components/slide-view';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import { tabBarStyles } from '../styles';
 import { _ } from 'utils/i18n';
-import Tabs from '../tabs';
 import SpanText from 'components/span-text';
+import * as SlideView from 'components/slide-view';
+import { tabBarStyles } from '../styles';
+import Tabs from '../tabs';
 
 const { width } = Dimensions.get('window');
 
@@ -20,7 +20,7 @@ export type TabnavRoute = {
     index: number;
     title: string;
     icon: string;
-    sceneComponent: React.ComponentClass | React.SFC | (() => JSX.Element) | any;
+    sceneComponent: React.ComponentClass | React.FunctionComponent | (() => JSX.Element) | any;
     assets?: KunaAssetUnit[];
 };
 

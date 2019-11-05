@@ -117,5 +117,7 @@ typings/
 # next.js build output
 .next
 
-ios/Pods
+# CocoaPods
+/ios/Pods/
+
 android/app/src/main/assets/

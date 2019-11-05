@@ -30,15 +30,29 @@ declare global {
          * This model helps us to track Ticker list
          */
         namespace ticker {
+            type MarketUnit = {
+                key: string;
+                baseAsset: string;
+                quoteAsset: string;
+                precision: number;
+            };
+
             interface TickerModel {
                 tickers: Record<string, KunaV3Ticker>;
+
                 exchangeRates: KunaV3ExchangeRate[];
+
                 favorite: FavoriteModel;
+
                 lastUpdate?: string;
 
                 usdCalculator: UsdCalculator;
 
+                marketList?: Record<string, MarketUnit>;
+
                 fetchTickers(): Promise<void>;
+
+                fetchMarketList(): Promise<void>;
 
                 getFavorite(): KunaV3Ticker[];
 

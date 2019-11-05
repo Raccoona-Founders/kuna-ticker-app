@@ -1,8 +1,8 @@
 import React from 'react';
 import Numeral from 'numeral';
 import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { KunaV3Ticker, kunaMarketMap, getAsset, KunaMarket } from 'kuna-sdk';
+import { useNavigation } from 'react-navigation-hooks';
 import { UsdCalculator } from 'utils/currency-rate';
 import SpanText from 'components/span-text';
 import { Color, DefaultStyles } from 'styles/variables';
@@ -19,84 +19,70 @@ type FavoriteProps = {
 };
 
 
-// @ts-ignore
-@withNavigation
-export default class FavoriteTickers extends React.PureComponent<FavoriteProps> {
-    public render(): JSX.Element {
-        const { tickers } = this.props;
+export default function FavoriteTickers(props: FavoriteProps): JSX.Element {
+    const { tickers, usdCalculator } = props;
+    const navigation = useNavigation();
 
-        if (tickers.length < 1) {
-            return <View />;
-        }
-
-        return (
-            <View style={styles.container}>
-                <SpanText style={styles.title}>Favorites</SpanText>
-
-                {tickers.map(this.__itemRenderer())}
-            </View>
-        );
+    if (tickers.length < 1) {
+        return <View />;
     }
 
-
-    private __itemRenderer = () => {
-        const { usdCalculator } = this.props;
-
-        return (ticker: KunaV3Ticker) => {
-
-            const { lastPrice } = ticker;
-            const market = kunaMarketMap[ticker.symbol];
-            const baseAsset = getAsset(market.baseAsset);
-            const usdPrice = usdCalculator.getPrice(market.key);
-
-            const volume = Numeral(ticker.volume).multiply(usdPrice.value());
-
-            return (
-                <TouchableOpacity style={styles.box} key={ticker.symbol} onPress={this.__onPressMarket(market)}>
-                    <View style={styles.boxHead}>
-                        <SpanText>{market.baseAsset}/{market.quoteAsset}</SpanText>
-                    </View>
-
-                    <View style={styles.boxPrice}>
-                        <SpanText style={styles.price}>
-                            {Numeral(lastPrice).format(market.format)} {market.quoteAsset}
-                        </SpanText>
-
-                        <View>
-                            <SpanText style={styles.priceUSD}>
-                                1 {market.baseAsset} = ${usdPrice.format('0,0.[00]')}
-                            </SpanText>
-
-                            <SpanText style={styles.priceUSD}>
-                                Vol. ${volume.format('0,0.[0]a')}
-                            </SpanText>
-                        </View>
-                    </View>
-
-                    <View>
-                        <ChangePercent percent={ticker.dailyChangePercent} />
-                    </View>
-
-
-                    <CoinIcon asset={baseAsset}
-                              withShadow={false}
-                              naked={true}
-                              size={32}
-                              style={styles.boxLogo}
-                    />
-                </TouchableOpacity>
-            );
-        };
-    };
-
-
-    private __onPressMarket = (market: KunaMarket) => {
+    const onPressMarket = (market: KunaMarket) => {
         return () => {
-            const { navigation } = this.props as any as NavigationInjectedProps;
-
             navigation.push(RouteKeys.Market, { symbol: market.key });
         };
     };
+
+    return (
+        <View style={styles.container}>
+            <SpanText style={styles.title}>Favorites</SpanText>
+
+            {tickers.map((ticker: KunaV3Ticker) => {
+                const { lastPrice } = ticker;
+                const market = kunaMarketMap[ticker.symbol];
+                const baseAsset = getAsset(market.baseAsset);
+                const usdPrice = usdCalculator.getPrice(market.key);
+
+                const volume = Numeral(ticker.volume).multiply(usdPrice.value());
+
+                return (
+                    <TouchableOpacity style={styles.box} key={ticker.symbol} onPress={onPressMarket(market)}>
+                        <View style={styles.boxHead}>
+                            <SpanText>{market.baseAsset}/{market.quoteAsset}</SpanText>
+                        </View>
+
+                        <View style={styles.boxPrice}>
+                            <SpanText style={styles.price}>
+                                {Numeral(lastPrice).format(market.format)} {market.quoteAsset}
+                            </SpanText>
+
+                            <View>
+                                <SpanText style={styles.priceUSD}>
+                                    1 {market.baseAsset} = ${usdPrice.format('0,0.[00]')}
+                                </SpanText>
+
+                                <SpanText style={styles.priceUSD}>
+                                    Vol. ${volume.format('0,0.[0]a')}
+                                </SpanText>
+                            </View>
+                        </View>
+
+                        <View>
+                            <ChangePercent percent={ticker.dailyChangePercent} />
+                        </View>
+
+
+                        <CoinIcon asset={baseAsset}
+                                  withShadow={false}
+                                  naked={true}
+                                  size={32}
+                                  style={styles.boxLogo}
+                        />
+                    </TouchableOpacity>
+                );
+            })}
+        </View>
+    );
 }
 
 

@@ -2,7 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Alert, View } from 'react-native';
-import { inject, observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react';
+import { compose } from 'recompose';
 import { _ } from 'utils/i18n';
 import AnalTracker from 'utils/ga-tracker';
 import DescriptionItem from 'components/description-item';
@@ -17,11 +18,7 @@ import UIButton from 'components/ui-button';
 
 import styles from './view-offer.style';
 
-type Props = NavigationInjectedProps & mobx.kunacode.WithKunaCodeProps;
-
-@inject('KunaCode')
-@observer
-export default class ViewOfferScreen extends React.Component<Props> {
+class ViewOfferScreen extends React.Component<Props> {
     public state: any = {
         deleting: false,
     };
@@ -51,7 +48,7 @@ export default class ViewOfferScreen extends React.Component<Props> {
 
                 <View style={{ paddingLeft: 20, paddingRight: 20 }}>
                     <DescriptionItem topic={_('general.amount')}>
-                        {numeral(offer.amount).format('0,0.[00]') + " " + offer.currency}
+                        {numeral(offer.amount).format('0,0.[00]') + ' ' + offer.currency}
                     </DescriptionItem>
 
                     <DescriptionItem topic={_('general.operation')}>
@@ -127,3 +124,12 @@ export default class ViewOfferScreen extends React.Component<Props> {
         return this.props.navigation.getParam('offer');
     }
 }
+
+type Props
+    = NavigationInjectedProps
+    & mobx.kunacode.WithKunaCodeProps;
+
+export default compose<Props, NavigationInjectedProps>(
+    inject('KunaCode'),
+    observer,
+)(ViewOfferScreen);

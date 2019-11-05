@@ -1,6 +1,11 @@
 package com.kunaticker;
 
 import android.app.Application;
+import android.util.Log;
+
+import com.facebook.react.PackageList;
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
+import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
 import com.bolan9999.SpringScrollViewPackage;
@@ -37,27 +42,31 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(
-                    new MainReactPackage(),
-                    new SpringScrollViewPackage(),
-                    new VectorIconsPackage(),
-                    new RNGestureHandlerPackage(),
-                    new RNLanguagesPackage(),
-                    new RNFirebasePackage(),
-                    new RNFirebaseAnalyticsPackage(),
-                    new RNFirebaseRemoteConfigPackage(),
-                    new RNFirebasePerformancePackage(),
-                    new RNFirebaseNotificationsPackage(),
-                    new RNFirebaseMessagingPackage(),
-                    new RNFirebaseCrashlyticsPackage(),
-                    new RNFirebaseAdMobPackage(),
-                    new RNDeviceInfo(),
-                    new SvgPackage(),
-                    new RandomBytesPackage(),
-                    new SplashScreenReactPackage(),
-                    new AsyncStoragePackage(),
-                    new SpringScrollViewPackage()
-            );
+
+            @SuppressWarnings("UnnecessaryLocalVariable")
+            List<ReactPackage> packages = new PackageList(this).getPackages();
+
+            packages.add(new MainReactPackage());
+            packages.add(new SpringScrollViewPackage());
+            packages.add(new VectorIconsPackage());
+            packages.add(new RNGestureHandlerPackage());
+            packages.add(new RNLanguagesPackage());
+            packages.add(new RNFirebasePackage());
+            packages.add(new RNFirebaseAnalyticsPackage());
+            packages.add(new RNFirebaseRemoteConfigPackage());
+            packages.add(new RNFirebasePerformancePackage());
+            packages.add(new RNFirebaseNotificationsPackage());
+            packages.add(new RNFirebaseMessagingPackage());
+            packages.add(new RNFirebaseCrashlyticsPackage());
+            packages.add(new RNFirebaseAdMobPackage());
+            packages.add(new RNDeviceInfo());
+            packages.add(new SvgPackage());
+            packages.add(new RandomBytesPackage());
+            packages.add(new SplashScreenReactPackage());
+            packages.add(new AsyncStoragePackage());
+            packages.add(new SpringScrollViewPackage());
+
+            return packages;
         }
 
         @Override

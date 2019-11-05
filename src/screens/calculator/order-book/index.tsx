@@ -41,8 +41,8 @@ export default class OrderBookCalc extends React.PureComponent<OrderBookCalcFull
 
     protected __calculatorPairRef: React.RefObject<CalculatorPair> = React.createRef<CalculatorPair>();
 
-    public componentWillReceiveProps(nextProps: OrderBookCalcFullProps): void {
-        if (this.props.match.params.operation === nextProps.match.params.operation) {
+    public componentDidUpdate(prevProps: OrderBookCalcFullProps) {
+        if(this.props.match.params.operation === prevProps.match.params.operation){
             return;
         }
 
@@ -52,7 +52,7 @@ export default class OrderBookCalc extends React.PureComponent<OrderBookCalcFull
 
         const {lastSide, lastValue} = this.state;
 
-        const mode = nextProps.match.params.operation;
+        const mode = this.props.match.params.operation;
         const result = [0, 0];
 
         switch (lastSide) {
@@ -71,6 +71,7 @@ export default class OrderBookCalc extends React.PureComponent<OrderBookCalcFull
 
         this.__calculatorPairRef.current.forceSetValues(result[0], result[1]);
     }
+
 
     public render(): JSX.Element {
         const {market, match} = this.props;

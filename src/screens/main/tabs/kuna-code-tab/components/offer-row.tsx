@@ -2,7 +2,7 @@ import React from 'react';
 import numeral from 'numeral';
 import moment from 'moment';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { useNavigation } from 'react-navigation-hooks';
 import RouteKeys from 'router/route-keys';
 import SpanText from 'components/span-text';
 import TagCommission from 'components/tag-commission';
@@ -10,50 +10,47 @@ import TagSide from 'components/tag-side';
 import { Color, DefaultStyles } from 'styles/variables';
 
 
-type OfferRowProps = NavigationInjectedProps & {
+type OfferRowProps = {
     offer: kunacodes.Offer;
     index: number;
 };
 
-// @ts-ignore
-@withNavigation
-export default class OfferRow extends React.Component<OfferRowProps> {
-    public render(): JSX.Element {
-        const { offer, index } = this.props;
 
-        return (
-            <>
-                <TouchableOpacity style={styles.rowBox} onPress={this._onPressRow}>
-                    <View style={styles.amountBox}>
-                        <SpanText style={styles.amount}>
-                            {numeral(offer.amount).format('0,0.[00]')} {offer.currency}
-                        </SpanText>
+export default function OfferRow(props: OfferRowProps): JSX.Element {
+    const { offer } = props;
+    const navigation = useNavigation();
 
-                        <View style={styles.tags}>
-                            <View style={{ marginRight: 10, }}>
-                                <TagSide side={offer.side} />
-                            </View>
-                            <TagCommission commission={offer.commission} />
-                        </View>
-                    </View>
-
-                    {offer.user && <SpanText>{offer.user.contact}</SpanText>}
-                    <SpanText style={styles.date}>
-                        {moment(offer.creation_time).fromNow()}
-                    </SpanText>
-                </TouchableOpacity>
-
-                <View style={styles.separator} />
-            </>
-        );
-    }
-
-    protected _onPressRow = () => {
-        const { offer, navigation } = this.props;
+    const onPressRow = () => {
         navigation.push(RouteKeys.KunaCode_ViewOffer, {
             offer: offer,
         });
     };
+
+    return (
+        <>
+            <TouchableOpacity style={styles.rowBox} onPress={onPressRow}>
+                <View style={styles.amountBox}>
+                    <SpanText style={styles.amount}>
+                        {numeral(offer.amount).format('0,0.[00]')} {offer.currency}
+                    </SpanText>
+
+                    <View style={styles.tags}>
+                        <View style={{ marginRight: 10, }}>
+                            <TagSide side={offer.side} />
+                        </View>
+                        <TagCommission commission={offer.commission} />
+                    </View>
+                </View>
+
+                {offer.user && <SpanText>{offer.user.contact}</SpanText>}
+                <SpanText style={styles.date}>
+                    {moment(offer.creation_time).fromNow()}
+                </SpanText>
+            </TouchableOpacity>
+
+            <View style={styles.separator} />
+        </>
+    );
 }
 
 

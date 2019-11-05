@@ -3,7 +3,7 @@ import { values, chain } from 'lodash';
 import { FlatList, ListRenderItemInfo, ActivityIndicator } from 'react-native';
 import { KunaAssetUnit, KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import { withNavigation, NavigationInjectedProps } from 'react-navigation';
-import { inject, observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react';
 import MarketRow from 'components/market-row';
 import SpanText from 'components/span-text';
 import { Color } from 'styles/variables';

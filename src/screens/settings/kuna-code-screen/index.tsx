@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { inject, observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react';
 import { _ } from 'utils/i18n';
 import ShadeScrollCard from 'components/shade-navigator/views/shade-scroll-card';
 import Topic from 'components/topic';

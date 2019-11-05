@@ -1,7 +1,8 @@
-import { getAsset, KunaAssetUnit } from 'kuna-sdk';
 import React from 'react';
 import { TextInput, View } from 'react-native';
+import { getAsset, KunaAssetUnit } from 'kuna-sdk';
 import { SpanText } from 'components/span-text';
+import { Color } from 'styles/variables';
 import styles from './calculator-pair.style';
 
 type CalcAssetRowProps = {
@@ -22,6 +23,7 @@ export default class CalcAssetRow extends React.PureComponent<CalcAssetRowProps>
                            onChangeText={this.props.onChangeText}
                            keyboardType="numeric"
                            returnKeyType="done"
+                           placeholderTextColor={Color.GrayBlues}
 
                 />
 

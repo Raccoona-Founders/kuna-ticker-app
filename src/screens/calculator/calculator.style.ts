@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
         height: 48,
         fontSize: 16,
         width: '100%',
+        color: Color.Text,
         paddingRight: 55,
         borderWidth: 1,
         borderColor: Color.Gray3,

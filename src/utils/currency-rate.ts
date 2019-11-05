@@ -19,8 +19,6 @@ export class UsdCalculator {
         const currentMarket = kunaMarketMap[marketSymbol];
 
         if (!currentMarket) {
-            console.warn(marketSymbol);
-
             return Numeral(0);
         }
 

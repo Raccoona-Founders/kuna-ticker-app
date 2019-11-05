@@ -4,7 +4,7 @@ import { shuffle, debounce } from 'lodash';
 import { View, Slider, Alert } from 'react-native';
 import { compose } from 'recompose';
 import { withFormik, InjectedFormikProps, WithFormikConfig, FormikBag } from 'formik';
-import { inject, observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
 import RouteKeys from 'router/route-keys';
 import AnalTracker from 'utils/ga-tracker';
@@ -87,16 +87,7 @@ const formicProps: WithFormikConfig<CreateOfferProps, CreateOfferValues> = {
 };
 
 
-type CreateOfferProps
-    = InjectedFormikProps<object, CreateOfferValues>
-    & NavigationInjectedProps
-    & mobx.kunacode.WithKunaCodeProps
-    & mobx.user.WithUserProps;
-
-
-// @ts-ignore
-@compose(inject('KunaCode', 'User'), withFormik(formicProps), observer)
-export default class CreateOfferScreen extends React.Component<CreateOfferProps> {
+class CreateOfferScreen extends React.Component<CreateOfferProps> {
 
     private readonly jockMessage: string;
 
@@ -325,3 +316,16 @@ export default class CreateOfferScreen extends React.Component<CreateOfferProps>
         this.props.setFieldValue('amount', valueAmount);
     };
 }
+
+
+type CreateOfferProps
+    = InjectedFormikProps<object, CreateOfferValues>
+    & NavigationInjectedProps
+    & mobx.kunacode.WithKunaCodeProps
+    & mobx.user.WithUserProps;
+
+export default compose<CreateOfferProps, {}>(
+    inject('KunaCode', 'User'),
+    withFormik(formicProps),
+    observer,
+)(CreateOfferScreen);

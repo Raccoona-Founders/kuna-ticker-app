@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { inject, observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
 import { _ } from 'utils/i18n';
@@ -10,9 +10,7 @@ import SpanText from 'components/span-text';
 import UIButton from 'components/ui-button';
 import { Color, DefaultStyles } from 'styles/variables';
 
-// @ts-ignore
-@compose(withNavigation, inject('User'), observer)
-export default class UserInfo extends React.Component<any & mobx.user.WithUserProps & NavigationInjectedProps> {
+class UserInfo extends React.Component<any & mobx.user.WithUserProps & NavigationInjectedProps> {
     public render(): JSX.Element {
         const { User } = this.props;
 
@@ -68,3 +66,10 @@ export default class UserInfo extends React.Component<any & mobx.user.WithUserPr
         return undefined;
     };
 }
+
+
+export default compose<any, any>(
+    withNavigation,
+    inject('User'),
+    observer,
+)(UserInfo);

@@ -1,18 +1,19 @@
 import React from 'react';
+import { inject, observer } from 'mobx-react';
 import { Keyboard, ActivityIndicator, View } from 'react-native';
 import { Router, Switch, Route } from 'react-router-native';
 import * as History from 'history';
 import { NavigationInjectedProps } from 'react-navigation';
 import { KunaMarket, kunaMarketMap } from 'kuna-sdk';
+import { compose } from 'recompose';
 import kunaClient from 'utils/kuna-api';
 import AnalTracker from 'utils/ga-tracker';
 import OrderBookProcessor from 'utils/order-book-processor';
+import { wait } from 'utils/helper';
 import { ShadeScrollCard } from 'components/shade-navigator';
+import Topic from 'components/topic';
 import { CalculatorMode, OperationMode } from './common';
 import OrderBookCalc from './order-book';
-import { inject, observer } from 'mobx-react/native';
-import Topic from 'components/topic';
-import { wait } from 'utils/helper';
 
 
 type State = {
@@ -20,13 +21,8 @@ type State = {
     mode: CalculatorMode
 };
 
-type CalculatorScreenOuterProps = NavigationInjectedProps<{ marketSymbol: string; }>;
-type CalculatorScreenProps = CalculatorScreenOuterProps & mobx.ticker.WithTickerProps;
 
-
-@inject('Ticker')
-@observer
-export default class CalculatorScreen extends React.Component<CalculatorScreenProps, State> {
+class CalculatorScreen extends React.Component<CalculatorScreenProps, State> {
     public state: State = {
         orderBook: undefined,
         mode: CalculatorMode.LastPrice,
@@ -136,3 +132,17 @@ export default class CalculatorScreen extends React.Component<CalculatorScreenPr
         );
     };
 }
+
+
+type CalculatorScreenOuterProps
+    = NavigationInjectedProps<{ marketSymbol: string; }>;
+
+type CalculatorScreenProps
+    = CalculatorScreenOuterProps
+    & mobx.ticker.WithTickerProps;
+
+
+export default compose<CalculatorScreenProps, CalculatorScreenOuterProps>(
+    inject('Ticker'),
+    observer,
+)(CalculatorScreen);

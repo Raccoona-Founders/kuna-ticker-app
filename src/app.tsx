@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import firebase from 'react-native-firebase';
-import { Provider as MobxProvider } from 'mobx-react/native';
+import { Provider as MobxProvider } from 'mobx-react';
 import SplashScreen from 'react-native-splash-screen';
 import 'utils/setup-locale';
 import i18n from 'utils/i18n';
@@ -28,7 +28,7 @@ export default class Application extends React.PureComponent<any, ApplicationSta
         error: undefined,
     };
 
-    public async componentWillMount(): Promise<void> {
+    public async componentDidMount(): Promise<void> {
         this.setState({ isReady: false });
 
         try {

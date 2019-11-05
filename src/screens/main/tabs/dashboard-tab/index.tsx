@@ -1,14 +1,14 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react';
 import { ScrollView, RefreshControl, StyleSheet, View } from 'react-native';
 import { KunaAssetUnit } from 'kuna-sdk';
+import { compose } from 'recompose';
 import AnalTracker from 'utils/ga-tracker';
+import Constants from 'utils/constants';
 import { Color } from 'styles/variables';
 
 import VolumeCard from './components/volume-card';
 import FavoriteTickers from './components/favorite-tickers';
-import Constants from 'utils/constants';
-
 
 type State = {
     refreshing: boolean;
@@ -21,10 +21,7 @@ type Props
     = OuterProps
     & mobx.ticker.WithTickerProps;
 
-// @ts-ignore
-@inject('Ticker')
-@observer
-export default class MarketTab extends React.Component<Props, State> {
+class DashboardTab extends React.Component<Props, State> {
     public state: State = {
         refreshing: false,
         favorite: false,
@@ -36,7 +33,7 @@ export default class MarketTab extends React.Component<Props, State> {
         const { Ticker } = this.props;
 
         const volumeUSD = Ticker.getMarketVolume();
-        const BTCUSD = Ticker.usdCalculator.getPrice('btcuah');
+        const bnBTCUSD = Ticker.usdCalculator.getPrice('btcuah');
 
         return (
             <ScrollView
@@ -46,7 +43,7 @@ export default class MarketTab extends React.Component<Props, State> {
             >
                 <VolumeCard
                     volumeUSD={volumeUSD.value()}
-                    volumeBTC={volumeUSD.divide(BTCUSD.value()).value()}
+                    volumeBTC={volumeUSD.divide(bnBTCUSD.value()).value()}
                 />
 
                 <FavoriteTickers
@@ -64,6 +61,7 @@ export default class MarketTab extends React.Component<Props, State> {
             <RefreshControl
                 refreshing={this.state.refreshing}
                 onRefresh={this.__onRefresh}
+                tintColor={Color.Fade}
             />
         );
     };
@@ -83,6 +81,12 @@ export default class MarketTab extends React.Component<Props, State> {
         this.setState({ refreshing: false });
     };
 }
+
+
+export default compose<Props, OuterProps>(
+    inject('Ticker'),
+    observer,
+)(DashboardTab);
 
 
 const styles = StyleSheet.create({

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
 import numeral from 'numeral';
 import { compose } from 'recompose';
-import { inject, observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
 import { KunaMarket, kunaMarketMap } from 'kuna-sdk';
 import AnalTracker from 'utils/ga-tracker';
@@ -26,19 +26,7 @@ type State = {
     precisionMap: number[];
 };
 
-type DepthScreenOuterProps
-    = NavigationInjectedProps<{ marketSymbol: string; }>;
-
-type DepthScreenProps
-    = DepthScreenOuterProps
-    & mobx.ticker.WithTickerProps;
-
-// @ts-ignore
-@compose<DepthScreenProps, DepthScreenOuterProps>(
-    inject('Ticker'),
-    observer,
-)
-export default class OrderBookScreen extends React.Component<DepthScreenProps, State> {
+class OrderBookScreen extends React.Component<DepthScreenProps, State> {
     public state: State = {
         orderBook: undefined,
         precisionIndex: 0,
@@ -216,3 +204,16 @@ export default class OrderBookScreen extends React.Component<DepthScreenProps, S
         this.setState({ precisionIndex: nextPrecision });
     };
 }
+
+
+type DepthScreenOuterProps
+    = NavigationInjectedProps<{ marketSymbol: string; }>;
+
+type DepthScreenProps
+    = DepthScreenOuterProps
+    & mobx.ticker.WithTickerProps;
+
+export default compose<DepthScreenProps, DepthScreenOuterProps>(
+    inject('Ticker'),
+    observer,
+)(OrderBookScreen);

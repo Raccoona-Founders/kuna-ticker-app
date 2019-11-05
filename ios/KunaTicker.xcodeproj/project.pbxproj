@@ -45,6 +45,21 @@
 		60BF9EAC2371DAB800AEB5C7 /* libReact-RCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EAB2371DAB800AEB5C7 /* libReact-RCTSettings.a */; };
 		60BF9EAE2371DAB800AEB5C7 /* libReact-RCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EAD2371DAB800AEB5C7 /* libReact-RCTText.a */; };
 		60BF9EB02371DAB800AEB5C7 /* libReact-RCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EAF2371DAB800AEB5C7 /* libReact-RCTVibration.a */; };
+		60BF9EB22371EC8300AEB5C7 /* libFBReactNativeSpec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EB12371EC8300AEB5C7 /* libFBReactNativeSpec.a */; };
+		60BF9EB42371ED1F00AEB5C7 /* libFirebaseCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EB32371ED1F00AEB5C7 /* libFirebaseCore.a */; };
+		60BF9EB62371F53A00AEB5C7 /* libFirebaseCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EB52371F53A00AEB5C7 /* libFirebaseCore.a */; };
+		60BF9EB82371F53A00AEB5C7 /* libFirebaseDynamicLinks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EB72371F53A00AEB5C7 /* libFirebaseDynamicLinks.a */; };
+		60BF9EBA2371F53A00AEB5C7 /* libFirebaseInstanceID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EB92371F53A00AEB5C7 /* libFirebaseInstanceID.a */; };
+		60BF9EBC2371F53A00AEB5C7 /* libFirebaseMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EBB2371F53A00AEB5C7 /* libFirebaseMessaging.a */; };
+		60BF9EBF2371FCBC00AEB5C7 /* libGTMSessionFetcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EBE2371FCBC00AEB5C7 /* libGTMSessionFetcher.a */; };
+		60BF9EC12371FDA000AEB5C7 /* libreact-native-randombytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EC02371FDA000AEB5C7 /* libreact-native-randombytes.a */; };
+		60BF9EC32371FDC700AEB5C7 /* libGoogleToolboxForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EC22371FDC700AEB5C7 /* libGoogleToolboxForMac.a */; };
+		60BF9EC52371FDD700AEB5C7 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EC42371FDD700AEB5C7 /* libRNCAsyncStorage.a */; };
+		60BF9EC72371FDDE00AEB5C7 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EC62371FDDE00AEB5C7 /* libRNDeviceInfo.a */; };
+		60BF9EC92371FDE600AEB5C7 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9EC82371FDE600AEB5C7 /* libRNGestureHandler.a */; };
+		60BF9ECB2371FDF200AEB5C7 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9ECA2371FDF200AEB5C7 /* libRNFirebase.a */; };
+		60BF9ECD2371FE0000AEB5C7 /* libReact-CoreModules.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9ECC2371FE0000AEB5C7 /* libReact-CoreModules.a */; };
+		60BF9ECF2371FE0800AEB5C7 /* libreact-native-splash-screen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BF9ECE2371FE0800AEB5C7 /* libreact-native-splash-screen.a */; };
 		60C8591221909C9900A174BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60C8591121909C9900A174BA /* GoogleService-Info.plist */; };
 		60C8591321909C9900A174BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60C8591121909C9900A174BA /* GoogleService-Info.plist */; };
 		6E8DD90B225A4E428E27CC82 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 623329C77A8B4A668B937ABF /* FontAwesome5_Solid.ttf */; };
@@ -240,6 +255,21 @@
 		60BF9EAB2371DAB800AEB5C7 /* libReact-RCTSettings.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTSettings.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60BF9EAD2371DAB800AEB5C7 /* libReact-RCTText.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTText.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60BF9EAF2371DAB800AEB5C7 /* libReact-RCTVibration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTVibration.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EB12371EC8300AEB5C7 /* libFBReactNativeSpec.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBReactNativeSpec.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EB32371ED1F00AEB5C7 /* libFirebaseCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EB52371F53A00AEB5C7 /* libFirebaseCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EB72371F53A00AEB5C7 /* libFirebaseDynamicLinks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseDynamicLinks.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EB92371F53A00AEB5C7 /* libFirebaseInstanceID.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseInstanceID.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EBB2371F53A00AEB5C7 /* libFirebaseMessaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseMessaging.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EBE2371FCBC00AEB5C7 /* libGTMSessionFetcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGTMSessionFetcher.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EC02371FDA000AEB5C7 /* libreact-native-randombytes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-randombytes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EC22371FDC700AEB5C7 /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EC42371FDD700AEB5C7 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EC62371FDDE00AEB5C7 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9EC82371FDE600AEB5C7 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9ECA2371FDF200AEB5C7 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNFirebase.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9ECC2371FE0000AEB5C7 /* libReact-CoreModules.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-CoreModules.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BF9ECE2371FE0800AEB5C7 /* libreact-native-splash-screen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-splash-screen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C8591121909C9900A174BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		60D50EB92132939600FE96BE /* KunaTicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = KunaTicker.entitlements; path = KunaTicker/KunaTicker.entitlements; sourceTree = "<group>"; };
 		623329C77A8B4A668B937ABF /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -272,6 +302,15 @@
 				604F63992282FB040024A815 /* iAd.framework in Frameworks */,
 				605A8E6422FC40F6002A183A /* NotificationCenter.framework in Frameworks */,
 				604F639B2282FB0D0024A815 /* AdSupport.framework in Frameworks */,
+				60BF9ECF2371FE0800AEB5C7 /* libreact-native-splash-screen.a in Frameworks */,
+				60BF9ECD2371FE0000AEB5C7 /* libReact-CoreModules.a in Frameworks */,
+				60BF9ECB2371FDF200AEB5C7 /* libRNFirebase.a in Frameworks */,
+				60BF9EC92371FDE600AEB5C7 /* libRNGestureHandler.a in Frameworks */,
+				60BF9EC72371FDDE00AEB5C7 /* libRNDeviceInfo.a in Frameworks */,
+				60BF9EC52371FDD700AEB5C7 /* libRNCAsyncStorage.a in Frameworks */,
+				60BF9EC32371FDC700AEB5C7 /* libGoogleToolboxForMac.a in Frameworks */,
+				60BF9EC12371FDA000AEB5C7 /* libreact-native-randombytes.a in Frameworks */,
+				60BF9EBF2371FCBC00AEB5C7 /* libGTMSessionFetcher.a in Frameworks */,
 				60BF9E9C2371DA6900AEB5C7 /* libReact-Core.a in Frameworks */,
 				60BF9E9E2371DAA300AEB5C7 /* libReact-RCTActionSheet.a in Frameworks */,
 				60BF9EAE2371DAB800AEB5C7 /* libReact-RCTText.a in Frameworks */,
@@ -282,7 +321,13 @@
 				60BF9EA42371DAB800AEB5C7 /* libReact-RCTBlob.a in Frameworks */,
 				60BF9EA62371DAB800AEB5C7 /* libReact-RCTImage.a in Frameworks */,
 				60BF9EAC2371DAB800AEB5C7 /* libReact-RCTSettings.a in Frameworks */,
+				60BF9EB62371F53A00AEB5C7 /* libFirebaseCore.a in Frameworks */,
+				60BF9EB82371F53A00AEB5C7 /* libFirebaseDynamicLinks.a in Frameworks */,
+				60BF9EBA2371F53A00AEB5C7 /* libFirebaseInstanceID.a in Frameworks */,
+				60BF9EBC2371F53A00AEB5C7 /* libFirebaseMessaging.a in Frameworks */,
 				60BF9EA22371DAB800AEB5C7 /* libReact-RCTAnimation.a in Frameworks */,
+				60BF9EB22371EC8300AEB5C7 /* libFBReactNativeSpec.a in Frameworks */,
+				60BF9EB42371ED1F00AEB5C7 /* libFirebaseCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +393,21 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60BF9ECE2371FE0800AEB5C7 /* libreact-native-splash-screen.a */,
+				60BF9ECC2371FE0000AEB5C7 /* libReact-CoreModules.a */,
+				60BF9ECA2371FDF200AEB5C7 /* libRNFirebase.a */,
+				60BF9EC82371FDE600AEB5C7 /* libRNGestureHandler.a */,
+				60BF9EC62371FDDE00AEB5C7 /* libRNDeviceInfo.a */,
+				60BF9EC42371FDD700AEB5C7 /* libRNCAsyncStorage.a */,
+				60BF9EC22371FDC700AEB5C7 /* libGoogleToolboxForMac.a */,
+				60BF9EC02371FDA000AEB5C7 /* libreact-native-randombytes.a */,
+				60BF9EBE2371FCBC00AEB5C7 /* libGTMSessionFetcher.a */,
+				60BF9EB52371F53A00AEB5C7 /* libFirebaseCore.a */,
+				60BF9EB72371F53A00AEB5C7 /* libFirebaseDynamicLinks.a */,
+				60BF9EB92371F53A00AEB5C7 /* libFirebaseInstanceID.a */,
+				60BF9EBB2371F53A00AEB5C7 /* libFirebaseMessaging.a */,
+				60BF9EB32371ED1F00AEB5C7 /* libFirebaseCore.a */,
+				60BF9EB12371EC8300AEB5C7 /* libFBReactNativeSpec.a */,
 				60BF9E9F2371DAB800AEB5C7 /* libReact-RCTActionSheet.a */,
 				60BF9EA12371DAB800AEB5C7 /* libReact-RCTAnimation.a */,
 				60BF9EA32371DAB800AEB5C7 /* libReact-RCTBlob.a */,
@@ -1224,6 +1284,7 @@
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
